@@ -1,0 +1,207 @@
+<div class="container" dir="rtl">
+  <div class="row justify-content-center">
+    <div class="col-md-9 col-lg-12 col-xl-10">
+      <div class="card shadow-sm overflow-hidden border-0 my-5 rounded-4">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="p-5 pt-3">
+                <div class="text-center">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <img alt="سامانه احراز هویت ثنا" src="/assets/media/img/userAvatar.png">
+                  </div>
+                </div>
+                <br>
+                <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" novalidate>
+                  <div class="row mt-4">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label class="font-yekan-bold d-block pr-1" dir="rtl" for="name">
+                        نام
+                      </label>
+                      <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl">
+                        (نام خود را کامل و فارسی وارد نمایید)
+                      </label>
+                      <input autocomplete="off" autofocus
+                             class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                             formControlName="name"
+                             id="name"
+                             type="text">
+                      <div *ngIf="!registerForm.get('name')?.valid && registerForm.get('name')?.touched"
+                           class="text-danger font-yekan-regular pr-1 mt-1"
+                           dir="rtl">
+                        نام خود را وارد نمایید
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label class="font-yekan-bold d-block pr-1" dir="rtl" for="family">
+                        نام خانوادگی
+                      </label>
+                      <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl">
+                        (نام خانوادگی خود را کامل و فارسی وارد نمایید)
+                      </label>
+                      <input autocomplete="off"
+                             class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                             formControlName="family"
+                             id="family"
+                             type="text">
+                      <div *ngIf="!registerForm.get('family')?.valid && registerForm.get('family')?.touched"
+                           class="text-danger font-yekan-regular pr-1 mt-1"
+                           dir="rtl">
+                        نام خانوادگی خود را وارد نمایید
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label class="font-yekan-bold d-block pr-1" dir="rtl" for="nationalityCode">
+                        شماره ملی
+                      </label>
+                      <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl">
+                        (شماره ملی خود را کامل و درست وارد نمایید)
+                      </label>
+                      <input (keypress)="checkDigit($event)" autocomplete="off"
+                             class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                             formControlName="nationalityCode"
+                             id="nationalityCode"
+                             maxlength="10" type="text">
+                      <div
+                        *ngIf="!registerForm.get('nationalityCode')?.valid && registerForm.get('nationalityCode')?.touched"
+                        class="text-danger font-yekan-regular pr-1 mt-1"
+                        dir="rtl">
+                        شماره ملی خود را وارد نمایید
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label class="font-yekan-bold d-block pr-1" dir="rtl" for="phoneNumber">
+                        شماره همراه
+                      </label>
+                      <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl">
+                        (رمز ثبت شده در پورتال)
+                      </label>
+                      <input (keypress)="checkDigit($event)" autocomplete="off"
+                             class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                             dir="ltr"
+                             formControlName="phoneNumber"
+                             id="phoneNumber"
+                             maxlength="11" placeholder="09..." type="text">
+                      <div
+                        *ngIf="!registerForm.get('phoneNumber')?.valid && registerForm.get('phoneNumber')?.touched"
+                        class="text-danger font-yekan-regular pr-1 mt-1"
+                        dir="rtl">
+                        شماره همراه خود را وارد نمایید
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label class="font-yekan-bold d-block pr-1" dir="rtl" for="type">
+                        نوع
+                      </label>
+                      <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl">
+                        (کارمند قضایی یا اداری را مشخص نمایید)
+                      </label>
+                      <select class="form-select form-control-user rounded-pill p-2 pr-2 font-yekan-regular mt-1"
+                              formControlName="personType"
+                              id="type">
+                        <option value="1">اداری</option>
+                        <option value="2">قضایی</option>
+                      </select>
+                      <div
+                        *ngIf="!registerForm.get('personType')?.valid && registerForm.get('personType')?.touched"
+                        class="text-danger font-yekan-regular pr-1 mt-1"
+                        dir="rtl">
+                        نوع کارمند (اداری یا قضایی) را مشخص نمایید
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label class="font-yekan-bold d-block pr-1" dir="rtl" for="unit">
+                        محل خدمت
+                      </label>
+                      <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl">
+                        (واحدی که هم اکنون در حال خدمت هستید)
+                      </label>
+                      <select class="form-select form-control-user rounded-pill p-2 pr-2 font-yekan-regular mt-1"
+                              formControlName="unit"
+                              id="unit">
+                        <option value="1">ستاد دادگستری قم</option>
+                        <option value="2">دادگاه عمومی حقوقی</option>
+                        <option value="3">دادسرا</option>
+                        <option value="4">مجتمع خانواده</option>
+                      </select>
+                      <div
+                        *ngIf="!registerForm.get('unit')?.valid && registerForm.get('unit')?.touched"
+                        class="text-danger font-yekan-regular pr-1 mt-1"
+                        dir="rtl">
+                        واحد خدمتی را مشخص نمایید
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label class="font-yekan-bold d-block pr-1" dir="rtl" for="username">
+                        نام کاربری
+                      </label>
+                      <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl">
+                        (شماره پرسنلی)
+                      </label>
+                      <input (keypress)="checkDigit($event)" autocomplete="off"
+                             class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                             formControlName="username"
+                             id="username"
+                             type="text">
+                      <div
+                        *ngIf="!registerForm.get('username')?.valid && registerForm.get('username')?.touched"
+                        class="text-danger font-yekan-regular pr-1 mt-1"
+                        dir="rtl">
+                        شماره پرسنلی خود را وارد نمایید
+                      </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                      <label class="font-yekan-bold d-block pr-1" dir="rtl" for="password">
+                        کلمه عبور
+                      </label>
+                      <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl">
+                        (حداقل 8 کاراکتر)
+                      </label>
+                      <input (keypress)="checkDigit($event)" autocomplete="off"
+                             class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                             formControlName="password"
+                             id="password"
+                             type="password">
+                      <div
+                        *ngIf="!registerForm.get('password')?.valid && registerForm.get('password')?.touched"
+                        class="text-danger font-yekan-regular pr-1 mt-1"
+                        dir="rtl">
+                        کلمه عبور خود را وارد نمایید
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="d-grid gap-2">
+                        <button [disabled]="loading"
+                                class="btn btn-success rounded-pill text-white font-yekan-regular px-4 d-block"
+                                dir="rtl"
+                                type="submit">
+                          <span *ngIf="loading" aria-hidden="true" class="spinner-grow spinner-grow-sm"
+                                role="status"></span>
+                          <span *ngIf="loading">
+                            در حال بررسی...
+                          </span>
+                          <span *ngIf="!loading">
+                            <i class="fa fa-user-plus m-2"></i>
+                          ثبت نام در پورتال
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,114 @@
+<div class="container" dir="ltr">
+  <div class="row justify-content-center">
+    <div class="col-md-9 col-lg-12 col-xl-10">
+      <div class="card shadow-sm overflow-hidden border-0 my-5 rounded-4">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="p-5 pt-3">
+                <div class="text-center">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <img alt="سامانه احراز هویت ثنا" src="/assets/media/img/userAvatar.png">
+                  </div>
+                </div>
+                <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" novalidate>
+                  <div class="mb-3 mt-3">
+                    <label class="font-yekan-bold d-block pr-1" dir="rtl" for="username">
+                      نام کاربری
+                    </label>
+                    <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl" for="username">
+                      (شماره پرسنلی ثبت نام شده در پورتال)
+                    </label>
+                    <input (keypress)="checkDigit($event)" autofocus
+                           class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                           formControlName="username"
+                           id="username"
+                           type="text">
+                    <div *ngIf="!loginForm.get('username')?.valid && loginForm.get('username')?.touched"
+                         class="text-danger font-yekan-regular pr-1 mt-1"
+                         dir="rtl">
+                        <span *ngIf="loginForm.get('username')?.errors?.['required']">
+                          نام کاربری خود را وارد نمایید
+                        </span>
+                      <span *ngIf="loginForm.get('username')?.errors?.['nameIsBlocked']">
+                          نام کاربری شما غیرفعال می باشد
+                        </span>
+                    </div>
+                  </div>
+                  <div class="mb-3 mt-4">
+                    <label class="font-yekan-bold d-block pr-1" dir="rtl" for="password">
+                      کلمه عبور
+                    </label>
+                    <label class="font-yekan-regular d-block text-black-50 mt-1 pr-1" dir="rtl" for="password">
+                      (رمز ثبت شده در پورتال)
+                    </label>
+                    <input autocomplete="off"
+                           class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                           formControlName="password"
+                           id="password"
+                           type="password">
+                    <div *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched"
+                         class="text-danger font-yekan-regular pr-1 mt-1"
+                         dir="rtl">
+                      کلمه عبور خود را وارد نمایید
+                    </div>
+                  </div>
+                  <div class="mb-2 mt-4">
+                    <div class="d-grid gap-2">
+                      <button [disabled]="loading"
+                              class="btn btn-info rounded-pill font-yekan-regular px-4 text-white d-block"
+                              dir="rtl" type="submit">
+                        <span *ngIf="loading" aria-hidden="true" class="spinner-grow spinner-grow-sm"
+                              role="status"></span>
+                        <span *ngIf="loading">
+                          در حال بررسی...
+                        </span>
+                        <span *ngIf="!loading" >
+                            ورود به پنل کاربری
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <ul class="mt-4 lh-lg" dir="rtl">
+                  <li>
+                    <a class="text-decoration-none text-black-50 font-yekan-regular"
+                       href="#"
+                       target="_blank">
+                      کلمه عبور خود را فراموش کرده ام !
+                    </a>
+                  </li>
+                  <li>
+                    <a class="text-decoration-none text-black-50 font-yekan-regular"
+                       [routerLink]="['/account/register']">
+                      من ثبت نام نکرده ام.
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-flex">
+              <div class="flex-grow-1 d-flex flex-column justify-content-center bg-light">
+                <div class="d-flex justify-content-center align-items-center mt-5">
+                  <img alt="مرکز آمار و فناوری اطلاعات قوه قضائیه" src="/assets/media/logo/logo.png">
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                  قوه قضائیه
+                </div>
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                  دادگستری کل استان قم
+                </div>
+                <h4 class="d-flex justify-content-center font-yekan-regular align-items-center mt-5">
+                  احراز هویت کاربران پورتال
+                </h4>
+                <div class="d-flex justify-content-center align-items-center mt-3 mb-5">
+                  <img alt="پورتال دادگستری استان قم" height="100" src="/assets/media/img/finger.svg">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

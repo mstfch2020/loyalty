@@ -1,0 +1,5 @@
+{
+  "baseUrl" : "${BASE_URL}",
+  "userName" : "${USER_NAME}",
+  "password" : "${PASSWORD}"
+}

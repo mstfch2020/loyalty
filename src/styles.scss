@@ -1,1 +1,84 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'General';
+  src: url("assets/fonts/local/generalFont.eot");
+  src: local('☺'), url("assets/fonts/local/generalFont.woff") format('woff'), url("assets/fonts/local/generalFont.ttf") format('truetype'), url("assets/fonts/local/generalFont.svg") format('svg');
+}
+
+@font-face {
+  font-family: 'YekanBold';
+  src: url("assets/fonts/local/YekanBakh-Bold.eot");
+  src: local('☺'), url("assets/fonts/local/YekanBakh-Bold.woff") format('woff'), url("assets/fonts/local/YekanBakh-Bold.ttf") format('truetype'), url("assets/fonts/local/YekanBakh-Bold.svg") format('svg');
+}
+
+@font-face {
+  font-family: 'YekanRegular';
+  src: url("assets/fonts/local/YekanBakh-Regular.eot");
+  src: local('☺'), url("assets/fonts/local/YekanBakh-Regular.woff") format('woff'), url("assets/fonts/local/YekanBakh-Regular.ttf") format('truetype'), url("assets/fonts/local/YekanBakh-Regular.svg") format('svg');
+}
+
+body {
+  background-color: #f5f5f5;
+  margin: 0px;
+  padding: 0px;
+  font-family: General;
+}
+
+body.login {
+  background-image: url("assets/img/bg/bg-2.jpg");
+}
+
+body.register {
+  background-image: url("assets/img/bg/bg-9.jpg");
+}
+
+.font-general {
+  font-family: General !important;
+}
+
+.font-yekan-bold {
+  font-family: YekanBold !important;
+}
+
+.font-yekan-regular {
+  font-family: YekanRegular !important;
+}
+
+.bg-body-blue {
+  background-color: #62c0f2;
+}
+
+.rounded-4 {
+  border-radius: 0.8rem;
+}
+
+.pr-1 {
+  padding-right: 1rem !important;
+}
+
+.pr-2 {
+  padding-right: 2rem !important;
+}
+
+input[type='text'].ng-invalid.ng-touched,
+input[type='password'].ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+select.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.panel-sidebar {
+  background-image: url("assets/img/bg/bg-9.jpg");
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

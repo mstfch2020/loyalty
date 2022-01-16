@@ -1,0 +1,55 @@
+<div *ngIf="alertService.getWarningMessages().length > 0"
+     class="alert alert-warning alert-position alert-dismissible fade show"
+     role="alert">
+  <ul class="m-0 font-yekan-regular font-size-h5" dir="rtl">
+    <li *ngFor="let message of alertService.getWarningMessages()">{{ message }}</li>
+  </ul>
+  <button (click)="clearWarningMessage()"
+          aria-label="Close"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          type="button">
+  </button>
+</div>
+
+<div *ngIf="alertService.getInfoMessages().length > 0"
+     class="alert alert-primary alert-position alert-dismissible fade show"
+     role="alert">
+  <ul class="m-0 font-yekan-regular font-size-h5" dir="rtl">
+    <li *ngFor="let message of alertService.getInfoMessages()">{{ message }}</li>
+  </ul>
+  <button (click)="clearInfoMessage()"
+          aria-label="Close"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          type="button">
+  </button>
+</div>
+
+<div *ngIf="alertService.getSuccessMessages().length > 0"
+     class="alert alert-success alert-position alert-dismissible fade show"
+     role="alert">
+  <ul class="m-0 font-yekan-regular font-size-h5" dir="rtl">
+    <li *ngFor="let message of alertService.getSuccessMessages()">{{ message }}</li>
+  </ul>
+  <button (click)="clearSuccessMessage()"
+          aria-label="Close"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          type="button">
+  </button>
+</div>
+
+<div *ngIf="alertService.getErrorMessages().length > 0"
+     class="alert alert-danger alert-position alert-dismissible fade show"
+     role="alert">
+  <ul class="m-0 font-yekan-regular font-size-h5" dir="rtl">
+    <li *ngFor="let message of alertService.getErrorMessages()">{{ message }}</li>
+  </ul>
+  <button (click)="clearErrorMessage()"
+          aria-label="Close"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          type="button">
+  </button>
+</div>
