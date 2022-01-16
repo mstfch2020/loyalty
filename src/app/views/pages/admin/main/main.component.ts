@@ -27,7 +27,7 @@ export class MainComponent implements OnInit
     this.paramsSubscription = this.route.params.subscribe(
       (params: Params) =>
       {
-        this.router.navigate(['/admin/profile']);
+        //this.router.navigate(['/admin/profile']);
       });
   }
 

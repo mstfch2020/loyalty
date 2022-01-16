@@ -1,18 +1,19 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/@core/data/auth/user.model';
 import { BaseResponse } from 'src/app/@core/data/root/base-response.model';
+import { AuthService } from 'src/app/@core/services/auth/auth.service';
 import { AlertService } from 'src/app/@core/services/ui/alert.service';
 import { Utility } from 'src/app/@core/utils/Utility';
-import { AuthService } from 'src/app/@core/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit
+{
 
   public loginForm!: FormGroup;
   public user: User;
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private accountService: AuthService,
     private alertService: AlertService,
     private renderer: Renderer2
-  ) {
+  )
+  {
 
     this.returnUrl = '';
     this.loading = false;
@@ -37,7 +39,8 @@ export class LoginComponent implements OnInit {
     this.renderer.addClass(document.body, 'login');
   }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     this.loginForm = new FormGroup({
       username: new FormControl(null, [Validators.required, this.blockUsername.bind(this)]),
       password: new FormControl(null, Validators.required)
@@ -47,7 +50,8 @@ export class LoginComponent implements OnInit {
   /**
    * Login in panel
    */
-  public onSubmit(): void {
+  public onSubmit(): void
+  {
 
     console.log(this.loginForm);
 
@@ -55,23 +59,28 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.accountService.login(
-      {username:this.loginForm.get('username')?.value,
-      password:this.loginForm.get('password')?.value}
+      {
+        username: this.loginForm.get('username')?.value,
+        password: this.loginForm.get('password')?.value
+      }
     ).subscribe(
-      result => {
+      result =>
+      {
 
         this.loading = false;
 
         this.result = result;
 
-        if (!this.result.isSuccess) {
+        if (!this.result.isSuccess)
+        {
           this.alertService.alerts(this.result);
         }
 
-        this.router.navigate(['/admin/profile']);
+        //this.router.navigate(['/admin/profile']);
 
       },
-      error => {
+      error =>
+      {
         this.loading = false;
         this.alertService.exception(error);
       }
@@ -82,7 +91,8 @@ export class LoginComponent implements OnInit {
    * Restrict number
    * @param event
    */
-  public checkDigit(event: any): boolean {
+  public checkDigit(event: any): boolean
+  {
     return Utility.CheckDigit(event);
   }
 
@@ -90,9 +100,11 @@ export class LoginComponent implements OnInit {
    * Custom validator for username
    * @param control
    */
-  public blockUsername(control: FormControl): { [s: string]: boolean } | null {
-    if (this.blockUsernames.indexOf(control.value) > -1) {
-      return {nameIsBlocked: true}
+  public blockUsername(control: FormControl): { [s: string]: boolean; } | null
+  {
+    if (this.blockUsernames.indexOf(control.value) > -1)
+    {
+      return { nameIsBlocked: true };
     }
     return null;
   }

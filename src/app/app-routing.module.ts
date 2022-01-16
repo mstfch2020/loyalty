@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './@core/guards/auth.guard';
 import { PageNotFoundComponent } from './views/general/page-not-found/page-not-found.component';
 import { HomeComponent } from './views/pages/home/home.component';
 
@@ -16,7 +15,7 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('src/app/views/pages/admin/admin.module')
-      .then(m => m.AdminModule), canLoad: [AuthGuard]
+      .then(m => m.AdminModule)
   }, {
     path: '**',
     component: PageNotFoundComponent,

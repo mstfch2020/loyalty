@@ -1,11 +1,10 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {BrowserModule} from "@angular/platform-browser";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {AdminRoutingModule} from "./admin-routing.module";
-import {ProfileComponent} from "./profile/profile.component";
-import {UsersComponent} from "./users/users.component";
-import {MainComponent} from './main/main.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AdminRoutingModule } from "./admin-routing.module";
+import { MainComponent } from './main/main.component';
+import { ProfileComponent } from "./profile/profile.component";
+import { UsersComponent } from "./users/users.component";
 
 @NgModule({
   declarations: [
@@ -14,7 +13,6 @@ import {MainComponent} from './main/main.component';
     UsersComponent,
   ],
   imports: [
-    BrowserModule,
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
@@ -24,5 +22,6 @@ import {MainComponent} from './main/main.component';
     MainComponent,
   ]
 })
-export class AdminModule {
+export class AdminModule
+{
 }
