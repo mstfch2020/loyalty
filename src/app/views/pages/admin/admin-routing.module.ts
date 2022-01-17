@@ -5,22 +5,22 @@ import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
 
 const routes: Routes = [
-  {
-    path: '',
-    component: MainComponent,
-  },
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
   {
     path: 'main',
     component: MainComponent,
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-  },
-  {
-    path: 'users',
-    component: UsersComponent,
+    children: [
+      {
+        path: 'profile',
+        component: ProfileComponent,
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
+      }
+    ]
   }
+
 ];
 
 @NgModule({
