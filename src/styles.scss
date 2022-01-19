@@ -241,6 +241,32 @@ input[type="text"] {
   color: black;
 }
 
+table{
+  border-collapse: separate;
+  border-spacing:0 2px;
+}
+
+table th{
+  font-weight: normal;
+  font-size: 14px;
+  color: black;
+  border-bottom-width:0px!important;
+}
+
+table tbody tr{
+  border-radius: 2px;
+  box-shadow: inset -0.5px 0.5px 4px 0 rgba(0, 0, 0, 0.16);
+  background-color: #fff;
+  border-bottom-width:0px!important;
+}
+
+table tbody tr td{
+  font-weight: normal;
+  font-size: 14px;
+  color: black;
+  border-bottom-width:0px!important;
+}
+
 .btn {
   padding: 11.5px 45px 11px !important;
   box-shadow: inset 0 -1px 1px 0 rgba(0, 0, 0, 0.16);
