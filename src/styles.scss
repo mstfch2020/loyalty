@@ -1,3 +1,4 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
 @font-face {
   font-family: IranYekanBold;
   font-style: normal;
@@ -259,3 +260,14 @@ select.ng-invalid.ng-touched {
   cursor: not-allowed !important;
 }
 
+//ng - select start
+.ng-select.custom {
+    border:0px;
+    min-height: 0px;
+    border-radius: 0;
+}
+.ng-select.custom .ng-select-container  {
+    min-height: 0px;
+    border-radius: 5;
+}
+//ng - select end
