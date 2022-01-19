@@ -1,3 +1,30 @@
-.navbar-nav{
+.navbar-nav {
   padding-right: 0;
+}
+
+.navbar-nav li a {
+  font-size: 1rem;
+  color: black;
+  text-align: right;
+  cursor: pointer;
+  padding-right: 3rem;
+  font-family: IranYekanRegular;
+}
+
+.sidebar .nav-item .nav-link span {
+  margin-right: 1.5rem;
+}
+
+.nav-link.active {
+  padding: 1rem;
+  border-radius: 25px;
+  box-shadow: inset -0.5px 0.5px 3px 0 rgba(0, 0, 0, 0.16);
+  background-color: #eff3f3;
+  font-weight: normal !important;
+}
+
+.panel-sidebar {
+  width: 20rem !important;
+  background-color: #00b3b5;
+  box-shadow: -2.5px 5.5px 5px 0 rgb(0 0 0 / 16%);
 }

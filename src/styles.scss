@@ -1,26 +1,97 @@
 @font-face {
-  font-family: 'General';
-  src: url("assets/fonts/local/generalFont.eot");
-  src: local('☺'), url("assets/fonts/local/generalFont.woff") format('woff'), url("assets/fonts/local/generalFont.ttf") format('truetype'), url("assets/fonts/local/generalFont.svg") format('svg');
+  font-family: IranYekanBold;
+  font-style: normal;
+  font-weight: bold;
+  src: url('assets/fonts/local/eot/iranyekanwebbold.eot');
+  src: url('assets/fonts/local/eot/iranyekanwebbold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('assets/fonts/local/woff/iranyekanwebbold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('assets/fonts/local/woff2/iranyekanwebbold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('assets/fonts/local/ttf/iranyekanwebbold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'YekanBold';
-  src: url("assets/fonts/local/YekanBakh-Bold.eot");
-  src: local('☺'), url("assets/fonts/local/YekanBakh-Bold.woff") format('woff'), url("assets/fonts/local/YekanBakh-Bold.ttf") format('truetype'), url("assets/fonts/local/YekanBakh-Bold.svg") format('svg');
+  font-family: IranYekanThin;
+  font-style: normal;
+  font-weight: 100;
+  src: url('assets/fonts/local/eot/iranyekanwebthin.eot');
+  src: url('assets/fonts/local/eot/iranyekanwebthin.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('assets/fonts/local/woff/iranyekanwebthin.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('assets/fonts/local/woff2/iranyekanwebthin.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('assets/fonts/local/ttf/iranyekanwebthin.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'YekanRegular';
-  src: url("assets/fonts/local/YekanBakh-Regular.eot");
-  src: local('☺'), url("assets/fonts/local/YekanBakh-Regular.woff") format('woff'), url("assets/fonts/local/YekanBakh-Regular.ttf") format('truetype'), url("assets/fonts/local/YekanBakh-Regular.svg") format('svg');
+  font-family: IranYekanLight;
+  font-style: normal;
+  font-weight: 300;
+  src: url('assets/fonts/local/eot/iranyekanweblight.eot');
+  src: url('assets/fonts/local/eot/iranyekanweblight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('assets/fonts/local/woff/iranyekanweblight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('assets/fonts/local/woff2/iranyekanweblight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('assets/fonts/local/ttf/iranyekanweblight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: IranYekanRegular;
+  font-style: normal;
+  font-weight: normal;
+  src: url('assets/fonts/local/eot/iranyekanwebregular.eot');
+  src: url('assets/fonts/local/eot/iranyekanwebregular.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('assets/fonts/local/woff/iranyekanwebregular.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('assets/fonts/local/woff2/iranyekanwebregular.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+  url('assets/fonts/local/ttf/iranyekanwebregular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: IranYekanMedium;
+  font-style: normal;
+  font-weight: 500;
+  src: url('assets/fonts/local/eot/iranyekanwebmedium.eot');
+  src: url('assets/fonts/local/eot/iranyekanwebmedium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('assets/fonts/local/woff/iranyekanwebmedium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('assets/fonts/local/woff2/iranyekanwebmedium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('assets/fonts/local/ttf/iranyekanwebmedium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: IranYekanExtraBold;
+  font-style: normal;
+  font-weight: 800;
+  src: url('assets/fonts/local/eot/iranyekanwebextrabold.eot');
+  src: url('assets/fonts/local/eot/iranyekanwebextrabold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('assets/fonts/local/woff/iranyekanwebextrabold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('assets/fonts/local/woff2/iranyekanwebextrabold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('assets/fonts/local/ttf/iranyekanwebextrabold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: IranYekanBlack;
+  font-style: normal;
+  font-weight: 850;
+  src: url('assets/fonts/local/eot/iranyekanwebblack.eot');
+  src: url('assets/fonts/local/eot/iranyekanwebblack.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('assets/fonts/local/woff/iranyekanwebblack.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('assets/fonts/local/woff2/iranyekanwebblack.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('assets/fonts/local/ttf/iranyekanwebblack.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: IranYekanExtraBlack;
+  font-style: normal;
+  font-weight: 900;
+  src: url('assets/fonts/local/eot/iranyekanwebextrablack.eot');
+  src: url('assets/fonts/local/eot/iranyekanwebextrablack.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('assets/fonts/local/woff/iranyekanwebextrablack.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('assets/fonts/local/woff2/iranyekanwebextrablack.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('assets/fonts/local/ttf/iranyekanwebextrablack.ttf') format('truetype');
 }
 
 body {
-  background-color: #f5f5f5;
+  height: 100%;
   margin: 0px;
   padding: 0px;
-  font-family: General;
+  font-family: IranYekanRegular;
+  background-color: #eff3f3;
 }
 
 body.login {
@@ -31,16 +102,36 @@ body.register {
   background-image: url("assets/img/bg/bg-9.jpg");
 }
 
-.font-general {
-  font-family: General !important;
+.font-yekan-bold {
+  font-family: IranYekanBold !important;
 }
 
-.font-yekan-bold {
-  font-family: YekanBold !important;
+.font-yekan-extera-bold {
+  font-family: IranYekanExtraBold !important;
+}
+
+.font-yekan-black {
+  font-family: IranYekanBlack !important;
+}
+
+.font-yekan-extera-black {
+  font-family: IranYekanExtraBlack !important;
+}
+
+.font-yekan-light {
+  font-family: IranYekanLight !important;
 }
 
 .font-yekan-regular {
-  font-family: YekanRegular !important;
+  font-family: IranYekanRegular !important;
+}
+
+.font-yekan-medium {
+  font-family: IranYekanMedium !important;
+}
+
+.font-yekan-thin {
+  font-family: IranYekanThin !important;
 }
 
 .bg-body-blue {
@@ -59,6 +150,14 @@ body.register {
   padding-right: 2rem !important;
 }
 
+.mt-15{
+  margin-top: 15rem;
+}
+
+.mt-13{
+  margin-top: 13rem;
+}
+
 input[type='text'].ng-invalid.ng-touched,
 input[type='password'].ng-invalid.ng-touched {
   border-color: #dc3545;
@@ -66,10 +165,6 @@ input[type='password'].ng-invalid.ng-touched {
 
 select.ng-invalid.ng-touched {
   border-color: #dc3545;
-}
-
-.panel-sidebar {
-  background-image: url("assets/img/bg/bg-9.jpg");
 }
 
 .cursor-pointer {
@@ -80,5 +175,19 @@ select.ng-invalid.ng-touched {
   cursor: not-allowed !important;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #00b3b5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e3e3e3;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #009b9d;
+}
