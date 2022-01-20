@@ -13,6 +13,7 @@ import {ScenarioComponent} from './scenario/scenario.component';
 import {SendSmsComponent} from './send-sms/send-sms.component';
 import {SystemSettingsComponent} from './system-settings/system-settings.component';
 import {UsersComponent} from "./users/users.component";
+import { GridComponent } from './grid/grid.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {UsersComponent} from "./users/users.component";
     SendSmsComponent,
     ReportsComponent,
     SystemSettingsComponent,
+    GridComponent,
   ],
   imports: [
     FormsModule,
