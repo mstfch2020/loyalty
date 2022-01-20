@@ -23,6 +23,9 @@ import {SystemSettingsLevelComponent} from './system-settings/system-settings-le
 import {SystemSettingsScenarioComponent} from './system-settings/system-settings-scenario/system-settings-scenario.component';
 import { SystemSettingsDiscountGridComponent } from './system-settings/system-settings-discount/system-settings-discount-grid/system-settings-discount-grid.component';
 import { SystemSettingsDiscountRootComponent } from './system-settings/system-settings-discount/system-settings-discount-root/system-settings-discount-root.component';
+import { CustomerGroupTemporaryEditComponent } from './customer-group-temporary/customer-group-temporary-edit/customer-group-temporary-edit.component';
+import { CustomerGroupRootComponent } from './customer-group/customer-group-root/customer-group-root.component';
+import { CustomerGroupGridComponent } from './customer-group/customer-group-grid/customer-group-grid.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { SystemSettingsDiscountRootComponent } from './system-settings/system-se
     SystemSettingsScenarioComponent,
     SystemSettingsDiscountGridComponent,
     SystemSettingsDiscountRootComponent,
+    CustomerGroupTemporaryEditComponent,
+    CustomerGroupRootComponent,
+    CustomerGroupGridComponent,
   ],
   imports: [
     FormsModule,

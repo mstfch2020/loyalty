@@ -1,0 +1,233 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+        <span class="font-yekan-bold h5 text-black">
+ویرایش ترویج دهنده
+        </span>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-3">
+      <div class="d-flex flex-column">
+        <div class="text-black font-yekan-bold">
+          09128154483
+        </div>
+        <div class="text-black fs-09 mt-2">
+          فاطمه اصلانی
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="d-flex flex-column text-center">
+        <div class="text-black font-yekan-bold">
+          دبیر
+        </div>
+        <div class="text-black fs-09 mt-2">
+          نوع کاربری
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="d-flex flex-column text-center">
+        <div class="text-black font-yekan-bold">
+          خیلی سبز-منتشران
+        </div>
+        <div class="text-black fs-09 mt-2">
+          مخاطب برند(ها)
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="d-flex flex-column text-start">
+        <div class="text-black font-yekan-bold">
+          19 دی 1400
+        </div>
+        <div class="text-black fs-09 mt-2">
+          تاریخ عضویت
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-3">
+          <label class="float-start mt-4">
+            برند :
+          </label>
+        </div>
+        <div class="col-9">
+          <ng-select [(ngModel)]="selectedCar" [items]="cars"
+                     [multiple]="true"
+                     appendTo="body"
+                     bindLabel="name"
+                     class="form-control mb-3">
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-3">
+          <label class="float-start mt-4">
+            تاریخ :
+          </label>
+        </div>
+        <div class="col-9">
+          <div class="d-flex flex-row gap-3 align-items-center">
+              <span class="text-black fs-09">
+                از
+              </span>
+            <div class="mt-1">
+              <input class="form-control rounded-pill text-center text-black" type="text">
+            </div>
+            <span class="text-black fs-09">
+                تا
+              </span>
+            <div class="mt-1">
+              <input class="form-control rounded-pill text-center text-black" type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-3">
+          <label class="float-start mt-4">
+            گروه کالا :
+          </label>
+        </div>
+        <div class="col-9">
+          <ng-select [(ngModel)]="selectedCar" [items]="cars"
+                     [multiple]="true"
+                     appendTo="body"
+                     bindLabel="name"
+                     class="form-control mb-3">
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-3">
+          <label class="float-start mt-4">
+            سقف تخفیف :
+          </label>
+        </div>
+        <div class="col-3">
+          <input class="form-control rounded-pill text-start text-black" placeholder="%" type="text">
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-12">
+        <span class="font-yekan-bold h5 text-black">
+لیست کدهای تخفیف
+        </span>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <table cellspacing="1" class="table table-hover border-0">
+        <thead>
+        <tr>
+          <th class="text-center" scope="col">ردیف</th>
+          <th class="text-center" scope="col">بازه زمانی</th>
+          <th class="text-center" scope="col">کد تخفیف</th>
+          <th class="text-center" scope="col">برند</th>
+          <th class="text-center" scope="col">درصد تخفیف کد</th>
+          <th class="text-center" scope="col">درصد خالص پورسانت</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center" scope="row">1</td>
+          <td class="text-center">
+            از 1401/02/12 تا 1401/06/30
+          </td>
+          <td class="text-center">
+            sdfjshGx
+          </td>
+          <td class="text-center">
+            خیلی‌سبز
+          </td>
+          <td class="text-center">
+            ۲۵٪
+          </td>
+          <td class="text-center">
+            ۱۵٪
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center" scope="row">2</td>
+          <td class="text-center">
+            از 1401/02/12 تا 1401/06/30
+          </td>
+          <td class="text-center">
+            sdfjshGx
+          </td>
+          <td class="text-center">
+            خیلی‌سبز
+          </td>
+          <td class="text-center">
+            ۲۵٪
+          </td>
+          <td class="text-center">
+            ۱۵٪
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center" scope="row">3</td>
+          <td class="text-center">
+            از 1401/02/12 تا 1401/06/30
+          </td>
+          <td class="text-center">
+            sdfjshGx
+          </td>
+          <td class="text-center">
+            خیلی‌سبز
+          </td>
+          <td class="text-center">
+            ۲۵٪
+          </td>
+          <td class="text-center">
+            ۱۵٪
+          </td>
+        </tr>
+        <tr>
+          <td class="text-center" scope="row">4</td>
+          <td class="text-center">
+            از 1401/02/12 تا 1401/06/30
+          </td>
+          <td class="text-center">
+            sdfjshGx
+          </td>
+          <td class="text-center">
+            خیلی‌سبز
+          </td>
+          <td class="text-center">
+            ۲۵٪
+          </td>
+          <td class="text-center">
+            ۱۵٪
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-3">
+      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+              dir="rtl" type="submit">
+        ایجاد کد جدید
+      </button>
+    </div>
+  </div>
+</div>
