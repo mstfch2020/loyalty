@@ -14,6 +14,7 @@ import {SendSmsComponent} from './send-sms/send-sms.component';
 import {SystemSettingsComponent} from './system-settings/system-settings.component';
 import {UsersComponent} from "./users/users.component";
 import { GridComponent } from './grid/grid.component';
+import { SwitchComponent } from './switch/switch.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { GridComponent } from './grid/grid.component';
     ReportsComponent,
     SystemSettingsComponent,
     GridComponent,
+    SwitchComponent,
   ],
   imports: [
     FormsModule,

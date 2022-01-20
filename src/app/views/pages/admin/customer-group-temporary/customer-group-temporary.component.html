@@ -166,6 +166,9 @@
           <label>
             حجم تخفیف :
           </label>
+          <div>
+            <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+          </div>
           <div class="mr-1">
             <input class="form-control rounded-pill text-center text-black" placeholder="تومان" type="text">
           </div>
@@ -221,12 +224,15 @@
         </div>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-2">
       <div class="col-12">
         <div class="d-flex flex-row gap-3 align-items-center">
           <label>
             حجم تخفیف :
           </label>
+          <div>
+            <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+          </div>
           <div class="mr-1">
             <input class="form-control rounded-pill text-center text-black" type="text">
           </div>
