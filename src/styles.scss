@@ -243,6 +243,22 @@ input[type='password'].ng-invalid.ng-touched {
   border-color: #dc3545;
 }
 
+input[type="file"]{
+  content: "";
+  padding: 11px!important;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  width: 65px;
+  height:45px;
+  content: "";
+  padding: 5px;
+  border-radius: 25px;
+  color:#ffa100;
+  box-shadow: inset 0 -1px 1px 0 rgba(0, 0, 0, 0.16);
+  background: #ffa100 url("assets/img/icons/attachment.svg") center no-repeat;
+}
+
 input[type="radio"],
 input[type="checkbox"] {
   border: none;

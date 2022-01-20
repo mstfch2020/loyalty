@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './main/main.component';
-import { ProfileComponent } from "./profile/profile.component";
-import { UsersComponent } from "./users/users.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {MainComponent} from './main/main.component';
+import {ProfileComponent} from "./profile/profile.component";
+import {UsersComponent} from "./users/users.component";
 import {ScenarioComponent} from "./scenario/scenario.component";
 import {CustomerGroupComponent} from "./customer-group/customer-group.component";
 import {CustomerGroupTemporaryComponent} from "./customer-group-temporary/customer-group-temporary.component";

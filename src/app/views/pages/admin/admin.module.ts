@@ -13,8 +13,10 @@ import {ScenarioComponent} from './scenario/scenario.component';
 import {SendSmsComponent} from './send-sms/send-sms.component';
 import {SystemSettingsComponent} from './system-settings/system-settings.component';
 import {UsersComponent} from "./users/users.component";
-import { GridComponent } from './grid/grid.component';
-import { SwitchComponent } from './switch/switch.component';
+import {SwitchComponent} from './switch/switch.component';
+import {CustomerGroupTemporaryCampaignComponent} from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
+import {CustomerGroupTemporaryGridComponent} from './customer-group-temporary/customer-group-temporary-grid/customer-group-temporary-grid.component';
+import {CustomerGroupTemporaryRootComponent} from './customer-group-temporary/customer-group-temporary-root/customer-group-temporary-root.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +27,12 @@ import { SwitchComponent } from './switch/switch.component';
     ScenarioComponent,
     CustomerGroupComponent,
     CustomerGroupTemporaryComponent,
+    CustomerGroupTemporaryGridComponent,
+    CustomerGroupTemporaryRootComponent,
+    CustomerGroupTemporaryCampaignComponent,
     SendSmsComponent,
     ReportsComponent,
     SystemSettingsComponent,
-    GridComponent,
     SwitchComponent,
   ],
   imports: [
