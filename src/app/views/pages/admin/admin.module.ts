@@ -21,6 +21,8 @@ import {SystemSettingsRootComponent} from './system-settings/system-settings-roo
 import {SystemSettingsDiscountComponent} from './system-settings/system-settings-discount/system-settings-discount.component';
 import {SystemSettingsLevelComponent} from './system-settings/system-settings-level/system-settings-level.component';
 import {SystemSettingsScenarioComponent} from './system-settings/system-settings-scenario/system-settings-scenario.component';
+import { SystemSettingsDiscountGridComponent } from './system-settings/system-settings-discount/system-settings-discount-grid/system-settings-discount-grid.component';
+import { SystemSettingsDiscountRootComponent } from './system-settings/system-settings-discount/system-settings-discount-root/system-settings-discount-root.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import {SystemSettingsScenarioComponent} from './system-settings/system-settings
     SystemSettingsDiscountComponent,
     SystemSettingsLevelComponent,
     SystemSettingsScenarioComponent,
+    SystemSettingsDiscountGridComponent,
+    SystemSettingsDiscountRootComponent,
   ],
   imports: [
     FormsModule,

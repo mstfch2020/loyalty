@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-scenario',
-  templateUrl: './scenario.component.html',
-  styleUrls: ['./scenario.component.scss']
+  selector: 'app-system-settings-discount-root',
+  templateUrl: './system-settings-discount-root.component.html',
+  styleUrls: ['./system-settings-discount-root.component.scss']
 })
-export class ScenarioComponent implements OnInit {
+export class SystemSettingsDiscountRootComponent implements OnInit {
 
   selectedCar = 1;
 
