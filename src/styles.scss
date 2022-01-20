@@ -373,3 +373,20 @@ select.ng-invalid.ng-touched {
   height: 21px;
   text-align: center;
 }
+
+.nav-item .nav-link{
+  font-size: 0.9rem;
+  color: gray;
+  cursor: pointer;
+}
+
+.nav-link.active{
+  font-weight: bold;
+  color: black;
+  border-bottom: 3px solid #00b3b5;
+  padding-bottom: 1.2rem;
+}
+
+.nav-line{
+  margin-top: -2px;
+}

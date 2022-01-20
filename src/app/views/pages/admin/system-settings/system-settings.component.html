@@ -1,1 +1,28 @@
-<p>system-settings works!</p>
+<form action="" dir="rtl">
+  <ul class="nav justify-content-start mt-3">
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/admin/main/settings/discount']"
+         routerLinkActive="active">
+        تنظیمات کد تخفیف
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/admin/main/settings/level']"
+         routerLinkActive="active">
+        تعریف سطوح
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/admin/main/settings/scenario']"
+         routerLinkActive="active">
+        فعالیت های سناریو رفتاری
+      </a>
+    </li>
+  </ul>
+  <hr class="nav-line">
+  <router-outlet></router-outlet>
+</form>
+

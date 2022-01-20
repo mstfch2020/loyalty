@@ -10,9 +10,12 @@ import {CustomerComponent} from "./customer/customer.component";
 import {SendSmsComponent} from "./send-sms/send-sms.component";
 import {ReportsComponent} from "./reports/reports.component";
 import {SystemSettingsComponent} from "./system-settings/system-settings.component";
+import {SystemSettingsDiscountComponent} from "./system-settings/system-settings-discount/system-settings-discount.component";
+import {SystemSettingsLevelComponent} from "./system-settings/system-settings-level/system-settings-level.component";
+import {SystemSettingsScenarioComponent} from "./system-settings/system-settings-scenario/system-settings-scenario.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  {path: '', redirectTo: 'main', pathMatch: 'full'},
   {
     path: 'main',
     component: MainComponent,
@@ -34,7 +37,7 @@ const routes: Routes = [
         component: CustomerGroupTemporaryComponent,
       },
       {
-        path: 'sendsms',
+        path: 'sms',
         component: SendSmsComponent,
       },
       {
@@ -42,8 +45,22 @@ const routes: Routes = [
         component: ReportsComponent,
       },
       {
-        path: 'systemsettings',
+        path: 'settings',
         component: SystemSettingsComponent,
+        children: [
+          {
+            path: 'discount',
+            component: SystemSettingsDiscountComponent,
+          },
+          {
+            path: 'level',
+            component: SystemSettingsLevelComponent,
+          },
+          {
+            path: 'scenario',
+            component: SystemSettingsScenarioComponent,
+          },
+        ]
       },
       {
         path: 'scenario',
@@ -66,6 +83,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule
-{
+export class AdminRoutingModule {
 }
