@@ -300,11 +300,50 @@
       </button>
     </div>
     <div class="col-3">
-      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-              dir="rtl" type="submit">
+      <button (click)="open(generateCodeModal)"
+              class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+              type="submit">
         تولید کد
       </button>
     </div>
   </div>
 </div>
 <br>
+
+<ng-template #generateCodeModal let-modal>
+  <div class="modal-body" dir="rtl">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+        <span class="font-yekan-bold h6 text-end text-black">
+ایجاد کد جدید
+        </span>
+        </div>
+      </div>
+      <div class="d-flex flex-row align-items-center gap-3 mt-4">
+        <div class="text-black">
+          نام الگو :
+        </div>
+        <div class="flex-grow-1">
+          <input class="form-control rounded-pill text-end text-black" type="text">
+        </div>
+      </div>
+      <div class="row mt-5 mb-3">
+        <div class="col-3">
+          <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+                  dir="rtl" type="submit">
+            ذخیره
+          </button>
+        </div>
+        <div class="col-3">
+          <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+                  (click)="close()"
+                  type="submit">
+            انصراف
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-template>
