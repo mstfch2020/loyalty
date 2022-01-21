@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row mt-2">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-3">
+          <label class="float-start mt-4">
+            برند :
+          </label>
+        </div>
+        <div class="col-9">
+          <ng-select [(ngModel)]="selectedCar" [items]="cars"
+                     [multiple]="true"
+                     appendTo="body"
+                     bindLabel="name"
+                     class="form-control mb-3">
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-3">
+          <label class="float-start mt-4">
+            نوع کاربری :
+          </label>
+        </div>
+        <div class="col-9">
+          <ng-select [(ngModel)]="selectedCar" [items]="cars"
+                     [multiple]="true"
+                     appendTo="body"
+                     bindLabel="name"
+                     class="form-control mb-3">
+          </ng-select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-3">
+          <label class="float-start mt-3">
+            پایه پورسانت :
+          </label>
+        </div>
+        <div class="col-4">
+          <input class="form-control rounded-pill text-start text-black" placeholder="%" type="text">
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-3">
+          <label class="float-start mt-3">
+            تخفیف برای مشتریان :
+          </label>
+        </div>
+        <div class="col-9 d-flex flex-row gap-3 align-items-center">
+          <span class="text-black">
+            از
+          </span>
+          <div>
+            <input class="form-control rounded-pill text-start  text-black" placeholder="%" type="text">
+          </div>
+          <span class="text-black">
+            تا
+          </span>
+          <div>
+            <input class="form-control rounded-pill text-start text-black" placeholder="%" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-2">
+      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+              dir="rtl" type="submit">
+        ذخیره
+      </button>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+              dir="rtl" type="submit">
+        انصراف
+      </button>
+    </div>
+  </div>
+</div>

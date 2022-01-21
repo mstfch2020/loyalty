@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-scenario',
-  templateUrl: './scenario.component.html',
-  styleUrls: ['./scenario.component.scss']
+  selector: 'app-customer-group-temporary-campaign',
+  templateUrl: './customer-group-temporary-campaign.component.html',
+  styleUrls: ['./customer-group-temporary-campaign.component.scss']
 })
-export class ScenarioComponent implements OnInit {
+export class CustomerGroupTemporaryCampaignComponent implements OnInit {
 
   selectedCar = 1;
 

@@ -146,6 +146,10 @@ body.register {
   font-family: IranYekanThin !important;
 }
 
+.fs-09 {
+  font-size: 0.9rem;
+}
+
 .bg-body-blue {
   background-color: #62c0f2;
 }
@@ -182,16 +186,28 @@ body.register {
   margin-right: 1rem;
 }
 
-.ml-1{
+.ml-1 {
   margin-left: 1rem;
 }
 
-.ml-3{
+.ml-3 {
   margin-left: 3rem;
 }
 
 .w-70-px {
   width: 70px !important;
+}
+
+.w-80-px {
+  width: 80px !important;
+}
+
+.w-90-px {
+  width: 90px !important;
+}
+
+.w-130-px {
+  width: 130px !important;
 }
 
 .border-radius-1-5 {
@@ -220,13 +236,31 @@ label {
   padding-right: 2.5rem !important;
 }
 
-input[type="text"]{
-  outline: none!important;
+input[type="text"] {
+  outline: none !important;
+  padding: 1rem;
+  color: black;
 }
 
 input[type='text'].ng-invalid.ng-touched,
 input[type='password'].ng-invalid.ng-touched {
   border-color: #dc3545;
+}
+
+input[type="file"]{
+  content: "";
+  padding: 11px!important;
+}
+
+input[type=file]::-webkit-file-upload-button {
+  width: 65px;
+  height:45px;
+  content: "";
+  padding: 5px;
+  border-radius: 25px;
+  color:#ffa100;
+  box-shadow: inset 0 -1px 1px 0 rgba(0, 0, 0, 0.16);
+  background: #ffa100 url("assets/img/icons/attachment.svg") center no-repeat;
 }
 
 input[type="radio"],
@@ -236,35 +270,30 @@ input[type="checkbox"] {
   background-color: #fff;
 }
 
-input[type="text"] {
-  padding: 0.7rem;
-  color: black;
-}
-
-table{
+table {
   border-collapse: separate;
-  border-spacing:0 2px;
+  border-spacing: 0 2px;
 }
 
-table th{
+table th {
   font-weight: normal;
   font-size: 14px;
   color: black;
-  border-bottom-width:0px!important;
+  border-bottom-width: 0px !important;
 }
 
-table tbody tr{
+table tbody tr {
   border-radius: 2px;
   box-shadow: inset -0.5px 0.5px 4px 0 rgba(0, 0, 0, 0.16);
   background-color: #fff;
-  border-bottom-width:0px!important;
+  border-bottom-width: 0px !important;
 }
 
-table tbody tr td{
+table tbody tr td {
   font-weight: normal;
   font-size: 14px;
   color: black;
-  border-bottom-width:0px!important;
+  border-bottom-width: 0px !important;
 }
 
 .btn {
@@ -300,8 +329,8 @@ select.ng-invalid.ng-touched {
   cursor: not-allowed !important;
 }
 
-.ng-select{
-  padding: 11px;
+.ng-select {
+  padding: 10px;
 }
 
 .ng-select.custom {
@@ -332,14 +361,14 @@ select.ng-invalid.ng-touched {
 }
 
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
-  border-radius: 2rem!important;
-  background-color: white!important;
-  padding: 0.3rem!important;
-  border:1px solid #00b3b5;
+  border-radius: 2rem !important;
+  background-color: white !important;
+  padding: 0.3rem !important;
+  border: 1px solid #00b3b5;
 }
 
-.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon{
-  border: none!important;
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon {
+  border: none !important;
   border-radius: 50%;
   color: white;
   background-color: #00b3b5;
@@ -347,4 +376,21 @@ select.ng-invalid.ng-touched {
   width: 20px;
   height: 21px;
   text-align: center;
+}
+
+.nav-item .nav-link{
+  font-size: 0.9rem;
+  color: gray;
+  cursor: pointer;
+}
+
+.nav-link.active{
+  font-weight: bold;
+  color: black;
+  border-bottom: 3px solid #00b3b5;
+  padding-bottom: 1.2rem;
+}
+
+.nav-line{
+  margin-top: -2px;
 }
