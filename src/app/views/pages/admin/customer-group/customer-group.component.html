@@ -1,4 +1,4 @@
-<form action="" dir="rtl">
+<form action="" dir="rtl" [formGroup]="form">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -16,11 +16,8 @@
             </label>
           </div>
           <div class="col-9">
-            <ng-select [items]="cars" class="form-control mb-3"
-                       bindLabel="name"
-                       appendTo="body"
-                       [multiple]="true"
-                       [(ngModel)]="selectedCar">
+            <ng-select [items]="cars" class="form-control mb-3" bindLabel="name" appendTo="body" [multiple]="true"
+              formControlName="selectedCar" [searchable]="true">
             </ng-select>
           </div>
         </div>
@@ -33,11 +30,7 @@
             </label>
           </div>
           <div class="col-9">
-            <ng-select [items]="cars" class="form-control mb-3"
-                       bindLabel="name"
-                       appendTo="body"
-                       [multiple]="true"
-                       [(ngModel)]="selectedCar">
+            <ng-select [items]="cars" class="form-control mb-3" bindLabel="name" appendTo="body" [multiple]="true">
             </ng-select>
           </div>
         </div>
@@ -52,8 +45,7 @@
             </label>
           </div>
           <div class="col-9">
-            <select class="form-select form-select-lg mb-3 rounded-pill"
-                    dir="rtl">
+            <select class="form-select form-select-lg mb-3 rounded-pill" dir="rtl">
               <option selected>زینجا</option>
               <option value="1">بون</option>
             </select>
@@ -103,8 +95,7 @@
             </label>
           </div>
           <div class="col-9">
-            <select class="form-select form-select-lg mb-3 rounded-pill"
-                    dir="rtl">
+            <select class="form-select form-select-lg mb-3 rounded-pill" dir="rtl">
               <option selected>زینجا</option>
               <option value="1">بون</option>
             </select>
@@ -119,8 +110,7 @@
             </label>
           </div>
           <div class="col-9">
-            <select class="form-select form-select-lg mb-3 rounded-pill"
-                    dir="rtl">
+            <select class="form-select form-select-lg mb-3 rounded-pill" dir="rtl">
               <option selected>زینجا</option>
               <option value="1">بون</option>
             </select>
@@ -130,18 +120,17 @@
     </div>
     <div class="row mt-5">
       <div class="col-2">
-        <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-                dir="rtl" type="submit">
+        <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+          type="submit">
           اعمال
         </button>
       </div>
       <div class="col-2">
-        <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-                dir="rtl" type="submit">
+        <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+          type="submit">
           انصراف
         </button>
       </div>
     </div>
   </div>
 </form>
-

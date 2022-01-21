@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-send-sms',
   templateUrl: './send-sms.component.html',
   styleUrls: ['./send-sms.component.scss']
 })
-export class SendSmsComponent implements OnInit {
+export class SendSmsComponent implements OnInit
+{
 
-
-  selectedCar = 1;
+  form: FormGroup;
 
   cars = [
     { id: 1, name: 'زینجا' },
@@ -17,9 +19,29 @@ export class SendSmsComponent implements OnInit {
     { id: 4, name: '09192935850' },
   ];
 
-  constructor() { }
+  date?: Moment;
+  dates: Moment[] = [];
 
-  ngOnInit(): void {
+  constructor(private formBuilder: FormBuilder)
+  {
+    this.form = this.formBuilder.group({
+      selectedCar: [null, [Validators.required]],
+      datePicker: [this.date, [Validators.required]]
+    });
+  }
+
+  ngOnInit(): void
+  {
+    this.form.markAllAsTouched();
+  }
+  today: any;
+  setDateReturn($event: any)
+  {
+    console.log($event);
+  }
+  dpickerFocus(picker: any)
+  {
+    console.log(picker);
   }
 
 }
