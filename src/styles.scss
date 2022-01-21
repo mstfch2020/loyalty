@@ -178,8 +178,16 @@ body.register {
   margin-top: 0.6rem;
 }
 
+.mt-4-px {
+  margin-top: 4px;
+}
+
 .mr-3 {
   margin-right: 3rem;
+}
+
+.mr-4 {
+  margin-right: 4rem;
 }
 
 .mr-1 {
@@ -204,6 +212,10 @@ body.register {
 
 .w-90-px {
   width: 90px !important;
+}
+
+.w-120-px {
+  width: 120px !important;
 }
 
 .w-130-px {
@@ -247,18 +259,18 @@ input[type='password'].ng-invalid.ng-touched {
   border-color: #dc3545;
 }
 
-input[type="file"]{
+input[type="file"] {
   content: "";
-  padding: 11px!important;
+  padding: 11px !important;
 }
 
 input[type=file]::-webkit-file-upload-button {
   width: 65px;
-  height:45px;
+  height: 45px;
   content: "";
   padding: 5px;
   border-radius: 25px;
-  color:#ffa100;
+  color: #ffa100;
   box-shadow: inset 0 -1px 1px 0 rgba(0, 0, 0, 0.16);
   background: #ffa100 url("assets/img/icons/attachment.svg") center no-repeat;
 }
@@ -378,25 +390,29 @@ select.ng-invalid.ng-touched {
   text-align: center;
 }
 
-.nav-item .nav-link{
+.nav-item .nav-link {
   font-size: 0.9rem;
   color: gray;
   cursor: pointer;
 }
 
-.nav-link.active{
+.nav-link.active {
   font-weight: bold;
   color: black;
   border-bottom: 3px solid #00b3b5;
   padding-bottom: 1.2rem;
 }
 
-.nav-line{
+.nav-line {
   margin-top: -2px;
 }
 
-.modal-content{
+.modal-content {
   border-radius: 16px;
   box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
   background-color: #eff3f3;
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #7fd9da;
 }
