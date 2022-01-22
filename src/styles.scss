@@ -377,6 +377,7 @@ select.ng-invalid.ng-touched {
   background-color: white !important;
   padding: 0.3rem !important;
   border: 1px solid #00b3b5;
+  font-size: 0.8rem;
 }
 
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value .ng-value-icon {
@@ -388,6 +389,11 @@ select.ng-invalid.ng-touched {
   width: 20px;
   height: 21px;
   text-align: center;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option
+{
+  font-size: 0.8rem;
 }
 
 .nav-item .nav-link {
@@ -415,4 +421,9 @@ select.ng-invalid.ng-touched {
 
 .form-switch .form-check-input:checked {
   background-color: #7fd9da;
+}
+
+.ng-dropdown-panel .scroll-host{
+  text-align: right!important;
+  margin: 2px;
 }

@@ -49,6 +49,11 @@ const routes: Routes = [
         component: SystemSettingsComponent,
         children: [
           {
+            path: '',
+            redirectTo: 'discount',
+            pathMatch: 'full'
+          },
+          {
             path: 'discount',
             component: SystemSettingsDiscountComponent,
           },

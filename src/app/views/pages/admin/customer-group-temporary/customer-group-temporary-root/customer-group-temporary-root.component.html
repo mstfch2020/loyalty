@@ -208,15 +208,12 @@
           </label>
         </div>
         <div class="col-9">
-          <select class="form-select form-select-lg mb-3 rounded-pill text-black"
-                  dir="rtl">
-            <option selected>
-              قیمت قبل از تخفیف کالا
-            </option>
-            <option value="1">
-              قیمت بعد از تخفیف کالا
-            </option>
-          </select>
+          <ng-select [(ngModel)]="selectedPrice" [items]="prices"
+                     [multiple]="false"
+                     appendTo="body"
+                     bindLabel="name"
+                     class="form-control mb-3">
+          </ng-select>
         </div>
       </div>
     </div>
@@ -343,6 +340,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </ng-template>

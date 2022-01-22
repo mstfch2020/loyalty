@@ -9,12 +9,17 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 export class CustomerGroupTemporaryRootComponent implements OnInit {
 
   selectedCar = 1;
-
   cars = [
     {id: 1, name: 'زینجا'},
     {id: 2, name: 'مون'},
     {id: 3, name: 'قهر کرده'},
     {id: 4, name: '09192935850'},
+  ];
+
+  selectedPrice = 1;
+  prices = [
+    {id: 1, name: 'قیمت قبل از تخفیف کالا'},
+    {id: 2, name: 'قیمت بعد از تخفیف کالا'},
   ];
 
   closeResult: string = '';
