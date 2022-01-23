@@ -194,6 +194,10 @@ body.register {
   margin-right: 1rem;
 }
 
+.mr-3-px {
+  margin-right: 3px;
+}
+
 .ml-1 {
   margin-left: 1rem;
 }
@@ -391,8 +395,7 @@ select.ng-invalid.ng-touched {
   text-align: center;
 }
 
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option
-{
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
   font-size: 0.8rem;
 }
 
@@ -423,7 +426,8 @@ select.ng-invalid.ng-touched {
   background-color: #7fd9da;
 }
 
-.ng-dropdown-panel .scroll-host{
-  text-align: right!important;
+.ng-dropdown-panel .scroll-host {
+  text-align: right !important;
   margin: 2px;
 }
+

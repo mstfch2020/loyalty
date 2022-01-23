@@ -27,6 +27,8 @@ import {SystemSettingsScenarioComponent} from './system-settings/system-settings
 import {SystemSettingsComponent} from './system-settings/system-settings.component';
 import {UsersComponent} from "./users/users.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { BehavioralScenarioComponent } from './scenario/behavioral-scenario/behavioral-scenario.component';
+import { PurchaseScenarioComponent } from './scenario/purchase-scenario/purchase-scenario.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     CustomerGroupTemporaryEditComponent,
     CustomerGroupRootComponent,
     CustomerGroupGridComponent,
+    BehavioralScenarioComponent,
+    PurchaseScenarioComponent,
   ],
   imports: [
     FormsModule,
