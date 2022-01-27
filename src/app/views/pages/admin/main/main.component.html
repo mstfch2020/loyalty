@@ -1,7 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-nav-green d-block d-sm-none shadow bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/admin/main/">
+      <img alt="هلدینگ بان" height="100" src="assets/img/logo/logo.svg">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto px-4 navbar-nav-scroll" style="--bs-scroll-height: 200px;">
+        <li class="nav-item">
+          <a [routerLink]="['/admin/main/']"
+             class="nav-link">
+            صفحه اصلی
+          </a>
+        </li>
+        <li *ngFor="let item of menuItems" class="nav-item">
+          <a [routerLink]="[item.url]"
+             class="nav-link"
+             routerLinkActive="active">
+            {{item.title}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <div id="wrapper">
   <div class="d-flex flex-column" id="content-wrapper">
     <nav class="navbar navbar-light navbar-expand mb-4 topbar static-top">
-      <div class="container-fluid">
+      <div class="container">
         <div class="d-flex flex-row align-items-center mt-4 gap-3">
           <div class="btn-setting">
             <img src="assets/img/icons/setting.svg">
@@ -12,7 +39,7 @@
           <div class="ml-1">
             <div class="d-flex flex-row align-items-center form-control p-2">
               <div class="ml-3">
-                  <input type="text" class="input-search" placeholder="جستجو در پنل" />
+                <input class="input-search" placeholder="جستجو در پنل" type="text"/>
               </div>
               <div class="btn-search">
                 <img src="assets/img/icons/search.svg">
@@ -22,12 +49,12 @@
         </div>
       </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid container-lg">
       <router-outlet></router-outlet>
     </div>
   </div>
   <nav [ngClass]="{'toggled':isToggle}"
-       class="panel-sidebar navbar navbar-dark align-items-start sidebar sidebar-dark accordion p-0">
+       class="panel-sidebar navbar navbar-dark d-none d-sm-block align-items-start sidebar sidebar-dark accordion p-0">
     <div class="container-fluid d-flex flex-column p-0"><a
       class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
       <div class="sidebar-brand-text font-yekan-bold mx-3 mt-15">
@@ -36,66 +63,17 @@
     </a>
       <hr class="sidebar-divider my-0">
       <ul class="navbar-nav text-light font-yekan-regular text-black mt-13" dir="ltr">
-        <li class="nav-item">
-          <a [routerLink]="['/admin/main']"
+        <li [routerLinkActive]="['link-active']" class="nav-item">
+          <a [routerLink]="['/admin/main/']"
              class="nav-link">
             صفحه اصلی
           </a>
         </li>
-        <li [routerLinkActive]="['link-active']" class="nav-item">
-          <a [routerLink]="['/admin/main/scenario']"
+        <li *ngFor="let item of menuItems" [routerLinkActive]="['link-active']" class="nav-item">
+          <a [routerLink]="[item.url]"
              class="nav-link"
              routerLinkActive="active">
-            سناریوها
-          </a>
-        </li>
-        <li [routerLinkActive]="['link-active']" class="nav-item">
-          <a [routerLink]="['/admin/main/customergroup']"
-             class="nav-link"
-             routerLinkActive="active">
-            گروه مشتری
-          </a>
-        </li>
-        <li [routerLinkActive]="['link-active']" class="nav-item">
-          <a [routerLink]="['/admin/main/customergrouptemporary']"
-             class="nav-link"
-             routerLinkActive="active">
-            گروه مشتری موقت
-          </a>
-        </li>
-        <li [routerLinkActive]="['link-active']" class="nav-item">
-          <a [routerLink]="['/admin/main/customer']"
-             class="nav-link"
-             routerLinkActive="active">
-            مشتریان
-          </a>
-        </li>
-        <li [routerLinkActive]="['link-active']" class="nav-item">
-          <a [routerLink]="['/admin/main/users']"
-             class="nav-link"
-             routerLinkActive="active">
-            کاربران پنل
-          </a>
-        </li>
-        <li [routerLinkActive]="['link-active']" class="nav-item">
-          <a [routerLink]="['/admin/main/sms']"
-             class="nav-link"
-             routerLinkActive="active">
-            ارسال پیامک
-          </a>
-        </li>
-        <li [routerLinkActive]="['link-active']" class="nav-item">
-          <a [routerLink]="['/admin/main/reports']"
-             class="nav-link"
-             routerLinkActive="active">
-            گزارش ها
-          </a>
-        </li>
-        <li [routerLinkActive]="['link-active']" class="nav-item">
-          <a [routerLink]="['/admin/main/settings']"
-             class="nav-link"
-             routerLinkActive="active">
-            تنظیمات سیستمی
+            {{item.title}}
           </a>
         </li>
       </ul>
