@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgSelectModule} from '@ng-select/ng-select';
+import {NgPersianDatepickerModule} from "ng-persian-datepicker";
 import {AdminRoutingModule} from "./admin-routing.module";
 import {CustomerGroupTemporaryCampaignComponent} from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
 import {CustomerGroupTemporaryEditComponent} from './customer-group-temporary/customer-group-temporary-edit/customer-group-temporary-edit.component';
@@ -27,8 +28,8 @@ import {SystemSettingsScenarioComponent} from './system-settings/system-settings
 import {SystemSettingsComponent} from './system-settings/system-settings.component';
 import {UsersComponent} from "./users/users.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { BehavioralScenarioComponent } from './scenario/behavioral-scenario/behavioral-scenario.component';
-import { PurchaseScenarioComponent } from './scenario/purchase-scenario/purchase-scenario.component';
+import {BehavioralScenarioComponent} from './scenario/behavioral-scenario/behavioral-scenario.component';
+import {PurchaseScenarioComponent} from './scenario/purchase-scenario/purchase-scenario.component';
 
 @NgModule({
   declarations: [
@@ -63,8 +64,9 @@ import { PurchaseScenarioComponent } from './scenario/purchase-scenario/purchase
     CommonModule,
     NgbModule,
     ReactiveFormsModule,
-    AdminRoutingModule,
     NgSelectModule,
+    NgPersianDatepickerModule,
+    AdminRoutingModule,
   ],
   exports: [
     MainComponent,

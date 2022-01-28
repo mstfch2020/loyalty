@@ -41,7 +41,26 @@
           </label>
         </div>
         <div class="col-4">
-          <input class="form-control rounded-pill text-center text-black" type="text">
+          <input class="form-control rounded-pill text-center text-black"
+                 type="text" dir="ltr"
+                 #datepickerInput2 />
+          <ng-persian-datepicker
+            [input]="datepickerInput2"
+            [uiTheme]="'gray'"
+            [uiTodayBtnEnable]="true"
+            [timeMeridian]="false"
+            [dateValue]="config.date.value"
+            [dateOnSelect]="config.date.onSelect"
+            [uiTheme]="config.ui.theme"
+            [uiIsVisible]="config.ui.isVisible"
+            [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+            [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
+            [uiYearView]="config.ui.yearView"
+            [uiMonthView]="config.ui.monthView"
+            [timeEnable]="config.time.enable"
+            [timeShowSecond]="config.time.showSecond"
+            [timeMeridian]="config.time.meridian">
+          </ng-persian-datepicker>
         </div>
       </div>
     </div>

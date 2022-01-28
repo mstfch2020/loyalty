@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private accountService: AuthService,
+    private authService: AuthService,
     private alertService: AlertService,
     private renderer: Renderer2
   )
@@ -97,7 +97,7 @@ export class RegisterComponent implements OnInit
     // }
 
     this.loading = true;
-    this.accountService.register(
+    this.authService.register(
       this.registerForm.get('name')?.value,
       this.registerForm.get('family')?.value,
       this.registerForm.get('nationalityCode')?.value,

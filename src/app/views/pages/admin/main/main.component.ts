@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {IMenuItem} from "src/app/@core/data/Interfaces/Interfaces";
+import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 
 @Component({
   selector: 'app-main',
@@ -20,46 +21,46 @@ export class MainComponent implements OnInit {
     private route: ActivatedRoute,
   ) {
     this.isToggle = false;
-    this.menuItems=[
+    this.menuItems = [
       {
-        title:'سناریوها',
-        url:'/admin/main/scenario',
-        visible:true
+        title: 'سناریوها',
+        url: '/admin/main/scenario',
+        visible: true
       },
       {
-        title:'گروه مشتری',
-        url:'/admin/main/customergroup',
-        visible:true
+        title: 'گروه مشتری',
+        url: '/admin/main/customergroup',
+        visible: true
       },
       {
-        title:'گروه مشتری موقت',
-        url:'/admin/main/customergrouptemporary',
-        visible:true
+        title: 'گروه مشتری موقت',
+        url: '/admin/main/customergrouptemporary',
+        visible: true
       },
       {
-        title:'مشتریان',
-        url:'/admin/main/customer',
-        visible:true
+        title: 'مشتریان',
+        url: '/admin/main/customer',
+        visible: true
       },
       {
-        title:'کاربران پنل',
-        url:'/admin/main/users',
-        visible:true
+        title: 'کاربران پنل',
+        url: '/admin/main/users',
+        visible: true
       },
       {
-        title:'ارسال پیامک',
-        url:'/admin/main/sms',
-        visible:true
+        title: 'ارسال پیامک',
+        url: '/admin/main/sms',
+        visible: true
       },
       {
-        title:'گزارش ها',
-        url:'/admin/main/reports',
-        visible:true
+        title: 'گزارش ها',
+        url: '/admin/main/reports',
+        visible: true
       },
       {
-        title:'تنظیمات سیستمی',
-        url:'/admin/main/settings',
-        visible:true
+        title: 'تنظیمات سیستمی',
+        url: '/admin/main/settings',
+        visible: true
       }
     ]
   }

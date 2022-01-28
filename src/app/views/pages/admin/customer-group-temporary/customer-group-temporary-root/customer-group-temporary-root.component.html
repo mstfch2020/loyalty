@@ -10,7 +10,7 @@
     <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
-          <label class="float-start mt-4">
+          <label class="float-start mt-3">
             بازه زمانی :
           </label>
         </div>
@@ -20,13 +20,51 @@
                 از
               </span>
             <div class="mt-1">
-              <input class="form-control rounded-pill text-center text-black" type="text">
+              <input class="form-control rounded-pill text-center text-black"
+                     type="text" dir="ltr"
+                     #datepickerInput1 />
+              <ng-persian-datepicker
+                [input]="datepickerInput1"
+                [uiTheme]="'gray'"
+                [uiTodayBtnEnable]="true"
+                [timeMeridian]="false"
+                [dateValue]="config.date.value"
+                [dateOnSelect]="config.date.onSelect"
+                [uiTheme]="config.ui.theme"
+                [uiIsVisible]="config.ui.isVisible"
+                [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+                [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
+                [uiYearView]="config.ui.yearView"
+                [uiMonthView]="config.ui.monthView"
+                [timeEnable]="config.time.enable"
+                [timeShowSecond]="config.time.showSecond"
+                [timeMeridian]="config.time.meridian">
+              </ng-persian-datepicker>
             </div>
             <span class="text-black fs-09">
                 تا
               </span>
             <div class="mt-1">
-              <input class="form-control rounded-pill text-center text-black" type="text">
+              <input class="form-control rounded-pill text-center text-black"
+                     type="text" dir="ltr"
+                     #datepickerInput2 />
+              <ng-persian-datepicker
+                [input]="datepickerInput2"
+                [uiTheme]="'gray'"
+                [uiTodayBtnEnable]="true"
+                [timeMeridian]="false"
+                [dateValue]="config.date.value"
+                [dateOnSelect]="config.date.onSelect"
+                [uiTheme]="config.ui.theme"
+                [uiIsVisible]="config.ui.isVisible"
+                [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+                [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
+                [uiYearView]="config.ui.yearView"
+                [uiMonthView]="config.ui.monthView"
+                [timeEnable]="config.time.enable"
+                [timeShowSecond]="config.time.showSecond"
+                [timeMeridian]="config.time.meridian">
+              </ng-persian-datepicker>
             </div>
           </div>
         </div>
@@ -35,7 +73,7 @@
     <div class="col-12 col-sm-6 mt-3 mt-sm-0">
       <div class="row">
         <div class="col-3">
-          <label class="float-start mt-4">
+          <label class="float-start mt-3">
             برند :
           </label>
         </div>
@@ -54,7 +92,7 @@
     <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
-          <label class="float-start mt-4">
+          <label class="float-start mt-3">
             گروه مشتری :
           </label>
         </div>
@@ -71,7 +109,7 @@
     <div class="col-12 col-sm-6 mt-3 mt-sm-0">
       <div class="row">
         <div class="col-3">
-          <label class="float-start mt-4">
+          <label class="float-start mt-3">
             نوع کاربری :
           </label>
         </div>
@@ -90,7 +128,7 @@
     <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
-          <label class="float-start mt-4">
+          <label class="float-start mt-3">
             گروه کالا :
           </label>
         </div>
@@ -107,7 +145,7 @@
     <div class="col-12 col-sm-6 mt-3 mt-sm-0">
       <div class="row">
         <div class="col-3">
-          <label class="float-start mt-4">
+          <label class="float-start mt-3">
             به غیر از :
           </label>
         </div>
@@ -126,7 +164,7 @@
     <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
-          <label class="float-start mt-4">
+          <label class="float-start mt-3">
             حجم خرید :
           </label>
         </div>

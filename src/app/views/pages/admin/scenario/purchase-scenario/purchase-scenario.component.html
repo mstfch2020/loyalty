@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="row mt-3">
-    <div class="col">
+    <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
           <label class="float-start mt-2">
@@ -50,13 +50,39 @@
                 از
               </span>
                 <div class="mt-1">
-                  <input class="form-control rounded-pill text-center text-black" type="text">
+                  <input class="form-control rounded-pill text-center text-black"
+                         type="text" dir="ltr"
+                         #datepickerInput1 />
+                  <ng-persian-datepicker
+                    [input]="datepickerInput1"
+                    [uiTheme]="'gray'"
+                    [uiTodayBtnEnable]="true"
+                    [timeMeridian]="false"
+                    [dateValue]="config.date.value"
+                    [dateOnSelect]="config.date.onSelect"
+                    [uiTheme]="config.ui.theme"
+                    [uiIsVisible]="config.ui.isVisible"
+                    [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+                    [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
+                    [uiYearView]="config.ui.yearView"
+                    [uiMonthView]="config.ui.monthView"
+                    [timeEnable]="config.time.enable"
+                    [timeShowSecond]="config.time.showSecond"
+                    [timeMeridian]="config.time.meridian">
+                  </ng-persian-datepicker>
                 </div>
                 <span class="text-black fs-09">
                 تا
               </span>
                 <div class="mt-1">
-                  <input class="form-control rounded-pill text-center text-black" type="text">
+                  <input class="form-control rounded-pill text-center text-black"
+                         type="text" dir="ltr"
+                         #datepickerInput2 />
+                  <ng-persian-datepicker
+                    [input]="datepickerInput2"
+                    [uiTheme]="'default'"
+                    [timeMeridian]="false">
+                  </ng-persian-datepicker>
                 </div>
               </div>
             </div>
@@ -235,7 +261,7 @@
     <div class="col-12 col-sm-8">
       <div class="row">
         <div class="col-12 col-sm-4">
-          <div class="d-flex flex-row align-items-center">
+          <div class="d-flex flex-row align-items-center mt-3">
             <input checked class="form-check-input" name="percentType" type="checkbox">
             <label class="form-check-label mr-1 cursor-pointer">
               تخفیف هزینه ارسال
@@ -252,7 +278,7 @@
     <div class="col-12 col-sm-8">
       <div class="row">
         <div class="col-12 col-sm-3">
-          <div class="d-flex flex-row align-items-center">
+          <div class="d-flex flex-row align-items-center mt-3">
             <input checked class="form-check-input" name="percentType" type="checkbox">
             <label class="form-check-label mr-1 cursor-pointer">
               تخفیف سبد خرید
@@ -263,7 +289,7 @@
           <input class="form-control rounded-pill text-start text-black" placeholder="%" type="text">
         </div>
         <div class="col-4 col-sm-3">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center mt-3">
             <label class="form-check-label mr-1 cursor-pointer">
               تخفیف سبد خرید
             </label>
@@ -279,7 +305,7 @@
     <div class="col-12">
       <div class="row">
         <div class="col-12 col-sm-2">
-          <div class="d-flex flex-row align-items-center">
+          <div class="d-flex flex-row align-items-center mt-3">
             <input checked class="form-check-input" name="percentType" type="checkbox">
             <label class="form-check-label mr-1 cursor-pointer">
               تخفیف کالا
@@ -290,7 +316,7 @@
           <input class="form-control rounded-pill text-start text-black" placeholder="%" type="text">
         </div>
         <div class="col-4 col-sm-2">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center mt-3">
             <label class="form-check-label mr-1 cursor-pointer">
               برای کالای
             </label>
@@ -311,7 +337,7 @@
     <div class="col-12">
       <div class="row">
         <div class="col-12 col-sm-3">
-          <div class="d-flex flex-row align-items-center">
+          <div class="d-flex flex-row align-items-center mt-3">
             <input checked class="form-check-input" name="percentType" type="checkbox">
             <label class="form-check-label mr-1 cursor-pointer">
               افزودن کالای رایگان به سبدخرید
@@ -334,7 +360,7 @@
     <div class="col-12 col-sm-8">
       <div class="row">
         <div class="col-12 col-sm-3">
-          <div class="d-flex flex-row align-items-center">
+          <div class="d-flex flex-row align-items-center mt-3">
             <input checked class="form-check-input" name="percentType" type="checkbox">
             <label class="form-check-label mr-1 cursor-pointer">
               بازگشت وجه
@@ -345,7 +371,7 @@
           <input class="form-control rounded-pill text-start text-black" placeholder="%" type="text">
         </div>
         <div class="col-4 col-sm-3">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center mt-3">
             <label class="form-check-label mr-1 cursor-pointer">
               سبد خرید تا سقف
             </label>
@@ -361,7 +387,7 @@
     <div class="col-12 col-sm-8">
       <div class="row">
         <div class="col-12 col-sm-3">
-          <div class="d-flex flex-row align-items-center">
+          <div class="d-flex flex-row align-items-center mt-3">
             <input checked class="form-check-input" name="percentType" type="checkbox">
             <label class="form-check-label mr-1 cursor-pointer">
               افزایش امتیاز
@@ -372,7 +398,7 @@
           <input class="form-control rounded-pill text-start text-black" placeholder="%" type="text">
         </div>
         <div class="col-4 col-sm-3">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center mt-3">
             <label class="form-check-label mr-1 cursor-pointer">
               سبد خرید تا سقف
             </label>
@@ -388,7 +414,7 @@
     <div class="col-12 col-sm-8">
       <div class="row">
         <div class="col-12 col-sm-4">
-          <div class="d-flex flex-row align-items-center">
+          <div class="d-flex flex-row align-items-center mt-3">
             <input checked class="form-check-input" name="percentType" type="checkbox">
             <label class="form-check-label mr-1 cursor-pointer">
               کد تخفیف برای خرید بعدی
@@ -399,7 +425,7 @@
           <input class="form-control rounded-pill text-start text-black" placeholder="%" type="text">
         </div>
         <div class="col-4 col-sm-3">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center mt-3">
             <label class="form-check-label mr-1 cursor-pointer">
               سبد خرید تا سقف
             </label>

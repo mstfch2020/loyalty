@@ -24,6 +24,28 @@ export class CustomerGroupTemporaryRootComponent implements OnInit {
 
   closeResult: string = '';
 
+  config: any = {
+    date: {
+      value: new Date().valueOf(),
+      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) => {
+        console.log(shamsiDate, gregorianDate, timestamp);
+      }
+    },
+    ui: {
+      theme: 'default',
+      isVisible: false,
+      hideAfterSelectDate: true,
+      hideOnOutsideClick: true,
+      yearView: true,
+      monthView: true,
+    },
+    time: {
+      enable: false,
+      showSecond: false,
+      meridian: false
+    }
+  };
+
   constructor(private modalService: NgbModal) {
   }
 

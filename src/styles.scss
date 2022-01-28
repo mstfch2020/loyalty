@@ -435,3 +435,8 @@ select.ng-invalid.ng-touched {
   margin: 2px;
 }
 
+.datepicker-outer-container {
+  position: absolute;
+  width: 100px!important;
+  z-index: 9;
+}
