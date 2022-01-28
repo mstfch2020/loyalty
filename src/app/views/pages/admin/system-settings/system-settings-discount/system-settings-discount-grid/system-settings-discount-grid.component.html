@@ -1,46 +1,48 @@
 <div class="container-fluid">
   <div class="row mt-3">
     <div class="col-12">
-      <table cellspacing="1" class="table table-hover border-0">
-        <thead>
-        <tr>
-          <th class="text-center" scope="col">برند</th>
-          <th class="text-center" scope="col">نوع کاربری</th>
-          <th class="text-center" scope="col">پایه پورسانت</th>
-          <th class="text-center" scope="col">بازه تخفیف مشتری معرفی شده</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td class="text-center">خیلی سبز</td>
-          <td class="text-center">توزیع کننده</td>
-          <td class="text-center">40%</td>
-          <td class="text-center">از 10% تا 30%</td>
-        </tr>
-        <tr>
-          <td class="text-center">منتشران</td>
-          <td class="text-center">توزیع کننده</td>
-          <td class="text-center">40%</td>
-          <td class="text-center">از 5% تا 15%</td>
-        </tr>
-        <tr>
-          <td class="text-center">گاج</td>
-          <td class="text-center">توزیع کننده</td>
-          <td class="text-center">40%</td>
-          <td class="text-center">از 25% تا 35%</td>
-        </tr>
-        <tr>
-          <td class="text-center">خیلی سبز</td>
-          <td class="text-center">توزیع کننده</td>
-          <td class="text-center">40%</td>
-          <td class="text-center">از 10% تا 13%</td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table cellspacing="1" class="table table-hover border-0">
+          <thead>
+          <tr>
+            <th class="text-center" scope="col">برند</th>
+            <th class="text-center" scope="col">نوع کاربری</th>
+            <th class="text-center" scope="col">پایه پورسانت</th>
+            <th class="text-center" scope="col">بازه تخفیف مشتری معرفی شده</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class="text-center">خیلی سبز</td>
+            <td class="text-center">توزیع کننده</td>
+            <td class="text-center">40%</td>
+            <td class="text-center">از 10% تا 30%</td>
+          </tr>
+          <tr>
+            <td class="text-center">منتشران</td>
+            <td class="text-center">توزیع کننده</td>
+            <td class="text-center">40%</td>
+            <td class="text-center">از 5% تا 15%</td>
+          </tr>
+          <tr>
+            <td class="text-center">گاج</td>
+            <td class="text-center">توزیع کننده</td>
+            <td class="text-center">40%</td>
+            <td class="text-center">از 25% تا 35%</td>
+          </tr>
+          <tr>
+            <td class="text-center">خیلی سبز</td>
+            <td class="text-center">توزیع کننده</td>
+            <td class="text-center">40%</td>
+            <td class="text-center">از 10% تا 13%</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div class="row mt-5">
-    <div class="col-3">
+    <div class="col-12 col-sm-3">
       <button (click)="open(generateCodeModal)"
               class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
               dir="rtl" type="submit">
@@ -49,7 +51,6 @@
     </div>
   </div>
 </div>
-
 <ng-template #generateCodeModal let-modal>
   <div class="modal-body" dir="rtl">
     <div class="container">
