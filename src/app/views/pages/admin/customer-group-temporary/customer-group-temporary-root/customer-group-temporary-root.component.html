@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="row mt-5">
-    <div class="col-6">
+    <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
           <label class="float-start mt-4">
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
       <div class="row">
         <div class="col-3">
           <label class="float-start mt-4">
@@ -51,7 +51,7 @@
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-6">
+    <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
           <label class="float-start mt-4">
@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
       <div class="row">
         <div class="col-3">
           <label class="float-start mt-4">
@@ -87,7 +87,7 @@
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-6">
+    <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
           <label class="float-start mt-4">
@@ -104,7 +104,7 @@
         </div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
       <div class="row">
         <div class="col-3">
           <label class="float-start mt-4">
@@ -123,7 +123,7 @@
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-6">
+    <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
           <label class="float-start mt-4">
@@ -158,49 +158,55 @@
     </div>
   </div>
   <div class="row mt-5">
-    <div class="col-12">
-      <div class="d-flex flex-row gap-3 align-items-center">
+    <div class="col-12 col-sm-3">
+      <div class="d-flex flex-row gap-3 align-items-center mt-2">
         <label>
           حجم تخفیف :
         </label>
         <div>
           <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
         </div>
-        <div class="mr-1">
-          <input class="form-control rounded-pill text-center text-black" placeholder="تومان" type="text">
-        </div>
-        <span class="text-black fs-09">
-            تا سقف
-          </span>
-        <div class="mr-1">
-          <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
-        </div>
       </div>
+    </div>
+    <div class="col-4 col-sm-3 mt-3 mt-sm-0">
+      <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+    </div>
+    <div class="col-3 col-sm-1 mt-3 mt-sm-0">
+      <div class="text-black text-start fs-09 mt-3">
+        تا سقف
+      </div>
+    </div>
+    <div class="col-4 col-sm-3 mt-3 mt-sm-0">
+      <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-12">
+    <div class="col-12 col-sm-3">
       <div class="d-flex flex-row gap-3 align-items-center">
-        <label class="w-90-px">
+        <label>
           تعداد دفعه استفاده :
         </label>
-        <div class="mr-1">
+        <div>
           <input class="form-control rounded-pill text-center w-80-px text-black" type="text">
         </div>
-        <span class="text-black fs-09">
-به ازای هر کاربر
-          </span>
-        <div class="mr-1">
-          <input class="form-control rounded-pill text-start w-80-px text-black" type="text">
-        </div>
-        <span class="text-black fs-09">
-در کل
-          </span>
+      </div>
+    </div>
+    <div class="col-4 col-sm-2 mt-3 mt-sm-0">
+      <div class="text-black text-start mt-3 fs-09">
+        به ازای هر کاربر
+      </div>
+    </div>
+    <div class="col-3 col-sm-1 mt-3 mt-sm-0">
+      <input class="form-control rounded-pill text-start w-80-px text-black" type="text">
+    </div>
+    <div class="col-4 col-sm-3 mt-3 mt-sm-0">
+      <div class="text-black text-end mt-3 fs-09">
+        در کل
       </div>
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-6">
+    <div class="col-12 col-sm-6">
       <div class="row">
         <div class="col-3">
           <label class="mt-3">
@@ -219,26 +225,26 @@
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-12">
-      <div class="d-flex flex-row gap-3 align-items-center">
+    <div class="col-12 col-sm-3">
+      <div class="d-flex flex-row gap-3 align-items-center mt-2">
         <label>
           حجم تخفیف :
         </label>
         <div>
           <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
         </div>
-        <div class="mr-1">
-          <input class="form-control rounded-pill text-center text-black" type="text">
-        </div>
-        <div class="mr-1 mt-3">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
-        </div>
       </div>
+    </div>
+    <div class="col-4 col-sm-3 mt-3 mt-sm-0">
+      <input class="form-control rounded-pill text-center text-black" type="text">
+    </div>
+    <div class="col-8 col-sm-5 mt-3 mt-sm-0">
+      <ng-select [(ngModel)]="selectedCar" [items]="cars"
+                 [multiple]="true"
+                 appendTo="body"
+                 bindLabel="name"
+                 class="form-control mb-3">
+      </ng-select>
     </div>
   </div>
   <div class="row mt-4">
@@ -249,54 +255,58 @@
       </label>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-12">
-      <input class="form-check-input" id="percentTypeFree" name="percentType" type="checkbox">
-      <label class="form-check-label mr-1 cursor-pointer" for="percentTypeFree">
-        رایگان کردن هزینه ارسال
-      </label>
-    </div>
-  </div>
   <div class="row mt-4">
-    <div class="col-2 d-flex flex-row align-items-center">
-      <input class="form-check-input" id="percentTypeFix" name="percentType" type="radio">
-      <label class="form-check-label mr-1 cursor-pointer" for="percentTypeFix">
-        کد تخفیف ثابت
-      </label>
-    </div>
-    <div class="col-2">
-      <input class="form-control rounded-pill text-center text-black" type="text">
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-3 d-flex flex-row align-items-center">
-      <input class="form-check-input" id="percentTypeRandom" name="percentType" type="radio">
-      <label class="form-check-label mr-1 cursor-pointer" for="percentTypeRandom">
-        کد تخفیف تصادفی با پیشوند
-      </label>
-    </div>
-    <div class="col-2">
-      <input class="form-control rounded-pill text-center text-black" type="text">
-    </div>
-    <div class="col-3">
-      <div class="d-flex flex-row align-items-center">
-          <span class="text-black fs-09">
-            به تعداد :
-          </span>
-        <div>
-          <input class="form-control rounded-pill text-center w-80-px text-black mr-1" type="text">
-        </div>
+    <div class="col-12">
+      <div class="mt-3">
+        <input class="form-check-input" id="percentTypeFree" name="percentType" type="checkbox">
+        <label class="form-check-label mr-1 cursor-pointer" for="percentTypeFree">
+          رایگان کردن هزینه ارسال
+        </label>
       </div>
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-3">
+    <div class="col-6 col-sm-2">
+      <div class="mt-3">
+        <input class="form-check-input" id="percentTypeFix" name="percentType" type="checkbox">
+        <label class="form-check-label mr-1 cursor-pointer" for="percentTypeFree">
+          کد تخفیف ثابت
+        </label>
+      </div>
+    </div>
+    <div class="col-6 col-sm-2">
+      <input class="form-control rounded-pill text-center text-black" type="text">
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-8 col-sm-3">
+      <div class="mt-3">
+        <input class="form-check-input" id="percentTypeRandom" name="percentType" type="radio">
+        <label class="form-check-label mr-1 cursor-pointer" for="percentTypeRandom">
+          کد تخفیف تصادفی با پیشوند
+        </label>
+      </div>
+    </div>
+    <div class="col-4 col-sm-2 mt-3 mt-sm-0">
+      <input class="form-control rounded-pill text-center text-black" type="text">
+    </div>
+    <div class="col-3 col-sm-1 mt-3 mt-sm-0">
+      <div class="text-black text-start fs-09 mt-3">
+        به تعداد :
+      </div>
+    </div>
+    <div class="col-4 col-sm-2 mt-3 mt-sm-0">
+      <input class="form-control rounded-pill text-center text-black" type="text">
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-6 col-sm-3">
       <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
               dir="rtl" type="submit">
         ذخیره الگو
       </button>
     </div>
-    <div class="col-3">
+    <div class="col-6 col-sm-3">
       <button (click)="open(generateCodeModal)"
               class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
               type="submit">
@@ -332,8 +342,8 @@
           </button>
         </div>
         <div class="col-3">
-          <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-                  (click)="close()"
+          <button (click)="close()"
+                  class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
                   type="submit">
             انصراف
           </button>
