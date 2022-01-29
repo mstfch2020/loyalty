@@ -1,140 +1,134 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
+<form [formGroup]="form" action="" dir="rtl">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
         <span class="font-yekan-bold h5 text-black">
           مدیریت سطوح و گروه مشتری
         </span>
+      </div>
     </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            برند :
-          </label>
+    <div class="row mt-5">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              برند :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
+              class="form-control mb-3" formControlName="selectedCar">
+            </ng-select>
+          </div>
         </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-                     class="form-control mb-3" formControlName="selectedCar">
-          </ng-select>
+      </div>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              نوع کاربری :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
+              formControlName="selectedCar2">
+            </ng-select>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            نوع کاربری :
-          </label>
+    <div class="row mt-2">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              سطح فعلی :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="false" appendTo="body" bindLabel="name" formControlName="selectedCar3"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
         </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3">
-          </ng-select>
+      </div>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-6 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              با تعداد فعالیت :
+            </label>
+          </div>
+          <div class="col-6 col-sm-3">
+            <input class="form-control rounded-pill text-center" type="text">
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            سطح فعلی :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="cars" [items]="cars"
-                     [multiple]="false"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-      <div class="row">
-        <div class="col-6 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            با تعداد فعالیت :
-          </label>
-        </div>
-        <div class="col-6 col-sm-3">
-          <input class="form-control rounded-pill text-center" type="text">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-6 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            با حجم امتیاز :
-          </label>
-        </div>
-        <div class="col-6 col-sm-9">
-          <div class="d-flex flex-row align-items-center">
-            <div>
-              <img alt="" src="assets/img/icons/greater.svg">
-            </div>
-            <div class="mr-1">
-              <input class="form-control rounded-pill text-start" placeholder="امتیاز" type="text">
+    <div class="row mt-3">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-6 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              با حجم امتیاز :
+            </label>
+          </div>
+          <div class="col-6 col-sm-9">
+            <div class="d-flex flex-row align-items-center">
+              <div>
+                <img alt="" src="assets/img/icons/greater.svg">
+              </div>
+              <div class="mr-1">
+                <input class="form-control rounded-pill text-start" placeholder="امتیاز" type="text">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            تبدیل به سطح :
-          </label>
+    <div class="row mt-3">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              تبدیل به سطح :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="false" appendTo="body" bindLabel="name" formControlName="selectedCar4"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
         </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="cars" [items]="cars"
-                     [multiple]="false"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
+      </div>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-06">
+              قرار گیری در گروه مشتری :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="false" appendTo="body" bindLabel="name" formControlName="selectedCar5"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-06">
-            قرار گیری در گروه مشتری :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="cars" [items]="cars"
-                     [multiple]="false"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
-        </div>
+    <div class="row mt-5">
+      <div class="col-6 col-sm-2">
+        <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+          type="submit">
+          اعمال
+        </button>
+      </div>
+      <div class="col-6 col-sm-2">
+        <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+          type="submit">
+          انصراف
+        </button>
       </div>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-6 col-sm-2">
-      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-              type="submit">
-        اعمال
-      </button>
-    </div>
-    <div class="col-6 col-sm-2">
-      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-              type="submit">
-        انصراف
-      </button>
-    </div>
-  </div>
-</div>
+</form>

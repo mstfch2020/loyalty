@@ -1,392 +1,352 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
+<form [formGroup]="form" action="" dir="rtl">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
         <span class="font-yekan-bold h5 text-black">
-تعریف کد تخفیف
+          تعریف کد تخفیف
         </span>
+      </div>
     </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            بازه زمانی :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <div class="d-flex flex-row gap-3 align-items-center">
+    <div class="row mt-5">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              بازه زمانی :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <div class="d-flex flex-row gap-3 align-items-center">
               <span class="text-black fs-09">
                 از
               </span>
-            <div class="mt-1">
-              <input class="form-control rounded-pill text-center text-black"
-                     type="text" dir="ltr"
-                     #datepickerInput1 />
-              <ng-persian-datepicker
-                [input]="datepickerInput1"
-                [uiTheme]="'gray'"
-                [uiTodayBtnEnable]="true"
-                [timeMeridian]="false"
-                [dateValue]="config.date.value"
-                [dateOnSelect]="config.date.onSelect"
-                [uiTheme]="config.ui.theme"
-                [uiIsVisible]="config.ui.isVisible"
-                [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
-                [uiYearView]="config.ui.yearView"
-                [uiMonthView]="config.ui.monthView"
-                [timeEnable]="config.time.enable"
-                [timeShowSecond]="config.time.showSecond"
-                [timeMeridian]="config.time.meridian">
-              </ng-persian-datepicker>
-            </div>
-            <span class="text-black fs-09">
+              <div class="mt-1">
+                <input class="form-control rounded-pill text-center text-black" type="text" dir="ltr"
+                  #datepickerInput1 />
+                <ng-persian-datepicker [input]="datepickerInput1" [uiTheme]="'gray'" [uiTodayBtnEnable]="true"
+                  [timeMeridian]="false" [dateValue]="config.date.value" [dateOnSelect]="config.date.onSelect"
+                  [uiTheme]="config.ui.theme" [uiIsVisible]="config.ui.isVisible"
+                  [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+                  [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiYearView]="config.ui.yearView"
+                  [uiMonthView]="config.ui.monthView" [timeEnable]="config.time.enable"
+                  [timeShowSecond]="config.time.showSecond" [timeMeridian]="config.time.meridian">
+                </ng-persian-datepicker>
+              </div>
+              <span class="text-black fs-09">
                 تا
               </span>
-            <div class="mt-1">
-              <input class="form-control rounded-pill text-center text-black"
-                     type="text" dir="ltr"
-                     #datepickerInput2 />
-              <ng-persian-datepicker
-                [input]="datepickerInput2"
-                [uiTheme]="'gray'"
-                [uiTodayBtnEnable]="true"
-                [timeMeridian]="false"
-                [dateValue]="config.date.value"
-                [dateOnSelect]="config.date.onSelect"
-                [uiTheme]="config.ui.theme"
-                [uiIsVisible]="config.ui.isVisible"
-                [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
-                [uiYearView]="config.ui.yearView"
-                [uiMonthView]="config.ui.monthView"
-                [timeEnable]="config.time.enable"
-                [timeShowSecond]="config.time.showSecond"
-                [timeMeridian]="config.time.meridian">
-              </ng-persian-datepicker>
+              <div class="mt-1">
+                <input class="form-control rounded-pill text-center text-black" type="text" dir="ltr"
+                  #datepickerInput2 />
+                <ng-persian-datepicker [input]="datepickerInput2" [uiTheme]="'gray'" [uiTodayBtnEnable]="true"
+                  [timeMeridian]="false" [dateValue]="config.date.value" [dateOnSelect]="config.date.onSelect"
+                  [uiTheme]="config.ui.theme" [uiIsVisible]="config.ui.isVisible"
+                  [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+                  [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiYearView]="config.ui.yearView"
+                  [uiMonthView]="config.ui.monthView" [timeEnable]="config.time.enable"
+                  [timeShowSecond]="config.time.showSecond" [timeMeridian]="config.time.meridian">
+                </ng-persian-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              برند :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" formControlName="selectedCar1" bindLabel="name"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              گروه مشتری :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" formControlName="selectedCar2"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              نوع کاربری :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" formControlName="selectedCar3" bindLabel="name"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              گروه کالا :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" formControlName="selectedCar4" bindLabel="name"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              به غیر از :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" formControlName="selectedCar5" bindLabel="name"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              حجم خرید :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <div class="d-flex flex-row gap-3 align-items-center">
+              <span class="text-black fs-09">
+                از
+              </span>
+              <div class="mt-1">
+                <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+              </div>
+              <span class="text-black fs-09">
+                تا
+              </span>
+              <div class="mt-1">
+                <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            برند :
+    <hr class="mt-4">
+    <div class="row mt-4">
+      <div class="col-12">
+        <span class="font-yekan-bold h5 text-black">
+          شرایط کد تخفیف
+        </span>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-12 col-sm-3">
+        <div class="d-flex flex-row gap-3 align-items-center mt-2">
+          <label>
+            حجم تخفیف :
           </label>
+          <div>
+            <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+          </div>
         </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
+      </div>
+      <div class="col-4 col-sm-3 mt-3 mt-sm-0">
+        <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+      </div>
+      <div class="col-3 col-sm-1 mt-3 mt-sm-0">
+        <div class="text-black text-start fs-09 mt-3">
+          تا سقف
+        </div>
+      </div>
+      <div class="col-4 col-sm-3 mt-3 mt-sm-0">
+        <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12 col-sm-3">
+        <div class="d-flex flex-row gap-3 align-items-center">
+          <label>
+            تعداد دفعه استفاده :
+          </label>
+          <div>
+            <input class="form-control rounded-pill text-center w-80-px text-black" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="col-4 col-sm-2 mt-3 mt-sm-0">
+        <div class="text-black text-start mt-3 fs-09">
+          به ازای هر کاربر
+        </div>
+      </div>
+      <div class="col-3 col-sm-1 mt-3 mt-sm-0">
+        <input class="form-control rounded-pill text-start w-80-px text-black" type="text">
+      </div>
+      <div class="col-4 col-sm-3 mt-3 mt-sm-0">
+        <div class="text-black text-end mt-3 fs-09">
+          در کل
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            گروه مشتری :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            نوع کاربری :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            گروه کالا :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            به غیر از :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            حجم خرید :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <div class="d-flex flex-row gap-3 align-items-center">
-              <span class="text-black fs-09">
-                از
-              </span>
-            <div class="mt-1">
-              <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
-            </div>
-            <span class="text-black fs-09">
-                تا
-              </span>
-            <div class="mt-1">
-              <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
-            </div>
+    <div class="row mt-4">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="mt-3">
+              قابل اعمال بر :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="prices" [multiple]="false" appendTo="body" formControlName="selectedCar1"
+              bindLabel="name" class="form-control mb-3">
+            </ng-select>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <hr class="mt-4">
-  <div class="row mt-4">
-    <div class="col-12">
-        <span class="font-yekan-bold h5 text-black">
-شرایط کد تخفیف
-        </span>
-    </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col-12 col-sm-3">
-      <div class="d-flex flex-row gap-3 align-items-center mt-2">
-        <label>
-          حجم تخفیف :
-        </label>
-        <div>
-          <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+    <div class="row mt-2">
+      <div class="col-12 col-sm-3">
+        <div class="d-flex flex-row gap-3 align-items-center mt-2">
+          <label>
+            حجم تخفیف :
+          </label>
+          <div>
+            <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-4 col-sm-3 mt-3 mt-sm-0">
-      <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
-    </div>
-    <div class="col-3 col-sm-1 mt-3 mt-sm-0">
-      <div class="text-black text-start fs-09 mt-3">
-        تا سقف
+      <div class="col-4 col-sm-3 mt-3 mt-sm-0">
+        <input class="form-control rounded-pill text-center text-black" type="text">
+      </div>
+      <div class="col-8 col-sm-5 mt-3 mt-sm-0">
+        <ng-select [items]="cars" [multiple]="true" appendTo="body" formControlName="selectedCar1" bindLabel="name"
+          class="form-control mb-3">
+        </ng-select>
       </div>
     </div>
-    <div class="col-4 col-sm-3 mt-3 mt-sm-0">
-      <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12 col-sm-3">
-      <div class="d-flex flex-row gap-3 align-items-center">
-        <label>
-          تعداد دفعه استفاده :
+    <div class="row mt-4">
+      <div class="col-12">
+        <input checked class="form-check-input" id="percentTypeSum" name="percentType" type="checkbox">
+        <label class="form-check-label mr-1 cursor-pointer" for="percentTypeSum">
+          قابل تجمیع با سایر کدهای تخفیف
         </label>
-        <div>
-          <input class="form-control rounded-pill text-center w-80-px text-black" type="text">
-        </div>
       </div>
     </div>
-    <div class="col-4 col-sm-2 mt-3 mt-sm-0">
-      <div class="text-black text-start mt-3 fs-09">
-        به ازای هر کاربر
-      </div>
-    </div>
-    <div class="col-3 col-sm-1 mt-3 mt-sm-0">
-      <input class="form-control rounded-pill text-start w-80-px text-black" type="text">
-    </div>
-    <div class="col-4 col-sm-3 mt-3 mt-sm-0">
-      <div class="text-black text-end mt-3 fs-09">
-        در کل
-      </div>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="mt-3">
-            قابل اعمال بر :
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="mt-3">
+          <input class="form-check-input" id="percentTypeFree" name="percentType" type="checkbox">
+          <label class="form-check-label mr-1 cursor-pointer" for="percentTypeFree">
+            رایگان کردن هزینه ارسال
           </label>
         </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedPrice" [items]="prices"
-                     [multiple]="false"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-6 col-sm-2">
+        <div class="mt-3">
+          <input class="form-check-input" id="percentTypeFix" name="percentType" type="checkbox">
+          <label class="form-check-label mr-1 cursor-pointer" for="percentTypeFree">
+            کد تخفیف ثابت
+          </label>
         </div>
       </div>
+      <div class="col-6 col-sm-2">
+        <input class="form-control rounded-pill text-center text-black" type="text">
+      </div>
     </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-12 col-sm-3">
-      <div class="d-flex flex-row gap-3 align-items-center mt-2">
-        <label>
-          حجم تخفیف :
-        </label>
-        <div>
-          <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+    <div class="row mt-3">
+      <div class="col-8 col-sm-3">
+        <div class="mt-3">
+          <input class="form-check-input" id="percentTypeRandom" name="percentType" type="radio">
+          <label class="form-check-label mr-1 cursor-pointer" for="percentTypeRandom">
+            کد تخفیف تصادفی با پیشوند
+          </label>
         </div>
       </div>
+      <div class="col-4 col-sm-2 mt-3 mt-sm-0">
+        <input class="form-control rounded-pill text-center text-black" type="text">
+      </div>
+      <div class="col-3 col-sm-1 mt-3 mt-sm-0">
+        <div class="text-black text-start fs-09 mt-3">
+          به تعداد :
+        </div>
+      </div>
+      <div class="col-4 col-sm-2 mt-3 mt-sm-0">
+        <input class="form-control rounded-pill text-center text-black" type="text">
+      </div>
     </div>
-    <div class="col-4 col-sm-3 mt-3 mt-sm-0">
-      <input class="form-control rounded-pill text-center text-black" type="text">
-    </div>
-    <div class="col-8 col-sm-5 mt-3 mt-sm-0">
-      <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                 [multiple]="true"
-                 appendTo="body"
-                 bindLabel="name"
-                 class="form-control mb-3">
-      </ng-select>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <input checked class="form-check-input" id="percentTypeSum" name="percentType" type="checkbox">
-      <label class="form-check-label mr-1 cursor-pointer" for="percentTypeSum">
-        قابل تجمیع با سایر کدهای تخفیف
-      </label>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="mt-3">
-        <input class="form-check-input" id="percentTypeFree" name="percentType" type="checkbox">
-        <label class="form-check-label mr-1 cursor-pointer" for="percentTypeFree">
-          رایگان کردن هزینه ارسال
-        </label>
+    <div class="row mt-4">
+      <div class="col-6 col-sm-3">
+        <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+          type="submit">
+          ذخیره الگو
+        </button>
+      </div>
+      <div class="col-6 col-sm-3">
+        <button (click)="open(generateCodeModal)"
+          class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" type="submit">
+          تولید کد
+        </button>
       </div>
     </div>
   </div>
-  <div class="row mt-4">
-    <div class="col-6 col-sm-2">
-      <div class="mt-3">
-        <input class="form-check-input" id="percentTypeFix" name="percentType" type="checkbox">
-        <label class="form-check-label mr-1 cursor-pointer" for="percentTypeFree">
-          کد تخفیف ثابت
-        </label>
-      </div>
-    </div>
-    <div class="col-6 col-sm-2">
-      <input class="form-control rounded-pill text-center text-black" type="text">
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-8 col-sm-3">
-      <div class="mt-3">
-        <input class="form-check-input" id="percentTypeRandom" name="percentType" type="radio">
-        <label class="form-check-label mr-1 cursor-pointer" for="percentTypeRandom">
-          کد تخفیف تصادفی با پیشوند
-        </label>
-      </div>
-    </div>
-    <div class="col-4 col-sm-2 mt-3 mt-sm-0">
-      <input class="form-control rounded-pill text-center text-black" type="text">
-    </div>
-    <div class="col-3 col-sm-1 mt-3 mt-sm-0">
-      <div class="text-black text-start fs-09 mt-3">
-        به تعداد :
-      </div>
-    </div>
-    <div class="col-4 col-sm-2 mt-3 mt-sm-0">
-      <input class="form-control rounded-pill text-center text-black" type="text">
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-6 col-sm-3">
-      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-              dir="rtl" type="submit">
-        ذخیره الگو
-      </button>
-    </div>
-    <div class="col-6 col-sm-3">
-      <button (click)="open(generateCodeModal)"
+  <br>
+  <ng-template #generateCodeModal let-modal>
+    <div class="modal-body" dir="rtl">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <span class="font-yekan-bold h6 text-end text-black">
+              ایجاد کد جدید
+            </span>
+          </div>
+        </div>
+        <div class="d-flex flex-row align-items-center gap-3 mt-4">
+          <div class="text-black">
+            نام الگو :
+          </div>
+          <div class="flex-grow-1">
+            <input class="form-control rounded-pill text-end text-black" type="text">
+          </div>
+        </div>
+        <div class="row mt-5 mb-3">
+          <div class="col-3">
+            <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+              type="submit">
+              ذخیره
+            </button>
+          </div>
+          <div class="col-3">
+            <button (click)="close()"
               class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
               type="submit">
-        تولید کد
-      </button>
-    </div>
-  </div>
-</div>
-<br>
-<ng-template #generateCodeModal let-modal>
-  <div class="modal-body" dir="rtl">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-        <span class="font-yekan-bold h6 text-end text-black">
-ایجاد کد جدید
-        </span>
-        </div>
-      </div>
-      <div class="d-flex flex-row align-items-center gap-3 mt-4">
-        <div class="text-black">
-          نام الگو :
-        </div>
-        <div class="flex-grow-1">
-          <input class="form-control rounded-pill text-end text-black" type="text">
-        </div>
-      </div>
-      <div class="row mt-5 mb-3">
-        <div class="col-3">
-          <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-                  dir="rtl" type="submit">
-            ذخیره
-          </button>
-        </div>
-        <div class="col-3">
-          <button (click)="close()"
-                  class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-                  type="submit">
-            انصراف
-          </button>
+              انصراف
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</ng-template>
+  </ng-template>
+</form>

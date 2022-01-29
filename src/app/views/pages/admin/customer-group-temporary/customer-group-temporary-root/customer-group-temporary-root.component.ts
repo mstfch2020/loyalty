@@ -1,25 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-customer-group-temporary-root',
   templateUrl: './customer-group-temporary-root.component.html',
   styleUrls: ['./customer-group-temporary-root.component.scss']
 })
-export class CustomerGroupTemporaryRootComponent implements OnInit {
+export class CustomerGroupTemporaryRootComponent implements OnInit
+{
 
   selectedCar = 1;
   cars = [
-    {id: 1, name: 'زینجا'},
-    {id: 2, name: 'مون'},
-    {id: 3, name: 'قهر کرده'},
-    {id: 4, name: '09192935850'},
+    { id: 1, name: 'زینجا' },
+    { id: 2, name: 'مون' },
+    { id: 3, name: 'قهر کرده' },
+    { id: 4, name: '09192935850' },
   ];
 
   selectedPrice = 1;
   prices = [
-    {id: 1, name: 'قیمت قبل از تخفیف کالا'},
-    {id: 2, name: 'قیمت بعد از تخفیف کالا'},
+    { id: 1, name: 'قیمت قبل از تخفیف کالا' },
+    { id: 2, name: 'قیمت بعد از تخفیف کالا' },
   ];
 
   closeResult: string = '';
@@ -27,7 +29,8 @@ export class CustomerGroupTemporaryRootComponent implements OnInit {
   config: any = {
     date: {
       value: new Date().valueOf(),
-      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) => {
+      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) =>
+      {
         console.log(shamsiDate, gregorianDate, timestamp);
       }
     },
@@ -46,28 +49,44 @@ export class CustomerGroupTemporaryRootComponent implements OnInit {
     }
   };
 
-  constructor(private modalService: NgbModal) {
+  form: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private modalService: NgbModal)
+  {
+    this.form = this.formBuilder.group({
+      selectedCar1: [null, [Validators.required]],
+      selectedCar2: [null, [Validators.required]],
+      selectedCar3: [null, [Validators.required]],
+      selectedCar4: [null, [Validators.required]],
+      selectedCar5: [null, [Validators.required]],
+    });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+    this.form.markAllAsTouched();
   }
 
   /**
    * Write code on Method
    * @return response()
    */
-  open(content: any) {
-    this.modalService.open(content, {size: 'lg', backdrop: 'static',ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  open(content: any)
+  {
+    this.modalService.open(content, { size: 'lg', backdrop: 'static', ariaLabelledBy: 'modal-basic-title' }).result.then((result) =>
+    {
+      this.closeResult = `Closed with: ${ result }`;
+    }, (reason) =>
+    {
+      this.closeResult = `Dismissed ${ this.getDismissReason(reason) }`;
     });
   }
 
   /**
    * Close all displayed modal
    */
-  close(){
+  close()
+  {
     this.modalService.dismissAll();
   }
 
@@ -75,13 +94,17 @@ export class CustomerGroupTemporaryRootComponent implements OnInit {
    * Write code on Method
    * @return response()
    */
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
+  private getDismissReason(reason: any): string
+  {
+    if (reason === ModalDismissReasons.ESC)
+    {
       return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK)
+    {
       return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
+    } else
+    {
+      return `with: ${ reason }`;
     }
   }
 

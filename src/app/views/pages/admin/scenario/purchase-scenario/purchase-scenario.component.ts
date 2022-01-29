@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-purchase-scenario',
   templateUrl: './purchase-scenario.component.html',
   styleUrls: ['./purchase-scenario.component.scss']
 })
-export class PurchaseScenarioComponent implements OnInit {
+export class PurchaseScenarioComponent implements OnInit
+{
 
   selectedCar = 1;
 
@@ -19,7 +22,8 @@ export class PurchaseScenarioComponent implements OnInit {
   config: any = {
     date: {
       value: new Date().valueOf(),
-      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) => {
+      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) =>
+      {
         console.log(shamsiDate, gregorianDate, timestamp);
       }
     },
@@ -38,9 +42,24 @@ export class PurchaseScenarioComponent implements OnInit {
     }
   };
 
-  constructor() { }
 
-  ngOnInit(): void {
+  form: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private modalService: NgbModal)
+  {
+    this.form = this.formBuilder.group({
+      selectedCar1: [null, [Validators.required]],
+      selectedCar2: [null, [Validators.required]],
+      selectedCar3: [null, [Validators.required]],
+      selectedCar4: [null, [Validators.required]],
+      selectedCar5: [null, [Validators.required]],
+      selectedCar6: [null, [Validators.required]]
+    });
+  }
+
+  ngOnInit(): void
+  {
+    this.form.markAllAsTouched();
   }
 
 }

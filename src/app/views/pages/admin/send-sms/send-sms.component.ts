@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import {Moment} from 'moment';
 
 @Component({
@@ -7,21 +7,23 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   templateUrl: './send-sms.component.html',
   styleUrls: ['./send-sms.component.scss']
 })
-export class SendSmsComponent implements OnInit {
+export class SendSmsComponent implements OnInit
+{
 
   form: FormGroup;
 
   cars = [
-    {id: 1, name: 'زینجا'},
-    {id: 2, name: 'مون'},
-    {id: 3, name: 'قهر کرده'},
-    {id: 4, name: '09192935850'},
+    { id: 1, name: 'زینجا' },
+    { id: 2, name: 'مون' },
+    { id: 3, name: 'قهر کرده' },
+    { id: 4, name: '09192935850' },
   ];
 
   config: any = {
     date: {
       value: new Date().valueOf(),
-      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) => {
+      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) =>
+      {
         console.log(shamsiDate, gregorianDate, timestamp);
       }
     },
@@ -40,22 +42,30 @@ export class SendSmsComponent implements OnInit {
     }
   };
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder)
+  {
     this.form = this.formBuilder.group({
-      selectedCar: [null, [Validators.required]],
+      selectedCar1: [null, [Validators.required]],
+      selectedCar2: [null, [Validators.required]],
+      selectedCar3: [null, [Validators.required]],
+      selectedCar4: [null, [Validators.required]],
+      selectedCar5: [null, [Validators.required]],
       datePicker: [null, [Validators.required]]
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.form.markAllAsTouched();
   }
 
-  setDateReturn($event: any) {
+  setDateReturn($event: any)
+  {
     console.log($event);
   }
 
-  dpickerFocus(picker: any) {
+  dpickerFocus(picker: any)
+  {
     console.log(picker);
   }
 

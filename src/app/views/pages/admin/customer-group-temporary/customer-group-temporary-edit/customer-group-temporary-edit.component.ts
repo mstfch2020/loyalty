@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-group-temporary-edit',
   templateUrl: './customer-group-temporary-edit.component.html',
   styleUrls: ['./customer-group-temporary-edit.component.scss']
 })
-export class CustomerGroupTemporaryEditComponent implements OnInit {
+export class CustomerGroupTemporaryEditComponent implements OnInit
+{
 
   selectedCar = 1;
 
@@ -19,7 +21,8 @@ export class CustomerGroupTemporaryEditComponent implements OnInit {
   config: any = {
     date: {
       value: new Date().valueOf(),
-      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) => {
+      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) =>
+      {
         console.log(shamsiDate, gregorianDate, timestamp);
       }
     },
@@ -38,9 +41,20 @@ export class CustomerGroupTemporaryEditComponent implements OnInit {
     }
   };
 
-  constructor() { }
+  form: FormGroup;
 
-  ngOnInit(): void {
+
+  constructor(private formBuilder: FormBuilder)
+  {
+    this.form = this.formBuilder.group({
+      selectedCar1: [null, [Validators.required]],
+      selectedCar2: [null, [Validators.required]]
+    });
+  }
+
+  ngOnInit(): void
+  {
+    this.form.markAllAsTouched();
   }
 
 }

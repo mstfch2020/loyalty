@@ -17,7 +17,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <textarea class="form-control border-radius-1-5" cols="30" id="txtSmsDescription" name="txtSmsDescription"
-                      rows="10"></textarea>
+              rows="10"></textarea>
             <span class="sms-length">
               234 کارکتر/ 1 پیامک
             </span>
@@ -33,7 +33,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-                       class="form-control mb-3" formControlName="selectedCar">
+              formControlName="selectedCar1" class="form-control mb-3">
             </ng-select>
           </div>
         </div>
@@ -45,7 +45,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-                       class="form-control mb-3" formControlName="selectedCar">
+              formControlName="selectedCar2" class="form-control mb-3">
             </ng-select>
           </div>
         </div>
@@ -57,7 +57,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-                       class="form-control mb-3" formControlName="selectedCar">
+              formControlName="selectedCar3" class="form-control mb-3">
             </ng-select>
           </div>
         </div>
@@ -69,7 +69,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-                       class="form-control mb-3" formControlName="selectedCar">
+              formControlName="selectedCar4" class="form-control mb-3">
             </ng-select>
           </div>
         </div>
@@ -100,25 +100,14 @@
       <div class="col-12 col-sm-6 mt-3 mt-sm-0">
         <div class="row">
           <div class="col-12 col-sm-5">
-            <input class="form-control rounded-pill text-center text-black"
-                   type="text" dir="ltr"
-                   #datepickerInput1 />
-            <ng-persian-datepicker
-              [input]="datepickerInput1"
-              [uiTheme]="'gray'"
-              [uiTodayBtnEnable]="true"
-              [timeMeridian]="false"
-              [dateValue]="config.date.value"
-              [dateOnSelect]="config.date.onSelect"
-              [uiTheme]="config.ui.theme"
-              [uiIsVisible]="config.ui.isVisible"
+            <input class="form-control rounded-pill text-center text-black" type="text" dir="ltr" #datepickerInput1 />
+            <ng-persian-datepicker [input]="datepickerInput1" [uiTheme]="'gray'" [uiTodayBtnEnable]="true"
+              [timeMeridian]="false" [dateValue]="config.date.value" [dateOnSelect]="config.date.onSelect"
+              [uiTheme]="config.ui.theme" [uiIsVisible]="config.ui.isVisible"
               [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-              [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
-              [uiYearView]="config.ui.yearView"
-              [uiMonthView]="config.ui.monthView"
-              [timeEnable]="config.time.enable"
-              [timeShowSecond]="config.time.showSecond"
-              [timeMeridian]="config.time.meridian">
+              [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiYearView]="config.ui.yearView"
+              [uiMonthView]="config.ui.monthView" [timeEnable]="config.time.enable"
+              [timeShowSecond]="config.time.showSecond" [timeMeridian]="config.time.meridian">
             </ng-persian-datepicker>
           </div>
           <div class="col-12 col-sm-7 mt-3 mt-sm-0">
@@ -142,13 +131,13 @@
     <div class="row mt-5">
       <div class="col-6 col-sm-2">
         <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-                type="submit">
+          type="submit">
           ارسال
         </button>
       </div>
       <div class="col-6 col-sm-2">
         <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-                type="submit">
+          type="submit">
           انصراف
         </button>
       </div>

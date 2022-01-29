@@ -1,314 +1,273 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
+<form [formGroup]="form" action="" dir="rtl">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
         <span class="font-yekan-bold h5 text-black">
-تعریف
+          تعریف
         </span>
+      </div>
     </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-3">
-          <label class="float-end float-sm-start mt-2">
-            نوع سناریو :
-          </label>
-        </div>
-        <div class="col-9">
-          <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+    <div class="row mt-3">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-3">
+            <label class="float-end float-sm-start mt-2">
+              نوع سناریو :
+            </label>
+          </div>
+          <div class="col-9">
+            <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            نام سناریو :
-          </label>
+    <div class="row mt-4">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              نام سناریو :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <input class="form-control rounded-pill text-end text-black" type="text">
+          </div>
         </div>
-        <div class="col-12 col-sm-9">
-          <input class="form-control rounded-pill text-end text-black" type="text">
+      </div>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              برند :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" formControlName="selectedCar1"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            برند :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            بازه زمانی :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <div class="d-flex flex-row gap-3 align-items-center">
+    <div class="row mt-2">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              بازه زمانی :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <div class="d-flex flex-row gap-3 align-items-center">
               <span class="text-black fs-09">
                 از
               </span>
-            <div class="mt-1">
-              <input #datepickerInput1
-                     class="form-control rounded-pill text-center text-black" dir="ltr"
-                     type="text"/>
-              <ng-persian-datepicker
-                [dateOnSelect]="config.date.onSelect"
-                [dateValue]="config.date.value"
-                [input]="datepickerInput1"
-                [timeEnable]="config.time.enable"
-                [timeMeridian]="false"
-                [timeMeridian]="config.time.meridian"
-                [timeShowSecond]="config.time.showSecond"
-                [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
-                [uiIsVisible]="config.ui.isVisible"
-                [uiMonthView]="config.ui.monthView"
-                [uiTheme]="'gray'"
-                [uiTheme]="config.ui.theme"
-                [uiTodayBtnEnable]="true"
-                [uiYearView]="config.ui.yearView">
-              </ng-persian-datepicker>
-            </div>
-            <span class="text-black fs-09">
+              <div class="mt-1">
+                <input #datepickerInput1 class="form-control rounded-pill text-center text-black" dir="ltr"
+                  type="text" />
+                <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
+                  [input]="datepickerInput1" [timeEnable]="config.time.enable" [timeMeridian]="false"
+                  [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
+                  [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+                  [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiIsVisible]="config.ui.isVisible"
+                  [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'" [uiTheme]="config.ui.theme"
+                  [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
+                </ng-persian-datepicker>
+              </div>
+              <span class="text-black fs-09">
                 تا
               </span>
-            <div class="mt-1">
-              <input #datepickerInput2
-                     class="form-control rounded-pill text-center text-black" dir="ltr"
-                     type="text"/>
-              <ng-persian-datepicker
-                [dateOnSelect]="config.date.onSelect"
-                [dateValue]="config.date.value"
-                [input]="datepickerInput2"
-                [timeEnable]="config.time.enable"
-                [timeMeridian]="false"
-                [timeMeridian]="config.time.meridian"
-                [timeShowSecond]="config.time.showSecond"
-                [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
-                [uiIsVisible]="config.ui.isVisible"
-                [uiMonthView]="config.ui.monthView"
-                [uiTheme]="'gray'"
-                [uiTheme]="config.ui.theme"
-                [uiTodayBtnEnable]="true"
-                [uiYearView]="config.ui.yearView">
-              </ng-persian-datepicker>
+              <div class="mt-1">
+                <input #datepickerInput2 class="form-control rounded-pill text-center text-black" dir="ltr"
+                  type="text" />
+                <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
+                  [input]="datepickerInput2" [timeEnable]="config.time.enable" [timeMeridian]="false"
+                  [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
+                  [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+                  [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiIsVisible]="config.ui.isVisible"
+                  [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'" [uiTheme]="config.ui.theme"
+                  [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
+                </ng-persian-datepicker>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            نوع کاربری :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              نوع کاربری :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" formControlName="selectedCar2"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-2">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            گروه مشتری :
-          </label>
+    <div class="row mt-2">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              گروه مشتری :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" formControlName="selectedCar3"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
         </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
+      </div>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              فعالیت :
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" formControlName="selectedCar4"
+              class="form-control mb-3">
+            </ng-select>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <label class="float-end float-sm-start mt-3">
-            فعالیت :
-          </label>
-        </div>
-        <div class="col-12 col-sm-9">
-          <ng-select [(ngModel)]="selectedCar" [items]="cars"
-                     [multiple]="true"
-                     appendTo="body"
-                     bindLabel="name"
-                     class="form-control mb-3">
-          </ng-select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <hr class="mt-4">
-  <div class="row mt-4">
-    <div class="col-12">
+    <hr class="mt-4">
+    <div class="row mt-4">
+      <div class="col-12">
         <span class="font-yekan-bold h5 text-black">
           جوایز
         </span>
+      </div>
     </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12 col-sm-6">
-      <div class="row">
-        <div class="col-3">
-          <label class="float-end float-sm-start mt-2">
-            نوع جایزه :
-          </label>
-        </div>
-        <div class="col-9">
-          <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+    <div class="row mt-3">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-3">
+            <label class="float-end float-sm-start mt-2">
+              نوع جایزه :
+            </label>
+          </div>
+          <div class="col-9">
+            <app-switch [labelOne]="'درصد'" [labelTwo]="'تومان'"></app-switch>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12 col-sm-8">
-      <div class="row">
-        <div class="col-12 col-sm-3">
-          <div class="d-flex flex-row align-items-center mt-3">
-            <input checked class="form-check-input" name="percentType" type="checkbox">
-            <label class="form-check-label mr-1 cursor-pointer">
-              افزایش امتیاز
-            </label>
-          </div>
-        </div>
-        <div class="col-12 col-sm-9">
-          <div class="d-flex flex-row gap-3 align-items-center">
-            <div>
-              <input class="form-control rounded-pill text-center text-black" type="text">
+    <div class="row mt-4">
+      <div class="col-12 col-sm-8">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <div class="d-flex flex-row align-items-center mt-3">
+              <input checked class="form-check-input" name="percentType" type="checkbox">
+              <label class="form-check-label mr-1 cursor-pointer">
+                افزایش امتیاز
+              </label>
             </div>
-            <span class="text-black w-80-px text-start fs-09">
-تا سقف
+          </div>
+          <div class="col-12 col-sm-9">
+            <div class="d-flex flex-row gap-3 align-items-center">
+              <div>
+                <input class="form-control rounded-pill text-center text-black" type="text">
+              </div>
+              <span class="text-black w-80-px text-start fs-09">
+                تا سقف
               </span>
-            <div>
-              <input class="form-control rounded-pill text-start text-black" placeholder="امتیاز" type="text">
+              <div>
+                <input class="form-control rounded-pill text-start text-black" placeholder="امتیاز" type="text">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12 col-sm-9">
-      <div class="row">
-        <div class="col-12 col-sm-4">
-          <div class="d-flex flex-row align-items-center mt-3">
-            <input checked class="form-check-input" name="percentType" type="checkbox">
-            <label class="form-check-label mr-1 cursor-pointer">
-              بازگشت وجه به کیف پول
-            </label>
-          </div>
-        </div>
-        <div class="col-12 col-sm-8">
-          <div class="d-flex flex-row gap-3 align-items-center">
-            <div>
-              <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+    <div class="row mt-4">
+      <div class="col-12 col-sm-9">
+        <div class="row">
+          <div class="col-12 col-sm-4">
+            <div class="d-flex flex-row align-items-center mt-3">
+              <input checked class="form-check-input" name="percentType" type="checkbox">
+              <label class="form-check-label mr-1 cursor-pointer">
+                بازگشت وجه به کیف پول
+              </label>
             </div>
-            <span class="text-black w-80-px text-start fs-09">
-تا سقف
+          </div>
+          <div class="col-12 col-sm-8">
+            <div class="d-flex flex-row gap-3 align-items-center">
+              <div>
+                <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+              </div>
+              <span class="text-black w-80-px text-start fs-09">
+                تا سقف
               </span>
-            <div>
-              <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+              <div>
+                <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="row">
-        <div class="col-7 col-sm-3">
-          <div class="d-flex flex-row align-items-center mt-3">
-            <input checked class="form-check-input" name="percentType" type="checkbox">
-            <label class="form-check-label mr-1 cursor-pointer">
-              کد تخفیف برای خرید بعدی
-            </label>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-7 col-sm-3">
+            <div class="d-flex flex-row align-items-center mt-3">
+              <input checked class="form-check-input" name="percentType" type="checkbox">
+              <label class="form-check-label mr-1 cursor-pointer">
+                کد تخفیف برای خرید بعدی
+              </label>
+            </div>
           </div>
-        </div>
-        <div class="col-5 col-sm-2">
-          <input class="form-control rounded-pill text-center text-black" placeholder="%" type="text">
-        </div>
-        <div class="col-12 col-sm-2 mt-2 mt-sm-0">
-          <div class="text-black text-end text-sm-start fs-09 mt-3">
-            سبد خرید تا سقف
+          <div class="col-5 col-sm-2">
+            <input class="form-control rounded-pill text-center text-black" placeholder="%" type="text">
           </div>
-        </div>
-        <div class="col-5 col-sm-2">
-          <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
-        </div>
-        <div class="col-2 col-sm-1">
-          <div class="text-black text-start fs-09 mt-3">
-            معتبر تا
+          <div class="col-12 col-sm-2 mt-2 mt-sm-0">
+            <div class="text-black text-end text-sm-start fs-09 mt-3">
+              سبد خرید تا سقف
+            </div>
           </div>
-        </div>
-        <div class="col-5 col-sm-2">
-          <input #datepickerInput3
-                 class="form-control rounded-pill text-center text-black" dir="ltr"
-                 type="text"/>
-          <ng-persian-datepicker
-            [dateOnSelect]="config.date.onSelect"
-            [dateValue]="config.date.value"
-            [input]="datepickerInput3"
-            [timeEnable]="config.time.enable"
-            [timeMeridian]="false"
-            [timeMeridian]="config.time.meridian"
-            [timeShowSecond]="config.time.showSecond"
-            [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-            [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
-            [uiIsVisible]="config.ui.isVisible"
-            [uiMonthView]="config.ui.monthView"
-            [uiTheme]="'gray'"
-            [uiTheme]="config.ui.theme"
-            [uiTodayBtnEnable]="true"
-            [uiYearView]="config.ui.yearView">
-          </ng-persian-datepicker>
+          <div class="col-5 col-sm-2">
+            <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text">
+          </div>
+          <div class="col-2 col-sm-1">
+            <div class="text-black text-start fs-09 mt-3">
+              معتبر تا
+            </div>
+          </div>
+          <div class="col-5 col-sm-2">
+            <input #datepickerInput3 class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
+            <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
+              [input]="datepickerInput3" [timeEnable]="config.time.enable" [timeMeridian]="false"
+              [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
+              [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+              [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiIsVisible]="config.ui.isVisible"
+              [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'" [uiTheme]="config.ui.theme"
+              [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
+            </ng-persian-datepicker>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-6 col-sm-3">
-      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-              dir="rtl" type="submit">
-        ذخیره
-      </button>
+    <div class="row mt-4">
+      <div class="col-6 col-sm-3">
+        <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+          type="submit">
+          ذخیره
+        </button>
+      </div>
+      <div class="col-6 col-sm-3">
+        <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+          type="submit">
+          انصراف
+        </button>
+      </div>
     </div>
-    <div class="col-6 col-sm-3">
-      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-              dir="rtl" type="submit">
-        انصراف
-      </button>
-    </div>
   </div>
-</div>
+</form>
