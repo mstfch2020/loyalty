@@ -14,6 +14,8 @@ import {SystemSettingsDiscountComponent} from "./system-settings/system-settings
 import {SystemSettingsLevelComponent} from "./system-settings/system-settings-level/system-settings-level.component";
 import {SystemSettingsScenarioComponent} from "./system-settings/system-settings-scenario/system-settings-scenario.component";
 import {DiscountCodeComponent} from "./discount-code/discount-code.component";
+import {BehavioralScenarioComponent} from "./scenario/behavioral-scenario/behavioral-scenario.component";
+import {PurchaseScenarioComponent} from "./scenario/purchase-scenario/purchase-scenario.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -71,6 +73,21 @@ const routes: Routes = [
       {
         path: 'scenario',
         component: ScenarioComponent,
+        children:[
+          {
+            path: '',
+            redirectTo: 'behavioral',
+            pathMatch: 'full'
+          },
+          {
+            path: 'behavioral',
+            component: BehavioralScenarioComponent,
+          },
+          {
+            path: 'purchase',
+            component: PurchaseScenarioComponent,
+          }
+        ]
       },
       {
         path: 'discountcode',

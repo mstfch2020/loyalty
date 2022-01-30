@@ -1,5 +1,8 @@
-<label class="switch">
-  <input class="switch-input" type="checkbox">
-  <span class="switch-label" data-off="درصد" data-on="تومان"></span>
-  <span class="switch-handle"></span>
-</label>
+<div class="form-control p-0 d-flex flex-row justify-content-around">
+  <div (click)="selection(1)" [ngClass]="{'selected':isOneSelected}" class="switch">
+    {{labelOne}}
+  </div>
+  <div (click)="selection(2)" [ngClass]="{'selected':isTwoSelected}" class="switch">
+    {{labelTwo}}
+  </div>
+</div>
