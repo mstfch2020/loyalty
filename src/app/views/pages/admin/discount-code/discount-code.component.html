@@ -168,7 +168,7 @@
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-12 col-sm-4">
+      <div class="col-6 col-sm-4">
         <div class="d-flex flex-row gap-3 mt-2">
           <label class="float-end float-sm-start mt-2">
             حجم تخفیف :
@@ -178,11 +178,11 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-2">
+      <div class="col-6 col-sm-2">
         <input class="form-control rounded-pill text-center text-black" type="text">
       </div>
       <div class="col-12 col-sm-1">
-        <div class="text-black mt-3 text-start fs-09">
+        <div class="text-black mt-3 text-end text-sm-start fs-09">
           تا سقف
         </div>
       </div>
@@ -196,7 +196,7 @@
           <label class="float-end float-sm-start text-center mt-2">
             تعداد دفعه استفاده :
           </label>
-          <div>
+          <div class="flex-grow-1 flex-sm-grow-0">
             <input class="form-control rounded-pill text-center text-black" type="text">
           </div>
         </div>
@@ -206,10 +206,10 @@
           به ازای هر کاربر
         </div>
       </div>
-      <div class="col-12 col-sm-2">
+      <div class="col-10 col-sm-2">
         <input class="form-control rounded-pill mt-1 text-center text-black" type="text">
       </div>
-      <div class="col-12 col-sm-1">
+      <div class="col-2 col-sm-1">
         <div class="text-black mt-4 text-end fs-09">
           در کل
         </div>
@@ -242,7 +242,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-6 mt-2 mt-sm-0">
         <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
                    formControlName="selectedCar1">
         </ng-select>
@@ -268,7 +268,40 @@
         </div>
       </div>
     </div>
-
+    <div class="row mt-2">
+      <div class="col-12 col-sm-8">
+        <div class="d-flex flex-row align-items-center mt-3">
+          <input checked class="form-check-input" name="percentType" type="radio">
+          <label class="form-check-label mr-1 cursor-pointer">
+کد تخفیف ثابت
+          </label>
+          <div class="mr-1">
+            <input class="form-control rounded-pill text-center text-black" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12 col-sm-6">
+        <div class="d-flex flex-row align-items-center">
+          <input checked class="form-check-input" name="percentType" type="radio">
+          <label class="form-check-label mr-1 cursor-pointer">
+            کد تخفیف تصادفی با پیشوند
+          </label>
+          <div class="mr-1">
+            <input class="form-control rounded-pill text-center text-black" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-1">
+        <div class="text-black mt-3 text-end fs-09">
+به تعداد:
+        </div>
+      </div>
+      <div class="col-12 col-sm-2">
+        <input class="form-control rounded-pill text-center text-black" type="text">
+      </div>
+    </div>
     <div class="row mt-4">
       <div class="col-6 col-sm-3">
         <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
