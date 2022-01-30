@@ -76,7 +76,7 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            redirectTo: 'behavioral',
+            redirectTo: 'purchase',
             pathMatch: 'full'
           },
           {

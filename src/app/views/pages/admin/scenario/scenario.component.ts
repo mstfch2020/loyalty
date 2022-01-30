@@ -12,6 +12,7 @@ export class ScenarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.navigate(['/admin/main/scenario/purchase']);
   }
 
   /**
@@ -21,9 +22,9 @@ export class ScenarioComponent implements OnInit {
   public selectedSwitch(event: number) {
 
     if (event == 1) {
-      this.router.navigate(['/behavioral']);
+      this.router.navigate(['/admin/main/scenario/purchase']);
     } else {
-      this.router.navigate(['/purchase']);
+      this.router.navigate(['/admin/main/scenario/behavioral']);
     }
   }
 
