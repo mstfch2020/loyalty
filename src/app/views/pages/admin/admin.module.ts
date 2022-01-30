@@ -23,13 +23,13 @@ import {SystemSettingsDiscountGridComponent} from './system-settings/system-sett
 import {SystemSettingsDiscountRootComponent} from './system-settings/system-settings-discount/system-settings-discount-root/system-settings-discount-root.component';
 import {SystemSettingsDiscountComponent} from './system-settings/system-settings-discount/system-settings-discount.component';
 import {SystemSettingsLevelComponent} from './system-settings/system-settings-level/system-settings-level.component';
-import {SystemSettingsRootComponent} from './system-settings/system-settings-root/system-settings-root.component';
 import {SystemSettingsScenarioComponent} from './system-settings/system-settings-scenario/system-settings-scenario.component';
 import {SystemSettingsComponent} from './system-settings/system-settings.component';
 import {UsersComponent} from "./users/users.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BehavioralScenarioComponent} from './scenario/behavioral-scenario/behavioral-scenario.component';
 import {PurchaseScenarioComponent} from './scenario/purchase-scenario/purchase-scenario.component';
+import { DiscountCodeComponent } from './discount-code/discount-code.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,6 @@ import {PurchaseScenarioComponent} from './scenario/purchase-scenario/purchase-s
     CustomerGroupTemporaryRootComponent,
     CustomerGroupTemporaryCampaignComponent,
     SystemSettingsComponent,
-    SystemSettingsRootComponent,
     SystemSettingsDiscountComponent,
     SystemSettingsLevelComponent,
     SystemSettingsScenarioComponent,
@@ -58,6 +57,7 @@ import {PurchaseScenarioComponent} from './scenario/purchase-scenario/purchase-s
     CustomerGroupGridComponent,
     BehavioralScenarioComponent,
     PurchaseScenarioComponent,
+    DiscountCodeComponent,
   ],
   imports: [
     FormsModule,

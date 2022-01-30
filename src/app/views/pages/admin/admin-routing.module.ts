@@ -13,6 +13,7 @@ import {SystemSettingsComponent} from "./system-settings/system-settings.compone
 import {SystemSettingsDiscountComponent} from "./system-settings/system-settings-discount/system-settings-discount.component";
 import {SystemSettingsLevelComponent} from "./system-settings/system-settings-level/system-settings-level.component";
 import {SystemSettingsScenarioComponent} from "./system-settings/system-settings-scenario/system-settings-scenario.component";
+import {DiscountCodeComponent} from "./discount-code/discount-code.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -70,6 +71,10 @@ const routes: Routes = [
       {
         path: 'scenario',
         component: ScenarioComponent,
+      },
+      {
+        path: 'discountcode',
+        component: DiscountCodeComponent,
       },
       {
         path: 'profile',

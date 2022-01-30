@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SystemSettingsRootComponent } from './system-settings-root.component';
+import { DiscountCodeComponent } from './discount-code.component';
 
-describe('SystemSettingsRootComponent', () => {
-  let component: SystemSettingsRootComponent;
-  let fixture: ComponentFixture<SystemSettingsRootComponent>;
+describe('DiscountCodeComponent', () => {
+  let component: DiscountCodeComponent;
+  let fixture: ComponentFixture<DiscountCodeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SystemSettingsRootComponent ]
+      declarations: [ DiscountCodeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SystemSettingsRootComponent);
+    fixture = TestBed.createComponent(DiscountCodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
