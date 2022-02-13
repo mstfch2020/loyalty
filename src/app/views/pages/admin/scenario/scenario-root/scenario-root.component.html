@@ -1,0 +1,64 @@
+<div class="container-fluid" dir="rtl">
+  <div class="row">
+    <div class="col-12">
+        <span class="font-yekan-bold h5 text-black">
+          تعریف
+        </span>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 col-sm-6">
+      <div class="row">
+        <div class="col-12 col-sm-3">
+          <label class="float-end float-sm-start mt-1">
+            نوع سناریو :
+          </label>
+        </div>
+        <div class="col-12 col-sm-7">
+          <app-switch
+            (notifySelectionSwitch)="selectedSwitch($event)"
+            [labelOne]="'سناریوی خرید'"
+            [labelTwo]="'سناریوی رفتاری'">
+          </app-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-purchase-scenario *ngIf="scenarioType==1"></app-purchase-scenario>
+<app-behavioral-scenario *ngIf="scenarioType==2"></app-behavioral-scenario>
+<div class="container-fluid" dir="rtl">
+  <hr>
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="d-flex flex-row gap-3 align-items-center">
+        <div class="text-black fs-09">
+          وضعیت سناریو :
+        </div>
+        <div>
+          <div class="form-check form-switch float-end">
+            <input class="form-check-input" id="flexSwitchCheckDefault" type="checkbox">
+          </div>
+        </div>
+        <div class="text-black fs-09">
+          غیرفعال
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-6 col-sm-2">
+      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+              type="submit">
+        ذخیره
+      </button>
+    </div>
+    <div class="col-6 col-sm-2">
+      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+              type="submit">
+        انصراف
+      </button>
+    </div>
+  </div>
+</div>
+<br>

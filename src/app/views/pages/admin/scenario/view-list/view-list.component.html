@@ -1,0 +1,134 @@
+<form action="" dir="rtl">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h5 class="font-yekan-bold h5 text-black">
+          مشاهده
+        </h5>
+      </div>
+    </div>
+    <div *ngIf="theViewList.length>0" class="row mt-4">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table cellspacing="1" class="table table-hover border-0">
+            <thead>
+            <tr>
+              <th class="text-end font-yekan-bold pr-2" scope="col">
+                عنوان
+              </th>
+              <th class="text-end font-yekan-bold" scope="col">
+                گروه مشتری
+              </th>
+              <th class="text-end font-yekan-bold" scope="col">
+                بازه تاریخی
+              </th>
+              <th class="text-end font-yekan-bold" scope="col">
+                برند
+              </th>
+              <th class="text-center font-yekan-bold" scope="col">
+                وضعیت
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr (click)="routToBehavioral('test')">
+              <td class="text-end" scope="row">
+                <div class="pr-1">
+                  تخفیف ارسال - کد تخفیف برای خرید بعدی
+                </div>
+                <div class="pr-1 mt-2 text-gray-500">
+                  روز جوان
+                </div>
+              </td>
+              <td class="text-end">
+                طلایی - قهره کرده‌ها
+              </td>
+              <td class="text-end">
+                ۱۴۰۱/۰۲/۱۲
+                تا
+                ۱۴۰۱/۰۲/۱۲
+              </td>
+              <td class="text-end">
+                زینجا - مون
+              </td>
+              <td class="text-center">
+                غیرفعال
+              </td>
+            </tr>
+            <tr (click)="routToBehavioral('test')">
+              <td class="text-end" scope="row">
+                <div class="pr-1">
+                  تخفیف سبد خرید
+                </div>
+                <div class="pr-1 mt-2 text-gray-500">
+                  برای سبدخرید بیشتر از ۲۰۰ هزار تومان
+                </div>
+              </td>
+              <td class="text-end">
+                همه
+              </td>
+              <td class="text-end">
+                ۱۴۰۱/۰۲/۱۲
+                تا
+                ۱۴۰۱/۰۲/۱۲
+              </td>
+              <td class="text-end">
+                همه
+              </td>
+              <td class="text-center">
+                غیرفعال
+              </td>
+            </tr>
+            <tr (click)="routToBehavioral('test')">
+              <td class="text-end" scope="row">
+                <div class="pr-1">
+                  کد تخفیف ۵۰٪ تا سقف ۵۰٬۰۰۰ تومان
+                </div>
+                <div class="pr-1 mt-2 text-gray-500">
+                  برای سبدخرید بیشتر از ۲۰۰ هزار تومان
+                </div>
+              </td>
+              <td class="text-end">
+                همه
+              </td>
+              <td class="text-end">
+                ۱۴۰۱/۰۲/۱۲
+                تا
+                ۱۴۰۱/۰۲/۱۲
+              </td>
+              <td class="text-end">
+                همه
+              </td>
+              <td class="text-center">
+                فعال
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="theViewList.length==0" class="row mt-5">
+      <div class="col-12">
+        <div class="text-center font-yekan-regular text-black">
+          سناریوهای شما به محض ایجاد، در این صفحه نمایش داده می‌شود.
+        </div>
+        <div class="text-center font-yekan-regular text-gray-600 mt-2 fs-09">
+          از دکمه زیر برای ایجاد یک سناریوی جدید استفاده کنید.
+        </div>
+        <div class="text-center mt-4">
+          <img alt="Empty page" src="assets/img/icons/empty.png">
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-6 col-sm-3">
+        <button (click)="routToBehavioral('test')" class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block"
+                dir="rtl"
+                type="submit">
+          سناریو جدید
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -16,6 +16,8 @@ import {SystemSettingsScenarioComponent} from "./system-settings/system-settings
 import {DiscountCodeComponent} from "./discount-code/discount-code.component";
 import {BehavioralScenarioComponent} from "./scenario/behavioral-scenario/behavioral-scenario.component";
 import {PurchaseScenarioComponent} from "./scenario/purchase-scenario/purchase-scenario.component";
+import {ViewListComponent} from "./scenario/view-list/view-list.component";
+import {ScenarioRootComponent} from "./scenario/scenario-root/scenario-root.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -76,16 +78,16 @@ const routes: Routes = [
         children:[
           {
             path: '',
-            redirectTo: 'purchase',
+            redirectTo: 'list',
             pathMatch: 'full'
           },
           {
-            path: 'behavioral',
-            component: BehavioralScenarioComponent,
+            path: 'root',
+            component: ScenarioRootComponent,
           },
           {
-            path: 'purchase',
-            component: PurchaseScenarioComponent,
+            path: 'list',
+            component: ViewListComponent,
           }
         ]
       },
