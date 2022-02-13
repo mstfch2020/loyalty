@@ -1,4 +1,4 @@
-<form [formGroup]="form" action="" dir="rtl">
+<form [formGroup]="scenarioService.form" action="" dir="rtl" (ngSubmit)="submit()">
   <div class="container-fluid">
     <div class="row mt-4">
       <div class="col-12 col-sm-6">
@@ -9,7 +9,7 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <input class="form-control rounded-pill text-end text-black" type="text">
+            <input formControlName="title" class="form-control rounded-pill text-end text-black" type="text">
           </div>
         </div>
       </div>

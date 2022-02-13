@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { forkJoin } from 'rxjs';
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service';
 
 @Component({
   selector: 'app-behavioral-scenario',
@@ -9,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class BehavioralScenarioComponent implements OnInit
 {
+
 
   selectedCar = 1;
 
@@ -43,21 +46,33 @@ export class BehavioralScenarioComponent implements OnInit
   };
 
 
-  form: FormGroup;
-
-  constructor(private formBuilder: FormBuilder, private modalService: NgbModal)
+  constructor(private modalService: NgbModal, private baseInfoService: BaseInfoService, public scenarioService: ScenarioService)
   {
-    this.form = this.formBuilder.group({
-      selectedCar1: [null, [Validators.required]],
-      selectedCar2: [null, [Validators.required]],
-      selectedCar3: [null, [Validators.required]],
-      selectedCar4: [null, [Validators.required]],
-    });
+
   }
 
   ngOnInit(): void
   {
-    this.form.markAllAsTouched();
+    this.scenarioService.form.markAllAsTouched();
+
+    const requests = {
+      activity: this.baseInfoService.getActivity(),
+      brands: this.baseInfoService.getBrands(),
+      userTypes: this.baseInfoService.getUserTypes(),
+      customerGroups: this.baseInfoService.getCustomerGroups()
+    };
+
+    forkJoin(requests).subscribe(resutl =>
+    {
+      const resultValue = resutl as any;
+      console.log(resultValue.activity);
+      console.log(resultValue.brands);
+    });
+  }
+
+  submit()
+  {
+    console.log(this.scenarioService.form.value);
   }
 
 }

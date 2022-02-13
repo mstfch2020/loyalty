@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -24,12 +24,15 @@
     "@ng-select/ng-select": "^8.1.1",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "audit": "^0.0.6",
+    "fix": "^0.0.6",
     "moment": "^2.29.1",
     "moment-jalaali": "^0.9.1",
     "ng-persian-datepicker": "^2.4.0",
     "rxjs": "6.6.2",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "express-http-proxy": "^1.5.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.1.3",
