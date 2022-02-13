@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -8,11 +8,13 @@ import {Router} from "@angular/router";
 })
 export class ScenarioRootComponent implements OnInit {
 
+  public scenarioType: number;
+
   constructor(private router: Router) {
+    this.scenarioType = 1;
   }
 
   ngOnInit(): void {
-    this.router.navigate(['/admin/main/scenario/purchase']);
   }
 
   /**
@@ -20,12 +22,7 @@ export class ScenarioRootComponent implements OnInit {
    * @param event
    */
   public selectedSwitch(event: number) {
-
-    if (event == 1) {
-      this.router.navigate(['/admin/main/scenario/purchase']);
-    } else {
-      this.router.navigate(['/admin/main/scenario/behavioral']);
-    }
+    this.scenarioType = event;
   }
 
 }

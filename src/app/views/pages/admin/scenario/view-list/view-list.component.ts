@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-view-list',
@@ -9,16 +10,16 @@ export class ViewListComponent implements OnInit {
 
   public theViewList: any[];
 
-  constructor() {
-
-    this.theViewList = [];
+  constructor(private router: Router) {
+    this.theViewList = [{'test':1}];
   }
 
   ngOnInit(): void {
+    this.router.navigate(['/admin/main/scenario/list']);
   }
 
-  routToBehavioral() {
-
+  routToBehavioral(item:any) {
+    this.router.navigate(['/admin/main/scenario/root']);
   }
 
 }

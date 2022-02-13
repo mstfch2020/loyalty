@@ -146,6 +146,26 @@ body.register {
   font-family: IranYekanThin !important;
 }
 
+.fs-06 {
+  font-size: 0.6rem;
+}
+
+.fs-07 {
+  font-size: 0.7rem;
+}
+
+.p-10px{
+  padding: 10px!important;
+}
+
+.h-40px{
+  height: 40px!important;
+}
+
+.fs-08 {
+  font-size: 0.8rem;
+}
+
 .fs-09 {
   font-size: 0.9rem;
 }
@@ -169,6 +189,7 @@ body.register {
 .pr-2 {
   padding-right: 2rem !important;
 }
+
 
 .mt-15 {
   margin-top: 15rem;
@@ -326,7 +347,7 @@ table tbody tr td {
 }
 
 .btn .btn-warning {
-  background-color: #ffa100;
+  background-color: #ffa100!important;
 }
 
 .btn .btn-outline-warning {
