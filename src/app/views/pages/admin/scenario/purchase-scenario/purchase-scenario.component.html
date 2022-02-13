@@ -392,7 +392,16 @@
             <input checked class="form-check-input" name="percentType" type="radio">
           </div>
           <div>
-            <input class="form-control rounded-pill text-end text-black" type="text">
+            <input #datepickerInput3 class="form-control rounded-pill text-center text-black" dir="ltr"
+                   type="text" />
+            <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
+                                   [input]="datepickerInput3" [timeEnable]="config.time.enable" [timeMeridian]="false"
+                                   [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
+                                   [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
+                                   [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiIsVisible]="config.ui.isVisible"
+                                   [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'" [uiTheme]="config.ui.theme"
+                                   [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
+            </ng-persian-datepicker>
           </div>
         </div>
         <div class="d-flex flex-row gap-3 align-items-center mt-3">
@@ -408,7 +417,7 @@
         </div>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-5">
       <div class="col-6 col-sm-3">
         <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
           type="submit">

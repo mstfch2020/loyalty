@@ -24,7 +24,7 @@ export class MainComponent implements OnInit {
     this.menuItems = [
       {
         title: 'سناریوها',
-        url: '/admin/main/scenario',
+        url: '/admin/main/scenario/list',
         visible: true
       },
       {

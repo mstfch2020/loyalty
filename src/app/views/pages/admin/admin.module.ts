@@ -29,7 +29,9 @@ import {UsersComponent} from "./users/users.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BehavioralScenarioComponent} from './scenario/behavioral-scenario/behavioral-scenario.component';
 import {PurchaseScenarioComponent} from './scenario/purchase-scenario/purchase-scenario.component';
-import { DiscountCodeComponent } from './discount-code/discount-code.component';
+import {DiscountCodeComponent} from './discount-code/discount-code.component';
+import {ViewListComponent} from './scenario/view-list/view-list.component';
+import { ScenarioRootComponent } from './scenario/scenario-root/scenario-root.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { DiscountCodeComponent } from './discount-code/discount-code.component';
     BehavioralScenarioComponent,
     PurchaseScenarioComponent,
     DiscountCodeComponent,
+    ViewListComponent,
+    ScenarioRootComponent,
   ],
   imports: [
     FormsModule,

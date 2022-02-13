@@ -1,0 +1,28 @@
+<div class="container-fluid" dir="rtl">
+  <div class="row">
+    <div class="col-12">
+        <span class="font-yekan-bold h5 text-black">
+          تعریف
+        </span>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 col-sm-6">
+      <div class="row">
+        <div class="col-12 col-sm-3">
+          <label class="float-end float-sm-start mt-1">
+            نوع سناریو :
+          </label>
+        </div>
+        <div class="col-12 col-sm-7">
+          <app-switch
+            [labelTwo]="'سناریوی رفتاری'"
+            [labelOne]="'سناریوی خرید'"
+            (notifySelectionSwitch)="selectedSwitch($event)">
+          </app-switch>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-purchase-scenario></app-purchase-scenario>
