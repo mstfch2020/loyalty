@@ -1,28 +1,30 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service';
 
 @Component({
   selector: 'app-scenario-root',
   templateUrl: './scenario-root.component.html',
   styleUrls: ['./scenario-root.component.scss']
 })
-export class ScenarioRootComponent implements OnInit {
+export class ScenarioRootComponent implements OnInit
+{
 
-  public scenarioType: number;
+  constructor(public scenarioService: ScenarioService)
+  {
 
-  constructor(private router: Router) {
-    this.scenarioType = 1;
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
   }
 
   /**
    *
    * @param event
    */
-  public selectedSwitch(event: number) {
-    this.scenarioType = event;
+  public selectedSwitch(event: number)
+  {
+    this.scenarioService.form.controls['senarioType'].setValue(event);
   }
 
 }

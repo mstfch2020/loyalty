@@ -1,4 +1,4 @@
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RewardDiscountCodeValidationType } from "./enums.model";
 import { createPeriodFormGroup, Period, periodInit } from "./period.model";
 
@@ -52,9 +52,9 @@ export const purchaseRewardInit: PurchaseReward = {
   increasScoreReward: true,
   discountCodeReward: true
 };
-export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, formBuilder: FormBuilder): { [key: string]: any; } =>
+export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, formBuilder: FormBuilder): FormGroup =>
 {
-  return {
+  return formBuilder.group({
     id: [purchaseReward.id, [Validators.required]],
     sendingDiscount: [purchaseReward.sendingDiscount, [Validators.required]],
     productDiscountPercent: [purchaseReward.productDiscountPercent, [Validators.required]],
@@ -67,7 +67,7 @@ export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, fo
     discountCodePercent: purchaseReward.discountCodePercent,
     discountCodeThreshold: [purchaseReward.discountCodeThreshold, [Validators.required]],
     discountCodeValidationType: [purchaseReward.discountCodeValidationType, [Validators.required]],
-    discountCodeDate: formBuilder.group(createPeriodFormGroup(purchaseReward.discountCodeDate)),
+    discountCodeDate: createPeriodFormGroup(purchaseReward.discountCodeDate, formBuilder),
     discountCodeDaysAfterIssuedCode: [purchaseReward.discountCodeDaysAfterIssuedCode, [Validators.required]],
     sendingDiscountReward: [purchaseReward.sendingDiscountReward, [Validators.required]],
     basketDiscountReward: [purchaseReward.basketDiscountReward, [Validators.required]],
@@ -76,5 +76,5 @@ export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, fo
     refundReward: [purchaseReward.refundReward, [Validators.required]],
     increasScoreReward: [purchaseReward.increasScoreReward, [Validators.required]],
     discountCodeReward: [purchaseReward.discountCodeReward, [Validators.required]],
-  };
+  });
 };

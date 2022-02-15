@@ -1,4 +1,4 @@
-<form [formGroup]="form" action="" dir="rtl">
+<form [formGroup]="scenarioService.form" action="" dir="rtl">
   <div class="container-fluid">
     <div class="row mt-4">
       <div class="col-12 col-sm-6">
@@ -11,7 +11,7 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <input class="form-control rounded-pill text-end text-black" type="text">
+                <input formControlName='title' class="form-control rounded-pill text-end text-black" type="text">
               </div>
             </div>
           </div>
@@ -32,13 +32,10 @@
                   <div class="mt-1">
                     <input class="form-control rounded-pill text-center text-black" type="text" dir="ltr"
                       #datepickerInput1 />
-                    <ng-persian-datepicker [input]="datepickerInput1" [uiTheme]="'gray'" [uiTodayBtnEnable]="true"
-                      [timeMeridian]="false" [dateValue]="config.date.value" [dateOnSelect]="config.date.onSelect"
-                      [uiTheme]="config.ui.theme" [uiIsVisible]="config.ui.isVisible"
-                      [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                      [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiYearView]="config.ui.yearView"
-                      [uiMonthView]="config.ui.monthView" [timeEnable]="config.time.enable"
-                      [timeShowSecond]="config.time.showSecond" [timeMeridian]="config.time.meridian">
+                    <ng-persian-datepicker [input]="datepickerInput1" [dateOnSelect]="scenarioService.onSelectStartDate"
+                      [uiTodayBtnEnable]="true" [dateValue]="scenarioService.startDate" [uiYearView]="true"
+                      [uiMonthView]="true" [timeEnable]="true" [timeShowSecond]="true"
+                      dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                     </ng-persian-datepicker>
                   </div>
                   <span class="text-black fs-09">
@@ -47,7 +44,10 @@
                   <div class="mt-1">
                     <input class="form-control rounded-pill text-center text-black" type="text" dir="ltr"
                       #datepickerInput2 />
-                    <ng-persian-datepicker [input]="datepickerInput2" [uiTheme]="'default'" [timeMeridian]="false">
+                    <ng-persian-datepicker [input]="datepickerInput2" [dateValue]="scenarioService.endDate"
+                      [dateOnSelect]="scenarioService.onSelectEndDate" [uiTodayBtnEnable]="true" [uiYearView]="true"
+                      [uiMonthView]="true" [timeEnable]="true" [timeShowSecond]="true"
+                      dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                     </ng-persian-datepicker>
                   </div>
                 </div>
@@ -64,8 +64,8 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="cars" [multiple]="true" appendTo="body" formControlName="selectedCar1"
-                  bindLabel="name" class="form-control mb-3">
+                <ng-select [items]="scenarioService.brands$|async" [multiple]="true" appendTo="body" bindLabel="title"
+                  formControlName="brandIds" bindValue="id" class="form-control mb-3">
                 </ng-select>
               </div>
             </div>
@@ -80,8 +80,8 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="cars" [multiple]="true" appendTo="body" formControlName="selectedCar2"
-                  bindLabel="name" class="form-control mb-3">
+                <ng-select [items]="scenarioService.customerGroups$|async" [multiple]="true" appendTo="body"
+                  bindLabel="title" formControlName="customerGroupIds" bindValue="id" class="form-control mb-3">
                 </ng-select>
               </div>
             </div>
@@ -102,7 +102,8 @@
                   </span>
                   <div class="mt-1">
                     <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                      <input class="text-start text-black border-0 h-40px w-100" type="text">
+                      <input class="text-start text-black border-0 h-40px w-100" type="text"
+                        formControlName='purchaseAmountMin'>
                       <div class="fs-08 text-gray-500">
                         تومان
                       </div>
@@ -113,7 +114,8 @@
                   </span>
                   <div class="mt-1">
                     <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                      <input class="text-start text-black border-0 h-40px w-100" type="text">
+                      <input class="text-start text-black border-0 h-40px w-100" type="text"
+                        formControlName='purchaseAmountMax'>
                       <div class="fs-08 text-gray-500">
                         تومان
                       </div>
@@ -137,13 +139,14 @@
               <div class="col-12 col-sm-9">
                 <div class="d-flex flex-row gap-2 align-items-center">
                   <div>
-                    <input checked class="form-check-input" name="percentType" type="radio">
+                    <input class="form-check-input" type="radio" [value]="1" formControlName="purchaseRoundType">
                     <label class="form-check-label mr-3-px cursor-pointer">
                       برای خرید مرتبهٔ
                     </label>
                   </div>
                   <div>
-                    <input class="form-control rounded-pill w-80-px text-center text-black" type="text">
+                    <input class="form-control rounded-pill w-80-px text-center text-black" type="text"
+                      formControlName="purchaseRound">
                   </div>
                   <div class="fs-09 text-black">
                     کاربر، مستقل از سناریو
@@ -157,13 +160,14 @@
               <div class="col-12 col-sm-9">
                 <div class="d-flex flex-row gap-2 align-items-center">
                   <div>
-                    <input checked class="form-check-input" name="percentType" type="radio">
+                    <input class="form-check-input" type="radio" [value]="2" formControlName="purchaseRoundType">
                     <label class="form-check-label mr-3-px cursor-pointer">
                       برای خرید مرتبهٔ
                     </label>
                   </div>
                   <div>
-                    <input class="form-control rounded-pill w-80-px text-center text-black" type="text">
+                    <input class="form-control rounded-pill w-80-px text-center text-black" type="text"
+                      formControlName="purchaseRound2">
                   </div>
                   <div class="fs-09 text-black">
                     کاربر، در بازه سناریو
@@ -177,7 +181,7 @@
               <div class="col-12 col-sm-9">
                 <div class="d-flex flex-row gap-2">
                   <div class="mr-3-px">
-                    <input checked class="form-check-input" name="percentType" type="radio">
+                    <input class="form-check-input" type="radio" [value]="3" formControlName="purchaseRoundType">
                     <label class="form-check-label mr-3-px cursor-pointer">
                       مستقل از نوبت خرید کاربر
                     </label>
@@ -192,8 +196,8 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="cars" [multiple]="true" formControlName="selectedCar3" appendTo="body"
-                  bindLabel="name" class="form-control mb-3">
+                <ng-select [items]="scenarioService.productGroups$|async" [multiple]="true" appendTo="body"
+                  bindLabel="title" formControlName="productGroupIds" bindValue="id" class="form-control mb-3">
                 </ng-select>
               </div>
             </div>
@@ -204,8 +208,8 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="cars" [multiple]="true" formControlName="selectedCar4" appendTo="body"
-                  bindLabel="name" class="form-control mb-3">
+                <ng-select [items]="scenarioService.userTypes$|async" [multiple]="true" appendTo="body"
+                  bindLabel="title" formControlName="userTypeIds" bindValue="id" class="form-control mb-3">
                 </ng-select>
               </div>
             </div>
@@ -214,265 +218,279 @@
       </div>
     </div>
     <hr class="mt-4">
-    <div class="row mt-4">
-      <div class="col-12">
-        <span class="font-yekan-bold h5 text-black">
-          جوایز
-        </span>
+    <div formGroupName="purchaseReward">
+      <div class="row mt-4">
+        <div class="col-12">
+          <span class="font-yekan-bold h5 text-black">
+            جوایز
+          </span>
+        </div>
       </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-12 col-sm-8">
-        <div class="row">
-          <div class="col-12 col-sm-4">
-            <div class="d-flex flex-row align-items-center mt-3">
-              <input checked class="form-check-input" name="percentType" type="checkbox">
-              <label class="form-check-label mr-1 cursor-pointer">
-                تخفیف هزینه ارسال
-              </label>
+      <div class="row mt-4">
+        <div class="col-12 col-sm-8">
+          <div class="row">
+            <div class="col-12 col-sm-4">
+              <div class="d-flex flex-row align-items-center mt-3">
+                <input checked class="form-check-input" type="checkbox" formControlName='sendingDiscountReward'>
+                <label class="form-check-label mr-1 cursor-pointer">
+                  تخفیف هزینه ارسال
+                </label>
+              </div>
             </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-center text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-                %
+            <div class="col-4 col-sm-3">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-center text-black border-0 h-40px w-100" type="text"
+                  formControlName='sendingDiscount'>
+                <div class="fs-08 text-gray-500">
+                  %
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-12 col-sm-8">
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <div class="d-flex flex-row align-items-center mt-3">
-              <input checked class="form-check-input" name="percentType" type="checkbox">
-              <label class="form-check-label mr-1 cursor-pointer">
-                تخفیف سبد خرید
-              </label>
-            </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-center text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-                %
+      <div class="row mt-4">
+        <div class="col-12 col-sm-8">
+          <div class="row">
+            <div class="col-12 col-sm-3">
+              <div class="d-flex flex-row align-items-center mt-3">
+                <input checked class="form-check-input" name="basketDiscountReward" type="checkbox"
+                  formControlName="basketDiscountReward">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  تخفیف سبد خرید
+                </label>
               </div>
             </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="d-flex align-items-center mt-3">
-              <label class="form-check-label mr-1 cursor-pointer">
-                تخفیف سبد خرید
-              </label>
-            </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-center text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-                %
+            <div class="col-4 col-sm-3">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-center text-black border-0 h-40px w-100" type="text"
+                  formControlName="basketDiscountPercent">
+                <div class="fs-08 text-gray-500">
+                  %
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-12">
-        <div class="row">
-          <div class="col-12 col-sm-2">
-            <div class="d-flex flex-row align-items-center mt-3">
-              <input checked class="form-check-input" name="percentType" type="checkbox">
-              <label class="form-check-label mr-1 cursor-pointer">
-                تخفیف کالا
-              </label>
-            </div>
-          </div>
-          <div class="col-4 col-sm-2">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-center text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-                %
+            <div class="col-4 col-sm-3">
+              <div class="d-flex align-items-center mt-3">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  سبد خرید تا سقف
+                </label>
               </div>
             </div>
-          </div>
-          <div class="col-4 col-sm-2">
-            <div class="d-flex align-items-center mt-3">
-              <label class="form-check-label mr-1 cursor-pointer">
-                برای کالای
-              </label>
-            </div>
-          </div>
-          <div class="col-4 col-sm-5">
-            <ng-select [items]="cars" [multiple]="true" formControlName="selectedCar5" appendTo="body" bindLabel="name"
-              class="form-control mb-3">
-            </ng-select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-12">
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <div class="d-flex flex-row align-items-center mt-3">
-              <input checked class="form-check-input" name="percentType" type="checkbox">
-              <label class="form-check-label mr-1 cursor-pointer">
-                افزودن کالای رایگان به سبدخرید
-              </label>
-            </div>
-          </div>
-          <div class="col-12 col-sm-4">
-            <ng-select [items]="cars" [multiple]="true" formControlName="selectedCar6" [disabled]="true" appendTo="body"
-              bindLabel="name" class="form-control mb-3">
-            </ng-select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-12 col-sm-8">
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <div class="d-flex flex-row align-items-center mt-3">
-              <input checked class="form-check-input" name="percentType" type="checkbox">
-              <label class="form-check-label mr-1 cursor-pointer">
-                بازگشت وجه
-              </label>
-            </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-center text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-                %
-              </div>
-            </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="d-flex align-items-center mt-3">
-              <label class="form-check-label mr-1 cursor-pointer">
-                سبد خرید تا سقف
-              </label>
-            </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-start text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-              تومان
+            <div class="col-4 col-sm-3">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-center text-black border-0 h-40px w-100" type="text"
+                  formControlName="basketDiscountThreshold">
+                <div class="fs-08 text-gray-500">
+                  %
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-12 col-sm-8">
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <div class="d-flex flex-row align-items-center mt-3">
-              <input checked class="form-check-input" name="percentType" type="checkbox">
-              <label class="form-check-label mr-1 cursor-pointer">
-                افزایش امتیاز
-              </label>
-            </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-center text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-                %
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 col-sm-2">
+              <div class="d-flex flex-row align-items-center mt-3">
+                <input checked class="form-check-input" name="productDiscountReward" type="checkbox"
+                  formControlName="productDiscountReward">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  تخفیف کالا
+                </label>
               </div>
             </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="d-flex align-items-center mt-3">
-              <label class="form-check-label mr-1 cursor-pointer">
-                سبد خرید تا سقف
-              </label>
+            <div class="col-4 col-sm-2">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-center text-black border-0 h-40px w-100" type="text"
+                  formControlName="productDiscountPercent">
+                <div class="fs-08 text-gray-500">
+                  %
+                </div>
+              </div>
+            </div>
+            <div class="col-4 col-sm-2">
+              <div class="d-flex align-items-center mt-3">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  برای کالای
+                </label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-5">
+              <ng-select [items]="scenarioService.products$|async" [multiple]="true" appendTo="body" bindLabel="title"
+                bindValue="id" class="form-control mb-3">
+              </ng-select>
             </div>
           </div>
-          <div class="col-4 col-sm-3">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-start text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-                امتیاز
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 col-sm-3">
+              <div class="d-flex flex-row align-items-center mt-3">
+                <input checked class="form-check-input" name="addFreeProductReward" type="checkbox"
+                  formControlName="addFreeProductReward">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  افزودن کالای رایگان به سبدخرید
+                </label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <ng-select [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 col-sm-8">
+          <div class="row">
+            <div class="col-12 col-sm-3">
+              <div class="d-flex flex-row align-items-center mt-3">
+                <input checked class="form-check-input" name="refundReward" type="checkbox"
+                  formControlName="refundReward">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  بازگشت وجه
+                </label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-center text-black border-0 h-40px w-100" type="text" formControlName="refundPercent">
+                <div class="fs-08 text-gray-500">
+                  %
+                </div>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="d-flex align-items-center mt-3">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  سبد خرید تا سقف
+                </label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-start text-black border-0 h-40px w-100" type="text"
+                  formControlName="refundThreshold">
+                <div class="fs-08 text-gray-500">
+                  تومان
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-12 col-sm-8">
-        <div class="row">
-          <div class="col-12 col-sm-4">
-            <div class="d-flex flex-row align-items-center mt-3">
-              <input checked class="form-check-input" name="percentType" type="checkbox">
-              <label class="form-check-label mr-1 cursor-pointer">
-                کد تخفیف برای خرید بعدی
-              </label>
-            </div>
-          </div>
-          <div class="col-4 col-sm-2">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-start text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-                %
+      <div class="row mt-4">
+        <div class="col-12 col-sm-8">
+          <div class="row">
+            <div class="col-12 col-sm-3">
+              <div class="d-flex flex-row align-items-center mt-3">
+                <input checked class="form-check-input" name="increasScoreReward" type="checkbox"
+                  formControlName="increasScoreReward">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  افزایش امتیاز
+                </label>
               </div>
             </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="d-flex align-items-center mt-3">
-              <label class="form-check-label mr-1 cursor-pointer">
-                سبد خرید تا سقف
-              </label>
+            <div class="col-4 col-sm-3">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-center text-black border-0 h-40px w-100" type="text"
+                  formControlName="increaseScorePercent">
+                <div class="fs-08 text-gray-500">
+                  %
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-4 col-sm-3">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-              <input class="text-start text-black border-0 h-40px w-100" type="text">
-              <div class="fs-08 text-gray-500">
-                تومان
+            <div class="col-4 col-sm-3">
+              <div class="d-flex align-items-center mt-3">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  سبد خرید تا سقف
+                </label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-start text-black border-0 h-40px w-100" type="text"
+                  formControlName="increaseScoreThreshold">
+                <div class="fs-08 text-gray-500">
+                  امتیاز
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-4 mt-3 mt-sm-0">
-        <div class="d-flex flex-row gap-3 align-items-center">
-          <div class="fs-09 text-black">
-            معتبر تا
-          </div>
-          <div>
-            <input checked class="form-check-input" name="percentType" type="radio">
-          </div>
-          <div>
-            <input #datepickerInput3 class="form-control rounded-pill text-center text-black" dir="ltr"
-                   type="text" />
-            <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
-                                   [input]="datepickerInput3" [timeEnable]="config.time.enable" [timeMeridian]="false"
-                                   [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
-                                   [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                                   [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiIsVisible]="config.ui.isVisible"
-                                   [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'" [uiTheme]="config.ui.theme"
-                                   [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
-            </ng-persian-datepicker>
+      <div class="row mt-4">
+        <div class="col-12 col-sm-8">
+          <div class="row">
+            <div class="col-12 col-sm-4">
+              <div class="d-flex flex-row align-items-center mt-3">
+                <input checked class="form-check-input" name="discountCodeReward" type="checkbox"
+                  formControlName="discountCodeReward">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  کد تخفیف برای خرید بعدی
+                </label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-2">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-start text-black border-0 h-40px w-100" type="text"
+                  formControlName="discountCodePercent">
+                <div class="fs-08 text-gray-500">
+                  %
+                </div>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="d-flex align-items-center mt-3">
+                <label class="form-check-label mr-1 cursor-pointer">
+                  سبد خرید تا سقف
+                </label>
+              </div>
+            </div>
+            <div class="col-4 col-sm-3">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input class="text-start text-black border-0 h-40px w-100" type="text"
+                  formControlName="discountCodeThreshold">
+                <div class="fs-08 text-gray-500">
+                  تومان
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="d-flex flex-row gap-3 align-items-center mt-3">
-          <div class="mr-4">
-            <input checked class="form-check-input" name="percentType" type="radio">
+        <div class="col-12 col-sm-4 mt-3 mt-sm-0">
+          <div class="d-flex flex-row gap-3 align-items-center">
+            <div class="fs-09 text-black">
+              معتبر تا
+            </div>
+            <div>
+              <input checked class="form-check-input" name="discountCodeValidationType"
+                formControlName="discountCodeValidationType" [value]="1" type="radio">
+            </div>
+            <div>
+              <input #datepickerInput3 class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
+              <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectExpierDate" [input]="datepickerInput3"
+                [dateValue]="scenarioService.expierDate" [uiTodayBtnEnable]="true" [uiYearView]="true"
+                [uiMonthView]="true" [timeEnable]="true" [timeShowSecond]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+              </ng-persian-datepicker>
+            </div>
           </div>
-          <div>
-            <input class="form-control rounded-pill w-80-px text-end text-black" type="text">
-          </div>
-          <div class="fs-09 text-black">
-            روز پس از صدور کد
+          <div class="d-flex flex-row gap-3 align-items-center mt-3">
+            <div class="mr-4">
+              <input checked class="form-check-input" name="discountCodeValidationType"
+                formControlName="discountCodeValidationType" [value]="2" type="radio">
+            </div>
+            <div>
+              <input class="form-control rounded-pill w-80-px text-end text-black" type="text"
+                formControlName="discountCodeDaysAfterIssuedCode">
+            </div>
+            <div class="fs-09 text-black">
+              روز پس از صدور کد
+            </div>
           </div>
         </div>
       </div>

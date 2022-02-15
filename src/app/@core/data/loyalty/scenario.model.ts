@@ -5,6 +5,7 @@ import { PurchaseReward, purchaseRewardInit } from "./purchase-reward.model";
 
 export interface Scenario
 {
+  purchaseRound2: number;
   senarioType: SenarioType;
   title: string;
   brandIds: Array<string>;// to do brandIds
@@ -26,7 +27,7 @@ export interface Scenario
 }
 
 export const scenarioInit: Scenario = {
-  senarioType: SenarioType.Behavioral,
+  senarioType: SenarioType.Purchase,
   title: '',
   brandIds: [],
   productGroupIds: [],
@@ -38,6 +39,7 @@ export const scenarioInit: Scenario = {
   purchaseAmountMax: 0,
   purchaseRoundType: 1,
   purchaseRound: 0,
+  purchaseRound2: 0,
   activityId: '',
   purchaseReward: purchaseRewardInit,
   productDiscountProductGroupIds: [],

@@ -1,9 +1,9 @@
 <div class="container-fluid" dir="rtl">
   <div class="row">
     <div class="col-12">
-        <span class="font-yekan-bold h5 text-black">
-          تعریف
-        </span>
+      <span class="font-yekan-bold h5 text-black">
+        تعریف
+      </span>
     </div>
   </div>
   <div class="row mt-4">
@@ -15,9 +15,7 @@
           </label>
         </div>
         <div class="col-12 col-sm-7">
-          <app-switch
-            (notifySelectionSwitch)="selectedSwitch($event)"
-            [labelOne]="'سناریوی خرید'"
+          <app-switch (notifySelectionSwitch)="selectedSwitch($event)" [labelOne]="'سناریوی خرید'"
             [labelTwo]="'سناریوی رفتاری'">
           </app-switch>
         </div>
@@ -25,8 +23,8 @@
     </div>
   </div>
 </div>
-<app-purchase-scenario *ngIf="scenarioType==1"></app-purchase-scenario>
-<app-behavioral-scenario *ngIf="scenarioType==2"></app-behavioral-scenario>
+<app-purchase-scenario *ngIf="scenarioService.getValue('senarioType')===1"></app-purchase-scenario>
+<app-behavioral-scenario *ngIf="scenarioService.getValue('senarioType')===2"></app-behavioral-scenario>
 <div class="container-fluid" dir="rtl">
   <hr>
   <div class="row mt-4">
@@ -49,13 +47,13 @@
   <div class="row mt-4">
     <div class="col-6 col-sm-2">
       <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-              type="submit">
+        (click)="scenarioService.submit()" type="submit">
         ذخیره
       </button>
     </div>
     <div class="col-6 col-sm-2">
       <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-              type="submit">
+        type="submit">
         انصراف
       </button>
     </div>

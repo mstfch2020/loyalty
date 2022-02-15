@@ -11,5 +11,10 @@
   ],
   "include": [
     "src/**/*.d.ts"
+  ],
+  "typeRoots": [
+    "node_modules/@types",
+    "node_modules/@angular",
+    "node_modules/@angular/common/http"
   ]
 }

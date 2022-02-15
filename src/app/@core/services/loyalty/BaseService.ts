@@ -6,9 +6,11 @@ import { BaseResponse } from "../../data/root/base-response.model";
 import { UiService } from "../ui/ui.service";
 
 
-export function callService<T>(url: string, http: HttpClient, uiService: UiService): Observable<T>
+export function callService<T>(url: string, http: HttpClient, uiService: UiService, params: any = null): Observable<T>
 {
-  return http.get<BaseResponse<T>>(url).pipe(map(value =>
+  return http.get<BaseResponse<T>>(url, {
+    params: params
+  }).pipe(map(value =>
   {
     if (value.meta.code !== 200 || value.meta.errorMessage)
     {

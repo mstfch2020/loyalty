@@ -1,4 +1,4 @@
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BehavioralRewardType, RewardDiscountCodeValidationType } from "./enums.model";
 import { createPeriodFormGroup, Period, periodInit } from "./period.model";
 
@@ -37,10 +37,9 @@ export const behavioralRewardInit: BehavioralReward = {
   discountCodeReward: true
 };
 
-export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralReward, formBuilder: FormBuilder): { [key: string]: any; } =>
+export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralReward, formBuilder: FormBuilder): FormGroup =>
 {
-  const date = createPeriodFormGroup(behavioralReward.discountCodeDate);
-  return {
+  return formBuilder.group({
     behavioralRewardType: [behavioralReward.behavioralRewardType, [Validators.required]],
     increaseScorePercent: [behavioralReward.increaseScorePercent, [Validators.required]],
     increaseScoreThreshold: [behavioralReward.increaseScoreThreshold, [Validators.required]],
@@ -49,7 +48,7 @@ export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralRewa
     discountCodePercent: [behavioralReward.discountCodePercent, [Validators.required]],
     discountCodeThreshold: [behavioralReward.discountCodeThreshold, [Validators.required]],
     discountCodeValidationType: [behavioralReward.discountCodeValidationType, [Validators.required]],
-    discountCodeDate: formBuilder.group(createPeriodFormGroup(behavioralReward.discountCodeDate)),
+    discountCodeDate: createPeriodFormGroup(behavioralReward.discountCodeDate, formBuilder),
     discountCodeDaysAfterIssuedCode: [behavioralReward.discountCodeDaysAfterIssuedCode, [Validators.required]],
-  };
+  });
 };

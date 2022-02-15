@@ -1,4 +1,4 @@
-<form [formGroup]="scenarioService.form" action="" dir="rtl" (ngSubmit)="submit()">
+<form [formGroup]="scenarioService.form" action="" dir="rtl">
   <div class="container-fluid">
     <div class="row mt-4">
       <div class="col-12 col-sm-6">
@@ -21,8 +21,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" formControlName="selectedCar1"
-              class="form-control mb-3">
+            <ng-select [items]="scenarioService.brands$|async" [multiple]="true" appendTo="body" bindLabel="title"
+              formControlName="brandIds" bindValue="id" class="form-control mb-3">
             </ng-select>
           </div>
         </div>
@@ -44,13 +44,9 @@
               <div class="mt-1">
                 <input #datepickerInput1 class="form-control rounded-pill text-center text-black" dir="ltr"
                   type="text" />
-                <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
-                  [input]="datepickerInput1" [timeEnable]="config.time.enable" [timeMeridian]="false"
-                  [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
-                  [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                  [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiIsVisible]="config.ui.isVisible"
-                  [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'" [uiTheme]="config.ui.theme"
-                  [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
+                <ng-persian-datepicker [input]="datepickerInput1" [dateOnSelect]="scenarioService.onSelectStartDate"
+                  [uiTodayBtnEnable]="true" [dateValue]="scenarioService.startDate" [uiYearView]="true"
+                  [uiMonthView]="true" [timeEnable]="true" [timeShowSecond]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                 </ng-persian-datepicker>
               </div>
               <span class="text-black fs-09">
@@ -59,13 +55,9 @@
               <div class="mt-1">
                 <input #datepickerInput2 class="form-control rounded-pill text-center text-black" dir="ltr"
                   type="text" />
-                <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
-                  [input]="datepickerInput2" [timeEnable]="config.time.enable" [timeMeridian]="false"
-                  [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
-                  [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                  [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiIsVisible]="config.ui.isVisible"
-                  [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'" [uiTheme]="config.ui.theme"
-                  [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
+                <ng-persian-datepicker [input]="datepickerInput2" [dateValue]="scenarioService.endDate"
+                  [dateOnSelect]="scenarioService.onSelectEndDate" [uiTodayBtnEnable]="true" [uiYearView]="true"
+                  [uiMonthView]="true" [timeEnable]="true" [timeShowSecond]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                 </ng-persian-datepicker>
               </div>
             </div>
@@ -80,8 +72,7 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" formControlName="selectedCar2"
-              class="form-control mb-3">
+            <ng-select [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3">
             </ng-select>
           </div>
         </div>
@@ -96,8 +87,7 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" formControlName="selectedCar3"
-              class="form-control mb-3">
+            <ng-select [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3">
             </ng-select>
           </div>
         </div>
@@ -110,8 +100,7 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="false" appendTo="body" bindLabel="name" formControlName="selectedCar4"
-              class="form-control mb-3">
+            <ng-select [multiple]="false" appendTo="body" bindLabel="name" class="form-control mb-3">
             </ng-select>
           </div>
         </div>
@@ -156,9 +145,9 @@
             </div>
           </div>
           <div class="col-12 col-sm-2">
-             <div class="text-black text-start mt-4 fs-09">
-                تا سقف
-              </div>
+            <div class="text-black text-start mt-4 fs-09">
+              تا سقف
+            </div>
           </div>
           <div class="col-12 col-sm-3">
             <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
@@ -238,7 +227,7 @@
             <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
               <input class="text-start text-black border-0 h-40px w-100" type="text">
               <div class="fs-08 text-gray-500">
-               تومان
+                تومان
               </div>
             </div>
           </div>
@@ -253,15 +242,10 @@
             <input checked class="form-check-input" name="percentType" type="radio">
           </div>
           <div>
-            <input #datepickerInput3 class="form-control rounded-pill text-center text-black" dir="ltr"
-                   type="text" />
-            <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
-                                   [input]="datepickerInput3" [timeEnable]="config.time.enable" [timeMeridian]="false"
-                                   [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
-                                   [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                                   [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiIsVisible]="config.ui.isVisible"
-                                   [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'" [uiTheme]="config.ui.theme"
-                                   [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
+            <input #datepickerInput3 class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
+            <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectExpierDate" [input]="datepickerInput3"
+              [dateValue]="scenarioService.expierDate" [uiTodayBtnEnable]="true" [uiYearView]="true"
+              [uiMonthView]="true" [timeEnable]="true" [timeShowSecond]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
             </ng-persian-datepicker>
           </div>
         </div>
