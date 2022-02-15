@@ -6,7 +6,7 @@ import { Activity } from "../../data/loyalty/activity.model";
 import { createBehavioralRewardFormGroup } from "../../data/loyalty/behavioral-reward.model";
 import { Brand } from "../../data/loyalty/brand.model";
 import { CustomerGroup } from "../../data/loyalty/customer-group.model";
-import { SenarioType } from "../../data/loyalty/enums.model";
+import { BehavioralRewardType, SenarioType } from "../../data/loyalty/enums.model";
 import { FreeProduct } from "../../data/loyalty/free-product.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
@@ -18,6 +18,7 @@ import { Utility } from '../../utils/Utility';
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
+import { callGetService, callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class ScenarioService
@@ -35,6 +36,8 @@ export class ScenarioService
 
   productGroups$ = new BehaviorSubject<Array<ProductGroup>>([]);
   freeProducts$ = new BehaviorSubject<Array<FreeProduct>>([]);
+
+  scenarios$ = new BehaviorSubject<Array<Scenario>>([]);
 
   form: FormGroup;
 
@@ -159,6 +162,16 @@ export class ScenarioService
     }
   };
 
+  behavioralRewardTypeChange($event: number)
+  {
+    if ($event === 1)
+    {
+      this.form.get(`behavioralReward.behavioralRewardType`)?.setValue(BehavioralRewardType.UserHimself);
+      return;
+    }
+    this.form.get(`behavioralReward.behavioralRewardType`)?.setValue(BehavioralRewardType.ThirdParty);
+  }
+
   onSelectEndDate = (shamsiDate: string, gregorianDate: string, timestamp: number): void =>
   {
     this.updatePeriodFormControl(shamsiDate, 'periodMax');
@@ -174,11 +187,27 @@ export class ScenarioService
     this.updatePeriodFormControl(shamsiDate, 'purchaseReward.discountCodeDate');
   };
 
+  getScenarios(pageSize: number, pageIndex: number)
+  {
+    const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios';
+    return callGetService<Array<Scenario>>(url, this.http, this.uiService, {
+      pageSize: pageSize, pageIndex: pageIndex
+    }).subscribe(value =>
+    {
+      this.scenarios$.next(value);
+    });
+  }
+
   submit(): void
   {
     console.log(this.form.value);
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
     const url = this.settingService.settings?.baseUrl + `Senario/${ option }`;
+
+    callPostService<Scenario>(url, this.http, this.uiService, this.form.value).subscribe(value =>
+    {
+      this.form.controls['id'].setValue(value?.id);
+    });
 
   }
 

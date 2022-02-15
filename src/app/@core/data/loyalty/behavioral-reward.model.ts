@@ -22,7 +22,7 @@ export interface BehavioralReward
 
 export const behavioralRewardInit: BehavioralReward = {
   id: '',
-  behavioralRewardType: 0,
+  behavioralRewardType: 1,
   increaseScorePercent: 0,
   increaseScoreThreshold: 0,
   refundToWalletPercent: 0,
@@ -50,5 +50,8 @@ export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralRewa
     discountCodeValidationType: [behavioralReward.discountCodeValidationType, [Validators.required]],
     discountCodeDate: createPeriodFormGroup(behavioralReward.discountCodeDate, formBuilder),
     discountCodeDaysAfterIssuedCode: [behavioralReward.discountCodeDaysAfterIssuedCode, [Validators.required]],
+    refundReward: [behavioralReward.refundReward, [Validators.required]],
+    increasScoreReward: [behavioralReward.increasScoreReward, [Validators.required]],
+    discountCodeReward: [behavioralReward.discountCodeReward, [Validators.required]],
   });
 };
