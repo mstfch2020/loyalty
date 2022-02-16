@@ -12,7 +12,7 @@ export class ViewListComponent implements OnInit
 {
 
   public theViewList = new Array<Scenario>();
-  pageIndex = 0;
+  pageIndex = 1;
   pageSize = 10;
 
   constructor(private router: Router, public scenarioService: ScenarioService)
@@ -23,7 +23,7 @@ export class ViewListComponent implements OnInit
   ngOnInit(): void
   {
     //this.router.navigate(['/admin/main/scenario/list']);
-    this.scenarioService.getScenarios(this.pageIndex, this.pageSize);
+    this.scenarioService.getScenarios(this.pageSize, this.pageIndex);
   }
 
   routToBehavioral(item: any)

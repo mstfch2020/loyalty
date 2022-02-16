@@ -203,6 +203,11 @@ export class ScenarioService
     console.log(this.form.value);
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
     const url = this.settingService.settings?.baseUrl + `Senario/${ option }`;
+    const value = this.form.value;
+    if (value.senarioType === SenarioType.Purchase)
+    {
+      delete value.activityId;
+    }
 
     callPostService<Scenario>(url, this.http, this.uiService, this.form.value).subscribe(value =>
     {
