@@ -85,6 +85,7 @@
               </div>
               <div class="col-12 col-sm-9">
                 <ng-select [items]="scenarioService.brands$|async"
+                           [disabled]="true"
                            [multiple]="true" appendTo="body" bindLabel="title"
                            bindValue="id" class="form-control mb-3" formControlName="brandIds">
                 </ng-select>

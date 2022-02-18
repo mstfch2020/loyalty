@@ -367,6 +367,7 @@ table tbody tr td {
 .form-check-input:checked.disabled {
   background-color: #01aab1;
   border-color: #01aab1;
+  cursor: not-allowed;
 }
 
 select.ng-invalid.ng-touched {
@@ -546,10 +547,12 @@ select.disabled,
   background: #eff3f3!important;
   box-shadow: inset -0.5px 0.5px 6px 0 rgb(0 0 0 / 16%)!important;
   border: none!important;
+  cursor: not-allowed;
 }
 
 .form-control.disabled >input{
   background: #eff3f3!important;
+  cursor: not-allowed;
 }
 
 
