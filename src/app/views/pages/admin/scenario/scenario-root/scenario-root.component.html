@@ -16,15 +16,17 @@
         </div>
         <div class="col-12 col-sm-7">
           <app-switch (notifySelectionSwitch)="selectedSwitch($event)" [labelOne]="'سناریوی خرید'"
-            [labelTwo]="'سناریوی رفتاری'">
+                      [labelTwo]="'سناریوی رفتاری'">
           </app-switch>
         </div>
       </div>
     </div>
   </div>
 </div>
-<app-purchase-scenario *ngIf="scenarioService.getValue('senarioType')===1"></app-purchase-scenario>
-<app-behavioral-scenario *ngIf="scenarioService.getValue('senarioType')===2"></app-behavioral-scenario>
+<app-purchase-scenario *ngIf="scenarioService.getValue('senarioType')===1"
+                       [isDisabled]="isDisabled"></app-purchase-scenario>
+<app-behavioral-scenario *ngIf="scenarioService.getValue('senarioType')===2"
+                         [isDisabled]="isDisabled"></app-behavioral-scenario>
 <div class="container-fluid" dir="rtl">
   <hr>
   <div class="row mt-4">
@@ -35,7 +37,8 @@
         </div>
         <div>
           <div class="form-check form-switch float-end">
-            <input class="form-check-input" id="flexSwitchCheckDefault" type="checkbox">
+            <input [(ngModel)]="isDisabled" class="form-check-input" id="flexSwitchCheckDefault"
+                   type="checkbox">
           </div>
         </div>
         <div class="text-black fs-09">
@@ -46,14 +49,15 @@
   </div>
   <div class="row mt-4">
     <div class="col-6 col-sm-2">
-      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-        (click)="scenarioService.submit()" type="submit">
+      <button (click)="scenarioService.submit()"
+              class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+              dir="rtl" type="submit">
         ذخیره
       </button>
     </div>
     <div class="col-6 col-sm-2">
       <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-        type="submit">
+              type="submit">
         انصراف
       </button>
     </div>

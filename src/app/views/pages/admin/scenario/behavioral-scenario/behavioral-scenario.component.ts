@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service';
 
 @Component({
@@ -9,8 +9,11 @@ import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service
 export class BehavioralScenarioComponent implements OnInit
 {
 
+  @Input() isDisabled:boolean;
+
   constructor(public scenarioService: ScenarioService)
   {
+    this.isDisabled = false;
   }
 
   ngOnInit(): void
