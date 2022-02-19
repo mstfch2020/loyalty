@@ -54,6 +54,10 @@ export const purchaseRewardInit: PurchaseReward = {
 };
 export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, formBuilder: FormBuilder): FormGroup =>
 {
+  if (!purchaseReward)
+  {
+    purchaseReward = purchaseRewardInit;
+  }
   return formBuilder.group({
     id: [purchaseReward.id, [Validators.required]],
     sendingDiscount: [purchaseReward.sendingDiscount, [Validators.required]],
@@ -76,5 +80,6 @@ export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, fo
     refundReward: [purchaseReward.refundReward, [Validators.required]],
     increasScoreReward: [purchaseReward.increasScoreReward, [Validators.required]],
     discountCodeReward: [purchaseReward.discountCodeReward, [Validators.required]],
+    expierDate: [new Date('2026/10/01').valueOf(), [Validators.required]]
   });
 };

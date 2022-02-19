@@ -12,13 +12,10 @@
               </div>
               <div class="col-12 col-sm-9">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                       class="form-control rounded-pill text-end text-black"
-                       formControlName='title'
-                       type="text">
+                  class="form-control rounded-pill text-end text-black" formControlName='title' type="text">
                 <div
                   *ngIf="!scenarioService.form.get('title')?.valid && scenarioService.form.get('title')?.touched && !isDisabled"
-                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1"
-                  dir="rtl">
+                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   نام سناریو را وارد نمایید
                 </div>
               </div>
@@ -39,35 +36,24 @@
                     از
                   </span>
                   <div class="mt-1">
-                    <input #datepickerInput1
-                           [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                           class="form-control rounded-pill text-center text-black" dir="ltr"
-                           type="text"/>
+                    <input #datepickerInput1 [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
+                      class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
                     <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectStartDate"
-                                           [dateValue]="scenarioService.startDate"
-                                           [input]="datepickerInput1"
-                                           [timeEnable]="true"
-                                           [timeShowSecond]="true"
-                                           [uiMonthView]="true"
-                                           [uiTodayBtnEnable]="true"
-                                           [uiYearView]="true"
-                                           dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                      [dateValue]="scenarioService.startDate" [input]="datepickerInput1" [timeEnable]="true"
+                      [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true" [uiYearView]="true"
+                      dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                     </ng-persian-datepicker>
                   </div>
                   <span class="text-black fs-09">
                     تا
                   </span>
                   <div class="mt-1">
-                    <input #datepickerInput2
-                           [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                           class="form-control rounded-pill text-center text-black" dir="ltr"
-                           type="text"/>
+                    <input #datepickerInput2 [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
+                      class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
                     <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectEndDate"
-                                           [dateValue]="scenarioService.endDate"
-                                           [input]="datepickerInput2" [timeEnable]="true"
-                                           [timeShowSecond]="true"
-                                           [uiMonthView]="true" [uiTodayBtnEnable]="true" [uiYearView]="true"
-                                           dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                      [dateValue]="scenarioService.endDate" [input]="datepickerInput2" [timeEnable]="true"
+                      [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true" [uiYearView]="true"
+                      dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                     </ng-persian-datepicker>
                   </div>
                 </div>
@@ -84,15 +70,12 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="scenarioService.brands$|async"
-                           [disabled]="true"
-                           [multiple]="true" appendTo="body" bindLabel="title"
-                           bindValue="id" class="form-control mb-3" formControlName="brandIds">
+                <ng-select [items]="scenarioService.brands$|async" [readonly]="isDisabled" [multiple]="true"
+                  appendTo="body" bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="brandIds">
                 </ng-select>
                 <div
                   *ngIf="!scenarioService.form.get('brandIds')?.valid && scenarioService.form.get('brandIds')?.touched && !isDisabled"
-                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1"
-                  dir="rtl">
+                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   برند را مشخص نمایید
                 </div>
               </div>
@@ -108,15 +91,13 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="scenarioService.customerGroups$|async"
-                           [multiple]="true" appendTo="body"
-                           bindLabel="title" bindValue="id" class="form-control mb-3"
-                           formControlName="customerGroupIds">
+                <ng-select [items]="scenarioService.customerGroups$|async" [multiple]="true" appendTo="body"
+                  [readonly]="isDisabled" bindLabel="title" bindValue="id" class="form-control mb-3"
+                  formControlName="customerGroupIds">
                 </ng-select>
                 <div
                   *ngIf="!scenarioService.form.get('customerGroupIds')?.valid && scenarioService.form.get('customerGroupIds')?.touched && !isDisabled"
-                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1"
-                  dir="rtl">
+                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   گروه مشتری را مشخص نمایید
                 </div>
               </div>
@@ -138,12 +119,10 @@
                   </span>
                   <div class="mt-1">
                     <div [ngClass]="{'disabled':isDisabled}"
-                         class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                      <input (keypress)="checkDigit($event)"
-                             [readOnly]="isDisabled"
-                             class="text-start text-black border-0 h-40px w-100"
-                             formControlName='purchaseAmountMin'
-                             type="text">
+                      class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                      <input (keypress)="checkDigit($event)" [readOnly]="isDisabled"
+                        class="text-start text-black border-0 h-40px w-100" formControlName='purchaseAmountMin'
+                        type="text">
                       <div class="fs-08 text-gray-500">
                         تومان
                       </div>
@@ -154,12 +133,10 @@
                   </span>
                   <div class="mt-1">
                     <div [ngClass]="{'disabled':isDisabled}"
-                         class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                      <input (keypress)="checkDigit($event)"
-                             [readOnly]="isDisabled"
-                             class="text-start text-black border-0 h-40px w-100"
-                             formControlName='purchaseAmountMax'
-                             type="text">
+                      class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                      <input (keypress)="checkDigit($event)" [readOnly]="isDisabled"
+                        class="text-start text-black border-0 h-40px w-100" formControlName='purchaseAmountMax'
+                        type="text">
                       <div class="fs-08 text-gray-500">
                         تومان
                       </div>
@@ -183,20 +160,17 @@
               <div class="col-12 col-sm-9">
                 <div class="d-flex flex-row gap-2 align-items-center">
                   <div>
-                    <input [ngClass]="{'disabled':isDisabled}"
-                           [readOnly]="isDisabled" [value]="1"
-                           class="form-check-input" formControlName="purchaseRoundType"
-                           id="purchaseRoundTypeOne"
-                           type="radio">
+                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="1"
+                      class="form-check-input" formControlName="purchaseRoundType" id="purchaseRoundTypeOne"
+                      type="radio">
                     <label class="form-check-label mr-3-px cursor-pointer" for="purchaseRoundTypeOne">
                       برای خرید مرتبهٔ
                     </label>
                   </div>
                   <div>
                     <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                           class="form-control rounded-pill w-80-px text-center text-black"
-                           formControlName="purchaseRound"
-                           type="text">
+                      class="form-control rounded-pill w-80-px text-center text-black" formControlName="purchaseRound"
+                      type="text">
                   </div>
                   <div class="fs-09 text-black">
                     کاربر، مستقل از سناریو
@@ -210,19 +184,17 @@
               <div class="col-12 col-sm-9">
                 <div class="d-flex flex-row gap-2 align-items-center">
                   <div>
-                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                           [value]="2" class="form-check-input" formControlName="purchaseRoundType"
-                           id="purchaseRoundTypeTwo"
-                           type="radio">
+                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="2"
+                      class="form-check-input" formControlName="purchaseRoundType" id="purchaseRoundTypeTwo"
+                      type="radio">
                     <label class="form-check-label mr-3-px cursor-pointer" for="purchaseRoundTypeTwo">
                       برای خرید مرتبهٔ
                     </label>
                   </div>
                   <div>
                     <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                           class="form-control rounded-pill w-80-px text-center text-black"
-                           formControlName="purchaseRound2"
-                           type="text">
+                      class="form-control rounded-pill w-80-px text-center text-black" formControlName="purchaseRound2"
+                      type="text">
                   </div>
                   <div class="fs-09 text-black">
                     کاربر، در بازه سناریو
@@ -236,10 +208,9 @@
               <div class="col-12 col-sm-9">
                 <div class="d-flex flex-row gap-2">
                   <div class="mr-3-px">
-                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                           [value]="3" class="form-check-input" formControlName="purchaseRoundType"
-                           id="purchaseRoundTypeThree"
-                           type="radio">
+                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="3"
+                      class="form-check-input" formControlName="purchaseRoundType" id="purchaseRoundTypeThree"
+                      type="radio">
                     <label class="form-check-label mr-3-px cursor-pointer" for="purchaseRoundTypeThree">
                       مستقل از نوبت خرید کاربر
                     </label>
@@ -254,14 +225,13 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="scenarioService.productGroups$|async"
-                           [multiple]="true" appendTo="body"
-                           bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="productGroupIds">
+                <ng-select [items]="scenarioService.productGroups$|async" [readonly]="isDisabled" [multiple]="true"
+                  appendTo="body" bindLabel="title" bindValue="id" class="form-control mb-3"
+                  formControlName="productGroupIds">
                 </ng-select>
                 <div
                   *ngIf="!scenarioService.form.get('productGroupIds')?.valid && scenarioService.form.get('productGroupIds')?.touched && !isDisabled"
-                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1"
-                  dir="rtl">
+                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   گروه مشتری را مشخص نمایید
                 </div>
               </div>
@@ -273,14 +243,13 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="scenarioService.userTypes$|async"
-                           [multiple]="true" appendTo="body"
-                           bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="userTypeIds">
+                <ng-select [items]="scenarioService.userTypes$|async" [multiple]="true" appendTo="body"
+                  [readonly]="isDisabled" bindLabel="title" bindValue="id" class="form-control mb-3"
+                  formControlName="userTypeIds">
                 </ng-select>
                 <div
                   *ngIf="!scenarioService.form.get('userTypeIds')?.valid && scenarioService.form.get('userTypeIds')?.touched && !isDisabled"
-                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1"
-                  dir="rtl">
+                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   نوع کاربری را مشخص نمایید
                 </div>
               </div>
@@ -303,11 +272,8 @@
           <div class="row">
             <div class="col-12 col-sm-4">
               <div class="d-flex flex-row align-items-center mt-3">
-                <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                       checked class="form-check-input"
-                       formControlName='sendingDiscountReward'
-                       id="sendingDiscountReward"
-                       type="checkbox">
+                <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
+                  formControlName='sendingDiscountReward' id="sendingDiscountReward" type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer" for="sendingDiscountReward">
                   تخفیف هزینه ارسال
                 </label>
@@ -315,11 +281,9 @@
             </div>
             <div class="col-4 col-sm-3">
               <div [ngClass]="{'disabled':isDisabled}"
-                   class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                <input [readOnly]="isDisabled"
-                       class="text-center text-black border-0 h-40px w-100"
-                       formControlName='sendingDiscount'
-                       type="text">
+                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
+                  formControlName='sendingDiscount' type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -333,11 +297,9 @@
           <div class="row">
             <div class="col-12 col-sm-3">
               <div class="d-flex flex-row align-items-center mt-3">
-                <input [ngClass]="{'disabled':isDisabled}"
-                       [readOnly]="isDisabled" checked
-                       class="form-check-input" formControlName="basketDiscountReward" id="basketDiscountReward"
-                       name="basketDiscountReward"
-                       type="checkbox">
+                <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
+                  formControlName="basketDiscountReward" id="basketDiscountReward" name="basketDiscountReward"
+                  type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer" for="basketDiscountReward">
                   تخفیف سبد خرید
                 </label>
@@ -345,9 +307,9 @@
             </div>
             <div class="col-4 col-sm-3">
               <div [ngClass]="{'disabled':isDisabled}"
-                   class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="basketDiscountPercent"
-                       type="text">
+                  type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -361,9 +323,10 @@
               </div>
             </div>
             <div class="col-4 col-sm-3">
-              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px" [ngClass]="{'disabled':isDisabled}">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
+                [ngClass]="{'disabled':isDisabled}">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="basketDiscountThreshold"
-                       type="text">
+                  type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -377,21 +340,19 @@
           <div class="row">
             <div class="col-12 col-sm-2">
               <div class="d-flex flex-row align-items-center mt-3">
-                <input [ngClass]="{'disabled':isDisabled}"
-                       [readOnly]="isDisabled" checked
-                       class="form-check-input" formControlName="productDiscountReward"
-                       id="productDiscountReward"
-                       name="productDiscountReward"
-                       type="checkbox">
+                <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
+                  formControlName="productDiscountReward" id="productDiscountReward" name="productDiscountReward"
+                  type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer" for="productDiscountReward">
                   تخفیف کالا
                 </label>
               </div>
             </div>
             <div class="col-4 col-sm-2">
-              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px" [ngClass]="{'disabled':isDisabled}">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
+                [ngClass]="{'disabled':isDisabled}">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="productDiscountPercent"
-                       type="text">
+                  type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -405,8 +366,8 @@
               </div>
             </div>
             <div class="col-4 col-sm-5">
-              <ng-select [items]="scenarioService.products$|async" [multiple]="true" appendTo="body" bindLabel="title"
-                         bindValue="id" class="form-control mb-3">
+              <ng-select [items]="scenarioService.products$|async" [readonly]="isDisabled" [multiple]="true"
+                appendTo="body" bindLabel="title" bindValue="id" class="form-control mb-3">
               </ng-select>
             </div>
           </div>
@@ -417,18 +378,17 @@
           <div class="row">
             <div class="col-12 col-sm-3">
               <div class="d-flex flex-row align-items-center mt-3">
-                <input [ngClass]="{'disabled':isDisabled}"
-                       [readOnly]="isDisabled" checked
-                       class="form-check-input" formControlName="addFreeProductReward" id="addFreeProductReward"
-                       name="addFreeProductReward"
-                       type="checkbox">
+                <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
+                  formControlName="addFreeProductReward" id="addFreeProductReward" name="addFreeProductReward"
+                  type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer" for="addFreeProductReward">
                   افزودن کالای رایگان به سبدخرید
                 </label>
               </div>
             </div>
             <div class="col-12 col-sm-4">
-              <ng-select [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3">
+              <ng-select [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
+                [readonly]="isDisabled">
               </ng-select>
             </div>
           </div>
@@ -439,18 +399,16 @@
           <div class="row">
             <div class="col-12 col-sm-3">
               <div class="d-flex flex-row align-items-center mt-3">
-                <input [ngClass]="{'disabled':isDisabled}"
-                       [readOnly]="isDisabled" checked
-                       class="form-check-input" formControlName="refundReward" id="refundReward"
-                       name="refundReward"
-                       type="checkbox">
+                <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
+                  formControlName="refundReward" id="refundReward" name="refundReward" type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer" for="refundReward">
                   بازگشت وجه
                 </label>
               </div>
             </div>
             <div class="col-4 col-sm-3">
-              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px" [ngClass]="{'disabled':isDisabled}">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
+                [ngClass]="{'disabled':isDisabled}">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="refundPercent" type="text">
                 <div class="fs-08 text-gray-500">
                   %
@@ -465,9 +423,10 @@
               </div>
             </div>
             <div class="col-4 col-sm-3">
-              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px" [ngClass]="{'disabled':isDisabled}">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
+                [ngClass]="{'disabled':isDisabled}">
                 <input class="text-start text-black border-0 h-40px w-100" formControlName="refundThreshold"
-                       type="text">
+                  type="text">
                 <div class="fs-08 text-gray-500">
                   تومان
                 </div>
@@ -481,11 +440,9 @@
           <div class="row">
             <div class="col-12 col-sm-3">
               <div class="d-flex flex-row align-items-center mt-3">
-                <input [ngClass]="{'disabled':isDisabled}"
-                       [readOnly]="isDisabled" checked
-                       class="form-check-input" formControlName="increasScoreReward" id="increasScoreReward"
-                       name="increasScoreReward"
-                       type="checkbox">
+                <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
+                  formControlName="increasScoreReward" id="increasScoreReward" name="increasScoreReward"
+                  type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer" for="increasScoreReward">
                   افزایش امتیاز
                 </label>
@@ -493,9 +450,9 @@
             </div>
             <div class="col-4 col-sm-3">
               <div [ngClass]="{'disabled':isDisabled}"
-                   class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="increaseScorePercent"
-                       type="text">
+                  type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -509,9 +466,10 @@
               </div>
             </div>
             <div class="col-4 col-sm-3">
-              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px" [ngClass]="{'disabled':isDisabled}">
+              <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
+                [ngClass]="{'disabled':isDisabled}">
                 <input class="text-start text-black border-0 h-40px w-100" formControlName="increaseScoreThreshold"
-                       type="text">
+                  type="text">
                 <div class="fs-08 text-gray-500">
                   امتیاز
                 </div>
@@ -525,10 +483,8 @@
           <div class="row">
             <div class="col-12 col-sm-4">
               <div class="d-flex flex-row align-items-center mt-3">
-                <input [ngClass]="{'disabled':isDisabled}"
-                       [readOnly]="isDisabled" checked
-                       class="form-check-input" formControlName="discountCodeReward" name="discountCodeReward"
-                       type="checkbox">
+                <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
+                  formControlName="discountCodeReward" name="discountCodeReward" type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer">
                   کد تخفیف برای خرید بعدی
                 </label>
@@ -536,9 +492,9 @@
             </div>
             <div class="col-4 col-sm-2">
               <div [ngClass]="{'disabled':isDisabled}"
-                   class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-start text-black border-0 h-40px w-100" formControlName="discountCodePercent"
-                       type="text">
+                  type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -553,9 +509,9 @@
             </div>
             <div class="col-4 col-sm-3">
               <div [ngClass]="{'disabled':isDisabled}"
-                   class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-start text-black border-0 h-40px w-100" formControlName="discountCodeThreshold"
-                       type="text">
+                  type="text">
                 <div class="fs-08 text-gray-500">
                   تومان
                 </div>
@@ -569,36 +525,30 @@
               معتبر تا
             </div>
             <div>
-              <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                     [value]="1" checked
-                     class="form-check-input"
-                     formControlName="discountCodeValidationType" name="discountCodeValidationType" type="radio">
+              <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="1" checked
+                class="form-check-input" formControlName="discountCodeValidationType" name="discountCodeValidationType"
+                type="radio">
             </div>
             <div>
-              <input #datepickerInput3
-                     [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                     class="form-control rounded-pill text-center text-black" dir="ltr" type="text"/>
-              <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectExpierDate"
-                                     [dateValue]="scenarioService.expierDate"
-                                     [input]="datepickerInput3" [timeEnable]="true"
-                                     [timeShowSecond]="true"
-                                     [uiMonthView]="true" [uiTodayBtnEnable]="true" [uiYearView]="true"
-                                     dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+              <input #datepickerInput3 [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
+                formControlName="expierDate" class="form-control rounded-pill text-center text-black" dir="ltr"
+                type="text" />
+              <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectExpierDate" [input]="datepickerInput3"
+                [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true"
+                [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
               </ng-persian-datepicker>
             </div>
           </div>
           <div class="d-flex flex-row gap-3 align-items-center mt-3">
             <div class="mr-4">
-              <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="2"
-                     checked class="form-check-input"
-                     formControlName="discountCodeValidationType"
-                     name="discountCodeValidationType" type="radio">
+              <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="2" checked
+                class="form-check-input" formControlName="discountCodeValidationType" name="discountCodeValidationType"
+                type="radio">
             </div>
             <div>
-              <input [ngClass]="{'disabled':isDisabled}"
-                     [readOnly]="isDisabled" class="form-control rounded-pill w-80-px text-end text-black"
-                     formControlName="discountCodeDaysAfterIssuedCode"
-                     type="text">
+              <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
+                class="form-control rounded-pill w-80-px text-end text-black"
+                formControlName="discountCodeDaysAfterIssuedCode" type="text">
             </div>
             <div class="fs-09 text-black">
               روز پس از صدور کد

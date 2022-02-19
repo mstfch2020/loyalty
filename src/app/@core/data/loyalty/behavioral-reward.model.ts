@@ -39,6 +39,10 @@ export const behavioralRewardInit: BehavioralReward = {
 
 export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralReward, formBuilder: FormBuilder): FormGroup =>
 {
+  if (!behavioralReward)
+  {
+    behavioralReward = behavioralRewardInit;
+  }
   return formBuilder.group({
     behavioralRewardType: [behavioralReward.behavioralRewardType, [Validators.required]],
     increaseScorePercent: [behavioralReward.increaseScorePercent, [Validators.required]],
@@ -49,6 +53,7 @@ export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralRewa
     discountCodeThreshold: [behavioralReward.discountCodeThreshold, [Validators.required]],
     discountCodeValidationType: [behavioralReward.discountCodeValidationType, [Validators.required]],
     discountCodeDate: createPeriodFormGroup(behavioralReward.discountCodeDate, formBuilder),
+    expierDate: [new Date('2026/10/01').valueOf(), [Validators.required]],
     discountCodeDaysAfterIssuedCode: [behavioralReward.discountCodeDaysAfterIssuedCode, [Validators.required]],
     refundReward: [behavioralReward.refundReward, [Validators.required]],
     increasScoreReward: [behavioralReward.increasScoreReward, [Validators.required]],

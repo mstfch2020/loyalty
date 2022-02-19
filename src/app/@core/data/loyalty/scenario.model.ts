@@ -47,3 +47,5 @@ export const scenarioInit: Scenario = {
   behavioralReward: behavioralRewardInit,
   id: ''
 };
+
+

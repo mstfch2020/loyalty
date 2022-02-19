@@ -29,8 +29,8 @@
     "fix": "^0.0.6",
     "moment": "^2.29.1",
     "moment-jalaali": "^0.9.1",
-    "ng-persian-datepicker": "^2.4.0",
-    "rxjs": "6.6.2",
+    "ng-persian-datepicker": "^4.0.0",
+    "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

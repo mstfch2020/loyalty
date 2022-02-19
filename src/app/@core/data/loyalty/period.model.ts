@@ -1,5 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
+
+export interface PeriodModel
+{
+  min: Period;
+  max: Period;
+}
 export interface Period
 {
   year: number;

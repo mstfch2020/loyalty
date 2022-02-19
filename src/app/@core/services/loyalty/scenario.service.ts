@@ -8,6 +8,7 @@ import { Brand } from "../../data/loyalty/brand.model";
 import { CustomerGroup } from "../../data/loyalty/customer-group.model";
 import { BehavioralRewardType, SenarioType } from "../../data/loyalty/enums.model";
 import { FreeProduct } from "../../data/loyalty/free-product.model";
+import { GetSenariosGrid } from "../../data/loyalty/get-senarios-grid.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { Product } from "../../data/loyalty/product.model";
@@ -26,7 +27,7 @@ export class ScenarioService
 
   startDate = new Date().valueOf();
   endDate = new Date().valueOf();
-  expierDate = new Date().valueOf();
+  expierDate = new Date('1999/10/01').valueOf();
 
   activity$ = new BehaviorSubject<Array<Activity>>([]);
   brands$ = new BehaviorSubject<Array<Brand>>([]);
@@ -37,7 +38,7 @@ export class ScenarioService
   productGroups$ = new BehaviorSubject<Array<ProductGroup>>([]);
   freeProducts$ = new BehaviorSubject<Array<FreeProduct>>([]);
 
-  scenarios$ = new BehaviorSubject<Array<Scenario>>([]);
+  scenarios$ = new BehaviorSubject<Array<GetSenariosGrid>>([]);
 
   form: FormGroup;
 
@@ -54,10 +55,8 @@ export class ScenarioService
     this.form = this.formBuilder.group({
       id: [scenario.id, [Validators.required]],
       title: [scenario.title, [Validators.required]],
-
       senarioType: [scenario.senarioType, [Validators.required]],
       purchaseRoundType: [scenario.purchaseRoundType, [Validators.required]],
-
       brandIds: [scenario.brandIds, [Validators.required]],
       productGroupIds: [scenario.productGroupIds, [Validators.required]],
       customerGroupIds: [scenario.customerGroupIds, [Validators.required]],
@@ -179,6 +178,7 @@ export class ScenarioService
 
   onSelectExpierDate = (shamsiDate: string, gregorianDate: string, timestamp: number): void =>
   {
+    const a = this.getValue('senarioType');
     if (this.getValue('senarioType') === SenarioType.Behavioral)
     {
       this.updatePeriodFormControl(shamsiDate, 'behavioralReward.discountCodeDate');
@@ -189,12 +189,20 @@ export class ScenarioService
 
   getScenarios(pageSize: number, pageIndex: number)
   {
-    const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios';
-    return callGetService<Array<Scenario>>(url, this.http, this.uiService, {
+    const url = this.settingService.settings?.baseUrl + 'Senario/GetSenariosGrid';
+    return callGetService<Array<GetSenariosGrid>>(url, this.http, this.uiService, {
       pageSize: pageSize, pageIndex: pageIndex
     }).subscribe(value =>
     {
       this.scenarios$.next(value);
+    });
+  }
+
+  getScenarioById(id: string)
+  {
+    const url = this.settingService.settings?.baseUrl + 'Senario/GetSenarioById';
+    return callGetService<Scenario>(url, this.http, this.uiService, {
+      senarioId: id
     });
   }
 
