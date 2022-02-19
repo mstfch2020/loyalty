@@ -53,24 +53,20 @@
                 از
               </span>
               <div class="mt-1">
-                <input #datepickerInput1 [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                  class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
-                <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectStartDate"
-                  [dateValue]="scenarioService.startDate" [input]="datepickerInput1" [timeEnable]="true"
-                  [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true" [uiYearView]="true"
-                  dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                  <input formControlName="startDate" class="form-control rounded-pill text-center text-black" dir="ltr"
+                    type="text" />
                 </ng-persian-datepicker>
               </div>
               <span class="text-black fs-09">
                 تا
               </span>
               <div class="mt-1">
-                <input #datepickerInput2 [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                  class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
-                <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectEndDate"
-                  [dateValue]="scenarioService.endDate" [input]="datepickerInput2" [timeEnable]="true"
-                  [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true" [uiYearView]="true"
-                  dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                  <input formControlName="endDate" class="form-control rounded-pill text-center text-black" dir="ltr"
+                    type="text" />
                 </ng-persian-datepicker>
               </div>
             </div>
@@ -292,12 +288,10 @@
                 class="form-check-input" formControlName="discountCodeValidationType" type="radio">
             </div>
             <div>
-
               <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
                 [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
-                <input #datepickerInput3 [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                  formControlName="expierDate" class="form-control rounded-pill text-center text-black" dir="ltr"
-                  type="text" />
+                <input #datepickerInput3 formControlName="expierDate"
+                  class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
               </ng-persian-datepicker>
             </div>
           </div>

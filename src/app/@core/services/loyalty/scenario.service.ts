@@ -8,7 +8,7 @@ import { Brand } from "../../data/loyalty/brand.model";
 import { CustomerGroup } from "../../data/loyalty/customer-group.model";
 import { BehavioralRewardType, SenarioType } from "../../data/loyalty/enums.model";
 import { FreeProduct } from "../../data/loyalty/free-product.model";
-import { GetSenariosGrid } from "../../data/loyalty/get-senarios-grid.model";
+import { GetSenarios } from "../../data/loyalty/get-senarios-grid.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { Product } from "../../data/loyalty/product.model";
@@ -38,7 +38,7 @@ export class ScenarioService
   productGroups$ = new BehaviorSubject<Array<ProductGroup>>([]);
   freeProducts$ = new BehaviorSubject<Array<FreeProduct>>([]);
 
-  scenarios$ = new BehaviorSubject<Array<GetSenariosGrid>>([]);
+  scenarios$ = new BehaviorSubject<Array<GetSenarios>>([]);
 
   form: FormGroup;
 
@@ -63,7 +63,8 @@ export class ScenarioService
       userTypeIds: [scenario.userTypeIds, [Validators.required]],
       productDiscountProductGroupIds: [scenario.productDiscountProductGroupIds, [Validators.required]],
       freeProductIds: [scenario.freeProductIds, [Validators.required]],
-
+      startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMin), [Validators.required]],
+      endDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMax), [Validators.required]],
       periodMin: createPeriodFormGroup(scenario.periodMin, this.formBuilder),
       periodMax: createPeriodFormGroup(scenario.periodMax, this.formBuilder),
       behavioralReward: createBehavioralRewardFormGroup(scenario.behavioralReward, this.formBuilder),
@@ -71,12 +72,14 @@ export class ScenarioService
 
       purchaseAmountMin: [scenario.purchaseAmountMin, [Validators.required]],
       purchaseAmountMax: [scenario.purchaseAmountMax, [Validators.required]],
-      purchaseRound: [scenario.purchaseRound, [Validators.required]],
-      purchaseRound2: [scenario.purchaseRound2, [Validators.required]],
+      purchaseRound: [scenario.purchaseRoundType !== 3 ? scenario.purchaseRound : 0, [Validators.required]],
+      purchaseRound1: [scenario.purchaseRoundType === 1 ? scenario.purchaseRound : 0, [Validators.required]],
+      purchaseRound2: [scenario.purchaseRoundType === 2 ? scenario.purchaseRound : 0, [Validators.required]],
 
       activityId: [scenario.activityId, [Validators.required]],
 
     });
+
 
     this.form.controls['brandIds'].valueChanges.subscribe(value =>
     {
@@ -161,9 +164,9 @@ export class ScenarioService
     }
   };
 
-  behavioralRewardTypeChange($event: number)
+  behavioralRewardTypeChange($event: boolean)
   {
-    if ($event === 1)
+    if ($event)
     {
       this.form.get(`behavioralReward.behavioralRewardType`)?.setValue(BehavioralRewardType.UserHimself);
       return;
@@ -189,8 +192,8 @@ export class ScenarioService
 
   getScenarios(pageSize: number, pageIndex: number)
   {
-    const url = this.settingService.settings?.baseUrl + 'Senario/GetSenariosGrid';
-    return callGetService<Array<GetSenariosGrid>>(url, this.http, this.uiService, {
+    const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios';
+    return callGetService<Array<GetSenarios>>(url, this.http, this.uiService, {
       pageSize: pageSize, pageIndex: pageIndex
     }).subscribe(value =>
     {
@@ -212,9 +215,29 @@ export class ScenarioService
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
     const url = this.settingService.settings?.baseUrl + `Senario/${ option }`;
     const value = this.form.value;
+
+    this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin');
+    this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax');
+
     if (value.senarioType === SenarioType.Purchase)
     {
       delete value.activityId;
+      this.updatePeriodFormControl(this.getValue('purchaseReward.expierDate'), 'purchaseReward.discountCodeDate');
+    } else
+    {
+      this.updatePeriodFormControl(this.getValue('behavioralReward.expierDate'), 'behavioralReward.discountCodeDate');
+    }
+
+    if (this.getValue('purchaseRoundType') === 1)
+    {
+      this.form.controls['purchaseRound'].setValue(Number(this.getValue('purchaseRound1')));
+    }
+    else if (this.getValue('purchaseRoundType') === 2)
+    {
+      this.form.controls['purchaseRound'].setValue(Number(this.getValue('purchaseRound2')));
+    } else
+    {
+      this.form.controls['purchaseRound'].setValue(0);
     }
 
     callPostService<Scenario>(url, this.http, this.uiService, this.form.value).subscribe(value =>

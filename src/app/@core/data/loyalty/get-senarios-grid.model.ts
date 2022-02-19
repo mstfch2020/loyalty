@@ -2,7 +2,7 @@ import { PeriodModel } from "./period.model";
 
 export interface IdTitle { id: string; title: string; }
 export interface Amount { min: number; max: number; }
-
+export interface AmountTitle { title: string; values: Array<string>; type: string; }
 export interface GetPurchaseRewardModel
 {
   sendingDiscount: number;

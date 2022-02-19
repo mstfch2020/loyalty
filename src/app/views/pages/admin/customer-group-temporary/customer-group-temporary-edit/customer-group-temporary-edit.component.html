@@ -78,30 +78,20 @@
                 از
               </span>
               <div class="mt-1">
-                <input class="form-control rounded-pill text-center text-black" type="text" dir="ltr"
-                  #datepickerInput1 />
-                <ng-persian-datepicker [input]="datepickerInput1" [uiTheme]="'gray'" [uiTodayBtnEnable]="true"
-                  [timeMeridian]="false" [dateValue]="config.date.value" [dateOnSelect]="config.date.onSelect"
-                  [uiTheme]="config.ui.theme" [uiIsVisible]="config.ui.isVisible"
-                  [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                  [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiYearView]="config.ui.yearView"
-                  [uiMonthView]="config.ui.monthView" [timeEnable]="config.time.enable"
-                  [timeShowSecond]="config.time.showSecond" [timeMeridian]="config.time.meridian">
+                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                  <input #datepickerInput3 formControlName="expierDate"
+                    class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
               <span class="text-black fs-09">
                 تا
               </span>
               <div class="mt-1">
-                <input class="form-control rounded-pill text-center text-black" type="text" dir="ltr"
-                  #datepickerInput2 />
-                <ng-persian-datepicker [input]="datepickerInput2" [uiTheme]="'gray'" [uiTodayBtnEnable]="true"
-                  [timeMeridian]="false" [dateValue]="config.date.value" [dateOnSelect]="config.date.onSelect"
-                  [uiTheme]="config.ui.theme" [uiIsVisible]="config.ui.isVisible"
-                  [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                  [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick" [uiYearView]="config.ui.yearView"
-                  [uiMonthView]="config.ui.monthView" [timeEnable]="config.time.enable"
-                  [timeShowSecond]="config.time.showSecond" [timeMeridian]="config.time.meridian">
+                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                  <input #datepickerInput3 formControlName="expierDate"
+                    class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
             </div>

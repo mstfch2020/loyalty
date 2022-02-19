@@ -21,36 +21,20 @@
                 از
               </span>
               <div class="mt-1">
-                <input #datepickerInput1 class="form-control rounded-pill text-center text-black" dir="ltr"
-                       type="text"/>
-                <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
-                                       [input]="datepickerInput1" [timeEnable]="config.time.enable"
-                                       [timeMeridian]="false"
-                                       [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
-                                       [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                                       [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
-                                       [uiIsVisible]="config.ui.isVisible"
-                                       [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'"
-                                       [uiTheme]="config.ui.theme"
-                                       [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
+                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                  <input #datepickerInput3 formControlName="expierDate"
+                    class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
               <span class="text-black fs-09">
                 تا
               </span>
               <div class="mt-1">
-                <input #datepickerInput2 class="form-control rounded-pill text-center text-black" dir="ltr"
-                       type="text"/>
-                <ng-persian-datepicker [dateOnSelect]="config.date.onSelect" [dateValue]="config.date.value"
-                                       [input]="datepickerInput2" [timeEnable]="config.time.enable"
-                                       [timeMeridian]="false"
-                                       [timeMeridian]="config.time.meridian" [timeShowSecond]="config.time.showSecond"
-                                       [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-                                       [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
-                                       [uiIsVisible]="config.ui.isVisible"
-                                       [uiMonthView]="config.ui.monthView" [uiTheme]="'gray'"
-                                       [uiTheme]="config.ui.theme"
-                                       [uiTodayBtnEnable]="true" [uiYearView]="config.ui.yearView">
+                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                  <input #datepickerInput3 formControlName="expierDate"
+                    class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
             </div>
@@ -66,7 +50,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
-                       formControlName="selectedCar2">
+              formControlName="selectedCar2">
             </ng-select>
           </div>
         </div>
@@ -82,7 +66,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
-                       formControlName="selectedCar1">
+              formControlName="selectedCar1">
             </ng-select>
           </div>
         </div>
@@ -96,7 +80,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
-                       formControlName="selectedCar1">
+              formControlName="selectedCar1">
             </ng-select>
           </div>
         </div>
@@ -112,7 +96,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
-                       formControlName="selectedCar1">
+              formControlName="selectedCar1">
             </ng-select>
           </div>
         </div>
@@ -126,7 +110,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
-                       formControlName="selectedCar1">
+              formControlName="selectedCar1">
             </ng-select>
           </div>
         </div>
@@ -225,7 +209,7 @@
           </div>
           <div class="col-12 col-sm-10">
             <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
-                       formControlName="selectedCar1">
+              formControlName="selectedCar1">
             </ng-select>
           </div>
         </div>
@@ -244,7 +228,7 @@
       </div>
       <div class="col-12 col-sm-6 mt-2 mt-sm-0">
         <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
-                   formControlName="selectedCar1">
+          formControlName="selectedCar1">
         </ng-select>
       </div>
     </div>
@@ -273,7 +257,7 @@
         <div class="d-flex flex-row align-items-center mt-3">
           <input checked class="form-check-input" name="percentType" type="radio">
           <label class="form-check-label mr-1 cursor-pointer">
-کد تخفیف ثابت
+            کد تخفیف ثابت
           </label>
           <div class="mr-1">
             <input class="form-control rounded-pill text-center text-black" type="text">
@@ -295,7 +279,7 @@
       </div>
       <div class="col-12 col-sm-1">
         <div class="text-black mt-3 text-end fs-09">
-به تعداد:
+          به تعداد:
         </div>
       </div>
       <div class="col-12 col-sm-2">
@@ -305,13 +289,13 @@
     <div class="row mt-4">
       <div class="col-6 col-sm-3">
         <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-                type="submit">
+          type="submit">
           ذخیره الگو
         </button>
       </div>
       <div class="col-6 col-sm-3">
         <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-                type="submit">
+          type="submit">
           تولید کد
         </button>
       </div>

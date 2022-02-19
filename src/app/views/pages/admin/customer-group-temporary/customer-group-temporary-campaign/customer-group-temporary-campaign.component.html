@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-        <span class="font-yekan-bold h5 text-black">
-تعریف گروه مشتری موقت (مشتری هدف کمپین)
-        </span>
+      <span class="font-yekan-bold h5 text-black">
+        تعریف گروه مشتری موقت (مشتری هدف کمپین)
+      </span>
     </div>
   </div>
   <div class="row mt-5">
@@ -15,7 +15,7 @@
           </label>
         </div>
         <div class="col-12 col-sm-9">
-            <input class="form-control" type="file" dir="ltr" id="formFile">
+          <input class="form-control" type="file" dir="ltr" id="formFile">
         </div>
       </div>
     </div>
@@ -41,25 +41,10 @@
           </label>
         </div>
         <div class="col-12 col-sm-5">
-          <input class="form-control rounded-pill text-center text-black"
-                 type="text" dir="ltr"
-                 #datepickerInput2 />
-          <ng-persian-datepicker
-            [input]="datepickerInput2"
-            [uiTheme]="'gray'"
-            [uiTodayBtnEnable]="true"
-            [timeMeridian]="false"
-            [dateValue]="config.date.value"
-            [dateOnSelect]="config.date.onSelect"
-            [uiTheme]="config.ui.theme"
-            [uiIsVisible]="config.ui.isVisible"
-            [uiHideAfterSelectDate]="config.ui.hideAfterSelectDate"
-            [uiHideOnOutsideClick]="config.ui.hideOnOutsideClick"
-            [uiYearView]="config.ui.yearView"
-            [uiMonthView]="config.ui.monthView"
-            [timeEnable]="config.time.enable"
-            [timeShowSecond]="config.time.showSecond"
-            [timeMeridian]="config.time.meridian">
+          <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+            [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+            <input #datepickerInput3 formControlName="expierDate"
+              class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
           </ng-persian-datepicker>
         </div>
       </div>
@@ -67,14 +52,14 @@
   </div>
   <div class="row mt-5">
     <div class="col-6 col-sm-2">
-      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-              dir="rtl" type="submit">
+      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+        type="submit">
         ذخیره
       </button>
     </div>
     <div class="col-6 col-sm-2">
-      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-              dir="rtl" type="submit">
+      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+        type="submit">
         انصراف
       </button>
     </div>

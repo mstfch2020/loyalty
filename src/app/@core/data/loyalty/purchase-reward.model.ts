@@ -1,4 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Utility } from "../../utils/Utility";
 import { RewardDiscountCodeValidationType } from "./enums.model";
 import { createPeriodFormGroup, Period, periodInit } from "./period.model";
 
@@ -71,7 +72,6 @@ export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, fo
     discountCodePercent: purchaseReward.discountCodePercent,
     discountCodeThreshold: [purchaseReward.discountCodeThreshold, [Validators.required]],
     discountCodeValidationType: [purchaseReward.discountCodeValidationType, [Validators.required]],
-    discountCodeDate: createPeriodFormGroup(purchaseReward.discountCodeDate, formBuilder),
     discountCodeDaysAfterIssuedCode: [purchaseReward.discountCodeDaysAfterIssuedCode, [Validators.required]],
     sendingDiscountReward: [purchaseReward.sendingDiscountReward, [Validators.required]],
     basketDiscountReward: [purchaseReward.basketDiscountReward, [Validators.required]],
@@ -80,6 +80,7 @@ export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, fo
     refundReward: [purchaseReward.refundReward, [Validators.required]],
     increasScoreReward: [purchaseReward.increasScoreReward, [Validators.required]],
     discountCodeReward: [purchaseReward.discountCodeReward, [Validators.required]],
-    expierDate: [new Date('2026/10/01').valueOf(), [Validators.required]]
+    discountCodeDate: createPeriodFormGroup(purchaseReward.discountCodeDate, formBuilder),
+    expierDate: [Utility.getFullDateTimeFromPeriodInPersion(purchaseReward.discountCodeDate), [Validators.required]]
   });
 };

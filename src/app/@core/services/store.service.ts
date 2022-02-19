@@ -11,7 +11,7 @@ export class StoreService<T extends IStore> {
   public subject = new BehaviorSubject<T>(storeInit as T);
   public store = this.subject.asObservable().pipe(distinctUntilChanged());
 
-  public select<T>(name: string): Observable<T>
+  public select<T>(name: string): Observable<T | unknown>
   {
     return this.store.pipe(pluck(name));
   }

@@ -1,8 +1,8 @@
 <div class="form-control p-0 d-flex flex-row justify-content-around">
-  <div (click)="selection(1)" [ngClass]="{'selected':isOneSelected}" class="switch">
+  <div (click)="selection(true)" [class.switch-selected]="isOneSelected!==false" class="switch">
     {{labelOne}}
   </div>
-  <div (click)="selection(2)" [ngClass]="{'selected':isTwoSelected}" class="switch">
+  <div (click)="selection(false)" [class.switch-selected]="isOneSelected!==true" class="switch">
     {{labelTwo}}
   </div>
 </div>

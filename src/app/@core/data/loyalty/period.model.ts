@@ -14,6 +14,7 @@ export interface Period
   hours: number;
   minutes: number;
   seconds: number;
+  full: string;
 }
 
 export const periodInit: Period = {
@@ -22,7 +23,8 @@ export const periodInit: Period = {
   day: 0,
   hours: 0,
   minutes: 0,
-  seconds: 0
+  seconds: 0,
+  full: ''
 };
 
 export const createPeriodFormGroup = (periodMin: Period, formBuilder: FormBuilder): FormGroup =>

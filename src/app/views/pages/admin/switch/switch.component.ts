@@ -1,39 +1,34 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-switch',
   templateUrl: './switch.component.html',
   styleUrls: ['./switch.component.scss']
 })
-export class SwitchComponent implements OnInit {
+export class SwitchComponent implements OnInit
+{
 
-  @Input() labelOne: string;
-  @Input() labelTwo: string;
-  @Output() notifySelectionSwitch: EventEmitter<number> = new EventEmitter<number>();
+  @Input() labelOne = 'عنوان اول';
+  @Input() labelTwo = 'عنوان دوم';
 
-  isOneSelected: boolean;
-  isTwoSelected: boolean;
+  @Output() notifySelectionSwitch: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() {
-    this.labelOne = 'عنوان اول';
-    this.labelTwo = 'عنوان دوم';
-    this.isOneSelected = true;
-    this.isTwoSelected = false;
-  }
+  @Input() isOneSelected = true;
 
-  ngOnInit(): void {
+  constructor()
+  {
 
   }
 
-  public selection(item: number) {
+  ngOnInit(): void
+  {
+
+  }
+
+  public selection(item: boolean)
+  {
     this.notifySelectionSwitch.emit(item);
-    if (item == 1) {
-      this.isOneSelected = true;
-      this.isTwoSelected = false;
-    } else {
-      this.isOneSelected = false;
-      this.isTwoSelected = true;
-    }
+    this.isOneSelected = item;
   }
 
 }

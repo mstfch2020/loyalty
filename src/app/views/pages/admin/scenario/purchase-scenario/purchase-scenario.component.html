@@ -36,24 +36,20 @@
                     از
                   </span>
                   <div class="mt-1">
-                    <input #datepickerInput1 [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                      class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
-                    <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectStartDate"
-                      [dateValue]="scenarioService.startDate" [input]="datepickerInput1" [timeEnable]="true"
-                      [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true" [uiYearView]="true"
-                      dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                    <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+                      [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                      <input formControlName="startDate" class="form-control rounded-pill text-center text-black"
+                        dir="ltr" type="text" />
                     </ng-persian-datepicker>
                   </div>
                   <span class="text-black fs-09">
                     تا
                   </span>
                   <div class="mt-1">
-                    <input #datepickerInput2 [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                      class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
-                    <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectEndDate"
-                      [dateValue]="scenarioService.endDate" [input]="datepickerInput2" [timeEnable]="true"
-                      [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true" [uiYearView]="true"
-                      dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                    <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+                      [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                      <input formControlName="endDate" class="form-control rounded-pill text-center text-black"
+                        dir="ltr" type="text" />
                     </ng-persian-datepicker>
                   </div>
                 </div>
@@ -169,8 +165,8 @@
                   </div>
                   <div>
                     <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                      class="form-control rounded-pill w-80-px text-center text-black" formControlName="purchaseRound"
-                      type="text">
+                      class="form-control rounded-pill w-80-px text-center text-black" formControlName="purchaseRound1"
+                      #purchaseRound type="text">
                   </div>
                   <div class="fs-09 text-black">
                     کاربر، مستقل از سناریو
@@ -192,7 +188,7 @@
                     </label>
                   </div>
                   <div>
-                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
+                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" #purchaseRound2
                       class="form-control rounded-pill w-80-px text-center text-black" formControlName="purchaseRound2"
                       type="text">
                   </div>
@@ -530,12 +526,10 @@
                 type="radio">
             </div>
             <div>
-              <input #datepickerInput3 [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                formControlName="expierDate" class="form-control rounded-pill text-center text-black" dir="ltr"
-                type="text" />
-              <ng-persian-datepicker [dateOnSelect]="scenarioService.onSelectExpierDate" [input]="datepickerInput3"
-                [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true"
-                [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+              <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
+                [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                <input #datepickerInput3 formControlName="expierDate"
+                  class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
               </ng-persian-datepicker>
             </div>
           </div>

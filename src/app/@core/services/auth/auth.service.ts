@@ -47,8 +47,9 @@ export class AuthService extends StoreService<UserState> {
 
   getIsAuth(): Observable<boolean>
   {
-    return this.select<User>('user').pipe(map(user =>
+    return this.select<User>('user').pipe(map(userValue =>
     {
+      const user = Object.assign({} as User, userValue);
       if (!user || !user.Id)
       {
         return false;
@@ -60,8 +61,9 @@ export class AuthService extends StoreService<UserState> {
 
   getTocken(): Observable<string>
   {
-    return this.select<User>('user').pipe(map(user =>
+    return this.select<User>('user').pipe(map(userValue =>
     {
+      const user = Object.assign({} as User, userValue);
       if (!user || !user.Token)
       {
         return '';

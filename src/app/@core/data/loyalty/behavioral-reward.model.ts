@@ -1,4 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Utility } from "../../utils/Utility";
 import { BehavioralRewardType, RewardDiscountCodeValidationType } from "./enums.model";
 import { createPeriodFormGroup, Period, periodInit } from "./period.model";
 
@@ -53,7 +54,7 @@ export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralRewa
     discountCodeThreshold: [behavioralReward.discountCodeThreshold, [Validators.required]],
     discountCodeValidationType: [behavioralReward.discountCodeValidationType, [Validators.required]],
     discountCodeDate: createPeriodFormGroup(behavioralReward.discountCodeDate, formBuilder),
-    expierDate: [new Date('2026/10/01').valueOf(), [Validators.required]],
+    expierDate: [Utility.getFullDateTimeFromPeriodInPersion(behavioralReward.discountCodeDate), [Validators.required]],
     discountCodeDaysAfterIssuedCode: [behavioralReward.discountCodeDaysAfterIssuedCode, [Validators.required]],
     refundReward: [behavioralReward.refundReward, [Validators.required]],
     increasScoreReward: [behavioralReward.increasScoreReward, [Validators.required]],
