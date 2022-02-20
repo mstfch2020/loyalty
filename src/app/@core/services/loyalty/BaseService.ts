@@ -80,7 +80,6 @@ export abstract class BaseService<T>{
     }
 
     const date = shamsiDate.substring(0, 10)?.split('/');
-    const time = shamsiDate.substring(11, shamsiDate.length)?.split(':');
 
     if (date && date.length === 3)
     {
@@ -89,6 +88,7 @@ export abstract class BaseService<T>{
       this.form.get(`${ formControlName }.day`)?.setValue(parseInt(date[2], 0));
     }
 
+    const time = shamsiDate.substring(11, shamsiDate.length)?.split(':');
     if (time && time.length === 3)
     {
       this.form.get(`${ formControlName }.hours`)?.setValue(parseInt(time[0], 0));

@@ -60,7 +60,8 @@
             </label>
           </div>
           <div class="col-6 col-sm-3">
-            <input class="form-control rounded-pill text-center" type="text" formControlName="activityCount">
+            <input class="form-control rounded-pill text-center" type="text" formControlName="activityCount"
+              mask="separator" thousandSeparator=",">
           </div>
         </div>
       </div>
@@ -79,8 +80,8 @@
                 <img alt="" src="assets/img/icons/greater.svg">
               </div>
               <div class="mr-1">
-                <input class="form-control rounded-pill text-start" placeholder="امتیاز" type="text"
-                  formControlName="scoreThreshold">
+                <input class="form-control rounded-pill text-start" placeholder="امتیاز" type="text" mask="separator"
+                  thousandSeparator="," formControlName="scoreThreshold">
               </div>
             </div>
           </div>

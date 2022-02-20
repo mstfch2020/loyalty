@@ -36,22 +36,21 @@
                     از
                   </span>
                   <div class="mt-1">
-                    <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
-                      [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                    <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                      [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                       <input formControlName="startDate" class="form-control rounded-pill text-center text-black"
-                        [dropSpecialCharacters]="false" mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" dir="ltr"
+                        [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr"
                         type="text" />
                     </ng-persian-datepicker>
-                    {{scenarioService.getValue('startDate')}}
                   </div>
                   <span class="text-black fs-09">
                     تا
                   </span>
                   <div class="mt-1">
-                    <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
-                      [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                    <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                      [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                       <input formControlName="endDate" class="form-control rounded-pill text-center text-black"
-                        [dropSpecialCharacters]="false" mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" dir="ltr"
+                        [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr"
                         type="text" />
                     </ng-persian-datepicker>
                   </div>
@@ -119,9 +118,8 @@
                   <div class="mt-1">
                     <div [ngClass]="{'disabled':isDisabled}"
                       class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                      <input (keypress)="checkDigit($event)" [readOnly]="isDisabled"
-                        class="text-start text-black border-0 h-40px w-100" formControlName='purchaseAmountMin'
-                        type="text">
+                      <input [readOnly]="isDisabled" class="text-start text-black border-0 h-40px w-100"
+                        formControlName='purchaseAmountMin' type="text" mask="separator" thousandSeparator=",">
                       <div class="fs-08 text-gray-500">
                         تومان
                       </div>
@@ -133,9 +131,8 @@
                   <div class="mt-1">
                     <div [ngClass]="{'disabled':isDisabled}"
                       class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                      <input (keypress)="checkDigit($event)" [readOnly]="isDisabled"
-                        class="text-start text-black border-0 h-40px w-100" formControlName='purchaseAmountMax'
-                        type="text">
+                      <input [readOnly]="isDisabled" class="text-start text-black border-0 h-40px w-100"
+                        formControlName='purchaseAmountMax' type="text" mask="separator" thousandSeparator=",">
                       <div class="fs-08 text-gray-500">
                         تومان
                       </div>
@@ -167,9 +164,9 @@
                     </label>
                   </div>
                   <div>
-                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                      class="form-control rounded-pill w-80-px text-center text-black" formControlName="purchaseRound1"
-                      #purchaseRound type="text">
+                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" mask="separator"
+                      thousandSeparator="," class="form-control rounded-pill w-80-px text-center text-black"
+                      formControlName="purchaseRound1" #purchaseRound type="text">
                   </div>
                   <div class="fs-09 text-black">
                     کاربر، مستقل از سناریو
@@ -191,9 +188,9 @@
                     </label>
                   </div>
                   <div>
-                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" #purchaseRound2
-                      class="form-control rounded-pill w-80-px text-center text-black" formControlName="purchaseRound2"
-                      type="text">
+                    <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" #purchaseRound2 mask="separator"
+                      thousandSeparator="," class="form-control rounded-pill w-80-px text-center text-black"
+                      formControlName="purchaseRound2" type="text">
                   </div>
                   <div class="fs-09 text-black">
                     کاربر، در بازه سناریو
@@ -282,7 +279,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
-                  formControlName='sendingDiscount' type="text">
+                  formControlName='sendingDiscount' type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -308,7 +305,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="basketDiscountPercent"
-                  type="text">
+                  type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -325,7 +322,7 @@
               <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
                 [ngClass]="{'disabled':isDisabled}">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="basketDiscountThreshold"
-                  type="text">
+                  type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -351,7 +348,7 @@
               <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
                 [ngClass]="{'disabled':isDisabled}">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="productDiscountPercent"
-                  type="text">
+                  type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -408,7 +405,8 @@
             <div class="col-4 col-sm-3">
               <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
                 [ngClass]="{'disabled':isDisabled}">
-                <input class="text-center text-black border-0 h-40px w-100" formControlName="refundPercent" type="text">
+                <input class="text-center text-black border-0 h-40px w-100" formControlName="refundPercent" type="text"
+                  mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -424,8 +422,8 @@
             <div class="col-4 col-sm-3">
               <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
                 [ngClass]="{'disabled':isDisabled}">
-                <input class="text-start text-black border-0 h-40px w-100" formControlName="refundThreshold"
-                  type="text">
+                <input class="text-start text-black border-0 h-40px w-100" formControlName="refundThreshold" type="text"
+                  mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   تومان
                 </div>
@@ -451,7 +449,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="increaseScorePercent"
-                  type="text">
+                  type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -468,7 +466,7 @@
               <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
                 [ngClass]="{'disabled':isDisabled}">
                 <input class="text-start text-black border-0 h-40px w-100" formControlName="increaseScoreThreshold"
-                  type="text">
+                  type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   امتیاز
                 </div>
@@ -493,7 +491,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-start text-black border-0 h-40px w-100" formControlName="discountCodePercent"
-                  type="text">
+                  type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -510,7 +508,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-start text-black border-0 h-40px w-100" formControlName="discountCodeThreshold"
-                  type="text">
+                  type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   تومان
                 </div>
@@ -529,9 +527,9 @@
                 type="radio">
             </div>
             <div>
-              <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
-                [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
-                <input #datepickerInput3 formControlName="expierDate" mask="0000/M0/d0 Hh:m0:s0"
+              <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                <input #datepickerInput3 formControlName="expierDate" [dropSpecialCharacters]="false" mask="0000/M0/d0"
                   [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
                   class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
               </ng-persian-datepicker>
@@ -546,7 +544,7 @@
             <div>
               <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
                 class="form-control rounded-pill w-80-px text-end text-black"
-                formControlName="discountCodeDaysAfterIssuedCode" type="text">
+                formControlName="discountCodeDaysAfterIssuedCode" type="text" mask="separator" thousandSeparator=",">
             </div>
             <div class="fs-09 text-black">
               روز پس از صدور کد

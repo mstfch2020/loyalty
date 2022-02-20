@@ -25,19 +25,19 @@
               <tr (click)="goToDetail(customerGroup.id)" *ngFor="let customerGroup of theViewList;let i =index;">
                 <td class="text-center" scope="row">{{pageIndex+i}}</td>
                 <td class="text-center">
-                  از {{customerGroup.currentLevel.title}} به {{customerGroup.nexLevel.title}}
+                  از {{customerGroup?.currentLevel?.title}} به {{customerGroup?.nextLevel?.title}}
                 </td>
                 <td class="text-center">
-                  خیلی‌سبز
+                  {{customerGroup?.brand?.title}}
                 </td>
                 <td class="text-center">
-                  20
+                  {{customerGroup?.activityCount}}
                 </td>
                 <td class="text-center">
-                  1200
+                  {{customerGroup?.scoreThreshold}}
                 </td>
                 <td class="text-center">
-                  نقره ای
+                  {{customerGroup?.customerGroup?.title}}
                 </td>
               </tr>
 

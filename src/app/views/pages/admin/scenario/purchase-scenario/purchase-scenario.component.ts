@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service';
-import { Utility } from "../../../../../@core/utils/Utility";
 
 @Component({
   selector: 'app-purchase-scenario',
@@ -22,14 +21,4 @@ export class PurchaseScenarioComponent implements OnInit
   {
     this.scenarioService.form.markAllAsTouched();
   }
-
-  /**
-   * Restrict number
-   * @param event
-   */
-  public checkDigit(event: any): boolean
-  {
-    return Utility.CheckDigit(event);
-  }
-
 }

@@ -17,7 +17,10 @@ export class CustomerGroupGridComponent implements OnInit
 
   constructor(private router: Router, public customerGroupService: CustomerGroupService)
   {
-    customerGroupService.customerGroups$.subscribe(value => this.theViewList = value);
+    customerGroupService.customerGroups$.subscribe(value =>
+    {
+      this.theViewList = value;
+    });
   }
 
   ngOnInit(): void

@@ -6,7 +6,7 @@ export interface CustomerGroupDetail
   brand: IdTitle;
   customerGroup: IdTitle;
   currentLevel: IdTitle;
-  nexLevel: IdTitle;
+  nextLevel: IdTitle;
   scoreThreshold: number;
   activityCount: number;
   userTypes: Array<IdTitle>;

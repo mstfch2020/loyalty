@@ -105,14 +105,14 @@
             <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
               [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
               <input formControlName="startDate" class="form-control rounded-pill text-center text-black" dir="ltr"
-                mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" type="text" />
+                [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" type="text" />
             </ng-persian-datepicker>
           </div>
           <div class="col-12 col-sm-7 mt-3 mt-sm-0">
             <div class="d-flex flex-row gap-2 align-items-center">
               <div>
-                <input class="form-control rounded-pill text-center" [max]="59" formControlName="minute" type="text"
-                  digitOnly>
+                <input class="form-control rounded-pill text-center" formControlName="minute" type="text" mask="m0"
+                  [leadZeroDateTime]="true">
               </div>
               <div>
                 <span class="mx-2">
@@ -120,8 +120,8 @@
                 </span>
               </div>
               <div>
-                <input type="text" class="form-control rounded-pill text-center" pattern="[0-9]*" [max]="23"
-                  formControlName="hour" digitOnly>
+                <input type="text" class="form-control rounded-pill text-center" formControlName="hour" mask="Hh"
+                  [leadZeroDateTime]="true">
               </div>
             </div>
           </div>

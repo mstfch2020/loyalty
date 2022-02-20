@@ -53,20 +53,20 @@
                 از
               </span>
               <div class="mt-1">
-                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
-                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                   <input formControlName="startDate" class="form-control rounded-pill text-center text-black" dir="ltr"
-                    [dropSpecialCharacters]="false" mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" type="text" />
+                    [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" type="text" />
                 </ng-persian-datepicker>
               </div>
               <span class="text-black fs-09">
                 تا
               </span>
               <div class="mt-1">
-                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
-                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
+                <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                   <input formControlName="endDate" class="form-control rounded-pill text-center text-black" dir="ltr"
-                    [dropSpecialCharacters]="false" mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" type="text" />
+                    [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" type="text" />
                 </ng-persian-datepicker>
               </div>
             </div>
@@ -174,7 +174,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
-                  formControlName="increaseScorePercent" type="text">
+                  formControlName="increaseScorePercent" type="text" mask="separator" thousandSeparator=",">
               </div>
             </div>
             <div class="col-12 col-sm-2">
@@ -186,7 +186,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
-                  formControlName="increaseScoreThreshold" type="text">
+                  formControlName="increaseScoreThreshold" type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   امتیاز
                 </div>
@@ -211,7 +211,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input [readOnly]="isDisabled" class="text-start text-black border-0 h-40px w-100"
-                  formControlName="refundToWalletPercent" type="text">
+                  formControlName="refundToWalletPercent" type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -226,7 +226,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input [readOnly]="isDisabled" class="text-start text-black border-0 h-40px w-100"
-                  formControlName="refundToWalletThreshold" type="text">
+                  formControlName="refundToWalletThreshold" type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   تومان
                 </div>
@@ -252,7 +252,7 @@
                 <div [ngClass]="{'disabled':isDisabled}"
                   class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                   <input [readOnly]="isDisabled" class="text-start text-black border-0 h-40px w-100"
-                    formControlName="discountCodePercent" type="text">
+                    formControlName="discountCodePercent" type="text" mask="separator" thousandSeparator=",">
                   <div class="fs-08 text-gray-500">
                     %
                   </div>
@@ -270,7 +270,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input [readOnly]="isDisabled" class="text-start text-black border-0 h-40px w-100"
-                  formControlName="discountCodeThreshold" type="text">
+                  formControlName="discountCodeThreshold" type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   تومان
                 </div>
@@ -288,9 +288,9 @@
                 class="form-check-input" formControlName="discountCodeValidationType" type="radio">
             </div>
             <div>
-              <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
-                [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
-                <input #datepickerInput3 formControlName="expierDate" mask="0000/M0/d0 Hh:m0:s0"
+              <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                <input #datepickerInput3 formControlName="expierDate" [dropSpecialCharacters]="false" mask="0000/M0/d0"
                   [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
                   class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
               </ng-persian-datepicker>
@@ -304,7 +304,7 @@
             <div>
               <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
                 class="form-control rounded-pill w-80-px text-center text-black"
-                formControlName="discountCodeValidationType" type="text">
+                formControlName="discountCodeValidationType" type="text" mask="separator" thousandSeparator=",">
             </div>
             <div class="fs-09 text-black">
               روز پس از صدور کد

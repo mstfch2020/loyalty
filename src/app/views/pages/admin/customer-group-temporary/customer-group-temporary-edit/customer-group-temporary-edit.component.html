@@ -78,22 +78,22 @@
                 از
               </span>
               <div class="mt-1">
-                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
-                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
-                  <input #datepickerInput3 formControlName="expierDate" mask="0000/M0/d0 Hh:m0:s0"
-                    [leadZeroDateTime]="true" class="form-control rounded-pill text-center text-black" dir="ltr"
-                    type="text" />
+                <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                  <input #datepickerInput3 formControlName="expierDate" [dropSpecialCharacters]="false"
+                    mask="0000/M0/d0" [leadZeroDateTime]="true" class="form-control rounded-pill text-center text-black"
+                    dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
               <span class="text-black fs-09">
                 تا
               </span>
               <div class="mt-1">
-                <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
-                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
-                  <input #datepickerInput3 formControlName="expierDate" mask="0000/M0/d0 Hh:m0:s0"
-                    [leadZeroDateTime]="true" class="form-control rounded-pill text-center text-black" dir="ltr"
-                    type="text" />
+                <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                  <input #datepickerInput3 formControlName="expierDate" [dropSpecialCharacters]="false"
+                    mask="0000/M0/d0" [leadZeroDateTime]="true" class="form-control rounded-pill text-center text-black"
+                    dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
             </div>
