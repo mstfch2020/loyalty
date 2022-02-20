@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { BehaviorSubject } from 'rxjs';
 import { createBehavioralRewardFormGroup } from "../../data/loyalty/behavioral-reward.model";
 import { BehavioralRewardType, SenarioType } from "../../data/loyalty/enums.model";
@@ -12,29 +12,19 @@ import { Utility } from '../../utils/Utility';
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { callGetService, callPostService } from "./BaseService";
+import { BaseService, callGetService, callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
-export class ScenarioService
+export class ScenarioService extends BaseService<Scenario>
 {
 
   scenarios$ = new BehaviorSubject<Array<SenarioDetail>>([]);
 
-  form: FormGroup;
-  _isDisabled = false;
-  get isDisabled(): boolean { return this._isDisabled; }
-  set isDisabled(value: boolean)
-  {
-    this._isDisabled = value;
-    if (value) { this.form.disable(); } else { this.form.enable(); }
-  }
-
-  constructor(private formBuilder: FormBuilder, private baseInfoService: BaseInfoService, public http: HttpClient,
+  constructor(public override formBuilder: FormBuilder, private baseInfoService: BaseInfoService, public http: HttpClient,
     public settingService: SettingsService,
     public uiService: UiService)
   {
-    this.form = this.formBuilder.group({});
-    this.createForm(scenarioInit);
+    super(formBuilder, scenarioInit);
   }
 
   createForm(scenario: Scenario)
@@ -86,25 +76,6 @@ export class ScenarioService
   {
     return this.baseInfoService.getFreeProducts(productIds);
   }
-
-  updatePeriodFormControl = (shamsiDate: string, formControlName: string): void =>
-  {
-    const date = shamsiDate.substring(0, 10)?.split('/');
-    const time = shamsiDate.substring(11, shamsiDate.length)?.split(':');
-    if (date && date.length === 3)
-    {
-      this.form.get(`${ formControlName }.year`)?.setValue(parseInt(date[0], 0));
-      this.form.get(`${ formControlName }.month`)?.setValue(parseInt(date[1], 0));
-      this.form.get(`${ formControlName }.day`)?.setValue(parseInt(date[2], 0));
-    }
-
-    if (time && time.length === 3)
-    {
-      this.form.get(`${ formControlName }.hours`)?.setValue(parseInt(time[0], 0));
-      this.form.get(`${ formControlName }.minutes`)?.setValue(parseInt(time[1], 0));
-      this.form.get(`${ formControlName }.seconds`)?.setValue(parseInt(time[2], 0));
-    }
-  };
 
   behavioralRewardTypeChange($event: boolean)
   {
@@ -175,15 +146,5 @@ export class ScenarioService
       this.form.controls['id'].setValue(value?.id);
     });
 
-  }
-
-  getValue(name: string)
-  {
-    return this.form.get(name)?.value;
-  }
-
-  getFormGroup(fgName: string): FormGroup
-  {
-    return (this.form.controls[fgName] as any);
   }
 }

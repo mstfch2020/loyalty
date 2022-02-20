@@ -39,8 +39,10 @@
                     <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
                       [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                       <input formControlName="startDate" class="form-control rounded-pill text-center text-black"
-                        mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" dir="ltr" type="text" />
+                        [dropSpecialCharacters]="false" mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" dir="ltr"
+                        type="text" />
                     </ng-persian-datepicker>
+                    {{scenarioService.getValue('startDate')}}
                   </div>
                   <span class="text-black fs-09">
                     تا
@@ -49,7 +51,8 @@
                     <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
                       [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                       <input formControlName="endDate" class="form-control rounded-pill text-center text-black"
-                        mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" dir="ltr" type="text" />
+                        [dropSpecialCharacters]="false" mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" dir="ltr"
+                        type="text" />
                     </ng-persian-datepicker>
                   </div>
                 </div>
@@ -529,8 +532,8 @@
               <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
                 [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                 <input #datepickerInput3 formControlName="expierDate" mask="0000/M0/d0 Hh:m0:s0"
-                  [leadZeroDateTime]="true" class="form-control rounded-pill text-center text-black" dir="ltr"
-                  type="text" />
+                  [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+                  class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
               </ng-persian-datepicker>
             </div>
           </div>
