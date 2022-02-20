@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import {Moment} from 'moment';
+import { ActivatedRoute } from '@angular/router';
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { SMSService } from 'src/app/@core/services/loyalty/SMS.service';
 
 @Component({
   selector: 'app-send-sms',
@@ -10,63 +11,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SendSmsComponent implements OnInit
 {
 
-  form: FormGroup;
-
-  cars = [
-    { id: 1, name: 'زینجا' },
-    { id: 2, name: 'مون' },
-    { id: 3, name: 'قهر کرده' },
-    { id: 4, name: '09192935850' },
-  ];
-
-  config: any = {
-    date: {
-      value: new Date().valueOf(),
-      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) =>
-      {
-        console.log(shamsiDate, gregorianDate, timestamp);
-      }
-    },
-    ui: {
-      theme: 'default',
-      isVisible: false,
-      hideAfterSelectDate: true,
-      hideOnOutsideClick: true,
-      yearView: true,
-      monthView: true,
-    },
-    time: {
-      enable: false,
-      showSecond: false,
-      meridian: false
-    }
-  };
-
-  constructor(private formBuilder: FormBuilder)
+  constructor(public smsService: SMSService, public baseInfoService: BaseInfoService, private route: ActivatedRoute)
   {
-    this.form = this.formBuilder.group({
-      selectedCar1: [null, [Validators.required]],
-      selectedCar2: [null, [Validators.required]],
-      selectedCar3: [null, [Validators.required]],
-      selectedCar4: [null, [Validators.required]],
-      selectedCar5: [null, [Validators.required]],
-      datePicker: [null, [Validators.required]]
-    });
+
   }
 
   ngOnInit(): void
   {
-    this.form.markAllAsTouched();
-  }
+    this.baseInfoService.loadBaseInfo();
+    this.baseInfoService.loadScenario();
+    this.route.queryParams.subscribe(params =>
+    {
+      const id = params['id'];
+      if (id)
+      {
+        // this.scenarioService.getScenarioById(id).subscribe((value) =>
+        // {
+        //   this.scenarioService.createForm(value);
+        //   this.baseInfoService.loadBaseInfo(value.brandIds);
+        // });
+      }
+    });
 
-  setDateReturn($event: any)
-  {
-    console.log($event);
+    this.smsService.form.markAllAsTouched();
   }
-
-  dpickerFocus(picker: any)
-  {
-    console.log(picker);
-  }
-
 }

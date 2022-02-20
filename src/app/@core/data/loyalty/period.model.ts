@@ -29,6 +29,10 @@ export const periodInit: Period = {
 
 export const createPeriodFormGroup = (periodMin: Period, formBuilder: FormBuilder): FormGroup =>
 {
+  if (!periodMin)
+  {
+    periodMin = periodInit;
+  }
   return formBuilder.group({
     year: [periodMin.year, [Validators.required]],
     month: [periodMin.month, [Validators.required]],

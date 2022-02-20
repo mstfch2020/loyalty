@@ -1,4 +1,4 @@
-<form [formGroup]="form" action="" dir="rtl">
+<form [formGroup]="customerGroupService.form" action="" dir="rtl">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
@@ -16,8 +16,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-              class="form-control mb-3" formControlName="selectedCar">
+            <ng-select [items]="baseInfoService.brands$|async" [multiple]="false" appendTo="body" bindLabel="title"
+              bindValue="id" class="form-control mb-3" formControlName="brandId">
             </ng-select>
           </div>
         </div>
@@ -30,8 +30,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
-              formControlName="selectedCar2">
+            <ng-select [items]="baseInfoService.userTypes$|async" [multiple]="true" appendTo="body" bindLabel="title"
+              bindValue="id" class="form-control mb-3" formControlName="userTypeIds">
             </ng-select>
           </div>
         </div>
@@ -46,8 +46,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="false" appendTo="body" bindLabel="name" formControlName="selectedCar3"
-              class="form-control mb-3">
+            <ng-select [items]="baseInfoService.customerLevel$|async" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="currentLevelId">
             </ng-select>
           </div>
         </div>
@@ -60,7 +60,7 @@
             </label>
           </div>
           <div class="col-6 col-sm-3">
-            <input class="form-control rounded-pill text-center" type="text">
+            <input class="form-control rounded-pill text-center" type="text" formControlName="activityCount">
           </div>
         </div>
       </div>
@@ -79,7 +79,8 @@
                 <img alt="" src="assets/img/icons/greater.svg">
               </div>
               <div class="mr-1">
-                <input class="form-control rounded-pill text-start" placeholder="امتیاز" type="text">
+                <input class="form-control rounded-pill text-start" placeholder="امتیاز" type="text"
+                  formControlName="scoreThreshold">
               </div>
             </div>
           </div>
@@ -95,8 +96,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="false" appendTo="body" bindLabel="name" formControlName="selectedCar4"
-              class="form-control mb-3">
+            <ng-select [items]="baseInfoService.customerLevel$|async" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="newLevelId">
             </ng-select>
           </div>
         </div>
@@ -109,8 +110,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="false" appendTo="body" bindLabel="name" formControlName="selectedCar5"
-              class="form-control mb-3">
+            <ng-select [items]="baseInfoService.customerGroups$|async" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="customGroupId">
             </ng-select>
           </div>
         </div>
@@ -119,7 +120,7 @@
     <div class="row mt-5">
       <div class="col-6 col-sm-2">
         <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-          type="submit">
+          (click)="customerGroupService.submit()">
           اعمال
         </button>
       </div>

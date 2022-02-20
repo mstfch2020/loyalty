@@ -1,4 +1,4 @@
-<form [formGroup]="form" action="" dir="rtl">
+<form [formGroup]="smsService.form" action="" dir="rtl">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
@@ -17,7 +17,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <textarea class="form-control border-radius-1-5" cols="30" id="txtSmsDescription" name="txtSmsDescription"
-              rows="10"></textarea>
+              formControlName="text" rows="10"></textarea>
             <span class="sms-length">
               234 کارکتر/ 1 پیامک
             </span>
@@ -32,8 +32,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-              formControlName="selectedCar1" class="form-control mb-3">
+            <ng-select [items]="baseInfoService.brands$|async" [multiple]="false" appendTo="body" bindLabel="title"
+              bindValue="id" class="form-control mb-3" formControlName="brandId">
             </ng-select>
           </div>
         </div>
@@ -44,8 +44,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-              formControlName="selectedCar2" class="form-control mb-3">
+            <ng-select [items]="baseInfoService.userTypes$|async" [multiple]="true" appendTo="body" bindLabel="title"
+              bindValue="id" class="form-control mb-3" formControlName="userTypeIds">
             </ng-select>
           </div>
         </div>
@@ -56,8 +56,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-              formControlName="selectedCar3" class="form-control mb-3">
+            <ng-select [items]="baseInfoService.customerGroups$|async" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="customerGroupId">
             </ng-select>
           </div>
         </div>
@@ -68,8 +68,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="cars" [multiple]="true" [searchable]="true" appendTo="body" bindLabel="name"
-              formControlName="selectedCar4" class="form-control mb-3">
+            <ng-select [items]="baseInfoService.scenarios$|async" [multiple]="true" appendTo="body" bindLabel="title"
+              bindValue="id" class="form-control mb-3" formControlName="sernarioIds">
             </ng-select>
           </div>
         </div>
@@ -84,14 +84,16 @@
             </label>
           </div>
           <div class="col-12 col-sm-4 mt-3">
-            <input checked class="form-check-input" name="sendSMSTimeType" type="radio">
-            <label class="form-check-label mr-1">
+            <input checked class="form-check-input" id="Instant" name="smsSendingType" type="radio" [value]="1"
+              formControlName="smsSendingType">
+            <label class="form-check-label mr-1" for="Instant">
               هم اکنون
             </label>
           </div>
           <div class="col-12 col-sm-5 mt-3">
-            <input checked class="form-check-input" name="sendSMSTimeType" type="radio">
-            <label class="form-check-label mr-1">
+            <input checked class="form-check-input" id="Scheduled" name="smsSendingType" type="radio" [value]="2"
+              formControlName="smsSendingType">
+            <label class="form-check-label mr-1" for="Scheduled">
               زمانبندی شده برای تاریخ
             </label>
           </div>
@@ -100,16 +102,17 @@
       <div class="col-12 col-sm-6 mt-3 mt-sm-0">
         <div class="row">
           <div class="col-12 col-sm-5">
-            <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
-              [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
-              <input #datepickerInput3 formControlName="expierDate"
-                class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
+            <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+              [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+              <input formControlName="startDate" class="form-control rounded-pill text-center text-black" dir="ltr"
+                mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" type="text" />
             </ng-persian-datepicker>
           </div>
           <div class="col-12 col-sm-7 mt-3 mt-sm-0">
             <div class="d-flex flex-row gap-2 align-items-center">
               <div>
-                <input class="form-control rounded-pill text-center" type="text">
+                <input class="form-control rounded-pill text-center" [max]="59" formControlName="minute" type="text"
+                  digitOnly>
               </div>
               <div>
                 <span class="mx-2">
@@ -117,7 +120,8 @@
                 </span>
               </div>
               <div>
-                <input class="form-control rounded-pill text-center" type="text">
+                <input type="text" class="form-control rounded-pill text-center" pattern="[0-9]*" [max]="23"
+                  formControlName="hour" digitOnly>
               </div>
             </div>
           </div>
@@ -127,7 +131,7 @@
     <div class="row mt-5">
       <div class="col-6 col-sm-2">
         <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-          type="submit">
+          (click)="smsService.submit()">
           ارسال
         </button>
       </div>

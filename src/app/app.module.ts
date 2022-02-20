@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { NgxMaskModule } from 'ngx-mask';
 import { HttpLoaderFactory } from './@core/infra/factories/http-loader-factory';
 import { HttpConfigInterceptor } from './@core/infra/interceptor/http-config.interceptor';
 import { ScenarioService } from './@core/services/loyalty/scenario.service';
@@ -37,6 +38,7 @@ import { HomeComponent } from './views/pages/home/home.component';
     AdminModule,
     AccountModule,
     AppRoutingModule,
+    NgxMaskModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

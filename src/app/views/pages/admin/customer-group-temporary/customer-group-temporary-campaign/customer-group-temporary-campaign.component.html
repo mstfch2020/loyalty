@@ -43,7 +43,7 @@
         <div class="col-12 col-sm-5">
           <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
             [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
-            <input #datepickerInput3 formControlName="expierDate"
+            <input #datepickerInput3 formControlName="expierDate" mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true"
               class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
           </ng-persian-datepicker>
         </div>

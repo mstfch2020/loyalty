@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomerGroupTemporaryComponent } from "./customer-group-temporary/customer-group-temporary.component";
+import { CustomerGroupGridComponent } from './customer-group/customer-group-grid/customer-group-grid.component';
+import { CustomerGroupRootComponent } from './customer-group/customer-group-root/customer-group-root.component';
 import { CustomerGroupComponent } from "./customer-group/customer-group.component";
 import { CustomerComponent } from "./customer/customer.component";
 import { DiscountCodeComponent } from "./discount-code/discount-code.component";
@@ -34,6 +36,20 @@ const routes: Routes = [
       {
         path: 'customergroup',
         component: CustomerGroupComponent,
+        children: [
+          {
+            path: '',
+            component: CustomerGroupGridComponent
+          },
+          {
+            path: 'customergroup-list',
+            component: CustomerGroupGridComponent
+          }, {
+            path: 'customergroup-edit',
+            component: CustomerGroupRootComponent
+          }
+
+        ]
       },
       {
         path: 'customergrouptemporary',

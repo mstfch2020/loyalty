@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { customerGroupInit } from 'src/app/@core/data/loyalty/customer-group.model';
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { CustomerGroupService } from 'src/app/@core/services/loyalty/customer-group.service';
 
 @Component({
   selector: 'app-customer-group-root',
@@ -8,32 +11,35 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CustomerGroupRootComponent implements OnInit
 {
-
-  form: FormGroup;
-
-
-  cars = [
-    { id: 1, name: 'زینجا' },
-    { id: 2, name: 'مون' },
-    { id: 3, name: 'قهر کرده' },
-    { id: 4, name: '09192935850' },
-  ];
-
-  constructor(private formBuilder: FormBuilder)
+  constructor(public baseInfoService: BaseInfoService, public customerGroupService: CustomerGroupService, private route: ActivatedRoute)
   {
-    this.form = this.formBuilder.group({
-      selectedCar: [null, [Validators.required]],
-      selectedCar1: [null, [Validators.required]],
-      selectedCar2: [null, [Validators.required]],
-      selectedCar3: [null, [Validators.required]],
-      selectedCar4: [null, [Validators.required]],
-      selectedCar5: [null, [Validators.required]],
+    this.route.queryParams.subscribe(params =>
+    {
+      const id = params['id'];
+      if (id)
+      {
+        this.customerGroupService.getCustomerGroupById(id).subscribe((value) =>
+        {
+          this.customerGroupService.createForm(value);
+          this.loadBaseInfo();
+        });
+      } else
+      {
+        this.customerGroupService.createForm(customerGroupInit);
+        this.loadBaseInfo();
+      }
     });
+  }
+
+  loadBaseInfo()
+  {
+    this.baseInfoService.loadBaseInfo();
+    this.baseInfoService.loadCustomerLevel();
   }
 
   ngOnInit(): void
   {
-    this.form.markAllAsTouched();
+    this.customerGroupService.form.markAllAsTouched();
   }
 
 }

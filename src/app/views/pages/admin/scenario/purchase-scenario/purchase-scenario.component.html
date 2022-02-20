@@ -39,7 +39,7 @@
                     <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
                       [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                       <input formControlName="startDate" class="form-control rounded-pill text-center text-black"
-                        dir="ltr" type="text" />
+                        mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                     </ng-persian-datepicker>
                   </div>
                   <span class="text-black fs-09">
@@ -49,7 +49,7 @@
                     <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
                       [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
                       <input formControlName="endDate" class="form-control rounded-pill text-center text-black"
-                        dir="ltr" type="text" />
+                        mask="0000/M0/d0 Hh:m0:s0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                     </ng-persian-datepicker>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="scenarioService.brands$|async" [readonly]="isDisabled" [multiple]="true"
+                <ng-select [items]="baseInfoService.brands$|async" [readonly]="isDisabled" [multiple]="true"
                   appendTo="body" bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="brandIds">
                 </ng-select>
                 <div
@@ -87,7 +87,7 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="scenarioService.customerGroups$|async" [multiple]="true" appendTo="body"
+                <ng-select [items]="baseInfoService.customerGroups$|async" [multiple]="true" appendTo="body"
                   [readonly]="isDisabled" bindLabel="title" bindValue="id" class="form-control mb-3"
                   formControlName="customerGroupIds">
                 </ng-select>
@@ -221,7 +221,7 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="scenarioService.productGroups$|async" [readonly]="isDisabled" [multiple]="true"
+                <ng-select [items]="baseInfoService.productGroups$|async" [readonly]="isDisabled" [multiple]="true"
                   appendTo="body" bindLabel="title" bindValue="id" class="form-control mb-3"
                   formControlName="productGroupIds">
                 </ng-select>
@@ -239,7 +239,7 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="scenarioService.userTypes$|async" [multiple]="true" appendTo="body"
+                <ng-select [items]="baseInfoService.userTypes$|async" [multiple]="true" appendTo="body"
                   [readonly]="isDisabled" bindLabel="title" bindValue="id" class="form-control mb-3"
                   formControlName="userTypeIds">
                 </ng-select>
@@ -362,7 +362,7 @@
               </div>
             </div>
             <div class="col-4 col-sm-5">
-              <ng-select [items]="scenarioService.products$|async" [readonly]="isDisabled" [multiple]="true"
+              <ng-select [items]="baseInfoService.products$|async" [readonly]="isDisabled" [multiple]="true"
                 appendTo="body" bindLabel="title" bindValue="id" class="form-control mb-3">
               </ng-select>
             </div>
@@ -528,8 +528,9 @@
             <div>
               <ng-persian-datepicker [timeEnable]="true" [timeShowSecond]="true" [uiMonthView]="true"
                 [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD HH:mm:ss">
-                <input #datepickerInput3 formControlName="expierDate"
-                  class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
+                <input #datepickerInput3 formControlName="expierDate" mask="0000/M0/d0 Hh:m0:s0"
+                  [leadZeroDateTime]="true" class="form-control rounded-pill text-center text-black" dir="ltr"
+                  type="text" />
               </ng-persian-datepicker>
             </div>
           </div>

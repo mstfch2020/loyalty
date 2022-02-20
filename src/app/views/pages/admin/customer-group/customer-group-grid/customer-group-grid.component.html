@@ -1,82 +1,57 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
+<div dir="rtl">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
         <span class="font-yekan-bold h5 text-black">
-مشاهده
+          مشاهده
         </span>
+      </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="table-responsive">
-        <table cellspacing="1" class="table table-hover border-0">
-          <thead>
-          <tr>
-            <th class="text-center" scope="col">ردیف</th>
-            <th class="text-center" scope="col">تغییر سطح</th>
-            <th class="text-center" scope="col">برند</th>
-            <th class="text-center" scope="col">تعداد فعالیت</th>
-            <th class="text-center" scope="col">حجم امتیاز</th>
-            <th class="text-center" scope="col">قرار گیری در گروه مشتری</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td class="text-center" scope="row">1</td>
-            <td class="text-center">
-              از X5 به X6
-            </td>
-            <td class="text-center">
-              خیلی‌سبز
-            </td>
-            <td class="text-center">
-              20
-            </td>
-            <td class="text-center">
-              1200
-            </td>
-            <td class="text-center">
-              نقره ای
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center" scope="row">2</td>
-            <td class="text-center">
-              از X5 به X6
-            </td>
-            <td class="text-center">
-              خیلی‌سبز
-            </td>
-            <td class="text-center">
-              20
-            </td>
-            <td class="text-center">
-              1200
-            </td>
-            <td class="text-center">
-              نقره ای
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center" scope="row">3</td>
-            <td class="text-center">
-              از X5 به X6
-            </td>
-            <td class="text-center">
-              خیلی‌سبز
-            </td>
-            <td class="text-center">
-              20
-            </td>
-            <td class="text-center">
-              1200
-            </td>
-            <td class="text-center">
-              نقره ای
-            </td>
-          </tr>
-          </tbody>
-        </table>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table cellspacing="1" class="table table-hover border-0">
+            <thead>
+              <tr>
+                <th class="text-center" scope="col">ردیف</th>
+                <th class="text-center" scope="col">تغییر سطح</th>
+                <th class="text-center" scope="col">برند</th>
+                <th class="text-center" scope="col">تعداد فعالیت</th>
+                <th class="text-center" scope="col">حجم امتیاز</th>
+                <th class="text-center" scope="col">قرار گیری در گروه مشتری</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="goToDetail(customerGroup.id)" *ngFor="let customerGroup of theViewList;let i =index;">
+                <td class="text-center" scope="row">{{pageIndex+i}}</td>
+                <td class="text-center">
+                  از {{customerGroup.currentLevel.title}} به {{customerGroup.nexLevel.title}}
+                </td>
+                <td class="text-center">
+                  خیلی‌سبز
+                </td>
+                <td class="text-center">
+                  20
+                </td>
+                <td class="text-center">
+                  1200
+                </td>
+                <td class="text-center">
+                  نقره ای
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-6 col-sm-3">
+          <button (click)="goToDetail('')"
+            class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
+            گروه مشتری جدید
+          </button>
+        </div>
       </div>
     </div>
   </div>

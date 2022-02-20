@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class BehavioralScenarioComponent implements OnInit
 
   get isDisabled(): boolean { return this.scenarioService.isDisabled; };
 
-  constructor(public scenarioService: ScenarioService)
+  constructor(public scenarioService: ScenarioService, public baseInfoService: BaseInfoService)
   {
 
   }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgSelectConfig } from '@ng-select/ng-select';
 import { RootStoreService } from './@core/services/root-store.service';
 
 @Component({
@@ -11,8 +12,10 @@ export class AppComponent
   title = 'loyalty';
   isLoading = false;
 
-  constructor(public rootStoreService: RootStoreService)
+  constructor(public rootStoreService: RootStoreService, private config: NgSelectConfig)
   {
+
+    config.notFoundText = 'موردی یافت نشد.';
     rootStoreService.isLoading().subscribe(value =>
     {
       if (value)

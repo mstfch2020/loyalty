@@ -3,6 +3,8 @@ import { Period } from "../data/loyalty/period.model";
 
 export class Utility
 {
+
+  static numberRegEx = /\-?\d*\.?\d{1,2}/;
   static getFullDateTimeFromPeriodInPersion(period: Period): any
   {
     if (!period || period.year < 1300) { return new Date().valueOf(); }

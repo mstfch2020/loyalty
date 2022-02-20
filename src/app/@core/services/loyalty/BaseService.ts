@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
-// import { Injectable } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import * as moment from 'jalali-moment';
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { BaseResponse } from "../../data/root/base-response.model";
@@ -50,6 +51,64 @@ export function callPostService<T>(url: string, http: HttpClient, uiService: UiS
     }
     return of(({} as T));
   }));
+}
+
+export abstract class BaseService<T>{
+  form: FormGroup;
+  _isDisabled = false;
+  get isDisabled(): boolean { return this._isDisabled; }
+  set isDisabled(value: boolean)
+  {
+    this._isDisabled = value;
+    if (value) { this.form.disable(); } else { this.form.enable(); }
+  }
+
+  constructor(public formBuilder: FormBuilder, initObject: T)
+  {
+    this.form = this.formBuilder.group({});
+    this.createForm(initObject);
+  }
+
+  abstract createForm(scenario: T): void;
+
+  updatePeriodFormControl(shamsiDate: string, formControlName: string): boolean
+  {
+    const m = moment.from(shamsiDate.substring(0, 10), 'fa', 'YYYY/MM/DD');
+    if (!m.isValid())
+    {
+      return false;
+    }
+
+    const date = shamsiDate.substring(0, 10)?.split('/');
+    const time = shamsiDate.substring(11, shamsiDate.length)?.split(':');
+
+    if (date && date.length === 3)
+    {
+      this.form.get(`${ formControlName }.year`)?.setValue(parseInt(date[0], 0));
+      this.form.get(`${ formControlName }.month`)?.setValue(parseInt(date[1], 0));
+      this.form.get(`${ formControlName }.day`)?.setValue(parseInt(date[2], 0));
+    }
+
+    if (time && time.length === 3)
+    {
+      this.form.get(`${ formControlName }.hours`)?.setValue(parseInt(time[0], 0));
+      this.form.get(`${ formControlName }.minutes`)?.setValue(parseInt(time[1], 0));
+      this.form.get(`${ formControlName }.seconds`)?.setValue(parseInt(time[2], 0));
+    }
+    return true;
+  }
+
+  abstract submit(): void;
+
+  getValue(name: string)
+  {
+    return this.form.get(name)?.value;
+  }
+
+  getFormGroup(fgName: string): FormGroup
+  {
+    return (this.form.controls[fgName] as any);
+  }
 }
 
 
