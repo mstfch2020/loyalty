@@ -10,12 +10,10 @@ import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service
 export class ScenarioRootComponent implements OnInit
 {
 
-  public isDisabled: boolean;
+  get isDisabled(): boolean { return this.scenarioService.isDisabled; };
 
   constructor(public scenarioService: ScenarioService, private route: ActivatedRoute)
   {
-    this.isDisabled = false;
-
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];

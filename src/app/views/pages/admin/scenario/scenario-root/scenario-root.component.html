@@ -15,7 +15,7 @@
           </label>
         </div>
         <div class="col-12 col-sm-7">
-          <app-switch (notifySelectionSwitch)="selectedSwitch($event)"
+          <app-switch (notifySelectionSwitch)="selectedSwitch($event)" [isDisabled]="isDisabled"
             [isOneSelected]="this.scenarioService.getValue('senarioType')===1 " [labelOne]="'سناریوی خرید'"
             [labelTwo]="'سناریوی رفتاری'">
           </app-switch>
@@ -24,9 +24,9 @@
     </div>
   </div>
 </div>
-<app-purchase-scenario *ngIf="scenarioService.getValue('senarioType')===1" [isDisabled]="isDisabled">
+<app-purchase-scenario *ngIf="scenarioService.getValue('senarioType')===1">
 </app-purchase-scenario>
-<app-behavioral-scenario *ngIf="scenarioService.getValue('senarioType')===2" [isDisabled]="isDisabled">
+<app-behavioral-scenario *ngIf="scenarioService.getValue('senarioType')===2">
 </app-behavioral-scenario>
 <div class="container-fluid" dir="rtl">
   <hr>
@@ -38,7 +38,8 @@
         </div>
         <div>
           <div class="form-check form-switch float-end">
-            <input [(ngModel)]="isDisabled" class="form-check-input" id="flexSwitchCheckDefault" type="checkbox">
+            <input [(ngModel)]="scenarioService.isDisabled" class="form-check-input" id="flexSwitchCheckDefault"
+              type="checkbox">
           </div>
         </div>
         <div class="text-black fs-09">

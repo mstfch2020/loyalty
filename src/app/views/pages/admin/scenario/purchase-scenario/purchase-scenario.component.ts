@@ -1,21 +1,24 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ScenarioService} from 'src/app/@core/services/loyalty/scenario.service';
-import {Utility} from "../../../../../@core/utils/Utility";
+import { Component, OnInit } from '@angular/core';
+import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service';
+import { Utility } from "../../../../../@core/utils/Utility";
 
 @Component({
   selector: 'app-purchase-scenario',
   templateUrl: './purchase-scenario.component.html',
   styleUrls: ['./purchase-scenario.component.scss']
 })
-export class PurchaseScenarioComponent implements OnInit {
+export class PurchaseScenarioComponent implements OnInit
+{
 
-  @Input() isDisabled: boolean;
+  get isDisabled(): boolean { return this.scenarioService.isDisabled; };
 
-  constructor(public scenarioService: ScenarioService) {
-    this.isDisabled = false;
+  constructor(public scenarioService: ScenarioService)
+  {
+
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.scenarioService.form.markAllAsTouched();
   }
 
@@ -23,7 +26,8 @@ export class PurchaseScenarioComponent implements OnInit {
    * Restrict number
    * @param event
    */
-  public checkDigit(event: any): boolean {
+  public checkDigit(event: any): boolean
+  {
     return Utility.CheckDigit(event);
   }
 

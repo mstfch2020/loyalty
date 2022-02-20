@@ -41,6 +41,13 @@ export class ScenarioService
   scenarios$ = new BehaviorSubject<Array<GetSenarios>>([]);
 
   form: FormGroup;
+  _isDisabled = false;
+  get isDisabled(): boolean { return this._isDisabled; }
+  set isDisabled(value: boolean)
+  {
+    this._isDisabled = value;
+    if (value) { this.form.disable(); } else { this.form.enable(); }
+  }
 
   constructor(private formBuilder: FormBuilder, private baseInfoService: BaseInfoService, public http: HttpClient,
     public settingService: SettingsService,
