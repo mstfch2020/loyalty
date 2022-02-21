@@ -18,6 +18,8 @@ import { SystemSettingsLevelComponent } from "./system-settings/system-settings-
 import { SystemSettingsScenarioComponent } from "./system-settings/system-settings-scenario/system-settings-scenario.component";
 import { SystemSettingsComponent } from "./system-settings/system-settings.component";
 import { UsersComponent } from "./users/users.component";
+import {CustomerGridComponent} from "./customer/customer-grid/customer-grid.component";
+import {CustomerDetailComponent} from "./customer/customer-detail/customer-detail.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -26,12 +28,22 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'scenario',
-        component: ScenarioComponent,
-      },
-      {
         path: 'customer',
         component: CustomerComponent,
+        children: [
+          {
+            path: '',
+            component: CustomerGridComponent
+          },
+          {
+            path: 'customer-list',
+            component: CustomerGridComponent
+          }, {
+            path: 'customer-detail',
+            component: CustomerDetailComponent
+          }
+
+        ]
       },
       {
         path: 'customergroup',

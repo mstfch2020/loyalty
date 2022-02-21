@@ -1,0 +1,82 @@
+<div dir="rtl">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h5 class="font-yekan-bold h5 text-black">
+          مشاهده
+        </h5>
+      </div>
+    </div>
+    <div *ngIf="theViewList.length>0" class="row mt-4">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table cellspacing="1" class="table table-hover border-spacing-xs border-0">
+            <thead>
+            <tr>
+              <th class="text-center font-yekan-bold pr-1 fs-08" scope="col">
+                ردیف
+              </th>
+              <th class="text-end pr-1 font-yekan-bold fs-08" scope="col">
+                شماره موبایل
+              </th>
+              <th class="text-end font-yekan-bold fs-08" scope="col">
+                برند
+              </th>
+              <th class="text-end font-yekan-bold fs-08" scope="col">
+                نوع کاربری
+              </th>
+              <th class="text-end font-yekan-bold fs-08" scope="col">
+                گروه مشتری
+              </th>
+              <th class="text-center font-yekan-bold fs-08" scope="col">
+                امتیاز فعلی
+              </th>
+              <th class="text-center font-yekan-bold fs-08" scope="col">
+                تاریخ ساخت اکانت
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr (click)="routToDetail('1')" *ngFor="let item of theViewList">
+              <td class="text-center padding-05 pr-1" scope="row">
+                {{item.Index}}
+              </td>
+              <td class="text-end pr-1 fs-08">
+                {{item.Mobile}}
+              </td>
+              <td class="text-end fs-08">
+                {{item.Brands}}
+              </td>
+              <td class="text-end fs-08">
+                {{item.UsesType}}
+              </td>
+              <td class="text-end fs-08">
+                {{item.CustomerGroup}}
+              </td>
+              <td class="text-center fs-08">
+                {{item.CurrentScore}}
+              </td>
+              <td class="text-center fs-08">
+               {{item.CreateDate}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="theViewList.length==0" class="row mt-6">
+      <div class="col-12">
+        <div class="text-center font-yekan-bold text-black fs-09">
+          مشتریان شما به محض ثبت نام، در این صفحه نمایش داده می شود.
+        </div>
+        <div class="text-center font-yekan-bold text-gray-500 mt-2 fs-08">
+          برای مشاهده مشتریان لازم است کاربران در حداقل یکی از وبسایت های شما ثبت نام کرده باشند
+        </div>
+        <div class="text-center mt-4">
+          <img alt="Empty page" src="assets/img/icons/empty.png">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
