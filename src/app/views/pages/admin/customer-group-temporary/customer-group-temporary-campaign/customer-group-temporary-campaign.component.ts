@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-group-temporary-campaign',
   templateUrl: './customer-group-temporary-campaign.component.html',
   styleUrls: ['./customer-group-temporary-campaign.component.scss']
 })
-export class CustomerGroupTemporaryCampaignComponent implements OnInit {
+export class CustomerGroupTemporaryCampaignComponent implements OnInit
+{
 
   selectedCar = 1;
 
@@ -19,7 +21,8 @@ export class CustomerGroupTemporaryCampaignComponent implements OnInit {
   config: any = {
     date: {
       value: new Date().valueOf(),
-      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) => {
+      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) =>
+      {
         console.log(shamsiDate, gregorianDate, timestamp);
       }
     },
@@ -38,9 +41,14 @@ export class CustomerGroupTemporaryCampaignComponent implements OnInit {
     }
   };
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
   }
 
+  backToList()
+  {
+    this.router.navigate(['/admin/main/customergrouptemporary']);
+  }
 }

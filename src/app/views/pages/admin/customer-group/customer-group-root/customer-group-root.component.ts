@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { customerGroupInit } from 'src/app/@core/data/loyalty/customer-group.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { CustomerGroupService } from 'src/app/@core/services/loyalty/customer-group.service';
@@ -11,7 +11,7 @@ import { CustomerGroupService } from 'src/app/@core/services/loyalty/customer-gr
 })
 export class CustomerGroupRootComponent implements OnInit
 {
-  constructor(public baseInfoService: BaseInfoService, public customerGroupService: CustomerGroupService, private route: ActivatedRoute)
+  constructor(private router: Router, public baseInfoService: BaseInfoService, public customerGroupService: CustomerGroupService, private route: ActivatedRoute)
   {
     this.route.queryParams.subscribe(params =>
     {
@@ -44,6 +44,11 @@ export class CustomerGroupRootComponent implements OnInit
   ngOnInit(): void
   {
     this.customerGroupService.form.markAllAsTouched();
+  }
+
+  backToList()
+  {
+    this.router.navigate(['/admin/main/customergroup']);
   }
 
 }

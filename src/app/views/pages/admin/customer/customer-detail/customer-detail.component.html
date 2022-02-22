@@ -31,7 +31,7 @@
       <div class="col-6 col-sm-3">
         <div class="d-flex flex-column text-end text-sm-center">
           <div class="text-black font-yekan-bold">
-            {{customer.brands.join('، ')}}
+            {{customer.brands?.join('، ')}}
           </div>
           <div class="text-black fs-09 mt-2">
             مخاطب برند(ها)
@@ -41,7 +41,7 @@
       <div class="col-6 col-sm-3">
         <div class="d-flex flex-column text-end text-sm-start">
           <div class="text-black font-yekan-bold">
-            {{customer.registerDate.full}}
+            {{customer.registerDate?.full}}
           </div>
           <div class="text-black fs-09 mt-2">
             تاریخ عضویت
@@ -133,7 +133,7 @@
       </div>
       <div class="col-6 col-sm-3">
         <div class="d-flex flex-column text-start">
-          <div (click)="showHistory=!showHistory" class="text-black fs-09 cursor-pointer">
+          <div (click)="showHistoryToggle()" class="text-black fs-09 cursor-pointer">
             مشاهده تاریخچه امتیازها
             <span class="mr-1">
               <i class="fa fa-chevron-left" *ngIf="!showHistory"></i>
@@ -172,7 +172,7 @@
                   {{pageIndex+i}}
                 </td>
                 <td class="text-end pr-1 fs-08">
-                  {{customerSubGrid.date.full}}
+                  {{customerSubGrid.date?.full}}
                 </td>
                 <td class="text-end fs-08">
                   {{customerSubGrid.desctiption.title}} ({{customerSubGrid.desctiption.brand}})
@@ -182,23 +182,6 @@
                 </td>
                 <td class="text-center fs-08">
                   +{{customerSubGrid.score}}
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center pr-1" scope="row">
-                  2
-                </td>
-                <td class="text-end pr-1 fs-08">
-                  23 آذر 1400
-                </td>
-                <td class="text-end fs-08">
-                  خرید کالا (زینجا)
-                </td>
-                <td class="text-end fs-08">
-                  کسب
-                </td>
-                <td class="text-center fs-08">
-                  +340
                 </td>
               </tr>
             </tbody>
@@ -220,20 +203,11 @@
           <div class="text-black font-yekan-bold">
             عنوان
           </div>
-          <div class="text-black fs-09 mt-2">
-            تخفیف ارسال - کد تخفیف برای خرید بعدی
+          <div class="text-black fs-09 mt-2" *ngFor="let scenario of customer.senarios;let i= index;">
+            {{scenario.rewards?.join('، ')}}
             <span class="mr-1 text-muted">
-              (روز جوان)
+              {{(scenario.title)}}
             </span>
-          </div>
-          <div class="text-black fs-09 mt-2">
-            تخفیف سبد خرید
-            <span class="mr-1 text-muted">
-              (برای سبدخرید بیشتر از ۲۰۰ هزار تومان)
-            </span>
-          </div>
-          <div class="text-black fs-09 mt-2">
-            کد تخفیف ۵۰٪ تا سقف ۵۰٬۰۰۰ تومان
           </div>
         </div>
       </div>
@@ -242,23 +216,11 @@
           <div class="text-black font-yekan-bold">
             بازه تاریخی
           </div>
-          <div class="text-black fs-09 mt-2">
+          <div class="text-black fs-09 mt-2" *ngFor="let scenario of customer.senarios;let i= index;">
             از
-            ۱۴۰۱/۰۲/۱۲
+            {{scenario.minDate?.full}}
             تا
-            ۱۴۰۱/۰۲/۱۲
-          </div>
-          <div class="text-black fs-09 mt-2">
-            از
-            ۱۴۰۱/۰۲/۱۲
-            تا
-            ۱۴۰۱/۰۲/۱۲
-          </div>
-          <div class="text-black fs-09 mt-2">
-            از
-            ۱۴۰۱/۰۲/۱۲
-            تا
-            ۱۴۰۱/۰۲/۱۲
+            {{scenario.maxDate?.full}}
           </div>
         </div>
       </div>
@@ -267,14 +229,8 @@
           <div class="text-black font-yekan-bold">
             برند
           </div>
-          <div class="text-black fs-09 mt-2">
-            زینجا - مون
-          </div>
-          <div class="text-black fs-09 mt-2">
-            همه
-          </div>
-          <div class="text-black fs-09 mt-2">
-            همه
+          <div class="text-black fs-09 mt-2" *ngFor="let scenario of customer.senarios;let i= index;">
+            {{scenario.brands.join('، ')}}
           </div>
         </div>
       </div>

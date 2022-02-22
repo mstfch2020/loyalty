@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { scenarioInit } from 'src/app/@core/data/loyalty/scenario.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service';
@@ -14,7 +14,7 @@ export class ScenarioRootComponent implements OnInit
 
   get isDisabled(): boolean { return this.scenarioService.isDisabled; };
 
-  constructor(public scenarioService: ScenarioService, private route: ActivatedRoute, private baseInfoService: BaseInfoService)
+  constructor(private router: Router, public scenarioService: ScenarioService, private route: ActivatedRoute, private baseInfoService: BaseInfoService)
   {
     this.route.queryParams.subscribe(params =>
     {
@@ -40,13 +40,13 @@ export class ScenarioRootComponent implements OnInit
   {
   }
 
-  /**
-   *
-   * @param event
-   */
   public selectedSwitch(event: boolean)
   {
     this.scenarioService.form.controls['senarioType'].setValue(event ? 1 : 2);
   }
 
+  backToList()
+  {
+    this.router.navigate(['/admin/main/scenario/list']);
+  }
 }

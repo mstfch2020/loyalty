@@ -37,7 +37,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr (click)="goToEdit('1')" *ngFor="let item of theViewList;let i=index">
+              <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList;let i=index">
                 <td class="text-center padding-05 pr-1" scope="row">
                   {{i+pageIndex}}
                 </td>

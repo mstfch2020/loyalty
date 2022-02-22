@@ -25,6 +25,10 @@ export class CustomerDetailComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.customerService.customer$.subscribe(value =>
+    {
+      this.customer = value;
+    });
 
     this.route.queryParams.subscribe(params =>
     {
@@ -32,7 +36,6 @@ export class CustomerDetailComponent implements OnInit
       if (this.id)
       {
         this.customerService.getCustomerById(this.id);
-        this.customerService.customer$.subscribe(value => this.customer = value);
         return;
       }
       this.router.navigate(['/admin/main/customer/']);

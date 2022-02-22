@@ -36,7 +36,7 @@ export class CustomerService
   {
     const url = this.settingService.settings?.baseUrl + 'Customer/GetCustomerScoresGrid';
     return callGetService<Array<CustomerSubGrid>>(url, this.http, this.uiService, {
-      pageSize: pageSize, pageIndex: pageIndex, customerId: id
+      pageSize: pageSize, pageIndex: pageIndex, cusotmerId: id
     }).subscribe(value =>
     {
       if (!value) { value = []; }
@@ -48,7 +48,7 @@ export class CustomerService
   {
     const url = this.settingService.settings?.baseUrl + 'Customer/GetCustomerDetails';
     return callGetService<CustomerDetail>(url, this.http, this.uiService, {
-      id: id
+      cusotmerId: id
     }).subscribe(value =>
     {
       if (!value)
