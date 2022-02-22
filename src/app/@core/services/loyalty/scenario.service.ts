@@ -62,6 +62,7 @@ export class ScenarioService extends BaseService<Scenario>
     {
       this.baseInfoService.getProductGroupsByBrandIds(value).subscribe(productGroups =>
       {
+        if (!productGroups) { productGroups = []; }
         this.baseInfoService.productGroups$.next(productGroups);
       });
     });
@@ -94,6 +95,10 @@ export class ScenarioService extends BaseService<Scenario>
       pageSize: pageSize, pageIndex: pageIndex
     }).subscribe(value =>
     {
+      if (!value)
+      {
+        value = [];
+      }
       this.scenarios$.next(value);
     });
   }
@@ -144,6 +149,7 @@ export class ScenarioService extends BaseService<Scenario>
     callPostService<Scenario>(url, this.http, this.uiService, value).subscribe(value =>
     {
       this.form.controls['id'].setValue(value?.id);
+      this.uiService.showSnackBar('با موفقیت ثبت شد.', '', 3000);
     });
 
   }

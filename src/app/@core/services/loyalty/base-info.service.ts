@@ -51,87 +51,95 @@ export class BaseInfoService
     forkJoin(requests).subscribe(resutl =>
     {
       const resultValue = resutl as any;
-      this.activity$.next(resultValue.activity);
-      this.brands$.next(resultValue.brands);
-      this.userTypes$.next(resultValue.userTypes);
-      this.customerGroups$.next(resultValue.customerGroups);
-      this.products$.next(resultValue.products);
+      this.activity$.next(resultValue?.activity === null ? [] : resultValue?.activity);
+      this.brands$.next(resultValue?.brands === null ? [] : resultValue?.brands);
+      this.userTypes$.next(resultValue?.userTypes === null ? [] : resultValue?.userTypes);
+      this.customerGroups$.next(resultValue?.customerGroups === null ? [] : resultValue?.customerGroups);
+      this.products$.next(resultValue?.products === null ? [] : resultValue?.products);
       if (brandIds?.length > 0)
       {
-        this.productGroups$.next(resultValue.productGroups);
+        this.productGroups$.next(resultValue?.productGroups === null ? [] : resultValue?.productGroups);
       }
       if (productIds?.length > 0)
       {
-        this.freeProducts$.next(resultValue.freeProducts);
+        this.freeProducts$.next(resultValue?.freeProducts === null ? [] : resultValue?.freeProducts);
       }
     });
   }
 
   loadScenario()
   {
-    this.getScenario().subscribe(value => this.scenarios$.next(value));
+    this.getScenario().subscribe(value =>
+    {
+      if (!value) { value = []; }
+      this.scenarios$.next(value);
+    });
   }
 
   loadCustomerLevel()
   {
-    this.getCustomerLevel().subscribe(value => this.customerLevel$.next(value));
+    this.getCustomerLevel().subscribe(value =>
+    {
+      if (!value) { value = []; }
+      this.customerLevel$.next(value);
+    });
   }
 
 
-  getCustomerLevel(): Observable<Array<IdTitle>>
+  getCustomerLevel(): Observable<Array<IdTitle> | null>
   {
-    const url = this.settingService.settings?.baseUrl + 'CustomerLevel/GetAllCustomerLevel';
-    return callGetService<Array<IdTitle>>(url, this.http, this.uiService);
+    const url = this.settingService.settings?.baseUrl + 'Level/GetAllLevel';
+    return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 
-  getActivity(): Observable<Array<IdTitle>>
+  getActivity(): Observable<Array<IdTitle> | null>
   {
     const url = this.settingService.settings?.baseUrl + 'Activity/GetAllActivitys';
-    return callGetService<Array<IdTitle>>(url, this.http, this.uiService);
+    return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 
-  getScenario(): Observable<Array<IdTitle>>
+  getScenario(): Observable<Array<IdTitle> | null>
   {
     const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios?pageSize=999999&pageIndex=1';
-    return callGetService<Array<IdTitle>>(url, this.http, this.uiService);
+    return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 
-  getBrands(): Observable<Array<IdTitle>>
+  getBrands(): Observable<Array<IdTitle> | null>
   {
     const url = this.settingService.settings?.baseUrl + 'Brand/GetAllBrands';
-    return callGetService<Array<IdTitle>>(url, this.http, this.uiService);
+    return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 
-  getUserTypes(): Observable<Array<IdTitle>>
+  getUserTypes(): Observable<Array<IdTitle> | null>
   {
     const url = this.settingService.settings?.baseUrl + 'UserType/GetUserTypes';
-    return callGetService<Array<IdTitle>>(url, this.http, this.uiService);
+    return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 
-  getCustomerGroups(): Observable<Array<IdTitle>>
+  getCustomerGroups(): Observable<Array<IdTitle> | null>
   {
-    const url = this.settingService.settings?.baseUrl + 'CustomerGroup/GetAllCustomerGroups';
-    return callGetService<Array<IdTitle>>(url, this.http, this.uiService);
+    const url = this.settingService.settings?.baseUrl + 'Group/GetAllGroups';
+    return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 
-  getProductGroupsByBrandIds(brandIds: Array<string>): Observable<Array<ProductGroup>>
+  getProductGroupsByBrandIds(brandIds: Array<string>): Observable<Array<ProductGroup> | null>
   {
     const url = this.settingService.settings?.baseUrl + 'ProductGroup/GetProductGroupsByBrandIds';
-    return callGetService<Array<ProductGroup>>(url, this.http, this.uiService, { brandIds: brandIds });
+    return callGetService<Array<ProductGroup> | null>(url, this.http, this.uiService, { brandIds: brandIds });
   }
 
-  getFreeProducts(productIds: string[]): Observable<Array<IdTitle>>
+  getFreeProducts(productIds: string[]): Observable<Array<IdTitle> | null>
   {
     const url = this.settingService.settings?.baseUrl + 'Product/GetFreeProducts';
 
-    return callGetService<Array<IdTitle>>(url, this.http, this.uiService, {
+    return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService, {
       productIds: productIds
     });
   }
 
-  getProducts(): Observable<Array<IdTitle>>
+  getProducts(): Observable<Array<IdTitle> | null>
   {
     const url = this.settingService.settings?.baseUrl + 'Product/GetAllProducts';
-    return callGetService<Array<IdTitle>>(url, this.http, this.uiService);
+    return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 }

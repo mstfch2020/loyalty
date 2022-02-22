@@ -23,8 +23,9 @@ export class ScenarioRootComponent implements OnInit
       {
         this.scenarioService.getScenarioById(id).subscribe((value) =>
         {
+          if (!value) { value = scenarioInit; }
           this.scenarioService.createForm(value);
-          this.baseInfoService.loadBaseInfo(value.brandIds);
+          this.baseInfoService.loadBaseInfo(value?.brandIds);
         });
       } else
       {

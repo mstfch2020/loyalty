@@ -1,19 +1,52 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CustomerDetail, CustomerSubGrid } from 'src/app/@core/data/loyalty/customer.model';
+import { CustomerService } from 'src/app/@core/services/loyalty/customer.service';
 
 @Component({
   selector: 'app-customer-detail',
   templateUrl: './customer-detail.component.html',
   styleUrls: ['./customer-detail.component.scss']
 })
-export class CustomerDetailComponent implements OnInit {
+export class CustomerDetailComponent implements OnInit
+{
 
-  public showHistory: boolean;
+  showHistory: boolean;
+  customer = {} as CustomerDetail;
+  subCustomerDetailList = new Array<CustomerSubGrid>();
+  id = '';
+  pageIndex = 1;
+  pageSize = 9999;
 
-  constructor() {
+  constructor(private router: Router, public customerService: CustomerService, private route: ActivatedRoute)
+  {
     this.showHistory = false;
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+
+    this.route.queryParams.subscribe(params =>
+    {
+      this.id = params['id'];
+      if (this.id)
+      {
+        this.customerService.getCustomerById(this.id);
+        this.customerService.customer$.subscribe(value => this.customer = value);
+        return;
+      }
+      this.router.navigate(['/admin/main/customer/']);
+    });
+    this.subCustomerDetailList = [];
+    this.customerService.customerSubGrid$.subscribe(value => this.subCustomerDetailList = value);
   }
 
+  showHistoryToggle()
+  {
+    this.showHistory = !this.showHistory;
+    if (this.showHistory)
+    {
+      this.customerService.getCustomerSubGrid(this.pageSize, this.pageIndex, this.id);
+    }
+  }
 }

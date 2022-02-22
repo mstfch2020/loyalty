@@ -31,6 +31,7 @@ export class CustomerGroupService extends BaseService<CustomerGroup>
       pageSize: pageSize, pageIndex: pageIndex
     }).subscribe(value =>
     {
+      if (!value) { value = []; }
       this.customerGroups$.next(value);
     });
   }
@@ -69,6 +70,7 @@ export class CustomerGroupService extends BaseService<CustomerGroup>
     callPostService<SMS>(url, this.http, this.uiService, value).subscribe(value =>
     {
       this.form.controls['id'].setValue(value?.id);
+      this.uiService.showSnackBar('با موفقیت ثبت شد.', '', 3000);
     });
 
   }

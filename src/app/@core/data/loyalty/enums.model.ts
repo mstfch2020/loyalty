@@ -35,3 +35,9 @@ export enum PurchaseRoundType
 }
 
 export enum SMSSendingType { Instant = 1, Scheduled = 2 }
+export enum OperationType
+{
+  None = 0,
+  Earn = 1,
+  Expend = 2
+}

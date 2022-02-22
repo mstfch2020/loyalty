@@ -22,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr (click)="goToDetail(customerGroup.id)" *ngFor="let customerGroup of theViewList;let i =index;">
+              <tr (click)="goToEdit(customerGroup.id)" *ngFor="let customerGroup of theViewList;let i =index;">
                 <td class="text-center" scope="row">{{pageIndex+i}}</td>
                 <td class="text-center">
                   از {{customerGroup?.currentLevel?.title}} به {{customerGroup?.nextLevel?.title}}
@@ -47,7 +47,7 @@
       </div>
       <div class="row mt-5">
         <div class="col-6 col-sm-3">
-          <button (click)="goToDetail('')"
+          <button (click)="goToEdit('')"
             class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
             گروه مشتری جدید
           </button>

@@ -17,7 +17,10 @@ export class ViewListComponent implements OnInit
 
   constructor(private router: Router, public scenarioService: ScenarioService)
   {
-    scenarioService.scenarios$.subscribe(value => this.theViewList = value);
+    scenarioService.scenarios$.subscribe(value =>
+    {
+      this.theViewList = value;
+    });
   }
 
   ngOnInit(): void
@@ -26,7 +29,7 @@ export class ViewListComponent implements OnInit
     this.scenarioService.getScenarios(this.pageSize, this.pageIndex);
   }
 
-  routToBehavioral(id: string = '')
+  goToEdit(id: string = '')
   {
     if (id)
     {

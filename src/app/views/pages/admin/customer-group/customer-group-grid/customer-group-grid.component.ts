@@ -28,7 +28,7 @@ export class CustomerGroupGridComponent implements OnInit
     this.customerGroupService.getCustomerGroups(this.pageSize, this.pageIndex);
   }
 
-  goToDetail(id: string)
+  goToEdit(id: string)
   {
     if (id)
     {

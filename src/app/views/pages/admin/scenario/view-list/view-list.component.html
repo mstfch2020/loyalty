@@ -31,7 +31,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr (click)="routToBehavioral(scenario.id)" *ngFor="let scenario of theViewList">
+              <tr (click)="goToEdit(scenario.id)" *ngFor="let scenario of theViewList">
                 <td class="text-end padding-1" scope="row">
                   <div class="pr-1 fs-08 lh-lg text-justify">
                     <ng-container *ngFor="let rewardsTitle of getRewardsDetail(scenario);">
@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="theViewList.length==0" class="row mt-6">
+    <div *ngIf="!theViewList||theViewList?.length===0" class="row mt-6">
       <div class="col-12">
         <div class="text-center font-yekan-bold text-black fs-09">
           سناریوهای شما به محض ایجاد، در این صفحه نمایش داده می‌شود.
@@ -79,7 +79,7 @@
     </div>
     <div class="row mt-5">
       <div class="col-6 col-sm-3">
-        <button (click)="routToBehavioral()"
+        <button (click)="goToEdit('')"
           class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
           سناریو جدید
         </button>

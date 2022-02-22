@@ -27,7 +27,10 @@ export class HttpConfigInterceptor implements HttpInterceptor
   {
     request = this.getAuthRequest(request);
     this.rootStoreService.addLoadingRequest();
-    return next.handle(request).pipe(finalize(() => { this.rootStoreService.removeLoadingRequest(); }), catchError((error: HttpErrorResponse) =>
+    return next.handle(request).pipe(finalize(() =>
+    {
+      this.rootStoreService.removeLoadingRequest();
+    }), catchError((error: HttpErrorResponse) =>
     {
       // if (error.status === 403 || error.status === 401)
       // {

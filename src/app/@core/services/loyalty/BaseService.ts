@@ -7,7 +7,7 @@ import { BaseResponse } from "../../data/root/base-response.model";
 import { UiService } from "../ui/ui.service";
 
 
-export function callGetService<T>(url: string, http: HttpClient, uiService: UiService, params: any = null): Observable<T>
+export function callGetService<T>(url: string, http: HttpClient, uiService: UiService, params: any = null): Observable<T | null>
 {
   return http.get<BaseResponse<T>>(url, {
     params: params
@@ -16,7 +16,7 @@ export function callGetService<T>(url: string, http: HttpClient, uiService: UiSe
     if (value.meta.code !== 200 || value.meta.errorMessage)
     {
       uiService.showSnackBar(value.meta.errorMessage, '', 3000);
-      return ({} as T);
+      return (null);
     }
     return (value.data);
   }), catchError(err =>
@@ -26,19 +26,22 @@ export function callGetService<T>(url: string, http: HttpClient, uiService: UiSe
     if (res?.meta?.errorMessage)
     {
       uiService.showSnackBar(res?.meta?.errorMessage, '', 3000);
+    } else
+    {
+      uiService.showSnackBar('خطا در انجام عملیات....', '', 3000);
     }
-    return of(({} as T));
+    return of(null);
   }));
 }
 
-export function callPostService<T>(url: string, http: HttpClient, uiService: UiService, params: any = null): Observable<T>
+export function callPostService<T>(url: string, http: HttpClient, uiService: UiService, params: any = null): Observable<T | null>
 {
   return http.post<BaseResponse<T>>(url, params).pipe(map(value =>
   {
     if (value.meta.code !== 200 || value.meta.errorMessage)
     {
       uiService.showSnackBar(value.meta.errorMessage, '', 3000);
-      return ({} as T);
+      return (null);
     }
     return (value.data);
   }), catchError(err =>
@@ -48,8 +51,11 @@ export function callPostService<T>(url: string, http: HttpClient, uiService: UiS
     if (res?.meta?.errorMessage)
     {
       uiService.showSnackBar(res?.meta?.errorMessage, '', 3000);
+    } else
+    {
+      uiService.showSnackBar('خطا در انجام عملیات....', '', 3000);
     }
-    return of(({} as T));
+    return of(null);
   }));
 }
 

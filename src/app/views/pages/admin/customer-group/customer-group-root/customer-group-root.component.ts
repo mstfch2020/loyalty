@@ -20,6 +20,10 @@ export class CustomerGroupRootComponent implements OnInit
       {
         this.customerGroupService.getCustomerGroupById(id).subscribe((value) =>
         {
+          if (!value)
+          {
+            value = customerGroupInit;
+          }
           this.customerGroupService.createForm(value);
           this.loadBaseInfo();
         });

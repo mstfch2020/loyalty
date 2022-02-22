@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerGroupTemporaryCampaignComponent } from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
+import { CustomerGroupTemporaryGridComponent } from './customer-group-temporary/customer-group-temporary-grid/customer-group-temporary-grid.component';
 import { CustomerGroupTemporaryComponent } from "./customer-group-temporary/customer-group-temporary.component";
 import { CustomerGroupGridComponent } from './customer-group/customer-group-grid/customer-group-grid.component';
 import { CustomerGroupRootComponent } from './customer-group/customer-group-root/customer-group-root.component';
 import { CustomerGroupComponent } from "./customer-group/customer-group.component";
+import { CustomerDetailComponent } from "./customer/customer-detail/customer-detail.component";
+import { CustomerGridComponent } from "./customer/customer-grid/customer-grid.component";
 import { CustomerComponent } from "./customer/customer.component";
 import { DiscountCodeComponent } from "./discount-code/discount-code.component";
 import { MainComponent } from './main/main.component';
@@ -18,8 +22,6 @@ import { SystemSettingsLevelComponent } from "./system-settings/system-settings-
 import { SystemSettingsScenarioComponent } from "./system-settings/system-settings-scenario/system-settings-scenario.component";
 import { SystemSettingsComponent } from "./system-settings/system-settings.component";
 import { UsersComponent } from "./users/users.component";
-import {CustomerGridComponent} from "./customer/customer-grid/customer-grid.component";
-import {CustomerDetailComponent} from "./customer/customer-detail/customer-detail.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -66,6 +68,15 @@ const routes: Routes = [
       {
         path: 'customergrouptemporary',
         component: CustomerGroupTemporaryComponent,
+        children: [
+          {
+            path: '',
+            component: CustomerGroupTemporaryGridComponent,
+          }, {
+            path: 'edit',
+            component: CustomerGroupTemporaryCampaignComponent,
+          }
+        ]
       },
       {
         path: 'sms',
