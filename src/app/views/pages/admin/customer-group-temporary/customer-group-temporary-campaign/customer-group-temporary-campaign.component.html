@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" [formGroup]="campaignService.form">
   <div class="row">
     <div class="col-12">
       <span class="font-yekan-bold h5 text-black">
@@ -15,7 +15,7 @@
           </label>
         </div>
         <div class="col-12 col-sm-9">
-          <input class="form-control" type="file" dir="ltr" id="formFile">
+          <input class="form-control" type="file" dir="ltr" id="formFile" (change)="fileSelectionChanged($event)">
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
           </label>
         </div>
         <div class="col-12 col-sm-9">
-          <input class="form-control rounded-pill text-end text-black" type="text">
+          <input class="form-control rounded-pill text-end text-black" type="text" formControlName="title">
         </div>
       </div>
     </div>
@@ -43,9 +43,8 @@
         <div class="col-12 col-sm-5">
           <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
             [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-            <input #datepickerInput3 formControlName="expierDate" [dropSpecialCharacters]="false" mask="0000/M0/d0"
-              [leadZeroDateTime]="true" class="form-control rounded-pill text-center text-black" dir="ltr"
-              type="text" />
+            <input formControlName="expireDateControl" class="form-control rounded-pill text-center text-black"
+              [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
           </ng-persian-datepicker>
         </div>
       </div>
@@ -53,7 +52,8 @@
   </div>
   <div class="row mt-5">
     <div class="col-6 col-sm-2">
-      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl">
+      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+        (click)="campaignService.submit()">
         ذخیره
       </button>
     </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CampaignService } from 'src/app/@core/services/loyalty/campaign.service';
 
 @Component({
   selector: 'app-customer-group-temporary-campaign',
@@ -41,7 +42,11 @@ export class CustomerGroupTemporaryCampaignComponent implements OnInit
     }
   };
 
-  constructor(private router: Router) { }
+  selectedFiles = new Array();
+  selFiles: FileList | null = null;
+  formData = new FormData();
+
+  constructor(private router: Router, public campaignService: CampaignService) { }
 
   ngOnInit(): void
   {
@@ -50,5 +55,38 @@ export class CustomerGroupTemporaryCampaignComponent implements OnInit
   backToList()
   {
     this.router.navigate(['/admin/main/customergrouptemporary']);
+  }
+
+  fileSelectionChanged(event: any)
+  {
+    this.selectedFiles = new Array();
+
+    const element = event.currentTarget as HTMLInputElement;
+    this.selFiles = element.files;
+
+    let fileList: FileList | null = element.files;
+    if (fileList)
+    {
+      for (let itm in fileList)
+      {
+        let item: File = fileList[itm];
+        if ((itm.match(/\d+/g) != null) && (!this.selectedFiles.includes(item['name'])))
+          this.selectedFiles.push(item['name']);
+      }
+    }
+
+    this.formData = new FormData();
+
+    if (this.selectedFiles.length && this.selFiles && this.selFiles.length > 0)
+    {
+      for (let i = 0; i < this.selectedFiles.length; i++)
+      {
+        if (!this.selFiles[i]) { continue; }
+        this.formData.append('files', this.selFiles[i],
+          this.selFiles[i].name);
+      }
+
+      this.campaignService.fileUpload(this.formData);
+    }
   }
 }

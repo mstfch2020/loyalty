@@ -41,3 +41,33 @@ export enum OperationType
   Earn = 1,
   Expend = 2
 }
+
+
+export enum DiscountVolumeType
+{
+  None = 0,
+  Toman = 1,
+  Percent = 2
+}
+
+export enum ApplyOnType
+{
+  None = 0,
+  BeforeDiscount = 1,
+  AfterDiscount = 2,
+  AfrerApplySenario = 3
+}
+
+export enum DiscountType
+{
+  None = 0,
+  ShoppingBasket = 1,
+  Product = 2
+}
+
+export enum DiscountCountType
+{
+  None = 0,
+  Static = 1,
+  Random = 2
+}

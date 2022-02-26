@@ -111,6 +111,11 @@ export abstract class BaseService<T>{
     return this.form.get(name)?.value;
   }
 
+  setValue(name: string, value: any)
+  {
+    return this.form.get(name)?.setValue(value);
+  }
+
   getFormGroup(fgName: string): FormGroup
   {
     return (this.form.controls[fgName] as any);

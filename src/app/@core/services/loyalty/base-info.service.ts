@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, forkJoin, Observable } from "rxjs";
-import { IdTitle } from "../../data/loyalty/get-senarios-grid.model";
+import { EnumTitle, IdTitle } from "../../data/loyalty/get-senarios-grid.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
@@ -19,14 +19,21 @@ export class BaseInfoService
   scenarios$ = new BehaviorSubject<Array<IdTitle>>([]);
   customerLevel$ = new BehaviorSubject<Array<IdTitle>>([]);
   productGroups$ = new BehaviorSubject<Array<ProductGroup>>([]);
+  applyOnType$ = new BehaviorSubject<Array<EnumTitle>>([]);
   freeProducts$ = new BehaviorSubject<Array<IdTitle>>([]);
 
+  applyOnType: Array<EnumTitle> = [
+    { id: 1, title: 'قیمت قبل از تخفیف کالا' },
+    { id: 2, title: 'قیمت بعد از تخفیف کالا' },
+    { id: 3, title: 'قیمت بعد از اعمال سناریو' },
+  ];
 
   constructor(
     public http: HttpClient,
     public settingService: SettingsService,
     public uiService: UiService)
   {
+    this.applyOnType$.next(this.applyOnType);
   }
 
   loadBaseInfo(brandIds: Array<string> = [], productIds: Array<string> = [])

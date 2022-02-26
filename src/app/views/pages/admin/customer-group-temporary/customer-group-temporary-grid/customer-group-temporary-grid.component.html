@@ -19,37 +19,24 @@
             </tr>
           </thead>
           <tbody>
-            <tr (click)="goToEdit('')">
-              <td scope="row">1</td>
-              <td>سیبیلوها</td>
-              <td>29 اسفند 1401</td>
-              <td>
+            <tr (click)="goToEdit('')" *ngFor="let item of theViewList;let i =index;">
+              <td scope="row">{{pageIndex+i}}</td>
+              <td>{{item.title}}</td>
+              <td>{{item.expireDate.full}}</td>
+              <td (click)="deleteItem($event,item.id)">
                 حذف
-              </td>
-            </tr>
-            <tr>
-              <td scope="row">2</td>
-              <td>تهرانی ها</td>
-              <td>30 تیر 1401</td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>عشق پیتزاها</td>
-              <td>25 خرداد 1400</td>
-              <td>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>قهر کرده ها</td>
-              <td>20 مهر 1401</td>
-              <td>
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="row mt-5">
+        <div class="col-6 col-sm-3">
+          <button (click)="goToEdit('')"
+            class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
+            گروه مشتری موقت جدید
+          </button>
+        </div>
       </div>
     </div>
   </div>
