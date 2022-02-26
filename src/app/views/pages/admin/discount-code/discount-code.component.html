@@ -155,14 +155,14 @@
               </span>
               <div class="mt-1">
                 <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text"
-                  formControlName="purchanseAmountMin">
+                  mask="separator" thousandSeparator="," formControlName="purchanseAmountMin">
               </div>
               <span class="text-black fs-09">
                 تا
               </span>
               <div class="mt-1">
                 <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text"
-                  formControlName="purchanseAmountMax">
+                  mask="separator" thousandSeparator="," formControlName="purchanseAmountMax">
               </div>
             </div>
           </div>
@@ -190,8 +190,8 @@
         </div>
       </div>
       <div class="col-6 col-sm-2">
-        <input class="form-control rounded-pill text-center text-black" type="text"
-          formControlName="discountVolumeValue">
+        <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
+          thousandSeparator="," formControlName="discountVolumeValue">
       </div>
       <div class="col-12 col-sm-1">
         <div class="text-black mt-3 text-end text-sm-start fs-09">
@@ -199,8 +199,8 @@
         </div>
       </div>
       <div class="col-12 col-sm-2">
-        <input class="form-control rounded-pill text-center text-black" type="text"
-          formControlName="discountVolumeThreshold">
+        <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
+          thousandSeparator="," formControlName="discountVolumeThreshold">
       </div>
     </div>
     <div class="row mt-4">
@@ -210,8 +210,8 @@
             تعداد دفعه استفاده :
           </label>
           <div class="flex-grow-1 flex-sm-grow-0">
-            <input class="form-control rounded-pill text-center text-black" type="text"
-              formControlName="numberUsesPerUser">
+            <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
+              thousandSeparator="," formControlName="numberUsesPerUser">
           </div>
         </div>
       </div>
@@ -221,8 +221,8 @@
         </div>
       </div>
       <div class="col-10 col-sm-2">
-        <input class="form-control rounded-pill mt-1 text-center text-black" type="text"
-          formControlName="numberUsesTotal">
+        <input class="form-control rounded-pill mt-1 text-center text-black" type="text" mask="separator"
+          thousandSeparator="," formControlName="numberUsesTotal">
       </div>
       <div class="col-2 col-sm-1">
         <div class="text-black mt-4 text-end fs-09">
@@ -330,8 +330,8 @@
         </div>
       </div>
       <div class="col-12 col-sm-2">
-        <input class="form-control rounded-pill text-center text-black" type="text"
-          formControlName="randomDiscountCodeCount">
+        <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
+          thousandSeparator="," formControlName="randomDiscountCodeCount">
       </div>
     </div>
     <div class="row mt-4">
