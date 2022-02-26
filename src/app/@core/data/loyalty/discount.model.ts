@@ -1,4 +1,4 @@
-import { ApplyOnType, DiscountCountType, DiscountType, DiscountVolumeType } from "./enums.model";
+import { ApplyOnType, DiscountCodeType, DiscountType, DiscountVolumeType } from "./enums.model";
 import { Period, periodInit } from "./period.model";
 
 export interface DiscountGrid { }
@@ -30,7 +30,7 @@ export interface Discount
   freeSending: boolean;
   randomDiscountCodePrefix: string;
   randomDiscountCodeCount: number;
-  DiscountFixCode: string;
+  discountFixCode: string;
 }
 
 export const discountInit: Discount = {
@@ -54,10 +54,10 @@ export const discountInit: Discount = {
   numberUsesTotal: 0,
   applyOnType: ApplyOnType.AfrerApplySenario,
   discountType: DiscountType.Product,
-  discountCodeType: DiscountCountType.Random,
+  discountCodeType: DiscountCodeType.Random,
   integrateOtherDiscount: false,
   freeSending: false,
-  DiscountFixCode: '',
+  discountFixCode: '',
   randomDiscountCodePrefix: '',
   randomDiscountCodeCount: 0,
 

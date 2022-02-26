@@ -305,7 +305,7 @@
           </label>
           <div class="mr-1">
             <input class="form-control rounded-pill text-center text-black" type="text"
-              formControlName="DiscountFixCode">
+              formControlName="discountFixCode">
           </div>
         </div>
       </div>
@@ -322,6 +322,11 @@
             <input class="form-control rounded-pill text-center text-black" type="text"
               formControlName="randomDiscountCodePrefix">
           </div>
+        </div>
+        <div
+          *ngIf="!discountService.form.get('generatedDiscountCodes')?.valid && discountService.form.get('generatedDiscountCodes')?.touched "
+          class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+          اطلاعات مربوط به کد تخفیف ثابت یا تصادفی را کامل نمایید .
         </div>
       </div>
       <div class="col-12 col-sm-1">
@@ -343,7 +348,7 @@
       </div>
       <div class="col-6 col-sm-3">
         <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-          (click)="open(generateCodeModal)" type="submit">
+          (click)="open(generateCodeModal,true)" type="submit">
           تولید کد
         </button>
       </div>

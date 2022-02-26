@@ -65,7 +65,7 @@ export enum DiscountType
   Product = 2
 }
 
-export enum DiscountCountType
+export enum DiscountCodeType
 {
   None = 0,
   Static = 1,

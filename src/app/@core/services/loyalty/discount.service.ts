@@ -53,7 +53,7 @@ export class DiscountService extends BaseService<Discount>
       productGroupsConditionIds: [scenario.productGroupsExceptedIds, [Validators.required]],
       purchanseAmountMin: [scenario.purchanseAmountMin, [Validators.required]],
       purchanseAmountMax: [scenario.purchanseAmountMax, [Validators.required]],
-      generatedDiscountCodes: [scenario.generatedDiscountCodes, []],
+      generatedDiscountCodes: [scenario.generatedDiscountCodes, [Validators.required]],
       discountVolumeType: [scenario.discountVolumeType, [Validators.required]],
       discountVolumeValue: [scenario.discountVolumeValue, [Validators.required]],
       discountVolumeThreshold: [scenario.discountVolumeThreshold, [Validators.required]],
@@ -66,7 +66,7 @@ export class DiscountService extends BaseService<Discount>
       freeSending: [scenario.freeSending, [Validators.required]],
       randomDiscountCodePrefix: [scenario.randomDiscountCodePrefix, [Validators.required]],
       randomDiscountCodeCount: [scenario.randomDiscountCodeCount, [Validators.required]],
-      DiscountFixCode: [scenario.DiscountFixCode, [Validators.required]],
+      discountFixCode: [scenario.discountFixCode, [Validators.required]],
 
 
     });

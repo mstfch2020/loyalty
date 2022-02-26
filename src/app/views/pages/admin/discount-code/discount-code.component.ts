@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { discountInit } from 'src/app/@core/data/loyalty/discount.model';
+import { DiscountCodeType } from 'src/app/@core/data/loyalty/enums.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { DiscountService } from 'src/app/@core/services/loyalty/discount.service';
 
@@ -44,8 +45,30 @@ export class DiscountCodeComponent implements OnInit
     this.discountService.form.markAllAsTouched();
   }
 
-  open(content: any)
+  open(content: any, generateCodes = false)
   {
+    if (generateCodes)
+    {
+      this.discountService.setValue('generatedDiscountCodes', null);
+      if (this.discountService.getValue('discountCodeType') === DiscountCodeType.Random)
+      {
+        const randomDiscountCodePrefix = this.discountService.getValue('randomDiscountCodePrefix');
+        const randomDiscountCodeCount = this.discountService.getValue('randomDiscountCodeCount');
+        const discountCodes = new Array<string>();
+        for (let i = 0; i < randomDiscountCodeCount; i++)
+        {
+          discountCodes.push(`${ randomDiscountCodePrefix }-${ i }`);
+        }
+        this.discountService.setValue('generatedDiscountCodes', discountCodes);
+
+      } else
+      {
+        const discountFixCode = this.discountService.getValue('discountFixCode');
+
+        if (discountFixCode)
+          this.discountService.setValue('generatedDiscountCodes', [discountFixCode]);
+      }
+    }
     this.modalService.open(content, { size: 'lg', backdrop: 'static', ariaLabelledBy: 'modal-basic-title' }).result.then((result) =>
     {
       this.closeResult = `Closed with: ${ result }`;
