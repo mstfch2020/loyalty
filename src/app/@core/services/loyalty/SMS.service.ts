@@ -80,6 +80,10 @@ export class SMSService
   submit(): void
   {
     this.form.controls['startDate'].setErrors(null);
+    if(!this.form.valid){
+      this.uiService.showSnackBar('لطفاً مقادیر اجباری را وارد نمایید.', '', 3000);
+      return;
+    }
     console.log(this.form.value);
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
     const url = this.settingService.settings?.baseUrl + `Sms/${ option }`;

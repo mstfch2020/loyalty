@@ -34,7 +34,7 @@ import {SystemSettingsScenarioComponent} from './system-settings/system-settings
 import {SystemSettingsComponent} from './system-settings/system-settings.component';
 import {UsersComponent} from "./users/users.component";
 import {CustomerGridComponent} from './customer/customer-grid/customer-grid.component';
-import { CustomerDetailComponent } from './customer/customer-detail/customer-detail.component';
+import {CustomerDetailComponent} from './customer/customer-detail/customer-detail.component';
 
 @NgModule({
   declarations: [

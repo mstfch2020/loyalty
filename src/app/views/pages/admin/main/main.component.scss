@@ -26,23 +26,37 @@
 .panel-sidebar {
   width: 20rem !important;
   background-color: #00b3b5;
-  box-shadow: -2.5px 5.5px 5px 0 rgb(0 0 0 / 16%);
+  box-shadow: -2.5px 5.5px 5px 0 rgba(0, 0, 0 , 0.16);
 }
 
 .btn-setting,
 .btn-alerts{
   margin: 14.5px 12px 12px 0;
-  padding: 10px;
+  padding: 12px;
   box-shadow: inset 0 -1px 1px 0 rgba(0, 0, 0, 0.16);
   background-color: #01aab1;
   border-radius: 50%;
   cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
 }
 
 .btn-setting:hover,
 .btn-alerts:hover{
   transition: all 0.2s ease-in-out 0s;
   background-color: #01cbd2;
+}
+
+.btn-alerts > .alerts-dot{
+  width: 9px;
+  height: 9px;
+  background-color: #d70000;
+  border-radius: 50%;
+  position: absolute;
+  border:1px solid white;
+  margin-left: 20px;
+  margin-top: -10px;
 }
 
 .input-search{
