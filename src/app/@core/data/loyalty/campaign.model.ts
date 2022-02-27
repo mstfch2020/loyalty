@@ -8,7 +8,7 @@ export interface Campaign
   expireDate: Period;
   id: string;
 }
-export const campaignGridInit: Campaign = {
+export const campaignInit: Campaign = {
   title: '',
   fileId: '',
   expireDate: periodInit,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { campaignInit } from 'src/app/@core/data/loyalty/campaign.model';
 import { CampaignService } from 'src/app/@core/services/loyalty/campaign.service';
 
 @Component({
@@ -9,44 +10,30 @@ import { CampaignService } from 'src/app/@core/services/loyalty/campaign.service
 })
 export class CustomerGroupTemporaryCampaignComponent implements OnInit
 {
-
-  selectedCar = 1;
-
-  cars = [
-    { id: 1, name: 'زینجا' },
-    { id: 2, name: 'مون' },
-    { id: 3, name: 'قهر کرده' },
-    { id: 4, name: '09192935850' },
-  ];
-
-  config: any = {
-    date: {
-      value: new Date().valueOf(),
-      onSelect: (shamsiDate: string, gregorianDate: string, timestamp: number) =>
-      {
-        console.log(shamsiDate, gregorianDate, timestamp);
-      }
-    },
-    ui: {
-      theme: 'default',
-      isVisible: false,
-      hideAfterSelectDate: true,
-      hideOnOutsideClick: true,
-      yearView: true,
-      monthView: true,
-    },
-    time: {
-      enable: false,
-      showSecond: false,
-      meridian: false
-    }
-  };
-
   selectedFiles = new Array();
   selFiles: FileList | null = null;
   formData = new FormData();
 
-  constructor(private router: Router, public campaignService: CampaignService) { }
+  constructor(private router: Router, public campaignService: CampaignService, private route: ActivatedRoute)
+  {
+    this.route.queryParams.subscribe(params =>
+    {
+      const id = params['id'];
+      if (id)
+      {
+        this.campaignService.getCampaignById(id).subscribe((value) =>
+        {
+          if (!value) { value = campaignInit; }
+          this.campaignService.createForm(value);
+        });
+      } else
+      {
+        this.campaignService.createForm(campaignInit);
+
+      }
+    });
+
+  }
 
   ngOnInit(): void
   {

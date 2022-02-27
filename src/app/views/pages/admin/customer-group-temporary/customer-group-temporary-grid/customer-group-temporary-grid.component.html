@@ -19,7 +19,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr (click)="goToEdit('')" *ngFor="let item of theViewList;let i =index;">
+            <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList;let i =index;">
               <td scope="row">{{pageIndex+i}}</td>
               <td>{{item.title}}</td>
               <td>{{item.expireDate.full}}</td>
