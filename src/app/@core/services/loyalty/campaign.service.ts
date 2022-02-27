@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
-import { Campaign, CampaignGrid, campaignGridInit } from "../../data/loyalty/campaign.model";
+import { Campaign, CampaignGrid, campaignInit } from "../../data/loyalty/campaign.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { SMS } from "../../data/loyalty/sms.model";
 import { Utility } from "../../utils/Utility";
@@ -21,7 +21,7 @@ export class CampaignService extends BaseService<Campaign>
     public settingService: SettingsService,
     public uiService: UiService, public fileSrevice: FileSrevice)
   {
-    super(formBuilder, campaignGridInit);
+    super(formBuilder, campaignInit);
   }
 
   getCampaign(pageSize: number, pageIndex: number)
