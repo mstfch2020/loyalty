@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { customerGroupInit } from 'src/app/@core/data/loyalty/customer-group.model';
-import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
-import { CustomerGroupService } from 'src/app/@core/services/loyalty/customer-group.service';
+import {ActivatedRoute, Router} from "@angular/router";
+import {BaseInfoService} from "src/app/@core/services/loyalty/base-info.service";
+import {CustomerGroupService} from "src/app/@core/services/loyalty/customer-group.service";
+import {customerGroupInit} from "src/app/@core/data/loyalty/customer-group.model";
 
 @Component({
-  selector: 'app-customer-group-root',
-  templateUrl: './customer-group-root.component.html',
-  styleUrls: ['./customer-group-root.component.scss']
+  selector: 'app-customer-group-edit',
+  templateUrl: './customer-group-edit.component.html',
+  styleUrls: ['./customer-group-edit.component.scss']
 })
-export class CustomerGroupRootComponent implements OnInit
-{
+export class CustomerGroupEditComponent implements OnInit {
+
   constructor(private router: Router, public baseInfoService: BaseInfoService, public customerGroupService: CustomerGroupService, private route: ActivatedRoute)
   {
     this.route.queryParams.subscribe(params =>
@@ -50,5 +50,6 @@ export class CustomerGroupRootComponent implements OnInit
   {
     this.router.navigate(['/admin/main/customergroup']);
   }
+
 
 }

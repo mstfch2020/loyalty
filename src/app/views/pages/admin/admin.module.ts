@@ -6,15 +6,17 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NgPersianDatepickerModule} from "ng-persian-datepicker";
 import {NgxMaskModule} from 'ngx-mask';
 import {AdminRoutingModule} from "./admin-routing.module";
+import {CustomerComponent} from './customer/customer.component';
+import {CustomerListComponent} from './customer/customer-list/customer-list.component';
+import {CustomerEditComponent} from './customer/customer-edit/customer-edit.component';
 import {CustomerGroupTemporaryCampaignComponent} from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
 import {CustomerGroupTemporaryEditComponent} from './customer-group-temporary/customer-group-temporary-edit/customer-group-temporary-edit.component';
-import {CustomerGroupTemporaryGridComponent} from './customer-group-temporary/customer-group-temporary-grid/customer-group-temporary-grid.component';
+import {CustomerGroupTemporaryListComponent} from './customer-group-temporary/customer-group-temporary-list/customer-group-temporary-list.component';
 import {CustomerGroupTemporaryRootComponent} from './customer-group-temporary/customer-group-temporary-root/customer-group-temporary-root.component';
 import {CustomerGroupTemporaryComponent} from './customer-group-temporary/customer-group-temporary.component';
-import {CustomerGroupGridComponent} from './customer-group/customer-group-grid/customer-group-grid.component';
-import {CustomerGroupRootComponent} from './customer-group/customer-group-root/customer-group-root.component';
 import {CustomerGroupComponent} from './customer-group/customer-group.component';
-import {CustomerComponent} from './customer/customer.component';
+import {CustomerGroupListComponent} from './customer-group/customer-group-list/customer-group-list.component';
+import {CustomerGroupEditComponent} from './customer-group/customer-group-edit/customer-group-edit.component';
 import {DiscountCodeComponent} from './discount-code/discount-code.component';
 import {MainComponent} from './main/main.component';
 import {ProfileComponent} from "./profile/profile.component";
@@ -23,7 +25,7 @@ import {BehavioralScenarioComponent} from './scenario/behavioral-scenario/behavi
 import {PurchaseScenarioComponent} from './scenario/purchase-scenario/purchase-scenario.component';
 import {ScenarioRootComponent} from './scenario/scenario-root/scenario-root.component';
 import {ScenarioComponent} from './scenario/scenario.component';
-import {ViewListComponent} from './scenario/view-list/view-list.component';
+import {ScenarioListComponent} from './scenario/scenario-list/scenario-list.component';
 import {SendSmsComponent} from './send-sms/send-sms.component';
 import {SwitchComponent} from './switch/switch.component';
 import {SystemSettingsDiscountGridComponent} from './system-settings/system-settings-discount/system-settings-discount-grid/system-settings-discount-grid.component';
@@ -33,22 +35,29 @@ import {SystemSettingsLevelComponent} from './system-settings/system-settings-le
 import {SystemSettingsScenarioComponent} from './system-settings/system-settings-scenario/system-settings-scenario.component';
 import {SystemSettingsComponent} from './system-settings/system-settings.component';
 import {UsersComponent} from "./users/users.component";
-import {CustomerGridComponent} from './customer/customer-grid/customer-grid.component';
-import {CustomerDetailComponent} from './customer/customer-detail/customer-detail.component';
+import {DiscountCodeListComponent} from './discount-code/discount-code-list/discount-code-list.component';
+import {DiscountCodeEditComponent} from './discount-code/discount-code-edit/discount-code-edit.component';
+
 
 @NgModule({
   declarations: [
     MainComponent,
     ProfileComponent,
     UsersComponent,
-    CustomerComponent,
     SwitchComponent,
     SendSmsComponent,
     ReportsComponent,
     ScenarioComponent,
+    ScenarioRootComponent,
+    ScenarioListComponent,
+    CustomerComponent,
+    CustomerListComponent,
+    CustomerEditComponent,
     CustomerGroupComponent,
+    CustomerGroupListComponent,
+    CustomerGroupEditComponent,
     CustomerGroupTemporaryComponent,
-    CustomerGroupTemporaryGridComponent,
+    CustomerGroupTemporaryListComponent,
     CustomerGroupTemporaryRootComponent,
     CustomerGroupTemporaryCampaignComponent,
     SystemSettingsComponent,
@@ -58,15 +67,11 @@ import {CustomerDetailComponent} from './customer/customer-detail/customer-detai
     SystemSettingsDiscountGridComponent,
     SystemSettingsDiscountRootComponent,
     CustomerGroupTemporaryEditComponent,
-    CustomerGroupRootComponent,
-    CustomerGroupGridComponent,
     BehavioralScenarioComponent,
     PurchaseScenarioComponent,
     DiscountCodeComponent,
-    ViewListComponent,
-    ScenarioRootComponent,
-    CustomerGridComponent,
-    CustomerDetailComponent,
+    DiscountCodeListComponent,
+    DiscountCodeEditComponent,
   ],
   imports: [
     FormsModule,

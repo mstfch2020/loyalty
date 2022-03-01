@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CampaignService } from 'src/app/@core/services/loyalty/campaign.service';
+import {Router} from "@angular/router";
+import {CampaignService} from "src/app/@core/services/loyalty/campaign.service";
 
 @Component({
-  selector: 'app-customer-group-temporary-grid',
-  templateUrl: './customer-group-temporary-grid.component.html',
-  styleUrls: ['./customer-group-temporary-grid.component.scss']
+  selector: 'app-customer-group-temporary-list',
+  templateUrl: './customer-group-temporary-list.component.html',
+  styleUrls: ['./customer-group-temporary-list.component.scss']
 })
-export class CustomerGroupTemporaryGridComponent implements OnInit
-{
-
+export class CustomerGroupTemporaryListComponent implements OnInit {
 
   public theViewList = new Array<any>();
   pageIndex = 1;
@@ -38,4 +36,5 @@ export class CustomerGroupTemporaryGridComponent implements OnInit
     $event.preventDefault();
     $event.stopPropagation();
   }
+
 }

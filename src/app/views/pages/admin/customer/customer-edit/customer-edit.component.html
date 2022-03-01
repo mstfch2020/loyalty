@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <span class="font-yekan-bold h6 text-black">
+        <span class="font-yekan-bold fs-20px text-black">
           جزئیات مشتری
         </span>
       </div>
@@ -148,42 +148,42 @@
         <div class="table-responsive">
           <table cellspacing="1" class="table table-hover border-spacing-xs border-0">
             <thead>
-              <tr>
-                <th class="text-center font-yekan-bold pr-1 fs-08" scope="col">
-                  ردیف
-                </th>
-                <th class="text-end pr-1 font-yekan-bold fs-08" scope="col">
-                  تاریخ
-                </th>
-                <th class="text-end font-yekan-bold fs-08" scope="col">
-                  شرح
-                </th>
-                <th class="text-end font-yekan-bold fs-08" scope="col">
-                  عملیات
-                </th>
-                <th class="text-end font-yekan-bold fs-08" scope="col">
-                  امتیاز
-                </th>
-              </tr>
+            <tr>
+              <th class="text-center font-yekan-bold pr-1 fs-08" scope="col">
+                ردیف
+              </th>
+              <th class="text-end pr-1 font-yekan-bold fs-08" scope="col">
+                تاریخ
+              </th>
+              <th class="text-end font-yekan-bold fs-08" scope="col">
+                شرح
+              </th>
+              <th class="text-end font-yekan-bold fs-08" scope="col">
+                عملیات
+              </th>
+              <th class="text-end font-yekan-bold fs-08" scope="col">
+                امتیاز
+              </th>
+            </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let customerSubGrid of subCustomerDetailList;let i=index;">
-                <td class="text-center pr-1" scope="row">
-                  {{pageIndex+i}}
-                </td>
-                <td class="text-end pr-1 fs-08">
-                  {{customerSubGrid.date?.full}}
-                </td>
-                <td class="text-end fs-08">
-                  {{customerSubGrid.desctiption.title}} ({{customerSubGrid.desctiption.brand}})
-                </td>
-                <td class="text-end fs-08">
-                  {{customerSubGrid.operation}}
-                </td>
-                <td class="text-center fs-08">
-                  +{{customerSubGrid.score}}
-                </td>
-              </tr>
+            <tr *ngFor="let customerSubGrid of subCustomerDetailList;let i=index;">
+              <td class="text-center pr-1" scope="row">
+                {{pageIndex+i}}
+              </td>
+              <td class="text-end pr-1 fs-08">
+                {{customerSubGrid.date?.full}}
+              </td>
+              <td class="text-end fs-08">
+                {{customerSubGrid.desctiption.title}} ({{customerSubGrid.desctiption.brand}})
+              </td>
+              <td class="text-end fs-08">
+                {{customerSubGrid.operation}}
+              </td>
+              <td class="text-center fs-08">
+                +{{customerSubGrid.score}}
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -192,7 +192,7 @@
     <hr class="mt-4">
     <div class="row mt-4">
       <div class="col-12">
-        <span class="font-yekan-bold h6 text-black">
+        <span class="font-yekan-bold fs-20px text-black">
           سناریوهای شامل حال:
         </span>
       </div>

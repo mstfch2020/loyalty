@@ -1,30 +1,33 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CustomerGroupTemporaryCampaignComponent } from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
-import { CustomerGroupTemporaryGridComponent } from './customer-group-temporary/customer-group-temporary-grid/customer-group-temporary-grid.component';
-import { CustomerGroupTemporaryComponent } from "./customer-group-temporary/customer-group-temporary.component";
-import { CustomerGroupGridComponent } from './customer-group/customer-group-grid/customer-group-grid.component';
-import { CustomerGroupRootComponent } from './customer-group/customer-group-root/customer-group-root.component';
-import { CustomerGroupComponent } from "./customer-group/customer-group.component";
-import { CustomerDetailComponent } from "./customer/customer-detail/customer-detail.component";
-import { CustomerGridComponent } from "./customer/customer-grid/customer-grid.component";
-import { CustomerComponent } from "./customer/customer.component";
-import { DiscountCodeComponent } from "./discount-code/discount-code.component";
-import { MainComponent } from './main/main.component';
-import { ProfileComponent } from "./profile/profile.component";
-import { ReportsComponent } from "./reports/reports.component";
-import { ScenarioRootComponent } from "./scenario/scenario-root/scenario-root.component";
-import { ScenarioComponent } from "./scenario/scenario.component";
-import { ViewListComponent } from "./scenario/view-list/view-list.component";
-import { SendSmsComponent } from "./send-sms/send-sms.component";
-import { SystemSettingsDiscountComponent } from "./system-settings/system-settings-discount/system-settings-discount.component";
-import { SystemSettingsLevelComponent } from "./system-settings/system-settings-level/system-settings-level.component";
-import { SystemSettingsScenarioComponent } from "./system-settings/system-settings-scenario/system-settings-scenario.component";
-import { SystemSettingsComponent } from "./system-settings/system-settings.component";
-import { UsersComponent } from "./users/users.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {CustomerComponent} from "./customer/customer.component";
+import {CustomerEditComponent} from "./customer/customer-edit/customer-edit.component";
+import {CustomerListComponent} from "./customer/customer-list/customer-list.component";
+import {CustomerGroupTemporaryComponent} from "./customer-group-temporary/customer-group-temporary.component";
+import {CustomerGroupTemporaryListComponent} from "./customer-group-temporary/customer-group-temporary-list/customer-group-temporary-list.component";
+import {CustomerGroupTemporaryEditComponent} from "./customer-group-temporary/customer-group-temporary-edit/customer-group-temporary-edit.component";
+import {CustomerGroupTemporaryCampaignComponent} from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
+import {CustomerGroupListComponent} from './customer-group/customer-group-list/customer-group-list.component';
+import {CustomerGroupEditComponent} from './customer-group/customer-group-edit/customer-group-edit.component';
+import {CustomerGroupComponent} from "./customer-group/customer-group.component";
+import {DiscountCodeComponent} from "./discount-code/discount-code.component";
+import {MainComponent} from './main/main.component';
+import {ProfileComponent} from "./profile/profile.component";
+import {ReportsComponent} from "./reports/reports.component";
+import {ScenarioRootComponent} from "./scenario/scenario-root/scenario-root.component";
+import {ScenarioComponent} from "./scenario/scenario.component";
+import {ScenarioListComponent} from "./scenario/scenario-list/scenario-list.component";
+import {SendSmsComponent} from "./send-sms/send-sms.component";
+import {SystemSettingsDiscountComponent} from "./system-settings/system-settings-discount/system-settings-discount.component";
+import {SystemSettingsLevelComponent} from "./system-settings/system-settings-level/system-settings-level.component";
+import {SystemSettingsScenarioComponent} from "./system-settings/system-settings-scenario/system-settings-scenario.component";
+import {SystemSettingsComponent} from "./system-settings/system-settings.component";
+import {UsersComponent} from "./users/users.component";
+import {DiscountCodeEditComponent} from "./discount-code/discount-code-edit/discount-code-edit.component";
+import {DiscountCodeListComponent} from "./discount-code/discount-code-list/discount-code-list.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  {path: '', redirectTo: 'main', pathMatch: 'full'},
   {
     path: 'main',
     component: MainComponent,
@@ -35,14 +38,14 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: CustomerGridComponent
+            component: CustomerListComponent
           },
           {
-            path: 'customer-list',
-            component: CustomerGridComponent
+            path: 'list',
+            component: CustomerListComponent
           }, {
-            path: 'customer-detail',
-            component: CustomerDetailComponent
+            path: 'edit',
+            component: CustomerEditComponent
           }
 
         ]
@@ -53,16 +56,15 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: CustomerGroupGridComponent
+            component: CustomerGroupListComponent
           },
           {
-            path: 'customergroup-list',
-            component: CustomerGroupGridComponent
+            path: 'list',
+            component: CustomerGroupListComponent
           }, {
-            path: 'customergroup-edit',
-            component: CustomerGroupRootComponent
+            path: 'edit',
+            component: CustomerGroupEditComponent
           }
-
         ]
       },
       {
@@ -71,9 +73,18 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: CustomerGroupTemporaryGridComponent,
-          }, {
+            component: CustomerGroupTemporaryListComponent,
+          },
+          {
+            path: 'list',
+            component: CustomerGroupTemporaryListComponent,
+          },
+          {
             path: 'edit',
+            component: CustomerGroupTemporaryEditComponent,
+          },
+          {
+            path: 'campaign',
             component: CustomerGroupTemporaryCampaignComponent,
           }
         ]
@@ -119,18 +130,33 @@ const routes: Routes = [
             pathMatch: 'full'
           },
           {
-            path: 'root',
+            path: 'edit',
             component: ScenarioRootComponent,
           },
           {
             path: 'list',
-            component: ViewListComponent,
+            component: ScenarioListComponent,
           }
         ]
       },
       {
         path: 'discountcode',
         component: DiscountCodeComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full'
+          },
+          {
+            path: 'edit',
+            component: DiscountCodeEditComponent,
+          },
+          {
+            path: 'list',
+            component: DiscountCodeListComponent,
+          }
+        ]
       },
       {
         path: 'profile',
@@ -149,6 +175,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule
-{
+export class AdminRoutingModule {
 }

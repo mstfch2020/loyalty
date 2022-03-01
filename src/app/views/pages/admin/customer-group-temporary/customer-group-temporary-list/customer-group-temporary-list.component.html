@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <span class="font-yekan-bold fs-20px text-black">
+        مشاهده
+      </span>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-hover border-0 border-spacing-xs" cellspacing="1">
+          <thead>
+          <tr>
+            <th class="text-right font-yekan-bold fs-08" scope="col">ردیف</th>
+            <th class="text-right font-yekan-bold fs-08" scope="col">نام گروه مشتری</th>
+            <th class="text-right font-yekan-bold fs-08" scope="col">تاریخ انقضای گروه مشتری موقت</th>
+            <th class="text-right font-yekan-bold fs-08" scope="col">عملیات</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList;let i =index;">
+            <td scope="row">{{pageIndex+i}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.expireDate.full}}</td>
+            <td (click)="deleteItem($event,item.id)">
+              حذف
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mt-5">
+        <div class="col-6 col-sm-4">
+          <button (click)="goToEdit('')"
+                  class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
+            گروه مشتری موقت جدید
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

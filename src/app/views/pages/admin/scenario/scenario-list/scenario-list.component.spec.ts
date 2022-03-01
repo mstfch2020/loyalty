@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomerGroupGridComponent } from './customer-group-grid.component';
+import { ScenarioListComponent } from './scenario-list.component';
 
-describe('CustomerGroupGridComponent', () => {
-  let component: CustomerGroupGridComponent;
-  let fixture: ComponentFixture<CustomerGroupGridComponent>;
+describe('ScenarioListComponent', () => {
+  let component: ScenarioListComponent;
+  let fixture: ComponentFixture<ScenarioListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomerGroupGridComponent ]
+      declarations: [ ScenarioListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomerGroupGridComponent);
+    fixture = TestBed.createComponent(ScenarioListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

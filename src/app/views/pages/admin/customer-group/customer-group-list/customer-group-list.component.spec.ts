@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomerGroupRootComponent } from './customer-group-root.component';
+import { CustomerGroupListComponent } from './customer-group-list.component';
 
-describe('CustomerGroupRootComponent', () => {
-  let component: CustomerGroupRootComponent;
-  let fixture: ComponentFixture<CustomerGroupRootComponent>;
+describe('CustomerGroupListComponent', () => {
+  let component: CustomerGroupListComponent;
+  let fixture: ComponentFixture<CustomerGroupListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomerGroupRootComponent ]
+      declarations: [ CustomerGroupListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomerGroupRootComponent);
+    fixture = TestBed.createComponent(CustomerGroupListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

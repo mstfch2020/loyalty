@@ -7,7 +7,7 @@
         </h5>
       </div>
     </div>
-    <div *ngIf="theUserList.length>0" class="row mt-4">
+    <div *ngIf="theViewList.length>0" class="row mt-4">
       <div class="col-12">
         <div class="table-responsive">
           <table cellspacing="1" class="table table-hover border-0 border-spacing-xs">
@@ -17,29 +17,35 @@
                 ردیف
               </th>
               <th class="text-end font-yekan-bold fs-08" scope="col">
-               شماره موبایل
+                کد تخفیف
               </th>
               <th class="text-end font-yekan-bold fs-08" scope="col">
-                نام و نام خانوادگی
+                میزان تخفیف
               </th>
               <th class="text-end font-yekan-bold fs-08" scope="col">
-                دسترسی ها
+                بازه زمانی
+              </th>
+              <th class="text-center font-yekan-bold fs-08" scope="col">
+                برند
               </th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let user of theUserList">
+            <tr (click)="goToEdit(discount.Code)" *ngFor="let discount of theViewList">
               <td class="text-center" scope="row">
-                {{user.Index}}
+                {{discount.Index}}
               </td>
               <td class="text-end">
-                {{user.Mobile}}
+                {{discount.Code}}
               </td>
               <td class="text-end">
-                {{user.FullName}}
+                {{discount.Discount}}
               </td>
               <td class="text-end">
-                {{user.Permissions}}
+                {{discount.DateTime}}
+              </td>
+              <td class="text-center">
+                {{discount.Brands}}
               </td>
             </tr>
             </tbody>
@@ -47,10 +53,10 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!theUserList || theUserList?.length===0" class="row mt-6">
+    <div *ngIf="!theViewList||theViewList?.length===0" class="row mt-6">
       <div class="col-12">
         <div class="text-center font-yekan-bold text-black fs-09">
-          فهرست کاربران شما، در این صفحه نمایش داده می‌شود.
+          کدهای تخفیف شما به محض ایجاد، در این صفحه نمایش داده می‌شود.
         </div>
         <div class="text-center font-yekan-bold text-gray-500 mt-2 fs-09">
           از دکمه زیر برای ایجاد یک کد تخفیف جدید استفاده کنید.
@@ -58,6 +64,14 @@
         <div class="text-center mt-4">
           <img alt="Empty page" src="assets/img/icons/empty.png">
         </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-12 col-sm-3">
+        <button (click)="goToEdit('')"
+                class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
+ایجاد کد تخفیف
+        </button>
       </div>
     </div>
   </div>
