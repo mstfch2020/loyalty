@@ -5,15 +5,23 @@ export class Utility
 {
 
   static numberRegEx = /\-?\d*\.?\d{1,2}/;
+  static dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
+  static mobileRegEx = /09[0-3][0-9]-?[0-9]{3}-?[0-9]{4}/;
+
   static getFullDateTimeFromPeriodInPersion(period: Period): any
   {
-    if (!period || period.year < 1300) { return new Date().valueOf(); }
+    //if (!period || period.year < 1300) { return new Date().valueOf(); }
+
+    if (!period || period.year < 1300)
+    {
+      const date = moment().format('jYYYY/jMM/jDD HH:mm:ss');
+      return date.valueOf();
+    }
     const date = moment.from(`${ period.year }/${ period.month }/${ period.day } ${ period.hours }:${ period.minutes }:${ period.seconds }`, 'fa', 'YYYY/M/D HH:mm:ss')
       .format('jYYYY/jMM/jDD HH:mm:ss');
     return date.valueOf();
   }
 
-  static dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
 
   public static getFullDateTimeFromPeriod(period: Period): number
   {

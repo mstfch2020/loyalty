@@ -18,7 +18,7 @@ export class SendSmsComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.baseInfoService.loadBaseInfo();
+    this.baseInfoService.loadBaseInfo(() => { });
     this.baseInfoService.loadScenario();
     this.route.queryParams.subscribe(params =>
     {

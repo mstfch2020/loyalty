@@ -46,7 +46,7 @@ export class CustomerGroupService extends BaseService<CustomerGroup>
       currentLevelId: [scenario.currentLevelId, [Validators.required]],
       newLevelId: [scenario.newLevelId, [Validators.required]],
       activityCount: [scenario.activityCount, [Validators.required]],
-      userTypeIds: [scenario.userTypeIds, [Validators.required]],
+      userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
     });
   }
 
@@ -65,6 +65,12 @@ export class CustomerGroupService extends BaseService<CustomerGroup>
     const url = this.settingService.settings?.baseUrl + `CustomerGroupAndLevelRule/${ option }`;
 
     const value = this.form.value;
+
+    if (value.userTypeIds.some((p: string) => p === 'all'))
+    {
+      value.userTypeIds = [];
+    }
+
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
 
     callPostService<SMS>(url, this.http, this.uiService, value).subscribe(value =>

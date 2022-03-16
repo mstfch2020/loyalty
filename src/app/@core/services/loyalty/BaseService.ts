@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import * as moment from 'jalali-moment';
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { IdTitle, IdTitleType } from "../../data/loyalty/get-senarios-grid.model";
 import { BaseResponse } from "../../data/root/base-response.model";
 import { UiService } from "../ui/ui.service";
 
@@ -79,6 +80,10 @@ export abstract class BaseService<T>{
 
   updatePeriodFormControl(shamsiDate: string, formControlName: string): boolean
   {
+    if (!shamsiDate)
+    {
+      return false;
+    }
     const m = moment.from(shamsiDate.substring(0, 10), 'fa', 'YYYY/MM/DD');
     if (!m.isValid())
     {
@@ -119,6 +124,19 @@ export abstract class BaseService<T>{
   getFormGroup(fgName: string): FormGroup
   {
     return (this.form.controls[fgName] as any);
+  }
+
+  brandChanged($event: Array<IdTitle | IdTitleType>, formControlName: string): void
+  {
+    if ($event.length === 0) { return; }
+    const all = $event[$event.length - 1];
+    if (all.id === 'all')
+    {
+      this.form.controls[formControlName].setValue([all.id]);
+    } else
+    {
+      this.form.controls[formControlName].setValue($event.filter(p => p.id !== 'all').map(p => p.id));
+    }
   }
 }
 

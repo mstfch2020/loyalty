@@ -22,9 +22,9 @@
               </span>
               <div class="mt-1">
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
-                                       [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                   <input formControlName="startDate" class="form-control rounded-pill text-center text-black"
-                         [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
+                    [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
               <span class="text-black fs-09">
@@ -32,9 +32,9 @@
               </span>
               <div class="mt-1">
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
-                                       [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                   <input formControlName="endDate" class="form-control rounded-pill text-center text-black"
-                         [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
+                    [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
             </div>
@@ -50,10 +50,11 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.brands$|async" [multiple]="true" appendTo="body" bindLabel="title"
-                       bindValue="id" class="form-control mb-3" formControlName="brandIds">
+              (change)="discountService.brandChanged($event,'brandIds')" bindValue="id" class="form-control mb-3"
+              formControlName="brandIds">
             </ng-select>
             <div *ngIf="!discountService.form.get('brandIds')?.valid && discountService.form.get('brandIds')?.touched "
-                 class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+              class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               برند را مشخص نمایید
             </div>
           </div>
@@ -70,7 +71,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.customerGroups$|async" [multiple]="true" appendTo="body"
-                       bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="groupIds">
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="groupIds">
             </ng-select>
             <div
               *ngIf="!discountService.form.get('customerGroupIds')?.valid && discountService.form.get('customerGroupIds')?.touched"
@@ -89,7 +90,8 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.userTypes$|async" [multiple]="true" appendTo="body" bindLabel="title"
-                       bindValue="id" class="form-control mb-3" formControlName="userTypeIds">
+              (change)="discountService.brandChanged($event,'userTypeIds')" bindValue="id" class="form-control mb-3"
+              formControlName="userTypeIds">
             </ng-select>
             <div
               *ngIf="!discountService.form.get('userTypeIds')?.valid && discountService.form.get('userTypeIds')?.touched"
@@ -110,7 +112,8 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body"
-                       bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="productGroupIds">
+              (change)="discountService.brandChanged($event,'productGroupIds')" bindLabel="title" bindValue="id"
+              class="form-control mb-3" formControlName="productGroupIds">
             </ng-select>
             <div
               *ngIf="!discountService.form.get('productGroupIds')?.valid && discountService.form.get('productGroupIds')?.touched"
@@ -129,7 +132,8 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body"
-                       bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="productGroupsExceptedIds">
+              (change)="discountService.brandChanged($event,'productGroupIds')" bindLabel="title" bindValue="id"
+              class="form-control mb-3" formControlName="productGroupsExceptedIds">
             </ng-select>
             <div
               *ngIf="!discountService.form.get('productGroupsExceptedIds')?.valid && discountService.form.get('productGroupsExceptedIds')?.touched"
@@ -155,14 +159,14 @@
               </span>
               <div class="mt-1">
                 <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text"
-                       mask="separator" thousandSeparator="," formControlName="purchanseAmountMin">
+                  mask="separator" thousandSeparator="," formControlName="purchanseAmountMin">
               </div>
               <span class="text-black fs-09">
                 تا
               </span>
               <div class="mt-1">
                 <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text"
-                       mask="separator" thousandSeparator="," formControlName="purchanseAmountMax">
+                  mask="separator" thousandSeparator="," formControlName="purchanseAmountMax">
               </div>
             </div>
           </div>
@@ -185,13 +189,13 @@
           </label>
           <div class="mr-1">
             <app-switch [labelOne]="'تومان'" [labelTwo]="'درصد'"
-                        (notifySelectionSwitch)="discountService.discountVolumeTypeChange($event)"></app-switch>
+              (notifySelectionSwitch)="discountService.discountVolumeTypeChange($event)"></app-switch>
           </div>
         </div>
       </div>
       <div class="col-6 col-sm-2">
         <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
-               thousandSeparator="," formControlName="discountVolumeValue">
+          thousandSeparator="," formControlName="discountVolumeValue">
       </div>
       <div class="col-12 col-sm-1">
         <div class="text-black mt-3 text-end text-sm-start fs-09">
@@ -200,7 +204,7 @@
       </div>
       <div class="col-12 col-sm-2">
         <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
-               thousandSeparator="," formControlName="discountVolumeThreshold">
+          thousandSeparator="," formControlName="discountVolumeThreshold">
       </div>
     </div>
     <div class="row mt-4">
@@ -211,7 +215,7 @@
           </label>
           <div class="flex-grow-1 flex-sm-grow-0">
             <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
-                   thousandSeparator="," formControlName="numberUsesPerUser">
+              thousandSeparator="," formControlName="numberUsesPerUser">
           </div>
         </div>
       </div>
@@ -222,7 +226,7 @@
       </div>
       <div class="col-10 col-sm-2">
         <input class="form-control rounded-pill mt-1 text-center text-black" type="text" mask="separator"
-               thousandSeparator="," formControlName="numberUsesTotal">
+          thousandSeparator="," formControlName="numberUsesTotal">
       </div>
       <div class="col-2 col-sm-1">
         <div class="text-black mt-4 text-end fs-09">
@@ -240,7 +244,7 @@
           </div>
           <div class="col-12 col-sm-10">
             <ng-select [items]="baseInfoService.applyOnType$|async" [multiple]="false" appendTo="body" bindLabel="title"
-                       bindValue="id" class="form-control mb-3" formControlName="applyOnType">
+              bindValue="id" class="form-control mb-3" formControlName="applyOnType">
             </ng-select>
             <div
               *ngIf="!discountService.form.get('applyOnType')?.valid && discountService.form.get('applyOnType')?.touched"
@@ -259,13 +263,14 @@
           </label>
           <div class="mr-1 flex-grow-1">
             <app-switch [labelOne]="'تک کالا'" [labelTwo]="'سبد خرید'"
-                        (notifySelectionSwitch)="discountService.discountTypeChange($event)"></app-switch>
+              (notifySelectionSwitch)="discountService.discountTypeChange($event)"></app-switch>
           </div>
         </div>
       </div>
       <div class="col-12 col-sm-6 mt-2 mt-sm-0">
         <ng-select [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body" bindLabel="title"
-                   bindValue="id" class="form-control mb-3" formControlName="productGroupsConditionIds">
+          (change)="discountService.brandChanged($event,'productGroupIds')" bindValue="id" class="form-control mb-3"
+          formControlName="productGroupsConditionIds">
         </ng-select>
         <div
           *ngIf="!discountService.form.get('productGroupsConditionIds')?.valid && discountService.form.get('productGroupsConditionIds')?.touched"
@@ -278,7 +283,7 @@
       <div class="col-12 col-sm-8">
         <div class="d-flex flex-row align-items-center mt-3">
           <input checked class="form-check-input" type="checkbox" formControlName="integrateOtherDiscount"
-                 id="integrateOtherDiscount">
+            id="integrateOtherDiscount">
           <label class="form-check-label mr-1 cursor-pointer" for="integrateOtherDiscount">
             قابل تجمیع با سایر کد ها
           </label>
@@ -299,13 +304,13 @@
       <div class="col-12 col-sm-8">
         <div class="d-flex flex-row align-items-center mt-3">
           <input [value]="1" checked class="form-check-input" formControlName="discountCodeType" name="discountCodeType"
-                 type="radio" id="discountCodeTypeStatic">
+            type="radio" id="discountCodeTypeStatic">
           <label class="form-check-label mr-1 cursor-pointer" for="discountCodeTypeStatic">
             کد تخفیف ثابت
           </label>
           <div class="mr-1">
             <input class="form-control rounded-pill text-center text-black" type="text"
-                   formControlName="discountFixCode">
+              formControlName="discountFixCode">
           </div>
         </div>
       </div>
@@ -314,13 +319,13 @@
       <div class="col-12 col-sm-6">
         <div class="d-flex flex-row align-items-center">
           <input [value]="2" checked class="form-check-input" formControlName="discountCodeType" name="discountCodeType"
-                 id="discountCodeTypeRandom" type="radio">
+            id="discountCodeTypeRandom" type="radio">
           <label class="form-check-label mr-1 cursor-pointer" for="discountCodeTypeRandom">
             کد تخفیف تصادفی با پیشوند
           </label>
           <div class="mr-1">
             <input class="form-control rounded-pill text-center text-black" type="text"
-                   formControlName="randomDiscountCodePrefix">
+              formControlName="randomDiscountCodePrefix">
           </div>
         </div>
         <div
@@ -336,19 +341,19 @@
       </div>
       <div class="col-12 col-sm-2">
         <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
-               thousandSeparator="," formControlName="randomDiscountCodeCount">
+          thousandSeparator="," formControlName="randomDiscountCodeCount">
       </div>
     </div>
     <div class="row mt-4">
       <div class="col-6 col-sm-2">
         <button class="btn btn-warning w-100 rounded-pill fw-bold font-yekan-bold px-4 text-white d-block" dir="rtl"
-                (click)="open(generateCodeModalPattern)">
+          (click)="open(generateCodeModalPattern)">
           ذخیره الگو
         </button>
       </div>
       <div class="col-6 col-sm-2">
         <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl"
-                (click)="open(generateCodeModal,true)" type="submit">
+          (click)="open(generateCodeModal,true)" type="submit">
           تولید کد
         </button>
       </div>
@@ -375,14 +380,13 @@
         <div class="row mt-5 mb-3">
           <div class="col-12 col-sm-3">
             <button class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl"
-                    type="submit" (click)="saveCode()">
+              type="submit" (click)="saveCode()">
               ذخیره
             </button>
           </div>
           <div class="col-12 col-sm-3">
             <button (click)="close()"
-                    class="btn btn-outline-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block"
-                    type="submit">
+              class="btn btn-outline-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" type="submit">
               انصراف
             </button>
           </div>
@@ -409,14 +413,13 @@
         <div class="row mt-5 mb-3">
           <div class="col-5">
             <button class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl"
-                    type="submit" (click)="close()">
+              type="submit" (click)="close()">
               مشاهده لیست کد ها
             </button>
           </div>
           <div class="col-3">
             <button (click)="close()"
-                    class="btn btn-outline-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block"
-                    type="submit">
+              class="btn btn-outline-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" type="submit">
               انصراف
             </button>
           </div>

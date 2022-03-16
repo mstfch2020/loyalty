@@ -33,9 +33,9 @@ export const behavioralRewardInit: BehavioralReward = {
   discountCodeValidationType: 0,
   discountCodeDate: periodInit,
   discountCodeDaysAfterIssuedCode: 0,
-  refundReward: true,
-  increasScoreReward: true,
-  discountCodeReward: true
+  refundReward: false,
+  increasScoreReward: false,
+  discountCodeReward: false
 };
 
 export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralReward, formBuilder: FormBuilder): FormGroup =>

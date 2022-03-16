@@ -69,7 +69,8 @@
               </div>
               <div class="col-12 col-sm-9">
                 <ng-select [items]="baseInfoService.brands$|async" [readonly]="isDisabled" [multiple]="true"
-                  appendTo="body" bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="brandIds">
+                  (change)="scenarioService.brandChanged($event,'brandIds')" appendTo="body" bindLabel="title"
+                  bindValue="id" class="form-control mb-3" formControlName="brandIds">
                 </ng-select>
                 <div
                   *ngIf="!scenarioService.form.get('brandIds')?.valid && scenarioService.form.get('brandIds')?.touched && !isDisabled"
@@ -85,18 +86,19 @@
             <div class="row">
               <div class="col-12 col-sm-3">
                 <label class="float-end float-sm-start mt-3">
-                  گروه مشتری :
+                  مشتری :
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="baseInfoService.customerGroups$|async" [multiple]="true" appendTo="body"
-                  [readonly]="isDisabled" bindLabel="title" bindValue="id" class="form-control mb-3"
-                  formControlName="customerGroupIds">
+                <ng-select [items]="baseInfoService.generalCustomers$|async" [multiple]="true" appendTo="body"
+                  (change)="scenarioService.brandChanged($event,'generalCustomers')" [readonly]="isDisabled"
+                  bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="generalCustomers"
+                  [addTag]="scenarioService.addCustomer">
                 </ng-select>
                 <div
-                  *ngIf="!scenarioService.form.get('customerGroupIds')?.valid && scenarioService.form.get('customerGroupIds')?.touched && !isDisabled"
+                  *ngIf="!scenarioService.form.get('generalCustomers')?.valid && scenarioService.form.get('generalCustomers')?.touched && !isDisabled"
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-                  گروه مشتری را مشخص نمایید
+                  مشتری را مشخص نمایید
                 </div>
               </div>
             </div>
@@ -217,18 +219,18 @@
             <div class="row mt-4">
               <div class="col-12 col-sm-3">
                 <label class="float-end float-sm-start mt-3">
-                  گروه کالا :
+                  تگ کالا:
                 </label>
               </div>
               <div class="col-12 col-sm-9">
                 <ng-select [items]="baseInfoService.productGroups$|async" [readonly]="isDisabled" [multiple]="true"
-                  appendTo="body" bindLabel="title" bindValue="id" class="form-control mb-3"
-                  formControlName="productGroupIds">
+                  (change)="scenarioService.brandChanged($event,'productGroupIds')" appendTo="body" bindLabel="title"
+                  bindValue="id" class="form-control mb-3" formControlName="productGroupIds">
                 </ng-select>
                 <div
                   *ngIf="!scenarioService.form.get('productGroupIds')?.valid && scenarioService.form.get('productGroupIds')?.touched && !isDisabled"
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-                  گروه مشتری را مشخص نمایید
+                  تگ کالا را مشخص نمایید
                 </div>
               </div>
             </div>
@@ -240,8 +242,8 @@
               </div>
               <div class="col-12 col-sm-9">
                 <ng-select [items]="baseInfoService.userTypes$|async" [multiple]="true" appendTo="body"
-                  [readonly]="isDisabled" bindLabel="title" bindValue="id" class="form-control mb-3"
-                  formControlName="userTypeIds">
+                  (change)="scenarioService.brandChanged($event,'userTypeIds')" [readonly]="isDisabled"
+                  bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="userTypeIds">
                 </ng-select>
                 <div
                   *ngIf="!scenarioService.form.get('userTypeIds')?.valid && scenarioService.form.get('userTypeIds')?.touched && !isDisabled"
@@ -279,7 +281,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
-                  formControlName='sendingDiscount' type="text" mask="separator" thousandSeparator=",">
+                  formControlName='sendingDiscount' type="text" mask="percent" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -305,7 +307,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="basketDiscountPercent"
-                  type="text" mask="separator" thousandSeparator=",">
+                  type="text" mask="percent" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -322,7 +324,7 @@
               <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
                 [ngClass]="{'disabled':isDisabled}">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="basketDiscountThreshold"
-                  type="text" mask="separator" thousandSeparator=",">
+                  type="text" mask="percent" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -348,7 +350,7 @@
               <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
                 [ngClass]="{'disabled':isDisabled}">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="productDiscountPercent"
-                  type="text" mask="separator" thousandSeparator=",">
+                  type="text" mask="percent" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -361,9 +363,11 @@
                 </label>
               </div>
             </div>
-            <div class="col-4 col-sm-5">
-              <ng-select [items]="baseInfoService.products$|async" [readonly]="isDisabled" [multiple]="true"
-                appendTo="body" bindLabel="title" bindValue="id" class="form-control mb-3">
+            <div class="col-4 col-sm-5" [formGroup]="scenarioService.form">
+              <ng-select [items]="baseInfoService.productGroups$|async" [readonly]="isDisabled" [multiple]="true"
+                (change)="scenarioService.brandChanged($event,'productGroups')"
+                [addTag]="scenarioService.addProductGroups" appendTo="body" bindLabel="title" bindValue="id"
+                class="form-control mb-3" formControlName="productGroups">
               </ng-select>
             </div>
           </div>
@@ -378,13 +382,14 @@
                   formControlName="addFreeProductReward" id="addFreeProductReward" name="addFreeProductReward"
                   type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer" for="addFreeProductReward">
-                  افزودن کالای رایگان به سبدخرید
+                  افزودن کالای رایگان به سبد خرید
                 </label>
               </div>
             </div>
-            <div class="col-12 col-sm-4">
-              <ng-select [multiple]="true" appendTo="body" bindLabel="name" class="form-control mb-3"
-                [readonly]="isDisabled">
+            <div class="col-12 col-sm-4" [formGroup]="scenarioService.form">
+              <ng-select [items]="baseInfoService.productCodes$|async" [readonly]="isDisabled" [multiple]="true"
+                appendTo="body" formControlName="freeProductCodes" [addTag]="scenarioService.addFreeProduct"
+                class="form-control mb-3">
               </ng-select>
             </div>
           </div>
@@ -406,7 +411,7 @@
               <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px"
                 [ngClass]="{'disabled':isDisabled}">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="refundPercent" type="text"
-                  mask="separator" thousandSeparator=",">
+                  mask="percent" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -449,7 +454,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100" formControlName="increaseScorePercent"
-                  type="text" mask="separator" thousandSeparator=",">
+                  type="text" mask="percent" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -491,7 +496,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-start text-black border-0 h-40px w-100" formControlName="discountCodePercent"
-                  type="text" mask="separator" thousandSeparator=",">
+                  type="text" mask="percent" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>

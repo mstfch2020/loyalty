@@ -45,10 +45,10 @@ export class DiscountService extends BaseService<Discount>
       endDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMax), [Validators.required]],
       periodMin: createPeriodFormGroup(scenario.periodMin, this.formBuilder),
       periodMax: createPeriodFormGroup(scenario.periodMax, this.formBuilder),
-      brandIds: [scenario.brandIds, [Validators.required]],
+      brandIds: [scenario.brandIds.length === 0 && scenario.id ? ['all'] : scenario.brandIds, [Validators.required]],
       groupIds: [scenario.groupIds, [Validators.required]],
-      userTypeIds: [scenario.userTypeIds, [Validators.required]],
-      productGroupIds: [scenario.productGroupIds, [Validators.required]],
+      userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
+      productGroupIds: [scenario.productGroupIds.length === 0 && scenario.id ? ['all'] : scenario.productGroupIds, [Validators.required]],
       productGroupsExceptedIds: [scenario.productGroupsExceptedIds, [Validators.required]],
       productGroupsConditionIds: [scenario.productGroupsExceptedIds, [Validators.required]],
       purchanseAmountMin: [scenario.purchanseAmountMin, [Validators.required]],
@@ -124,6 +124,22 @@ export class DiscountService extends BaseService<Discount>
     this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax');
 
     const value = this.form.value;
+
+    if (value.brandIds.some((p: string) => p === 'all'))
+    {
+      value.brandIds = [];
+    }
+
+    if (value.userTypeIds.some((p: string) => p === 'all'))
+    {
+      value.userTypeIds = [];
+    }
+
+    if (value.productGroupIds.some((p: string) => p === 'all'))
+    {
+      value.productGroupIds = [];
+    }
+
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
 
     console.log(value);

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, forkJoin, Observable } from "rxjs";
-import { EnumTitle, IdTitle } from "../../data/loyalty/get-senarios-grid.model";
+import { EnumTitle, IdTitle, IdTitleType } from "../../data/loyalty/get-senarios-grid.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
@@ -13,14 +13,20 @@ export class BaseInfoService
 
   activity$ = new BehaviorSubject<Array<IdTitle>>([]);
   brands$ = new BehaviorSubject<Array<IdTitle>>([]);
+  brandsSingle$ = new BehaviorSubject<Array<IdTitle>>([]);
   userTypes$ = new BehaviorSubject<Array<IdTitle>>([]);
+  userTypesSinle$ = new BehaviorSubject<Array<IdTitle>>([]);
   customerGroups$ = new BehaviorSubject<Array<IdTitle>>([]);
   products$ = new BehaviorSubject<Array<IdTitle>>([]);
   scenarios$ = new BehaviorSubject<Array<IdTitle>>([]);
   customerLevel$ = new BehaviorSubject<Array<IdTitle>>([]);
   productGroups$ = new BehaviorSubject<Array<ProductGroup>>([]);
+  productGroupsSingle$ = new BehaviorSubject<Array<ProductGroup>>([]);
   applyOnType$ = new BehaviorSubject<Array<EnumTitle>>([]);
   freeProducts$ = new BehaviorSubject<Array<IdTitle>>([]);
+  generalCustomers$ = new BehaviorSubject<Array<IdTitleType>>([]);
+  generalCustomersSingle$ = new BehaviorSubject<Array<IdTitleType>>([]);
+  productCodes$ = new BehaviorSubject<Array<string>>([]);
 
   applyOnType: Array<EnumTitle> = [
     { id: 1, title: 'قیمت قبل از تخفیف کالا' },
@@ -36,7 +42,7 @@ export class BaseInfoService
     this.applyOnType$.next(this.applyOnType);
   }
 
-  loadBaseInfo(brandIds: Array<string> = [], productIds: Array<string> = [])
+  loadBaseInfo(callback: any, brandIds: Array<string> = [], productIds: Array<string> = []): void
   {
     const requests: any = {
       activity: this.getActivity(),
@@ -44,11 +50,10 @@ export class BaseInfoService
       userTypes: this.getUserTypes(),
       customerGroups: this.getCustomerGroups(),
       products: this.getProducts(),
+      generalCustomers: this.getGeneralCustomer()
     };
-    if (brandIds?.length > 0)
-    {
-      requests.productGroups = this.getProductGroupsByBrandIds(brandIds);
-    }
+
+    requests.productGroups = this.getProductGroupsByBrandIds(brandIds);
 
     if (productIds?.length > 0)
     {
@@ -58,19 +63,26 @@ export class BaseInfoService
     forkJoin(requests).subscribe(resutl =>
     {
       const resultValue = resutl as any;
+      const defArray = [{ id: 'all', title: 'همه' }];
+      const defArrayType = [{ id: 'all', title: 'همه', type: 4 }];
       this.activity$.next(resultValue?.activity === null ? [] : resultValue?.activity);
-      this.brands$.next(resultValue?.brands === null ? [] : resultValue?.brands);
-      this.userTypes$.next(resultValue?.userTypes === null ? [] : resultValue?.userTypes);
+      this.brands$.next(resultValue?.brands === null ? defArray : resultValue?.brands.concat(defArray));
+      this.brandsSingle$.next(resultValue?.brands === null ? [] : resultValue?.brands);
+      this.userTypes$.next(resultValue?.userTypes === null ? defArray : resultValue?.userTypes.concat(defArray));
+      this.userTypesSinle$.next(resultValue?.userTypes === null ? [] : resultValue?.userTypes);
       this.customerGroups$.next(resultValue?.customerGroups === null ? [] : resultValue?.customerGroups);
       this.products$.next(resultValue?.products === null ? [] : resultValue?.products);
-      if (brandIds?.length > 0)
-      {
-        this.productGroups$.next(resultValue?.productGroups === null ? [] : resultValue?.productGroups);
-      }
+      this.generalCustomers$.next(resultValue?.generalCustomers === null ? defArrayType : resultValue?.generalCustomers.concat(defArrayType));
+      this.generalCustomersSingle$.next(resultValue?.generalCustomers === null ? [] : resultValue?.generalCustomers);
+
+      this.productGroups$.next(resultValue?.productGroups === null ? defArray : resultValue?.productGroups.concat(defArray));
+      this.productGroupsSingle$.next(resultValue?.productGroups === null ? [] : resultValue?.productGroups);
+
       if (productIds?.length > 0)
       {
         this.freeProducts$.next(resultValue?.freeProducts === null ? [] : resultValue?.freeProducts);
       }
+      callback();
     });
   }
 
@@ -132,6 +144,10 @@ export class BaseInfoService
   getProductGroupsByBrandIds(brandIds: Array<string>): Observable<Array<ProductGroup> | null>
   {
     const url = this.settingService.settings?.baseUrl + 'ProductGroup/GetProductGroupsByBrandIds';
+    if (!brandIds || brandIds.length === 0 || brandIds.some(p => p === 'all'))
+    {
+      return callGetService<Array<ProductGroup> | null>(url, this.http, this.uiService);
+    }
     return callGetService<Array<ProductGroup> | null>(url, this.http, this.uiService, { brandIds: brandIds });
   }
 
@@ -149,4 +165,12 @@ export class BaseInfoService
     const url = this.settingService.settings?.baseUrl + 'Product/GetAllProducts';
     return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
+
+  getGeneralCustomer()
+  {
+    const url = this.settingService.settings?.baseUrl + 'Group/GetCustomerDrpDown';
+    return callGetService<Array<IdTitleType> | null>(url, this.http, this.uiService);
+  }
 }
+
+

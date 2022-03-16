@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {BaseInfoService} from "src/app/@core/services/loyalty/base-info.service";
-import {CustomerGroupService} from "src/app/@core/services/loyalty/customer-group.service";
-import {customerGroupInit} from "src/app/@core/data/loyalty/customer-group.model";
+import { ActivatedRoute, Router } from "@angular/router";
+import { CustomerGroup, customerGroupInit } from "src/app/@core/data/loyalty/customer-group.model";
+import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
+import { CustomerGroupService } from "src/app/@core/services/loyalty/customer-group.service";
 
 @Component({
   selector: 'app-customer-group-edit',
   templateUrl: './customer-group-edit.component.html',
   styleUrls: ['./customer-group-edit.component.scss']
 })
-export class CustomerGroupEditComponent implements OnInit {
+export class CustomerGroupEditComponent implements OnInit
+{
 
   constructor(private router: Router, public baseInfoService: BaseInfoService, public customerGroupService: CustomerGroupService, private route: ActivatedRoute)
   {
@@ -24,20 +25,18 @@ export class CustomerGroupEditComponent implements OnInit {
           {
             value = customerGroupInit;
           }
-          this.customerGroupService.createForm(value);
-          this.loadBaseInfo();
+          this.loadBaseInfo(value);
         });
       } else
       {
-        this.customerGroupService.createForm(customerGroupInit);
-        this.loadBaseInfo();
+        this.loadBaseInfo(customerGroupInit);
       }
     });
   }
 
-  loadBaseInfo()
+  loadBaseInfo(value: CustomerGroup)
   {
-    this.baseInfoService.loadBaseInfo();
+    this.baseInfoService.loadBaseInfo(() => this.customerGroupService.createForm(value));
     this.baseInfoService.loadCustomerLevel();
   }
 

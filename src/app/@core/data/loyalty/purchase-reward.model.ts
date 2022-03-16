@@ -45,13 +45,13 @@ export const purchaseRewardInit: PurchaseReward = {
   discountCodeValidationType: RewardDiscountCodeValidationType.Date,
   discountCodeDate: periodInit,
   discountCodeDaysAfterIssuedCode: 0,
-  sendingDiscountReward: true,
-  basketDiscountReward: true,
-  productDiscountReward: true,
-  addFreeProductReward: true,
-  refundReward: true,
-  increasScoreReward: true,
-  discountCodeReward: true
+  sendingDiscountReward: false,
+  basketDiscountReward: false,
+  productDiscountReward: false,
+  addFreeProductReward: false,
+  refundReward: false,
+  increasScoreReward: false,
+  discountCodeReward: false
 };
 export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, formBuilder: FormBuilder): FormGroup =>
 {

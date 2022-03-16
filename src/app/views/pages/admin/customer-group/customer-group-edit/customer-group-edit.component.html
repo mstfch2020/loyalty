@@ -16,8 +16,8 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="baseInfoService.brands$|async" [multiple]="false" appendTo="body" bindLabel="title"
-                       bindValue="id" class="form-control mb-3" formControlName="brandId">
+            <ng-select [items]="baseInfoService.brandsSingle$|async" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="brandId">
             </ng-select>
           </div>
         </div>
@@ -31,7 +31,8 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.userTypes$|async" [multiple]="true" appendTo="body" bindLabel="title"
-                       bindValue="id" class="form-control mb-3" formControlName="userTypeIds">
+              (change)="customerGroupService.brandChanged($event,'userTypeIds')" bindValue="id"
+              class="form-control mb-3" formControlName="userTypeIds">
             </ng-select>
           </div>
         </div>
@@ -47,7 +48,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.customerLevel$|async" [multiple]="false" appendTo="body"
-                       bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="currentLevelId">
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="currentLevelId">
             </ng-select>
           </div>
         </div>
@@ -61,7 +62,7 @@
           </div>
           <div class="col-6 col-sm-3">
             <input class="form-control rounded-pill text-center" type="text" formControlName="activityCount"
-                   mask="separator" thousandSeparator=",">
+              mask="separator" thousandSeparator=",">
           </div>
         </div>
       </div>
@@ -81,7 +82,7 @@
               </div>
               <div class="mr-1">
                 <input class="form-control rounded-pill text-start" placeholder="امتیاز" type="text" mask="separator"
-                       thousandSeparator="," formControlName="scoreThreshold">
+                  thousandSeparator="," formControlName="scoreThreshold">
               </div>
             </div>
           </div>
@@ -98,7 +99,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.customerLevel$|async" [multiple]="false" appendTo="body"
-                       bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="newLevelId">
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="newLevelId">
             </ng-select>
           </div>
         </div>
@@ -112,7 +113,7 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.customerGroups$|async" [multiple]="false" appendTo="body"
-                       bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="customGroupId">
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="customGroupId">
             </ng-select>
           </div>
         </div>
@@ -121,13 +122,13 @@
     <div class="row mt-5">
       <div class="col-6 col-sm-2">
         <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-                (click)="customerGroupService.submit()">
+          (click)="customerGroupService.submit()">
           اعمال
         </button>
       </div>
       <div class="col-6 col-sm-2">
         <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-                (click)="backToList()">
+          (click)="backToList()">
           انصراف
         </button>
       </div>

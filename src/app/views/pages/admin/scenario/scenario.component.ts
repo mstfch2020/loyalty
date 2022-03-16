@@ -16,7 +16,7 @@ export class ScenarioComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.baseInfoService.loadBaseInfo();
+    this.baseInfoService.loadBaseInfo(() => { });
   }
 
 }

@@ -11,6 +11,8 @@ export interface Scenario
   brandIds: Array<string>;// to do brandIds
   productGroupIds: Array<string>;// to do productGroupIds
   customerGroupIds: Array<string>;// to do customerGroupIds
+  campaignIds: Array<string>;
+  phones: Array<string>;
   userTypeIds: Array<string>;// to do userTypeIds
   periodMin: Period;
   periodMax: Period;
@@ -20,8 +22,9 @@ export interface Scenario
   purchaseRound: number;
   activityId: string;
   purchaseReward: PurchaseReward,
-  productDiscountProductGroupIds: Array<string>;// to do  productDiscountProductGroupIds
-  freeProductIds: Array<string>;// to do freeProductId
+  discountedProductGroupIds: Array<string>;// to do  discountedProductGroupIds
+  discountedProductCodes: Array<string>;
+  freeProductCodes: Array<string>;// to do freeProductId
   behavioralReward: BehavioralReward;
   id: string | null;
 }
@@ -32,6 +35,8 @@ export const scenarioInit: Scenario = {
   brandIds: [],
   productGroupIds: [],
   customerGroupIds: [],
+  campaignIds: [],
+  phones: [],
   userTypeIds: [],
   periodMin: periodInit,
   periodMax: periodInit,
@@ -42,8 +47,9 @@ export const scenarioInit: Scenario = {
   purchaseRound2: 0,
   activityId: '',
   purchaseReward: purchaseRewardInit,
-  productDiscountProductGroupIds: [],
-  freeProductIds: [],
+  discountedProductGroupIds: [],
+  discountedProductCodes: [],
+  freeProductCodes: [],
   behavioralReward: behavioralRewardInit,
   id: ''
 };
