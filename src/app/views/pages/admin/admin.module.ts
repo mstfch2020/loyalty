@@ -37,6 +37,7 @@ import {SystemSettingsComponent} from './system-settings/system-settings.compone
 import {UsersComponent} from "./users/users.component";
 import {DiscountCodeListComponent} from './discount-code/discount-code-list/discount-code-list.component';
 import {DiscountCodeEditComponent} from './discount-code/discount-code-edit/discount-code-edit.component';
+import {DisplayAlertComponent} from "../../general/display-alert/display-alert.component";
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import {DiscountCodeEditComponent} from './discount-code/discount-code-edit/disc
     DiscountCodeComponent,
     DiscountCodeListComponent,
     DiscountCodeEditComponent,
+    DisplayAlertComponent,
   ],
   imports: [
     FormsModule,

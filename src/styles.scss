@@ -288,7 +288,7 @@ label {
   background-color: #fff;
   border: none;
   resize: none !important;
-  border-right: 2rem !important;
+  //border-right: 2rem !important;
   border-radius: 2rem !important;
 }
 
@@ -308,8 +308,8 @@ input[type='text'].ng-invalid.ng-touched,
 input[type='password'].ng-invalid.ng-touched,
 .form-control.ng-invalid.ng-touched,
 .invalid {
-  box-shadow: inset -0.5px 3.5px 6px 0 rgb(255 11 11 / 16%);
-  border: 1px solid #ffbcbc;
+  //box-shadow: inset -0.5px 3.5px 6px 0 rgb(255 11 11 / 16%);
+  border: 1px solid #ff0000;
 }
 
 input[type="file"] {
@@ -416,7 +416,7 @@ table tbody tr td.padding-05 {
 }
 
 select.ng-invalid.ng-touched {
-  border-color: #dc3545;
+  border-color: #ff001b;
 }
 
 .cursor-pointer {
@@ -446,7 +446,7 @@ select.ng-invalid.ng-touched {
 }
 
 .ng-select-multiple {
-  border-right: 2rem !important;
+  //border-right: 2rem !important;
 }
 
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {

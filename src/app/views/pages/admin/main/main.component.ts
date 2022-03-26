@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IMenuItem } from "src/app/@core/data/Interfaces/Interfaces";
+import {AlertService} from "../../../../@core/services/ui/alert.service";
 
 @Component({
   selector: 'app-main',
