@@ -117,6 +117,39 @@ export class ScenarioService extends BaseService<Scenario>
         const data = this.baseInfoService?.productGroups$?.getValue()?.concat(scenarioProductGroups.filter(p => p.id === p.title));
         this.baseInfoService?.productGroups$?.next(data);
       }
+
+      this.form.get('behavioralReward.discountCodePercent')?.valueChanges.subscribe(value =>
+      {
+        this.percentValidation(value);
+      });
+
+      this.form.get('behavioralReward.refundToWalletPercent')?.valueChanges.subscribe(value =>
+      {
+        this.percentValidation(value);
+      });
+
+      this.form.get('purchaseReward.productDiscountPercent')?.valueChanges.subscribe(value =>
+      {
+        this.percentValidation(value);
+      });
+      /*** */
+      this.form.get('purchaseReward.refundPercent')?.valueChanges.subscribe(value =>
+      {
+        this.percentValidation(value);
+      });
+
+      this.form.get('purchaseReward.increaseScorePercent')?.valueChanges.subscribe(value =>
+      {
+        this.percentValidation(value);
+      });
+      this.form.get('purchaseReward.sendingDiscount')?.valueChanges.subscribe(value =>
+      {
+        this.percentValidation(value);
+      });
+      this.form.get('purchaseReward.basketDiscountPercent')?.valueChanges.subscribe(value =>
+      {
+        this.percentValidation(value);
+      });
     }
 
     const scenarioGeneralCustomers = new Array<IdTitleType>();
@@ -158,6 +191,15 @@ export class ScenarioService extends BaseService<Scenario>
       });
     });
     this.form.markAllAsTouched();
+  }
+  percentValidation(value: number): boolean
+  {
+    if (value > 100 || value < 0)
+    {
+      this.uiService.showSnackBar('لطفا برای اقلام درصدی مقدار صحیح از صفر تا 100 را وارد نمایید.', '', 3000);
+      return false;
+    }
+    return true;
   }
 
   getProductGroupsByBrandIds(brandIds: Array<string> = [])
@@ -271,6 +313,29 @@ export class ScenarioService extends BaseService<Scenario>
       this.form.controls['purchaseRound'].setValue(0);
     }
     const value = this.form.value;
+
+    if (!this.percentValidation(value.behavioralReward.discountCodePercent))
+    {
+      return;
+    } else if (!this.percentValidation(value.behavioralReward.refundToWalletPercent))
+    {
+      return;
+    } else if (!this.percentValidation(value.purchaseReward.productDiscountPercent))
+    {
+      return;
+    } else if (!this.percentValidation(value.purchaseReward.refundPercent))
+    {
+      return;
+    } else if (!this.percentValidation(value.purchaseReward.increaseScorePercent))
+    {
+      return;
+    } else if (!this.percentValidation(value.purchaseReward.sendingDiscount))
+    {
+      return;
+    } else if (!this.percentValidation(value.purchaseReward.basketDiscountPercent))
+    {
+      return;
+    }
 
     if (!value.title)
     {
