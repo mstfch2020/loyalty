@@ -21,12 +21,19 @@
   box-shadow: 0px 1px 3px 1px silver;
 }
 
+.alert-close{
+  position: absolute;
+  left: 9px;
+  top: 13px;
+  cursor: pointer;
+}
+
 .alert-danger{
   background-color: #e10000;
 }
 
 .alert-warning{
-  background-color: #fcff24;
+  background-color: #d6d900;
 }
 
 .alert-success{
