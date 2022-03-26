@@ -167,8 +167,8 @@
             <div class="col-12 col-sm-3">
               <div class="d-flex flex-row align-items-center mt-3">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
-                  formControlName="increasScoreReward" type="checkbox">
-                <label class="form-check-label mr-1 cursor-pointer">
+                  formControlName="increasScoreReward" type="checkbox" id="increasScoreRewardId">
+                <label class="form-check-label mr-1 cursor-pointer" for="increasScoreRewardId">
                   افزایش امتیاز
                 </label>
               </div>
@@ -204,8 +204,8 @@
             <div class="col-12 col-sm-4">
               <div class="d-flex flex-row align-items-center mt-3">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
-                  formControlName="refundReward" type="checkbox">
-                <label class="form-check-label mr-1 cursor-pointer">
+                  formControlName="refundReward" type="checkbox" id="refundRewardId">
+                <label class="form-check-label mr-1 cursor-pointer" for="refundRewardId">
                   بازگشت وجه به کیف پول
                 </label>
               </div>
@@ -244,8 +244,8 @@
             <div class="col-12 col-sm-4">
               <div class="d-flex flex-row align-items-center mt-3">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
-                  formControlName="discountCodeReward" type="checkbox">
-                <label class="form-check-label mr-1 cursor-pointer">
+                  formControlName="discountCodeReward" type="checkbox" id="discountCodeRewardId">
+                <label class="form-check-label mr-1 cursor-pointer" for="discountCodeRewardId">
                   کد تخفیف برای خرید بعدی
                 </label>
               </div>
@@ -283,12 +283,13 @@
         </div>
         <div class="col-12 col-sm-4 mt-3 mt-sm-0">
           <div class="d-flex flex-row gap-3 align-items-center">
-            <div class="fs-09 text-black">
+            <label class="fs-09 text-black" for="discountCodeValidationTypeId">
               معتبر تا
-            </div>
+            </label>
             <div>
               <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="1" checked
-                class="form-check-input" formControlName="discountCodeValidationType" type="radio">
+                class="form-check-input" formControlName="discountCodeValidationType" type="radio"
+                id="discountCodeValidationTypeId">
             </div>
             <div>
               <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"

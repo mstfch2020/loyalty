@@ -27,6 +27,7 @@ export class ScenarioService extends BaseService<Scenario>
     {
       return term;
     }
+    this.uiService.showSnackBar('کد تخفیف باید عدد 7 رقمی باشد.', '', 3000);
     return null;
   }
 
@@ -36,6 +37,7 @@ export class ScenarioService extends BaseService<Scenario>
     {
       return { id: term, title: term, type: 3 };
     }
+    this.uiService.showSnackBar('شماره موبایل معتبر نمیباشد.', '', 3000);
     return null;
   }
 
@@ -117,9 +119,12 @@ export class ScenarioService extends BaseService<Scenario>
       }
     }
 
-    if (scenario.id && (scenario.customerGroupIds.length === 0 && scenario.campaignIds.length === 0 && scenario.phones.length === 0)) { } else
+    const scenarioGeneralCustomers = new Array<IdTitleType>();
+    if (scenario.id && (scenario.customerGroupIds.length === 0 && scenario.campaignIds.length === 0 && scenario.phones.length === 0))
     {
-      const scenarioGeneralCustomers = new Array<IdTitleType>();
+      this.setValue('generalCustomers', ['all']);
+    } else
+    {
       const generalCustomers = this.baseInfoService?.generalCustomers$?.getValue();
       [...scenario.customerGroupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
       {
@@ -145,10 +150,14 @@ export class ScenarioService extends BaseService<Scenario>
     {
       this.baseInfoService.getProductGroupsByBrandIds(value).subscribe(productGroups =>
       {
+        const defArray: Array<ProductGroup> = [{ id: 'all', title: 'همه', brandId: '' }];
         if (!productGroups) { productGroups = []; }
+        this.baseInfoService.productGroupsSingle$.next(productGroups);
+        productGroups = productGroups.concat(defArray);
         this.baseInfoService.productGroups$.next(productGroups);
       });
     });
+    this.form.markAllAsTouched();
   }
 
   getProductGroupsByBrandIds(brandIds: Array<string> = [])
@@ -225,7 +234,7 @@ export class ScenarioService extends BaseService<Scenario>
         return;
       }
 
-      if (!this.form.value.productGroups || this.form.value.productGroups.length === 0)
+      if (!this.form.value.productGroupIds || this.form.value.productGroupIds.length === 0)
       {
         this.uiService.showSnackBar('تگ کالا را مشخص نمایید.', '', 3000);
         return;
@@ -243,7 +252,7 @@ export class ScenarioService extends BaseService<Scenario>
         return;
       }
 
-      if (!this.form.value.activityIds || this.form.value.activityIds.length === 0)
+      if (!this.form.value.activityId || this.form.value.activityId.length === 0)
       {
         this.uiService.showSnackBar('فعالیت را مشخص نمایید.', '', 3000);
         return;
@@ -275,9 +284,9 @@ export class ScenarioService extends BaseService<Scenario>
       return;
     }
 
-    if (!value.brandIds || value.brandIds.length === 0)
+    if (!value.userTypeIds || value.userTypeIds.length === 0)
     {
-      this.uiService.showSnackBar('برند را مشخص نمایید.', '', 3000);
+      this.uiService.showSnackBar('نوع کاربری را مشخص نمایید.', '', 3000);
       return;
     }
 
@@ -337,10 +346,11 @@ export class ScenarioService extends BaseService<Scenario>
       value.discountedProductGroupIds.push(p);
     });
 
-    if (value.productGroups.some((p: string) => p === 'all'))
+    if (value.productGroupIds.some((p: string) => p === 'all'))
     {
       value.discountedProductGroupIds = [];
       value.discountedProductCodes = [];
+      value.productGroupIds = [];
     }
 
     delete value.productGroups;
@@ -361,6 +371,10 @@ export class ScenarioService extends BaseService<Scenario>
     } else
     {
       delete value.purchaseReward;
+      delete value.discountedProductCodes;
+      delete value.discountedProductGroupIds;
+      delete value.freeProductCodes;
+      delete value.productGroupIds;
     }
 
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }

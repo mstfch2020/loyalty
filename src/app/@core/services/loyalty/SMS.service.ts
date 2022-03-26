@@ -27,7 +27,7 @@ export class SMSService extends BaseService<SMS>
   createForm(scenario: SMS)
   {
     this.form = this.formBuilder.group({
-      id: [scenario.id, [Validators.required]],
+      id: [scenario.id],
       smsSendingType: [scenario.smsSendingType, [Validators.required]],
       text: [scenario.text, [Validators.required]],
       startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.date), [Validators.required]],
