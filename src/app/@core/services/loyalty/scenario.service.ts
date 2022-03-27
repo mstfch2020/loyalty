@@ -190,6 +190,13 @@ export class ScenarioService extends BaseService<Scenario>
         productGroups = productGroups.concat(defArray);
         this.baseInfoService.productGroups$.next(productGroups);
       });
+      this.form.controls['freeProductCodes'].enable();
+      if (value.length > 1 || (value.length === 1 && value[0] === 'all'))
+      {
+        this.form.controls['freeProductCodes'].setValue([]);
+        this.form.controls['freeProductCodes'].disable();
+
+      }
     });
     this.form.markAllAsTouched();
   }
