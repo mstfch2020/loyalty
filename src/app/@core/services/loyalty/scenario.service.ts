@@ -27,7 +27,8 @@ export class ScenarioService extends BaseService<Scenario>
     {
       return term;
     }
-    this.uiService.showSnackBar('کد تخفیف باید عدد 7 رقمی باشد.', '', 3000);
+    // this.uiService.showSnackBar('کد تخفیف باید عدد 7 رقمی باشد.', '', 3000);
+    this.uiService.alert('کد تخفیف باید عدد 7 رقمی باشد.');
     return null;
   }
 
@@ -37,7 +38,7 @@ export class ScenarioService extends BaseService<Scenario>
     {
       return { id: term, title: term, type: 3 };
     }
-    this.uiService.showSnackBar('شماره موبایل معتبر نمیباشد.', '', 3000);
+    this.uiService.alert('شماره موبایل معتبر نمیباشد.');
     return null;
   }
 
@@ -196,7 +197,7 @@ export class ScenarioService extends BaseService<Scenario>
   {
     if (value > 100 || value < 0)
     {
-      this.uiService.showSnackBar('لطفا برای اقلام درصدی مقدار صحیح از صفر تا 100 را وارد نمایید.', '', 3000);
+      this.uiService.alert('لطفا برای اقلام درصدی مقدار صحیح از صفر تا 100 را وارد نمایید.');
       return false;
     }
     return true;
@@ -248,14 +249,14 @@ export class ScenarioService extends BaseService<Scenario>
   submit(): void
   {
     console.log(this.form.value);
-
+    this.uiService.alertService.clearAllMessages();
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
     const url = this.settingService.settings?.baseUrl + `Senario/${ option }`;
 
     if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
       !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax'))
     {
-      this.uiService.showSnackBar('بازه زمانی را وارد نمایید.', '', 3000);
+      this.uiService.alert('بازه زمانی را وارد نمایید.');
       return;
     }
 
@@ -272,13 +273,13 @@ export class ScenarioService extends BaseService<Scenario>
         && !purchaseReward.increasScoreReward
         && !purchaseReward.discountCodeReward)
       {
-        this.uiService.showSnackBar('انتخاب حداقل یکی از گزینه های جوایز الزامی است.', '', 3000);
+        this.uiService.alert('انتخاب حداقل یکی از گزینه های جوایز الزامی است.');
         return;
       }
 
       if (!this.form.value.productGroupIds || this.form.value.productGroupIds.length === 0)
       {
-        this.uiService.showSnackBar('تگ کالا را مشخص نمایید.', '', 3000);
+        this.uiService.alert('تگ کالا را مشخص نمایید.');
         return;
       }
     } else
@@ -290,13 +291,13 @@ export class ScenarioService extends BaseService<Scenario>
         && !purchaseReward.increasScoreReward
         && !purchaseReward.discountCodeReward)
       {
-        this.uiService.showSnackBar('انتخاب حداقل یکی از گزینه های جوایز الزامی است.', '', 3000);
+        this.uiService.alert('انتخاب حداقل یکی از گزینه های جوایز الزامی است.');
         return;
       }
 
       if (!this.form.value.activityId || this.form.value.activityId.length === 0)
       {
-        this.uiService.showSnackBar('فعالیت را مشخص نمایید.', '', 3000);
+        this.uiService.alert('فعالیت را مشخص نمایید.');
         return;
       }
     }
@@ -339,25 +340,25 @@ export class ScenarioService extends BaseService<Scenario>
 
     if (!value.title)
     {
-      this.uiService.showSnackBar('نام سناریو را وارد نمایید.', '', 3000);
+      this.uiService.alert('نام سناریو را وارد نمایید.');
       return;
     }
 
     if (!value.brandIds || value.brandIds.length === 0)
     {
-      this.uiService.showSnackBar('برند را مشخص نمایید.', '', 3000);
+      this.uiService.alert('برند را مشخص نمایید.');
       return;
     }
 
     if (!value.userTypeIds || value.userTypeIds.length === 0)
     {
-      this.uiService.showSnackBar('نوع کاربری را مشخص نمایید.', '', 3000);
+      this.uiService.alert('نوع کاربری را مشخص نمایید.');
       return;
     }
 
     if (!value.generalCustomers || value.generalCustomers.length === 0)
     {
-      this.uiService.showSnackBar('مشتری را مشخص نمایید.', '', 3000);
+      this.uiService.alert('مشتری را مشخص نمایید.');
       return;
     }
 
@@ -448,7 +449,9 @@ export class ScenarioService extends BaseService<Scenario>
     callPostService<Scenario>(url, this.http, this.uiService, value).subscribe(value =>
     {
       this.form.controls['id'].setValue(value?.id);
-      this.uiService.showSnackBar('با موفقیت ثبت شد.', '', 3000);
+      this.uiService.success('با موفقیت ثبت شد.');
+      setTimeout(() => { this.uiService.alertService.clearAllMessages(); }, 1500);
+
     });
 
   }
