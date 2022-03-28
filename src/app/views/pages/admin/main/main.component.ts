@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Subscription } from "rxjs";
-import { IMenuItem } from "src/app/@core/data/Interfaces/Interfaces";
-import {AlertService} from "../../../../@core/services/ui/alert.service";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Subscription} from "rxjs";
+import {IMenuItem} from "src/app/@core/data/Interfaces/Interfaces";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit
-{
+export class MainComponent implements OnInit {
 
   paramsSubscription: Subscription | undefined;
 
@@ -20,8 +18,7 @@ export class MainComponent implements OnInit
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-  )
-  {
+  ) {
     this.isToggle = false;
     this.menuItems = [
       {
@@ -72,17 +69,14 @@ export class MainComponent implements OnInit
     ];
   }
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.paramsSubscription = this.route.params.subscribe(
-      (params: Params) =>
-      {
+      (params: Params) => {
         //this.router.navigate(['/admin/profile']);
       });
   }
 
-  OnDestroy()
-  {
+  OnDestroy() {
     this.paramsSubscription?.unsubscribe();
   }
 

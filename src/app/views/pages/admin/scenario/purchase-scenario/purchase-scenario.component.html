@@ -8,11 +8,12 @@
               <div class="col-12 col-sm-3">
                 <label class="float-end float-sm-start mt-3">
                   نام سناریو :
+                  <span class="text-danger">*</span>
                 </label>
               </div>
               <div class="col-12 col-sm-9">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                  class="form-control rounded-pill text-end text-black" formControlName='title' type="text">
+                  class="form-control rounded-pill text-end text-black h-55px" formControlName='title' type="text">
                 <div
                   *ngIf="!scenarioService.form.get('title')?.valid && scenarioService.form.get('title')?.touched && !isDisabled"
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
