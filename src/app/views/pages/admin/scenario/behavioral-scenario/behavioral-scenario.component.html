@@ -6,6 +6,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               نام سناریو :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -24,11 +25,12 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               برند :
+              <span class="text-danger">*</span>
             </label>
           </div>
-          <div class="col-12 col-sm-9">
+          <div class="col-12 col-sm-9 mb-3">
             <ng-select [items]="baseInfoService.brands$|async" [multiple]="true" appendTo="body" bindLabel="title"
-              (change)="scenarioService.brandChanged($event,'brandIds')" bindValue="id" class="form-control mb-3"
+              (change)="scenarioService.brandChanged($event,'brandIds')" bindValue="id" class="form-control"
               formControlName="brandIds" [readonly]="isDisabled">
             </ng-select>
             <div
@@ -56,7 +58,7 @@
               <div class="mt-1">
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
                   [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-                  <input formControlName="startDate" class="form-control rounded-pill text-center text-black" dir="ltr"
+                  <input formControlName="startDate" class="form-control rounded-pill h-55px text-center text-black" dir="ltr"
                     [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" type="text" />
                 </ng-persian-datepicker>
               </div>
@@ -66,7 +68,7 @@
               <div class="mt-1">
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
                   [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-                  <input formControlName="endDate" class="form-control rounded-pill text-center text-black" dir="ltr"
+                  <input formControlName="endDate" class="form-control rounded-pill h-55px text-center text-black" dir="ltr"
                     [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" type="text" />
                 </ng-persian-datepicker>
               </div>
@@ -79,11 +81,12 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               نوع کاربری :
+              <span class="text-danger">*</span>
             </label>
           </div>
-          <div class="col-12 col-sm-9">
+          <div class="col-12 col-sm-9 mb-3">
             <ng-select [items]="baseInfoService.userTypes$|async" [multiple]="true" appendTo="body" bindLabel="title"
-              (change)="scenarioService.brandChanged($event,'userTypeIds')" bindValue="id" class="form-control mb-3"
+              (change)="scenarioService.brandChanged($event,'userTypeIds')" bindValue="id" class="form-control"
               formControlName="userTypeIds" [readonly]="isDisabled">
             </ng-select>
             <div
@@ -101,12 +104,13 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               مشتری :
+              <span class="text-danger">*</span>
             </label>
           </div>
-          <div class="col-12 col-sm-9">
+          <div class="col-12 col-sm-9 mb-3">
             <ng-select [items]="baseInfoService.generalCustomers$|async" [multiple]="true" appendTo="body"
               (change)="scenarioService.brandChanged($event,'generalCustomers')" [readonly]="isDisabled"
-              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="generalCustomers"
+              bindLabel="title" bindValue="id" class="form-control" formControlName="generalCustomers"
               [addTag]="scenarioService.addCustomer">
             </ng-select>
             <div
@@ -122,11 +126,12 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               فعالیت :
+              <span class="text-danger">*</span>
             </label>
           </div>
-          <div class="col-12 col-sm-9">
+          <div class="col-12 col-sm-9 mb-3">
             <ng-select [items]="baseInfoService.activity$|async" [multiple]="false" appendTo="body" bindLabel="title"
-              bindValue="id" class="form-control mb-3" formControlName="activityId" [readonly]="isDisabled">
+              bindValue="id" class="form-control" formControlName="activityId" [readonly]="isDisabled">
             </ng-select>
             <div
               *ngIf="!scenarioService.form.get('activityId')?.valid && scenarioService.form.get('activityId')?.touched && !isDisabled"
@@ -176,7 +181,7 @@
             <div class="col-12 col-sm-3">
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
+                <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100 mr-8-px"
                   formControlName="increaseScorePercent" type="text" mask="separator" thousandSeparator=",">
               </div>
             </div>
@@ -188,7 +193,7 @@
             <div class="col-12 col-sm-3">
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
+                <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100 mr-8-px"
                   formControlName="increaseScoreThreshold" type="text" mask="separator" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   امتیاز
@@ -213,7 +218,7 @@
             <div class="col-12 col-sm-3">
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                <input [readOnly]="isDisabled" class="text-start text-black border-0 h-40px w-100"
+                <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
                   formControlName="refundToWalletPercent" type="text" mask="percent" thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
@@ -254,7 +259,7 @@
               <div class="d-flex flex-row align-items-center">
                 <div [ngClass]="{'disabled':isDisabled}"
                   class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                  <input [readOnly]="isDisabled" class="text-start text-black border-0 h-40px w-100"
+                  <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
                     formControlName="discountCodePercent" type="text" mask="percent" thousandSeparator=",">
                   <div class="fs-08 text-gray-500">
                     %
@@ -296,7 +301,7 @@
                 [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                 <input #datepickerInput3 formControlName="expierDate" [dropSpecialCharacters]="false" mask="0000/M0/d0"
                   [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
-                  class="form-control rounded-pill text-center text-black" dir="ltr" type="text" />
+                  class="form-control rounded-pill text-center h-55px text-black" dir="ltr" type="text" />
               </ng-persian-datepicker>
             </div>
           </div>
@@ -307,7 +312,7 @@
             </div>
             <div>
               <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
-                class="form-control rounded-pill w-80-px text-center text-black"
+                class="form-control rounded-pill w-80-px h-55px text-center text-black"
                 formControlName="discountCodeValidationType" type="text" mask="separator" thousandSeparator=",">
             </div>
             <div class="fs-09 text-black">
