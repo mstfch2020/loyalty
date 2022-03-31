@@ -10,9 +10,13 @@ import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service
 export class PurchaseScenarioComponent implements OnInit
 {
 
-  constructor(public scenarioService: ScenarioService, public baseInfoService: BaseInfoService)
-  {
+  percent:number;
 
+  constructor(
+    public scenarioService: ScenarioService,
+    public baseInfoService: BaseInfoService)
+  {
+    this.percent=0;
   }
 
   get isDisabled(): boolean
@@ -24,4 +28,5 @@ export class PurchaseScenarioComponent implements OnInit
   {
     this.scenarioService.form.markAllAsTouched();
   }
+
 }
