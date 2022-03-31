@@ -13,6 +13,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               برند :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -27,6 +28,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               نوع کاربری :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -44,6 +46,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               سطح فعلی :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -75,14 +78,19 @@
               با حجم امتیاز :
             </label>
           </div>
-          <div class="col-6 col-sm-9">
+          <div class="col-6 col-sm-5">
             <div class="d-flex flex-row align-items-center">
               <div>
                 <img alt="" src="assets/img/icons/greater.svg">
               </div>
               <div class="mr-1">
-                <input class="form-control rounded-pill text-start h-55px" placeholder="امتیاز" type="text" mask="separator"
-                  thousandSeparator="," formControlName="scoreThreshold">
+                <div class="form-control roundedpill d-flex flex-row align-items-center gap-2 p-10px">
+                  <input class="text-center text-black border-0 h-40px w-100 mr-8-px"
+                         formControlName="scoreThreshold" type="text" mask="separator" thousandSeparator=",">
+                  <div class="fs-08 text-gray-500">
+                    امتیاز
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -95,6 +103,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               تبدیل به سطح :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -109,6 +118,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-06">
               قرار گیری در گروه مشتری :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
