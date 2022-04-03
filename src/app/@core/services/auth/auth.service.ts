@@ -191,16 +191,37 @@ export class AuthService extends StoreService<UserState> {
         return result;
       }));
   }
+
+  //OAuth
+  //   retrieveToken(code)
+  //   {
+  //     let params = new URLSearchParams();
+  //     params.append('grant_type', 'authorization_code');
+  //     params.append('client_id', 'club_site_js');
+  //     params.append('client_secret', 'newClientSecret');
+  //     params.append('redirect_uri', this.redirectUri);
+  //     params.append('code', code);
+
+  //     let headers =
+  //       new HttpHeaders({ 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8' });
+
+  //     this._http.post('http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/token',
+  //       params.toString(), { headers: headers })
+  //       .subscribe(
+  //         data => this.saveToken(data),
+  //         err => alert('Invalid Credentials'));
+  //   }
+
 }
 
 
-export function getClientSettings(): UserManagerSettings
-{
-  return {
-    authority: 'http://localhost:5000',
-    client_id: 'angular_spa',
-    redirect_uri: 'http://localhost:4200/auth-callback',
-    response_type: "id_token token",
-    scope: "openid profile email api.read"
-  };
-}
+// export function getClientSettings(): UserManagerSettings
+// {
+//   return {
+//     authority: 'http://localhost:5000',
+//     client_id: 'angular_spa',
+//     redirect_uri: 'http://localhost:4200/auth-callback',
+//     response_type: "id_token token",
+//     scope: "openid profile email api.read"
+//   };
+// }
