@@ -192,3 +192,15 @@ export class AuthService extends StoreService<UserState> {
       }));
   }
 }
+
+
+export function getClientSettings(): UserManagerSettings
+{
+  return {
+    authority: 'http://localhost:5000',
+    client_id: 'angular_spa',
+    redirect_uri: 'http://localhost:4200/auth-callback',
+    response_type: "id_token token",
+    scope: "openid profile email api.read"
+  };
+}
