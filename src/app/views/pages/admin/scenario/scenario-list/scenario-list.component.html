@@ -2,9 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <h5 class="font-yekan-bold fs-20px text-black">
-          مشاهده
-        </h5>
+        <h5 class="font-yekan-bold fs-20px text-black" (click)="login()"> مشاهده </h5>
       </div>
     </div>
     <div *ngIf="theViewList.length>0" class="row mt-4">
@@ -12,53 +10,53 @@
         <div class="table-responsive">
           <table cellspacing="1" class="table table-hover border-0 border-spacing-lg">
             <thead>
-            <tr>
-              <th class="text-end font-yekan-bold pr-2 w-50 fs-08" scope="col">
-                عنوان
-              </th>
-              <th class="text-end font-yekan-bold fs-08" scope="col">
-                گروه مشتری
-              </th>
-              <th class="text-end font-yekan-bold fs-08" scope="col">
-                بازه تاریخی
-              </th>
-              <th class="text-end font-yekan-bold fs-08" scope="col">
-                برند
-              </th>
-              <th class="text-center font-yekan-bold fs-08" scope="col">
-                وضعیت
-              </th>
-            </tr>
+              <tr>
+                <th class="text-end font-yekan-bold pr-2 w-50 fs-08" scope="col">
+                  عنوان
+                </th>
+                <th class="text-end font-yekan-bold fs-08" scope="col">
+                  گروه مشتری
+                </th>
+                <th class="text-end font-yekan-bold fs-08" scope="col">
+                  بازه تاریخی
+                </th>
+                <th class="text-end font-yekan-bold fs-08" scope="col">
+                  برند
+                </th>
+                <th class="text-center font-yekan-bold fs-08" scope="col">
+                  وضعیت
+                </th>
+              </tr>
             </thead>
             <tbody>
-            <tr (click)="goToEdit(scenario.id)" *ngFor="let scenario of theViewList">
-              <td class="text-end padding-1" scope="row">
-                <div class="pr-1 fs-08 lh-lg text-justify">
-                  <ng-container *ngFor="let rewardsTitle of getRewardsDetail(scenario);">
-                    {{rewardsTitle}}
-                  </ng-container>
-                </div>
-                <div class="pr-1 mt-2 text-gray-500 fs-08">
-                  {{scenario.title}}
-                </div>
-              </td>
-              <td class="text-end padding-1 fs-08">
+              <tr (click)="goToEdit(scenario.id)" *ngFor="let scenario of theViewList">
+                <td class="text-end padding-1" scope="row">
+                  <div class="pr-1 fs-08 lh-lg text-justify">
+                    <ng-container *ngFor="let rewardsTitle of getRewardsDetail(scenario);">
+                      {{rewardsTitle}}
+                    </ng-container>
+                  </div>
+                  <div class="pr-1 mt-2 text-gray-500 fs-08">
+                    {{scenario.title}}
+                  </div>
+                </td>
+                <td class="text-end padding-1 fs-08">
                   <span *ngFor="let cGroup of scenario.customerGroups;let i =index;">
                     -{{cGroup.title}}
                   </span>
-              </td>
-              <td class="text-end padding-1 fs-08">
-                {{scenario.period.min.full}} تا {{scenario.period.max.full}}
-              </td>
-              <td class="text-end padding-1 fs-08">
+                </td>
+                <td class="text-end padding-1 fs-08">
+                  {{scenario.period.min.full}} تا {{scenario.period.max.full}}
+                </td>
+                <td class="text-end padding-1 fs-08">
                   <span *ngFor="let cBrand of scenario.brands;let i =index;">
                     -{{cBrand.title}}
                   </span>
-              </td>
-              <td class="text-center padding-1 fs-08">
-                {{scenario.senarioType.id.toString()==="1"?'فعال':'غیر فعال'}}
-              </td>
-            </tr>
+                </td>
+                <td class="text-center padding-1 fs-08">
+                  {{scenario.senarioType.id.toString()==="1"?'فعال':'غیر فعال'}}
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -80,7 +78,7 @@
     <div class="row mt-5">
       <div class="col-6 col-sm-3">
         <button (click)="goToEdit('')"
-                class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
+          class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
           سناریو جدید
         </button>
       </div>

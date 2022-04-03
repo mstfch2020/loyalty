@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -193,24 +193,58 @@ export class AuthService extends StoreService<UserState> {
   }
 
   //OAuth
-  //   retrieveToken(code)
-  //   {
-  //     let params = new URLSearchParams();
-  //     params.append('grant_type', 'authorization_code');
-  //     params.append('client_id', 'club_site_js');
-  //     params.append('client_secret', 'newClientSecret');
-  //     params.append('redirect_uri', this.redirectUri);
-  //     params.append('code', code);
+  retrieveTokenSatrap()
+  {
+    let params = new URLSearchParams();
+    // params.append('grant_type', 'authorization_code');
+    // params.append('client_id', 'club_site_js');
+    // params.append('client_secret', 'newClientSecret');
+    // params.append('redirect_uri', 'this.redirectUri');
+    // params.append('code', code);
 
-  //     let headers =
-  //       new HttpHeaders({ 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8' });
+    params.append('grant_type', 'client_credentials');
+    params.append('client_id', 'Parking-Integration');
+    params.append('client_secret', 'lskdfjprtgnmkhfjvgtj3oi9re78ut90t3jgTVOFJW940TGUJ24TJ90');
+    params.append('redirect_uri', 'this.redirectUri');
+    params.append('scope', 'ParkingSyncAPI');
+    // params.append('code', code);
 
-  //     this._http.post('http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/token',
-  //       params.toString(), { headers: headers })
-  //       .subscribe(
-  //         data => this.saveToken(data),
-  //         err => alert('Invalid Credentials'));
-  //   }
+    let headers =
+      new HttpHeaders({ 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8' });
+    // const url = 'http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/token';
+    const url = 'https://accounts.mysatrap.com/connect/token';
+    this.http.post(url,
+      params.toString(), { headers: headers })
+      .subscribe(
+        data => console.log(data),
+        err => console.log(err));
+  }
+
+  retrieveToken()
+  {
+    let params = new URLSearchParams();
+    params.append('grant_type', 'authorization_code');
+    params.append('authority', 'Auth.ketabkesh.ir');
+    params.append('client_id', 'c`lub_site_js');
+    params.append('redirect_uri', 'this.redirectUri');
+    // params.append('client_secret', 'newClientSecret');
+    params.append('response_type', 'code');
+    params.append('scope', 'openid profile IdentityServerApi offline_access');
+    params.append('response_mode', 'query');
+
+
+
+    let headers =
+      new HttpHeaders({ 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8' });
+    const url = 'http://Auth.ketabkesh.ir/auth/realms/baeldung/protocol/openid-connect/token';
+
+    this.http.post(url,
+      params.toString(), { headers: headers })
+      .subscribe(
+        data => console.log(data),
+        err => console.log(err));
+  }
+
 
 }
 

@@ -1,47 +1,57 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {AmountTitle, GetSenarios} from "src/app/@core/data/loyalty/get-senarios-grid.model";
-import {ScenarioService} from "src/app/@core/services/loyalty/scenario.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { AmountTitle, GetSenarios } from "src/app/@core/data/loyalty/get-senarios-grid.model";
+import { AuthService } from 'src/app/@core/services/auth/auth.service';
+import { ScenarioService } from "src/app/@core/services/loyalty/scenario.service";
 
 @Component({
   selector: 'app-scenario-list',
   templateUrl: './scenario-list.component.html',
   styleUrls: ['./scenario-list.component.scss']
 })
-export class ScenarioListComponent implements OnInit {
+export class ScenarioListComponent implements OnInit
+{
 
   public theViewList = new Array<GetSenarios>();
   pageIndex = 1;
   pageSize = 99999;
 
-  constructor(private router: Router, public scenarioService: ScenarioService) {
-    scenarioService.scenarios$.subscribe(value => {
+  constructor(private router: Router, public scenarioService: ScenarioService, private authService: AuthService)
+  {
+    scenarioService.scenarios$.subscribe(value =>
+    {
       this.theViewList = value;
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     //this.router.navigate(['/admin/main/scenario/list']);
     this.scenarioService.getScenarios(this.pageSize, this.pageIndex);
   }
 
-  goToEdit(id: string = '') {
-    if (id) {
-      this.router.navigate(['/admin/main/scenario/edit'], {queryParams: {id: id}});
+  goToEdit(id: string = '')
+  {
+    if (id)
+    {
+      this.router.navigate(['/admin/main/scenario/edit'], { queryParams: { id: id } });
       return;
     }
     this.router.navigate(['/admin/main/scenario/edit']);
   }
 
-  getRewardsTitle(scenario: GetSenarios) {
+  getRewardsTitle(scenario: GetSenarios)
+  {
     const rewardsTitle = new Array<AmountTitle>();
     if (scenario?.senarioType?.id.toString() === '1')//purchase
     {
       const reward = scenario?.purchaseReward;
-      if (!reward) {
+      if (!reward)
+      {
         return;
       }
-      if (reward.sendingDiscountReward) {
+      if (reward.sendingDiscountReward)
+      {
 
         rewardsTitle.push({
           title: 'تخفیف هزینه ارسال',
@@ -49,14 +59,16 @@ export class ScenarioListComponent implements OnInit {
           type: 'sendingDiscountReward'
         });
       }
-      if (reward.basketDiscountReward) {
+      if (reward.basketDiscountReward)
+      {
         rewardsTitle.push({
           title: 'تخفیف سبد خرید',
           values: [reward.basketDiscountPercent.toString(), reward.basketDiscountThreshold.toString()],
           type: 'basketDiscountReward'
         });
       }
-      if (reward.productDiscountReward) {
+      if (reward.productDiscountReward)
+      {
         rewardsTitle.push({
           title: 'تخفیف کالا',
           values: [reward.productDiscountPercent.toString()],
@@ -64,21 +76,24 @@ export class ScenarioListComponent implements OnInit {
         });
       }
       // if (reward.addFreeProductReward) { rewardsTitle.push({ title: 'افزودن کالای رایگان به سبد خرید', values: [reward.sendingDiscount.toString()], type: 'addFreeProductReward' }); }
-      if (reward.refundReward) {
+      if (reward.refundReward)
+      {
         rewardsTitle.push({
           title: 'بازگشت وجه',
           values: [reward.refundPercent.toString(), reward.refundThreshold.toString()],
           type: 'refundReward'
         });
       }
-      if (reward.increasScoreReward) {
+      if (reward.increasScoreReward)
+      {
         rewardsTitle.push({
           title: 'افزایش امتیاز',
           values: [reward.increaseScorePercent.toString(), reward.increaseScoreThreshold.toString()],
           type: 'increasScoreReward'
         });
       }
-      if (reward.discountCodeReward) {
+      if (reward.discountCodeReward)
+      {
         rewardsTitle.push({
           title: 'کد تخفیف برای خرید بعدی',
           values: [reward.discountCodePercent.toString(), reward.discountCodeThreshold.toString()],
@@ -89,36 +104,49 @@ export class ScenarioListComponent implements OnInit {
     return rewardsTitle;
   }
 
-  getRewardsDetail(scenario: GetSenarios) {
+  getRewardsDetail(scenario: GetSenarios)
+  {
     const rewardsTitle = new Array<string>();
     if (scenario?.senarioType?.id.toString() === '1')//purchase
     {
       const reward = scenario?.purchaseReward;
-      if (!reward) {
+      if (!reward)
+      {
         return;
       }
-      if (reward.sendingDiscountReward) {
+      if (reward.sendingDiscountReward)
+      {
 
-        rewardsTitle.push(`تخفیف هزینه ارسال ${reward.sendingDiscount.toString()} %`);
+        rewardsTitle.push(`تخفیف هزینه ارسال ${ reward.sendingDiscount.toString() } %`);
       }
-      if (reward.basketDiscountReward) {
-        rewardsTitle.push(`تخفیف سبد خرید ${reward.basketDiscountPercent.toString()} % تا سقف ${reward.basketDiscountThreshold.toString()} تومان`);
+      if (reward.basketDiscountReward)
+      {
+        rewardsTitle.push(`تخفیف سبد خرید ${ reward.basketDiscountPercent.toString() } % تا سقف ${ reward.basketDiscountThreshold.toString() } تومان`);
       }
-      if (reward.productDiscountReward) {
-        rewardsTitle.push(`تخفیف کالا ${reward.productDiscountPercent.toString()} %`);
+      if (reward.productDiscountReward)
+      {
+        rewardsTitle.push(`تخفیف کالا ${ reward.productDiscountPercent.toString() } %`);
       }
       // if (reward.addFreeProductReward) { rewardsTitle.push({ title: 'افزودن کالای رایگان به سبد خرید', values: [reward.sendingDiscount.toString()], type: 'addFreeProductReward' }); }
-      if (reward.refundReward) {
-        rewardsTitle.push(`بازگشت وجه ${reward.refundPercent.toString()} % تا سقف ${reward.refundThreshold.toString()} تومان`);
+      if (reward.refundReward)
+      {
+        rewardsTitle.push(`بازگشت وجه ${ reward.refundPercent.toString() } % تا سقف ${ reward.refundThreshold.toString() } تومان`);
       }
-      if (reward.increasScoreReward) {
-        rewardsTitle.push(`افزایش امتیاز ${reward.increaseScorePercent.toString()} % تا سقف ${reward.increaseScoreThreshold.toString()} امتیاز`);
+      if (reward.increasScoreReward)
+      {
+        rewardsTitle.push(`افزایش امتیاز ${ reward.increaseScorePercent.toString() } % تا سقف ${ reward.increaseScoreThreshold.toString() } امتیاز`);
       }
-      if (reward.discountCodeReward) {
-        rewardsTitle.push(`کد تخفیف برای خرید بعدی ${reward.discountCodePercent.toString()} % تا سقف ${reward.discountCodeThreshold.toString()} تومان`);
+      if (reward.discountCodeReward)
+      {
+        rewardsTitle.push(`کد تخفیف برای خرید بعدی ${ reward.discountCodePercent.toString() } % تا سقف ${ reward.discountCodeThreshold.toString() } تومان`);
       }
 
     }
     return rewardsTitle;
+  }
+
+  login()
+  {
+    this.authService.retrieveToken();
   }
 }
