@@ -38,9 +38,10 @@ import {UsersComponent} from "./users/users.component";
 import {DiscountCodeListComponent} from './discount-code/discount-code-list/discount-code-list.component';
 import {DiscountCodeEditComponent} from './discount-code/discount-code-edit/discount-code-edit.component';
 import {DisplayAlertComponent} from "../../general/display-alert/display-alert.component";
-import { SendSmsPatternComponent } from './send-sms/send-sms-pattern/send-sms-pattern.component';
-import { SendSmsListComponent } from './send-sms/send-sms-list/send-sms-list.component';
-import { SendSmsCreateComponent } from './send-sms/send-sms-create/send-sms-create.component';
+import {SendSmsPatternComponent} from './send-sms/send-sms-pattern/send-sms-pattern.component';
+import {SendSmsListComponent} from './send-sms/send-sms-list/send-sms-list.component';
+import {SendSmsCreateComponent} from './send-sms/send-sms-create/send-sms-create.component';
+import {FilterComponent} from './filter/filter.component';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { SendSmsCreateComponent } from './send-sms/send-sms-create/send-sms-crea
     SendSmsPatternComponent,
     SendSmsListComponent,
     SendSmsCreateComponent,
+    FilterComponent,
   ],
   imports: [
     FormsModule,
