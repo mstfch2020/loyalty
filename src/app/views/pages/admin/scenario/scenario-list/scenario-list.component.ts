@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {AmountTitle, GetSenarios, IdTitle} from "src/app/@core/data/loyalty/get-senarios-grid.model";
-import {AuthService} from 'src/app/@core/services/auth/auth.service';
-import {ScenarioService} from "src/app/@core/services/loyalty/scenario.service";
-import {BaseInfoService} from "src/app/@core/services/loyalty/base-info.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { AmountTitle, FilterTitle, GetSenarios, IdTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model";
+import { AuthService } from 'src/app/@core/services/auth/auth.service';
+import { ScenarioService } from "src/app/@core/services/loyalty/scenario.service";
+import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
+import { GetSenariosGrid } from '../../../../../@core/data/loyalty/get-senarios-grid.model';
+import { SenarioStatusType } from '../../../../../@core/data/loyalty/enums.model';
 
 @Component({
   selector: 'app-scenario-list',
@@ -13,6 +15,19 @@ import {BaseInfoService} from "src/app/@core/services/loyalty/base-info.service"
 export class ScenarioListComponent implements OnInit {
 
   public theViewList = new Array<GetSenarios>();
+
+  public theFilterCustomerList = new Array<FilterTitle>();
+  public theFilterCustomerSelectedList = new Array<IdTitle>();
+
+  public theFilterBrandsList = new Array<FilterTitle>();
+  public theFilterBrandsSelectedList = new Array<IdTitle>();
+
+  public theFilterDateList = new Array<FilterTitle>();
+  public theFilterDateSelectedList = new Array<IdTitle>();
+
+  public theFilterStatusList = new Array<FilterTitle>();
+  public theFilterStatusSelectedList = new Array<IdTitle>();
+
   pageIndex = 1;
   pageSize = 99999;
 
@@ -21,16 +36,13 @@ export class ScenarioListComponent implements OnInit {
   filterDate: boolean;
   filterStatus: boolean;
 
-  filterCustomerList: any[];
-  filterBrandsList: any[];
-  filterDateList: any[];
-  filterStatusList: any[];
 
   constructor(
     private router: Router,
     public scenarioService: ScenarioService,
     public baseInfoService: BaseInfoService,
     private authService: AuthService) {
+
     scenarioService.scenarios$.subscribe(value => {
       this.theViewList = value;
     });
@@ -40,70 +52,61 @@ export class ScenarioListComponent implements OnInit {
     this.filterDate = false;
     this.filterStatus = false;
 
-    this.filterCustomerList =[];
-
-    this.filterBrandsList =
-      [
-        {
-          'Id':1,
-          'Title':'همه',
-          'Checked':false,
-        },
-        {
-          'Id':2,
-          'Title':'خیلی سبز',
-          'Checked':true,
-        },
-        {
-          'Id':3,
-          'Title':'زینجا',
-          'Checked':false,
-        },
-        {
-          'Id':4,
-          'Title':'پرتقال',
-          'Checked':false,
-        },
-      ];
-
-    this.filterDateList =
-      [
-        {
-          'Id':1,
-          'Title':'همه',
-          'Checked':false,
-        },
-      ];
-
-    this.filterStatusList =
-      [
-        {
-          'Id':1,
-          'Title':'همه',
-          'Checked':false,
-        },
-        {
-          'Id':2,
-          'Title':'فعال',
-          'Checked':false,
-        },
-        {
-          'Id':3,
-          'Title':'غیرفعال',
-          'Checked':false,
-        },
-      ];
-
   }
 
   ngOnInit(): void {
     //this.router.navigate(['/admin/main/scenario/list']);
     this.scenarioService.getScenarios(this.pageSize, this.pageIndex);
+
+    this.baseInfoService.generalCustomers$.subscribe(value => {
+      value.forEach((value: IdTitle, key: number) => {
+        this.theFilterCustomerList.push({
+          checked: false,
+          id: value.id,
+          title: value.title
+        });
+      });
+    });
+
+    this.baseInfoService.brands$.subscribe(value => {
+      value.forEach((value: IdTitle, key: number) => {
+        this.theFilterBrandsList.push({
+          checked: false,
+          id: value.id,
+          title: value.title
+        });
+      });
+    });
+
+    this.theFilterStatusList = [
+      {
+        id: '1',
+        title: 'فعال',
+        checked: false,
+      },
+      {
+        id: '2',
+        title: 'غیرفعال',
+        checked: false,
+      },
+      {
+        id: '3',
+        title: 'در انتظار',
+        checked: false,
+      },
+      {
+        id: '4',
+        title: 'رد شده',
+        checked: false,
+      }
+
+    ]
+
   }
 
   goToEdit(id: string = '') {
     if (id) {
-      this.router.navigate(['/admin/main/scenario/edit'], {queryParams: {id: id}});
+      this.router.navigate(['/admin/main/scenario/edit'], { queryParams: { id: id } });
       return;
     }
     this.router.navigate(['/admin/main/scenario/edit']);
@@ -200,6 +203,42 @@ export class ScenarioListComponent implements OnInit {
 
   login() {
     this.authService.retrieveToken();
+  }
+
+  applyFilterForm(event: Array<IdTitle>, filterType: number) {
+    switch (filterType) {
+      case 1:
+        this.theFilterCustomerSelectedList = event;
+        break;
+      case 2:
+        this.theFilterDateSelectedList = event;
+        break;
+      case 3:
+        this.theFilterBrandsSelectedList = event;
+        break;
+      case 4:
+        this.theFilterStatusSelectedList = event;
+        break;
+    }
+
+    let brandIds = Array<string>();
+    let groupIds = Array<string>();
+    let campaignIds = Array<string>();
+    let phones = Array<string>();
+    let fromDate = '';
+    let toDate = '';
+    let status: SenarioStatusType = SenarioStatusType.Enable;
+
+    this.theFilterBrandsSelectedList.forEach((item: IdTitle, key: number) => {
+      brandIds.push(item.id);
+    });
+
+    this.theFilterCustomerSelectedList.forEach((item: IdTitle, key: number) => {
+      groupIds.push(item.id);
+    });
+
+    this.scenarioService.getSenariosGrid(this.pageSize, this.pageIndex, brandIds, groupIds, campaignIds, phones, fromDate, toDate, status);
+
   }
 
   closeFilterForm(event: boolean, filterType: number) {

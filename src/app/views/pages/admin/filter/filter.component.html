@@ -18,27 +18,27 @@
       </div>
     </div>
     <div class="list">
-      <div *ngIf="isLoading" class="text-center">
+      <div *ngIf="items.length==0" class="text-center">
         <div class="spinner-border text-secondary" role="status">
         </div>
       </div>
-      <ng-container *ngIf="!isLoading">
+      <ng-container *ngIf="items.length>0">
         <ng-container *ngFor="let item of items">
           <div class="d-flex flex-row align-items-center mt-2">
-            <input [(ngModel)]="item.Checked"
+            <input [(ngModel)]="item.checked"
                    class="form-check-input w-15-px h-15-px"
-                   id="{{item.Id}}"
-                   name="{{item.Id}}"
+                   id="{{item.id}}"
+                   name="{{item.id}}"
                    type="checkbox">
-            <label class="form-check-label mr-5-px cursor-pointer fs-08" for="{{item.Id}}">
-              {{item.Title}}
+            <label class="form-check-label mr-5-px cursor-pointer fs-08" for="{{item.id}}">
+              {{item.title}}
             </label>
           </div>
         </ng-container>
       </ng-container>
     </div>
   </div>
-  <button class="btn-apply-filter">
+  <button (click)="applyEventNotify()" class="btn-apply-filter">
     فیلتر
   </button>
   <button (click)="cancelEventNotify()" class="btn-cancel-filter">
