@@ -238,6 +238,9 @@ export class ScenarioListComponent implements OnInit {
     });
 
     this.scenarioService.getSenariosGrid(this.pageSize, this.pageIndex, brandIds, groupIds, campaignIds, phones, fromDate, toDate, status);
+    this.scenarioService.scenarios$.subscribe(value => {
+      this.theViewList = value;
+    });
 
   }
 
