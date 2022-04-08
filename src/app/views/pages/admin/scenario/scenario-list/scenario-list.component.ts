@@ -225,8 +225,8 @@ export class ScenarioListComponent implements OnInit {
     let groupIds = Array<string>();
     let campaignIds = Array<string>();
     let phones = Array<string>();
-    let fromDate = '';
-    let toDate = '';
+    let fromDate = this.theFilterDateSelectedList[0].title;
+    let toDate = this.theFilterDateSelectedList[1].title;
     let status: SenarioStatusType = SenarioStatusType.Enable;
 
     this.theFilterBrandsSelectedList.forEach((item: IdTitle, key: number) => {
