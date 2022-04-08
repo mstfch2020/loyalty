@@ -8,7 +8,7 @@
   </div>
   <div class="body">
     <div class="search">
-      <input class="text-end font-yekan-regular" placeholder="جستجو" type="text">
+      <input class="text-end font-yekan-regular" [(ngModel)]="searchValue" placeholder="جستجو" type="text">
       <div class="icon">
         <svg class="bi bi-search" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
              xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +23,7 @@
         </div>
       </div>
       <ng-container *ngIf="items.length>0">
-        <ng-container *ngFor="let item of items">
+        <ng-container *ngFor="let item of items | filter:searchValue">
           <div class="d-flex flex-row align-items-center mt-2">
             <input [(ngModel)]="item.checked"
                    class="form-check-input w-15-px h-15-px"

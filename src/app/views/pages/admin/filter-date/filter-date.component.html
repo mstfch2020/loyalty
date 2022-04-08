@@ -1,0 +1,27 @@
+<div *ngIf="visible" class="form-filter">
+    <div class="body">
+        <div class="d-flex flex-column gap-2">
+            <span>از تاریخ</span>
+            <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+                    class="text-center text-black" dir="ltr"
+                    formControlName="fromDate" mask="0000/M0/d0" type="text" />
+            </ng-persian-datepicker>
+
+            <span>تا تاریخ</span>
+            <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+                    class="text-center text-black" dir="ltr"
+                    formControlName="toDate" mask="0000/M0/d0" type="text" />
+            </ng-persian-datepicker>
+        </div>
+    </div>
+    <button (click)="applyEventNotify()" class="btn-apply-filter">
+        فیلتر
+    </button>
+    <button (click)="cancelEventNotify()" class="btn-cancel-filter">
+        انصراف
+    </button>
+</div>
