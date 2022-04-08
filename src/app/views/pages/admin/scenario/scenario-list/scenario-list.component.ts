@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {AmountTitle, GetSenarios} from "src/app/@core/data/loyalty/get-senarios-grid.model";
+import {AmountTitle, GetSenarios, IdTitle} from "src/app/@core/data/loyalty/get-senarios-grid.model";
 import {AuthService} from 'src/app/@core/services/auth/auth.service';
 import {ScenarioService} from "src/app/@core/services/loyalty/scenario.service";
+import {BaseInfoService} from "src/app/@core/services/loyalty/base-info.service";
 
 @Component({
   selector: 'app-scenario-list',
@@ -20,7 +21,16 @@ export class ScenarioListComponent implements OnInit {
   filterDate: boolean;
   filterStatus: boolean;
 
-  constructor(private router: Router, public scenarioService: ScenarioService, private authService: AuthService) {
+  filterCustomerList: any[];
+  filterBrandsList: any[];
+  filterDateList: any[];
+  filterStatusList: any[];
+
+  constructor(
+    private router: Router,
+    public scenarioService: ScenarioService,
+    public baseInfoService: BaseInfoService,
+    private authService: AuthService) {
     scenarioService.scenarios$.subscribe(value => {
       this.theViewList = value;
     });
@@ -29,6 +39,61 @@ export class ScenarioListComponent implements OnInit {
     this.filterBrands = false;
     this.filterDate = false;
     this.filterStatus = false;
+
+    this.filterCustomerList =[];
+
+    this.filterBrandsList =
+      [
+        {
+          'Id':1,
+          'Title':'همه',
+          'Checked':false,
+        },
+        {
+          'Id':2,
+          'Title':'خیلی سبز',
+          'Checked':true,
+        },
+        {
+          'Id':3,
+          'Title':'زینجا',
+          'Checked':false,
+        },
+        {
+          'Id':4,
+          'Title':'پرتقال',
+          'Checked':false,
+        },
+      ];
+
+    this.filterDateList =
+      [
+        {
+          'Id':1,
+          'Title':'همه',
+          'Checked':false,
+        },
+      ];
+
+    this.filterStatusList =
+      [
+        {
+          'Id':1,
+          'Title':'همه',
+          'Checked':false,
+        },
+        {
+          'Id':2,
+          'Title':'فعال',
+          'Checked':false,
+        },
+        {
+          'Id':3,
+          'Title':'غیرفعال',
+          'Checked':false,
+        },
+      ];
+
   }
 
   ngOnInit(): void {
@@ -135,5 +200,23 @@ export class ScenarioListComponent implements OnInit {
 
   login() {
     this.authService.retrieveToken();
+  }
+
+  closeFilterForm(event: boolean, filterType: number) {
+    switch (filterType) {
+      case 1:
+        this.filterCustomer = event;
+        break;
+      case 2:
+        this.filterDate = event;
+        break;
+      case 3:
+        this.filterBrands = event;
+        break;
+      case 4:
+        this.filterStatus = event;
+        break;
+    }
+
   }
 }

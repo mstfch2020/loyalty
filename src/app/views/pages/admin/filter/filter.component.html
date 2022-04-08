@@ -1,52 +1,47 @@
-<div class="form-filter" *ngIf="visible">
+<div *ngIf="visible" class="form-filter">
   <select class="select">
     <option selected>شامل</option>
-    <option value="1">هست</option>
-    <option value="2">نیست</option>
+    <option value="1">برابر</option>
   </select>
   <div class="by">
     با:
   </div>
   <div class="body">
     <div class="search">
-      <input type="text" class="text-end font-yekan-regular" placeholder="جستجو">
+      <input class="text-end font-yekan-regular" placeholder="جستجو" type="text">
       <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        <svg class="bi bi-search" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
+             xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
         </svg>
       </div>
     </div>
     <div class="list">
-      <div class="d-flex flex-row align-items-center">
-        <input class="form-check-input w-15-px h-15-px" type="checkbox">
-        <label class="form-check-label mr-5-px cursor-pointer">
-همه
-        </label>
+      <div *ngIf="isLoading" class="text-center">
+        <div class="spinner-border text-secondary" role="status">
+        </div>
       </div>
-      <div class="d-flex flex-row align-items-center mt-2">
-        <input class="form-check-input w-15-px h-15-px" type="checkbox">
-        <label class="form-check-label mr-5-px cursor-pointer">
-          طلایی
-        </label>
-      </div>
-      <div class="d-flex flex-row align-items-center mt-2">
-        <input class="form-check-input w-15-px h-15-px" type="checkbox">
-        <label class="form-check-label mr-5-px cursor-pointer">
-          نقره ای
-        </label>
-      </div>
-      <div class="d-flex flex-row align-items-center mt-2">
-        <input class="form-check-input w-15-px h-15-px" type="checkbox">
-        <label class="form-check-label mr-5-px cursor-pointer">
-          برنزی
-        </label>
-      </div>
+      <ng-container *ngIf="!isLoading">
+        <ng-container *ngFor="let item of items">
+          <div class="d-flex flex-row align-items-center mt-2">
+            <input [(ngModel)]="item.Checked"
+                   class="form-check-input w-15-px h-15-px"
+                   id="{{item.Id}}"
+                   name="{{item.Id}}"
+                   type="checkbox">
+            <label class="form-check-label mr-5-px cursor-pointer fs-08" for="{{item.Id}}">
+              {{item.Title}}
+            </label>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
   <button class="btn-apply-filter">
     فیلتر
   </button>
-  <button class="btn-cancel-filter">
+  <button (click)="cancelEventNotify()" class="btn-cancel-filter">
     انصراف
   </button>
 </div>

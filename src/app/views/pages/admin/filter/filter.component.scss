@@ -55,7 +55,7 @@
 
 .form-filter .body .list{
   width: 100%;
-  height: 115px;
+  max-height: 115px;
   padding: 4px;
   float: right;
   overflow-y: scroll;
@@ -83,7 +83,7 @@
 }
 
 .btn-cancel-filter:hover{
-  border: 1px solid #ee9c00;
+  border: 1px solid red;
 }
 
 .btn-apply-filter:hover{
