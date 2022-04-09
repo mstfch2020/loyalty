@@ -1,14 +1,16 @@
 <div *ngIf="visible" class="form-filter">
-  <select class="select" [(ngModel)]="conditionType">
-    <option selected [value]="1">شامل</option>
-    <option [value]="2">مساوی</option>
-    <option [value]="3">به جز</option>
-  </select>
-  <div class="by">
-    با:
-  </div>
+  <ng-container *ngIf="!isRadio">
+    <select class="select" [(ngModel)]="conditionType">
+      <option selected [value]="1">شامل</option>
+      <option [value]="2">مساوی</option>
+      <option [value]="3">به جز</option>
+    </select>
+    <div class="by">
+      با:
+    </div>
+  </ng-container>
   <div class="body">
-    <div class="search">
+    <div class="search" *ngIf="!isRadio">
       <input class="text-end font-yekan-regular" [(ngModel)]="searchValue" placeholder="جستجو" type="text">
       <div class="icon">
         <svg class="bi bi-search" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
@@ -24,8 +26,8 @@
         </div>
       </div>
       <ng-container *ngIf="items.length>0">
-        <ng-container *ngFor="let item of items | filter:searchValue">
-          <div class="d-flex flex-row align-items-center mt-2">
+        <ng-container *ngFor="let item of items | filter:searchValue;index as i">
+          <div class="d-flex flex-row align-items-center mt-2" [ngClass]="{'mt-2':i!=0}">
             <input (change)="changed(item)" [checked]="item.checked" class="form-check-input w-15-px h-15-px"
               id="{{item.id}}" [type]="isRadio?'radio':'checkbox'" [value]="item.id"
               [name]="isRadio?'radiogroup':item.id">
