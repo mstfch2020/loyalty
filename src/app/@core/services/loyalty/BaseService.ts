@@ -4,6 +4,7 @@ import * as moment from 'jalali-moment';
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { IdTitle, IdTitleType } from "../../data/loyalty/get-senarios-grid.model";
+import { Period } from "../../data/loyalty/period.model";
 import { BaseResponse } from "../../data/root/base-response.model";
 import { UiService } from "../ui/ui.service";
 
@@ -107,6 +108,37 @@ export abstract class BaseService<T>{
       this.form.get(`${ formControlName }.seconds`)?.setValue(parseInt(time[2], 0));
     }
     return true;
+  }
+
+  getPeriodOfString(shamsiDate: string): Period | null
+  {
+    if (!shamsiDate)
+    {
+      return null;
+    }
+    const m = moment.from(shamsiDate.substring(0, 10), 'fa', 'YYYY/MM/DD');
+    if (!m.isValid())
+    {
+      return null;
+    }
+
+    const date = shamsiDate.substring(0, 10)?.split('/');
+    const period: any = {};
+    if (date && date.length === 3)
+    {
+      period.year = parseInt(date[0], 0);
+      period.month = parseInt(date[1], 0);
+      period.day = parseInt(date[2], 0);
+    }
+
+    const time = shamsiDate.substring(11, shamsiDate.length)?.split(':');
+    if (time && time.length === 3)
+    {
+      period.hours = parseInt(time[0], 0);
+      period.minutes = parseInt(time[1], 0);
+      period.seconds = parseInt(time[2], 0);
+    }
+    return period;
   }
 
   abstract submit(): void;

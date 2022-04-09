@@ -1,7 +1,8 @@
 <div *ngIf="visible" class="form-filter">
-  <select class="select">
-    <option selected>شامل</option>
-    <option value="1">برابر</option>
+  <select class="select" [(ngModel)]="conditionType">
+    <option selected [value]="1">شامل</option>
+    <option [value]="2">مساوی</option>
+    <option [value]="3">نا مساوی</option>
   </select>
   <div class="by">
     با:
@@ -11,9 +12,9 @@
       <input class="text-end font-yekan-regular" [(ngModel)]="searchValue" placeholder="جستجو" type="text">
       <div class="icon">
         <svg class="bi bi-search" fill="currentColor" height="16" viewBox="0 0 16 16" width="16"
-             xmlns="http://www.w3.org/2000/svg">
+          xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
       </div>
     </div>
@@ -25,11 +26,9 @@
       <ng-container *ngIf="items.length>0">
         <ng-container *ngFor="let item of items | filter:searchValue">
           <div class="d-flex flex-row align-items-center mt-2">
-            <input [(ngModel)]="item.checked"
-                   class="form-check-input w-15-px h-15-px"
-                   id="{{item.id}}"
-                   name="{{item.id}}"
-                   type="checkbox">
+            <input (change)="changed(item)" [checked]="item.checked" class="form-check-input w-15-px h-15-px"
+              id="{{item.id}}" [type]="isRadio?'radio':'checkbox'" [value]="item.id"
+              [name]="isRadio?'radiogroup':item.id">
             <label class="form-check-label mr-5-px cursor-pointer fs-08" for="{{item.id}}">
               {{item.title}}
             </label>

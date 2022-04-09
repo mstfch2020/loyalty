@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { RootStoreService } from './@core/services/root-store.service';
@@ -9,23 +9,30 @@ import { AlertService } from './@core/services/ui/alert.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent
+export class AppComponent implements AfterViewInit
 {
   title = 'loyalty';
-  isLoading = false;
-
-  constructor(public rootStoreService: RootStoreService, private router: Router, private alertService: AlertService, private config: NgSelectConfig)
+  _isLoading = false;
+  get isLoading(): boolean { return this._isLoading; }
+  set isLoading(value: boolean) { this._isLoading = value; }
+  constructor(public rootStoreService: RootStoreService, private cdref: ChangeDetectorRef, private router: Router, private alertService: AlertService, private config: NgSelectConfig)
   {
     router.events.subscribe((val) => this.alertService.clearAllMessages());
     config.notFoundText = 'موردی یافت نشد.';
-    rootStoreService.isLoading().subscribe(value =>
+  }
+  ngAfterViewInit(): void
+  {
+    this.rootStoreService.isLoading().subscribe(value =>
     {
       if (value)
       {
         this.isLoading = true;
+        this.cdref?.detectChanges();
         return;
       }
       this.isLoading = false;
+      this.cdref?.detectChanges();
     });
+
   }
 }
