@@ -8,7 +8,7 @@ export interface UserManagerSettings
   //   response_type: "code",
   //   scope: "openid profile IdentityServerApi offline_access",
   //   post_logout_redirect_uri: `${ baseUrl }/logoutredirect`,
-  //   userStore: new WebStorageStateStore({ store: localStorage }),
+  //   userStore: new WebStorageStateStore({ store: localStorage }),**
   //   response_mode: "query",
 
   //   automaticSilentRenew: true,

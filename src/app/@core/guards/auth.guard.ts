@@ -27,13 +27,18 @@ export class AuthGuard implements CanActivate, CanLoad
   private checkAuth()
   {
     debugger;
-    return true;
-    // return this.userService.getIsAuth().pipe(map(value =>
-    // {
-    //   if (value) return value;
-    //   return this.router.parseUrl('/account/login');
-    // }));
+
+    if (this.userService.isLoggedIn())
+    {
+      return true;
+    }
+
+    this.userService.startAuthentication();
+    return false;
   }
-
-
+  // return this.userService.getIsAuth().pipe(map(value =>
+  // {
+  //   if (value) return value;
+  //   return this.router.parseUrl('/account/login');
+  // }));
 }

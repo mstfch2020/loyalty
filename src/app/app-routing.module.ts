@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('src/app/views/pages/admin/admin.module')
-      .then(m => m.AdminModule)
+      .then(m => m.AdminModule)//, canLoad: [AuthGuard]
   },
   {
     path: '**',

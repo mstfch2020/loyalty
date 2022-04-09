@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserManager, UserManagerSettings, WebStorageStateStore } from 'oidc-client';
 import { Observable, of } from 'rxjs';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { UserState } from '../../data/auth/user-state.model';
@@ -31,6 +32,10 @@ const userState: UserState = {
 @Injectable({ providedIn: 'root' })
 export class AuthService extends StoreService<UserState> {
 
+  public manager = new UserManager(getClientSettings());
+  private user: any = null;
+
+
   constructor(private router: Router,
     private rootStoreService: RootStoreService,
     private http: HttpClient,
@@ -39,10 +44,47 @@ export class AuthService extends StoreService<UserState> {
     private logManagerService: LogManagerService)
   {
     super();
+
+    this.manager.getUser().then(user =>
+    {
+      debugger;
+      this.user = user;
+    });
+
     if (!localStorage['userState']) return;
     const user: UserState = Object.assign({}, JSON.parse(localStorage['userState']));
     this.subject.next(user);
     this.addUser(user.user);
+  }
+
+  isLoggedIn(): boolean
+  {
+    return this.user != null && !this.user.expired;
+  }
+
+  getClaims(): any
+  {
+    return this.user.profile;
+  }
+
+  getAuthorizationHeaderValue(): string
+  {
+    return `${ this.user.token_type } ${ this.user.access_token }`;
+  }
+
+
+  startAuthentication(): Promise<any>
+  {
+    this.manager.revokeAccessToken().then(value => { debugger; }).catch(value => { debugger; });
+    return this.manager.signinSilent();
+  }
+
+  completeAuthentication(): Promise<void>
+  {
+    return this.manager.signinRedirectCallback().then(user =>
+    {
+      this.user = user;
+    });
   }
 
   getIsAuth(): Observable<boolean>
@@ -223,20 +265,28 @@ export class AuthService extends StoreService<UserState> {
   retrieveToken()
   {
     let params = new URLSearchParams();
-    params.append('grant_type', 'authorization_code');
-    params.append('authority', 'Auth.ketabkesh.ir');
-    params.append('client_id', 'c`lub_site_js');
-    params.append('redirect_uri', 'this.redirectUri');
-    // params.append('client_secret', 'newClientSecret');
-    params.append('response_type', 'code');
-    params.append('scope', 'openid profile IdentityServerApi offline_access');
-    params.append('response_mode', 'query');
+    // params.append('grant_type', 'client_credentials');
+    // // params.append('authority', 'Auth.ketabkesh.ir');
+    // params.append('client_id', window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js');
+    // // params.append('redirect_uri', 'this.redirectUri');
+    // // params.append('client_secret', 'newClientSecret');
+    // params.append('response_type', 'code');
+    // params.append('scope', 'openid profile IdentityServerApi offline_access');
+    // params.append('response_mode', 'query');
 
+
+
+
+    params.append('client_id', window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js');
+    params.append('code', '78405f15d48383aec09932208ab9b1044e304ed5e535758771ee38748c7b785c');
+    params.append('redirect_uri', 'https://localhost:3000/login');
+    params.append('code_verifier', 'c1ba524faab54279bc052e134e05f3dcd976b8e128f849dcb15a7dd41e4032e44a24fae4d1a741048d3e8b97549d95a7');
+    params.append('grant_type', 'authorization_code');
 
 
     let headers =
       new HttpHeaders({ 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8' });
-    const url = 'http://Auth.ketabkesh.ir/auth/realms/baeldung/protocol/openid-connect/token';
+    const url = 'https://auth.ketabkesh.ir/connect/token';
 
     this.http.post(url,
       params.toString(), { headers: headers })
@@ -249,13 +299,21 @@ export class AuthService extends StoreService<UserState> {
 }
 
 
-// export function getClientSettings(): UserManagerSettings
-// {
-//   return {
-//     authority: 'http://localhost:5000',
-//     client_id: 'angular_spa',
-//     redirect_uri: 'http://localhost:4200/auth-callback',
-//     response_type: "id_token token",
-//     scope: "openid profile email api.read"
-//   };
-// }
+export function getClientSettings(): UserManagerSettings
+{
+  return {
+    authority: 'https://auth.ketabkesh.ir/',
+    client_id: window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js',
+    redirect_uri: 'http://localhost:4200/auth-callback',
+    post_logout_redirect_uri: 'http://localhost:4200/',
+    response_type: "id_token token",
+    scope: "openid profile api1 IdentityServerApi offline_access",
+    userStore: new WebStorageStateStore({ store: localStorage }),
+    loadUserInfo: true,
+    // response_mode: "query",
+    // automaticSilentRenew: true,
+    // silent_redirect_uri: `https://localhost:4200/login`,
+    // accessTokenExpiringNotificationTime: 60,
+    // filterProtocolClaims: false,
+  };
+}

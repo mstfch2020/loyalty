@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AmountTitle, GetSenarios } from "src/app/@core/data/loyalty/get-senarios-grid.model";
 import { AuthService } from 'src/app/@core/services/auth/auth.service';
 import { ScenarioService } from "src/app/@core/services/loyalty/scenario.service";
@@ -16,8 +17,15 @@ export class ScenarioListComponent implements OnInit
   pageIndex = 1;
   pageSize = 99999;
 
-  constructor(private router: Router, public scenarioService: ScenarioService, private authService: AuthService)
+  constructor(private router: Router, public scenarioService: ScenarioService, private authService: AuthService, public oidcSecurityService: OidcSecurityService)
   {
+
+    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken, idToken }) =>
+    {
+      console.log(isAuthenticated);
+    });
+
+
     scenarioService.scenarios$.subscribe(value =>
     {
       this.theViewList = value;
@@ -147,6 +155,11 @@ export class ScenarioListComponent implements OnInit
 
   login()
   {
-    this.authService.retrieveToken();
+    // this.authService.retrieveToken();
+    debugger;
+
+    const token = this.oidcSecurityService.authorize();
+    this.oidcSecurityService.revokeAccessToken().subscribe(console.log);
+
   }
 }
