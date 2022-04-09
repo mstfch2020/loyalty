@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
 import { NgxMaskModule } from 'ngx-mask';
 import { HttpLoaderFactory } from './@core/infra/factories/http-loader-factory';
 import { HttpConfigInterceptor } from './@core/infra/interceptor/http-config.interceptor';
@@ -69,19 +68,19 @@ import { HomeComponent } from './views/pages/home/home.component';
     //   }
     // }),
 
-    AuthModule.forRoot({
-      config: {
-        authority: 'https://Auth.ketabkesh.ir',
-        redirectUrl: 'http://localhost:4200/login',
-        postLogoutRedirectUri: 'http://localhost:4200/' + 'logout',
-        clientId: window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js',
-        scope: 'openid profile IdentityServerApi offline_access',
-        responseType: 'code',
-        silentRenew: true,
-        useRefreshToken: true,
-        logLevel: LogLevel.Debug,
-      },
-    }),
+    // AuthModule.forRoot({
+    //   config: {
+    //     authority: 'https://Auth.ketabkesh.ir',
+    //     redirectUrl: 'http://localhost:4200/login',
+    //     postLogoutRedirectUri: 'http://localhost:4200/' + 'logout',
+    //     clientId: window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js',
+    //     scope: 'openid profile IdentityServerApi offline_access',
+    //     responseType: 'code',
+    //     silentRenew: true,
+    //     useRefreshToken: true,
+    //     logLevel: LogLevel.Debug,
+    //   },
+    // }),
   ],
   providers: [UserService, RootStoreService, UiService, ScenarioService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },

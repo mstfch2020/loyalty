@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { AmountTitle, FilterTitle, GetSenarios, IdTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model";
 import { BrandFilter, CustomersFilter, StatusFilter } from 'src/app/@core/data/loyalty/scenario/get-all-scenarios.model';
 import { AuthService } from 'src/app/@core/services/auth/auth.service';
@@ -66,7 +65,7 @@ export class ScenarioListComponent implements OnInit
     private router: Router,
     public scenarioService: ScenarioService,
     public baseInfoService: BaseInfoService,
-    private authService: AuthService, private oidcSecurityService: OidcSecurityService)
+    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/)
   {
 
     scenarioService.scenarios$.subscribe(value =>
@@ -231,8 +230,8 @@ export class ScenarioListComponent implements OnInit
     // this.authService.retrieveToken();
     debugger;
 
-    const token = this.oidcSecurityService.authorize();
-    this.oidcSecurityService.revokeAccessToken().subscribe(console.log);
+    // const token = this.oidcSecurityService.authorize();
+    // this.oidcSecurityService.revokeAccessToken().subscribe(console.log);
 
   }
 
