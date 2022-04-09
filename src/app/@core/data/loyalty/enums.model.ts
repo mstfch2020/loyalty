@@ -71,3 +71,11 @@ export enum DiscountCodeType
   Static = 1,
   Random = 2
 }
+
+export enum FilterType
+{
+  None = 0,
+  Include = 1,
+  Equal = 2,
+  Except = 3
+}

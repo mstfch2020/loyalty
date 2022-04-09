@@ -23,7 +23,6 @@ import { AccountModule } from './views/pages/account/account.module';
 import { AdminModule } from './views/pages/admin/admin.module';
 import { HomeComponent } from './views/pages/home/home.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

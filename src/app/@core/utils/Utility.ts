@@ -130,6 +130,19 @@ export class Utility
     return dateObject.toISOString();
   }
 
+  public static getENUM(ENUM:any): any[] {
+    let myEnum = [];
+    let objectEnum = Object.keys(ENUM);
+    const values = objectEnum.slice( 0 , objectEnum.length / 2 );
+    const keys = objectEnum.slice( objectEnum.length / 2 );
+
+    for (let i = 0 ; i < objectEnum.length/2 ; i++ ) {
+      myEnum.push( { key: keys[i], value: values[i] } );
+    }
+
+    return myEnum;
+  }
+
   /**
   * Check Digit number when input value
   * @param event

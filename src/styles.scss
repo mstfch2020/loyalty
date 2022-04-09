@@ -96,13 +96,12 @@ body.register {
   background-image: url("assets/img/bg/bg-9.jpg");
 }
 
-
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #00b3b5;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -111,7 +110,7 @@ body.register {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #009b9d;
+  background: gray;
 }
 
 .font-yekan-bold {
@@ -154,12 +153,24 @@ body.register {
   font-size: 0.7rem;
 }
 
+.fs-08 {
+  font-size: 0.8rem;
+}
+
 .fs-20px {
   font-size: 20px;
 }
 
 .p-10px {
   padding: 10px !important;
+}
+
+.p-6px {
+  padding: 6px !important;
+}
+
+.h-15-px {
+  height: 15px !important;
 }
 
 .h-40px {
@@ -184,6 +195,10 @@ body.register {
 
 .bg-nav-green {
   background-color: #00b3b5 !important;
+}
+
+.color-app-green {
+  color: #01aab1;
 }
 
 .rounded-4 {
@@ -235,6 +250,10 @@ body.register {
   margin-right: 3px;
 }
 
+.mr-5-px {
+  margin-right: 5px;
+}
+
 .mr-8-px {
   margin-right: 8px;
 }
@@ -247,6 +266,10 @@ body.register {
   margin-left: 3rem;
 }
 
+.w-15-px {
+  width: 15px !important;
+}
+
 .w-70-px {
   width: 70px !important;
 }
@@ -257,6 +280,10 @@ body.register {
 
 .w-90-px {
   width: 90px !important;
+}
+
+.w-100-px {
+  width: 100px !important;
 }
 
 .w-120-px {
@@ -284,8 +311,8 @@ body.register {
   border-radius: 1.5rem !important;
 }
 
-.border-red{
-  border:1px solid red!important;
+.border-red {
+  border: 1px solid red !important;
 }
 
 label {
@@ -359,11 +386,11 @@ input[type="checkbox"] {
 }
 
 .ng-select-container {
-  background-color: transparent!important;
+  background-color: transparent !important;
 }
 
-.form-check-input{
-  margin-top: 0!important;
+.form-check-input {
+  margin-top: 0 !important;
 }
 
 table {
@@ -631,8 +658,16 @@ select.disabled,
 .form-control.disabled > input {
   background: #eff3f3 !important;
   cursor: not-allowed;
-  color:silver!important;
+  color: silver !important;
 }
 
+.filter-header {
+  background-color: white;
+  border-radius: 18px;
+  border-bottom: 2px solid #e9e3e3;
+  float: right;
+  padding: 6px 10px;
+  cursor: pointer;
+}
 
 

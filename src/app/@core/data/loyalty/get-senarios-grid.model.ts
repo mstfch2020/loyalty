@@ -2,6 +2,7 @@ import { PeriodModel } from "./period.model";
 
 export interface IdTitle { id: string; title: string; }
 export interface IdTitleType { id: string; title: string; type: number; }
+export interface FilterTitle { id: string; title: string; checked: boolean; }
 export interface EnumTitle { id: number; title: string; }
 export interface Amount { min: number; max: number; }
 export interface AmountTitle { title: string; values: Array<string>; type: string; }
@@ -38,6 +39,7 @@ export interface GetSenariosGrid
   brands: string,
   senarioState: string;
 }
+
 export interface GetSenarios
 {
   id: string;

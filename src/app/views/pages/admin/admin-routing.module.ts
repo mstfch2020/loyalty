@@ -24,6 +24,9 @@ import { SystemSettingsLevelComponent } from "./system-settings/system-settings-
 import { SystemSettingsScenarioComponent } from "./system-settings/system-settings-scenario/system-settings-scenario.component";
 import { SystemSettingsComponent } from "./system-settings/system-settings.component";
 import { UsersComponent } from "./users/users.component";
+import {SendSmsListComponent} from "./send-sms/send-sms-list/send-sms-list.component";
+import {SendSmsPatternComponent} from "./send-sms/send-sms-pattern/send-sms-pattern.component";
+import {SendSmsCreateComponent} from "./send-sms/send-sms-create/send-sms-create.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -91,6 +94,25 @@ const routes: Routes = [
       {
         path: 'sms',
         component: SendSmsComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'pattern',
+            pathMatch: 'full'
+          },
+          {
+            path: 'list',
+            component: SendSmsListComponent,
+          },
+          {
+            path: 'pattern',
+            component: SendSmsPatternComponent,
+          },
+          {
+            path: 'create',
+            component: SendSmsCreateComponent,
+          }
+        ]
       },
       {
         path: 'reports',

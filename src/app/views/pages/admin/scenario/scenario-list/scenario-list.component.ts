@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { AmountTitle, GetSenarios } from "src/app/@core/data/loyalty/get-senarios-grid.model";
+import { AmountTitle, FilterTitle, GetSenarios, IdTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model";
+import { BrandFilter, CustomersFilter, StatusFilter } from 'src/app/@core/data/loyalty/scenario/get-all-scenarios.model';
 import { AuthService } from 'src/app/@core/services/auth/auth.service';
+import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
 import { ScenarioService } from "src/app/@core/services/loyalty/scenario.service";
 
 @Component({
@@ -13,29 +15,100 @@ import { ScenarioService } from "src/app/@core/services/loyalty/scenario.service
 export class ScenarioListComponent implements OnInit
 {
 
-  public theViewList = new Array<GetSenarios>();
+  theViewList = new Array<GetSenarios>();
+
+  theFilterCustomerList = new Array<FilterTitle>();
+  theFilterCustomerSelectedList = new Array<IdTitle>();
+
+  theFilterBrandsList = new Array<FilterTitle>();
+  theFilterBrandsSelectedList = new Array<IdTitle>();
+
+  theFilterDateList = new Array<FilterTitle>();
+  theFilterDateFromSelected = "";
+  theFilterDateToSelected = "";
+  theFilterStatusSelected = 0;
+
   pageIndex = 1;
   pageSize = 99999;
 
-  constructor(private router: Router, public scenarioService: ScenarioService, private authService: AuthService, public oidcSecurityService: OidcSecurityService)
-  {
-
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken, idToken }) =>
+  filterCustomer: boolean;
+  filterBrands: boolean;
+  filterDate: boolean;
+  filterStatus: boolean;
+  theFilterCustomerSelectedCondition = 0;
+  theFilterBrandsSelectedCondition = 0;
+  theFilterStatusSelectedCondition = 0;
+  theFilterStatusList: Array<FilterTitle> = [
     {
-      console.log(isAuthenticated);
-    });
+      id: '1',
+      title: 'فعال',
+      checked: false,
+    },
+    {
+      id: '2',
+      title: 'غیرفعال',
+      checked: false,
+    },
+    // {
+    //   id: '3',
+    //   title: 'در انتظار',
+    //   checked: false,
+    // },
+    // {
+    //   id: '4',
+    //   title: 'رد شده',
+    //   checked: false,
+    // }
 
+  ];
+
+  constructor(
+    private router: Router,
+    public scenarioService: ScenarioService,
+    public baseInfoService: BaseInfoService,
+    private authService: AuthService, private oidcSecurityService: OidcSecurityService)
+  {
 
     scenarioService.scenarios$.subscribe(value =>
     {
       this.theViewList = value;
     });
+
+    this.filterCustomer = false;
+    this.filterBrands = false;
+    this.filterDate = false;
+    this.filterStatus = false;
+
   }
 
   ngOnInit(): void
   {
     //this.router.navigate(['/admin/main/scenario/list']);
     this.scenarioService.getScenarios(this.pageSize, this.pageIndex);
+
+    this.baseInfoService.generalCustomers$.subscribe(value =>
+    {
+      value.forEach((value: IdTitle, key: number) =>
+      {
+        this.theFilterCustomerList.push({
+          checked: false,
+          id: value.id,
+          title: value.title
+        });
+      });
+    });
+
+    this.baseInfoService.brands$.subscribe(value =>
+    {
+      value.forEach((value: IdTitle, key: number) =>
+      {
+        this.theFilterBrandsList.push({
+          checked: false,
+          id: value.id,
+          title: value.title
+        });
+      });
+    });
   }
 
   goToEdit(id: string = '')
@@ -160,6 +233,86 @@ export class ScenarioListComponent implements OnInit
 
     const token = this.oidcSecurityService.authorize();
     this.oidcSecurityService.revokeAccessToken().subscribe(console.log);
+
+  }
+
+  applyFilterForm(event: any, filterType: number)
+  {
+    switch (filterType)
+    {
+      case 1:
+        this.theFilterCustomerSelectedList = event.value;
+        this.theFilterCustomerSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case 2:
+        this.theFilterDateFromSelected = event?.dateFrom;
+        this.theFilterDateToSelected = event?.dateTo;
+        break;
+      case 3:
+        this.theFilterBrandsSelectedList = event.value;
+        this.theFilterBrandsSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case 4:
+        this.theFilterStatusSelected = parseInt(event.value[0].id, 0);
+        break;
+    }
+
+    const request: any = {};
+    request.pageIndex = 1;
+    request.pageSize = 999999;
+    if (this.theFilterBrandsSelectedList && this.theFilterBrandsSelectedList.length > 0)
+    {
+      request.brandFilter = new BrandFilter();
+      request.brandFilter.brandIds = this.theFilterBrandsSelectedList.map(p => p.id);
+      request.brandFilter.filterType = 0;
+      if (this.theFilterBrandsSelectedCondition != 0)
+      {
+        request.brandFilter.filterType = this.theFilterBrandsSelectedCondition;
+      }
+    }
+
+    if (this.theFilterCustomerSelectedList && this.theFilterCustomerSelectedList.length > 0)
+    {
+      request.customersFilter = new CustomersFilter();
+      request.customersFilter.groupIds = this.theFilterCustomerSelectedList.map(p => p.id);
+      request.customersFilter.filterType = 0;
+      if (this.theFilterCustomerSelectedCondition != 0)
+      {
+        request.customersFilter.filterType = this.theFilterCustomerSelectedCondition;
+      }
+    }
+
+    if (this.theFilterStatusSelected !== 0)
+    {
+      request.statusFilter = new StatusFilter();
+      request.statusFilter.status = this.theFilterStatusSelected;
+    }
+    if (this.theFilterDateFromSelected)
+    {
+      request.periodFilter = this.scenarioService.getPeriodOfString(this.theFilterDateFromSelected);
+    }
+    this.scenarioService.getSenariosGrid(request);
+
+
+  }
+
+  closeFilterForm(event: boolean, filterType: number)
+  {
+    switch (filterType)
+    {
+      case 1:
+        this.filterCustomer = event;
+        break;
+      case 2:
+        this.filterDate = event;
+        break;
+      case 3:
+        this.filterBrands = event;
+        break;
+      case 4:
+        this.filterStatus = event;
+        break;
+    }
 
   }
 }

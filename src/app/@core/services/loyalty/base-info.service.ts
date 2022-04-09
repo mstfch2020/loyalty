@@ -119,7 +119,7 @@ export class BaseInfoService
 
   getScenario(): Observable<Array<IdTitle> | null>
   {
-    const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios?pageSize=999999&pageIndex=1';
+    const url = this.settingService.settings?.baseUrl + 'Senario/GetSenariosDropDown';
     return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 

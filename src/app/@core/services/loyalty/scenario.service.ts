@@ -3,12 +3,13 @@ import { Injectable } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { BehaviorSubject } from 'rxjs';
 import { BehavioralReward, createBehavioralRewardFormGroup } from "../../data/loyalty/behavioral-reward.model";
-import { BehavioralRewardType, SenarioType } from "../../data/loyalty/enums.model";
+import { BehavioralRewardType, SenarioType } from '../../data/loyalty/enums.model';
 import { GetSenarios as SenarioDetail, IdTitleType } from "../../data/loyalty/get-senarios-grid.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { createPurchaseRewardFormGroup, PurchaseReward } from "../../data/loyalty/purchase-reward.model";
 import { Scenario, scenarioInit } from "../../data/loyalty/scenario.model";
+import { GetAllSenarios } from "../../data/loyalty/scenario/get-all-scenarios.model";
 import { Utility } from '../../utils/Utility';
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
@@ -236,9 +237,29 @@ export class ScenarioService extends BaseService<Scenario>
   getScenarios(pageSize: number, pageIndex: number)
   {
     const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios';
-    return callGetService<Array<SenarioDetail>>(url, this.http, this.uiService, {
-      pageSize: pageSize, pageIndex: pageIndex
-    }).subscribe(value =>
+    const request: any = {};
+    request.pageSize = pageSize;
+    request.pageIndex = pageIndex;
+
+    return callPostService<Array<SenarioDetail>>(url, this.http, this.uiService, request).subscribe(value =>
+    {
+      if (!value)
+      {
+        this.scenarios$.next([]);
+        return;
+      }
+      this.scenarios$.next(value);
+    });
+  }
+
+  getSenariosGrid(
+    request: GetAllSenarios
+  )
+  {
+    const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios';
+
+
+    return callPostService<Array<SenarioDetail>>(url, this.http, this.uiService, request).subscribe(value =>
     {
       if (!value)
       {

@@ -87,8 +87,12 @@
             <div class="text-black fs-09 w-120-px">
               مقدار تخفیف :
             </div>
-            <div>
-              <input class="form-control text-black w-130-px text-center" placeholder="%" type="text">
+            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px w-100-px">
+              <input class="text-center text-black border-0 h-40px w-100"
+                     formControlName="refundToWalletPercent" mask="percent" thousandSeparator="," type="text">
+              <div class="fs-08 text-gray-500">
+                %
+              </div>
             </div>
           </div>
         </div>

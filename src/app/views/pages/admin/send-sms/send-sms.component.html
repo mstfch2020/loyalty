@@ -1,182 +1,21 @@
-<form [formGroup]="smsService.form" action="" dir="rtl">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <span class="font-yekan-bold fs-20px text-black">
-          تعریف و ارسال پیامک
-        </span>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-12 col-sm-6">
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <label class="mt-06" for="txtSmsDescription">
-              متن پیامک :
-              <span class="text-danger">*</span>
-            </label>
-          </div>
-          <div class="col-12 col-sm-9">
-            <textarea class="form-control border-radius-1-5" cols="30" formControlName="text" id="txtSmsDescription"
-                      name="txtSmsDescription" rows="10"></textarea>
-            <span class="sms-length">
-              234 کارکتر/ 1 پیامک
-            </span>
-            <div *ngIf="!smsService.form.get('text')?.valid && smsService.form.get('text')?.touched"
-                 class="text-danger font-yekan-regular fs-08 float-end mt-2" dir="rtl">
-              متن پیامک را وارد نمایید
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <label class="float-end float-sm-start mt-3">
-              برند :
-              <span class="text-danger">*</span>
-            </label>
-          </div>
-          <div class="col-12 col-sm-9 mb-3">
-            <ng-select [items]="baseInfoService.brandsSingle$|async" [multiple]="false" appendTo="body"
-                       bindLabel="title" bindValue="id" class="form-control" formControlName="brandId">
-            </ng-select>
-            <div *ngIf="!smsService.form.get('brandId')?.valid && smsService.form.get('brandId')?.touched"
-                 class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-              برند را مشخص نمایید
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <label class="float-end float-sm-start mt-3">
-              نوع کاربری :
-              <span class="text-danger">*</span>
-            </label>
-          </div>
-          <div class="col-12 col-sm-9 mb-3">
-            <ng-select (change)="smsService.brandChanged($event,'userTypeIds')"
-                       [items]="baseInfoService.userTypes$|async" [multiple]="true" appendTo="body"
-                       bindLabel="title" bindValue="id" class="form-control"
-                       formControlName="userTypeIds">
-            </ng-select>
-            <div *ngIf="!smsService.form.get('userTypeIds')?.valid && smsService.form.get('userTypeIds')?.touched"
-                 class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-              نوع کاربری را مشخص نمایید
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <label class="float-end float-sm-start mt-3">
-              گروه مشتری :
-              <span class="text-danger">*</span>
-            </label>
-          </div>
-          <div class="col-12 col-sm-9 mb-3">
-            <ng-select [items]="baseInfoService.customerGroups$|async" [multiple]="false" appendTo="body"
-                       bindLabel="title" bindValue="id" class="form-control" formControlName="customerGroupId">
-            </ng-select>
-            <div
-              *ngIf="!smsService.form.get('customerGroupId')?.valid && smsService.form.get('customerGroupId')?.touched"
-              class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-              گروه مشتری را مشخص نمایید
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <label class="float-end float-sm-start mt-3">
-              مخاطب سناریو :
-              <span class="text-danger">*</span>
-            </label>
-          </div>
-          <div class="col-12 col-sm-9 mb-3">
-            <ng-select [items]="baseInfoService.scenarios$|async" [multiple]="true" appendTo="body" bindLabel="title"
-                       bindValue="id" class="form-control" formControlName="sernarioIds">
-            </ng-select>
-            <div *ngIf="!smsService.form.get('sernarioIds')?.valid && smsService.form.get('sernarioIds')?.touched"
-                 class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-              مخاطب سناریو را مشخص نمایید
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-12 col-sm-6">
-        <div class="row">
-          <div class="col-3 mt-3">
-            <label for="txtSmsDescription">
-              ارسال برای :
-            </label>
-          </div>
-          <div class="col-12 col-sm-4 mt-3">
-            <div class="d-flex align-items-center">
-              <input [value]="1" checked class="form-check-input" formControlName="smsSendingType" id="Instant"
-                     name="smsSendingType" type="radio">
-              <label class="form-check-label mr-1" for="Instant">
-                هم اکنون
-              </label>
-            </div>
-          </div>
-          <div class="col-12 col-sm-5 mt-3">
-            <div class="d-flex align-items-center">
-              <input [value]="2" checked class="form-check-input" formControlName="smsSendingType" id="Scheduled"
-                     name="smsSendingType" type="radio">
-              <label class="form-check-label mr-1" for="Scheduled">
-                زمانبندی شده برای تاریخ
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-        <div class="row">
-          <div class="col-12 col-sm-5">
-            <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
-                                   [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-              <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
-                     class="form-control rounded-pill h-55px text-center text-black" dir="ltr"
-                     formControlName="startDate"
-                     mask="0000/M0/d0" type="text"/>
-            </ng-persian-datepicker>
-          </div>
-          <div class="col-12 col-sm-7 mt-3 mt-sm-0">
-            <div class="d-flex flex-row gap-2 align-items-center">
-              <div>
-                <input [leadZeroDateTime]="true" class="form-control rounded-pill h-55px text-center"
-                       formControlName="minute"
-                       mask="m0" type="text">
-              </div>
-              <div>
-                <span class="mx-2">
-                  :
-                </span>
-              </div>
-              <div>
-                <input [leadZeroDateTime]="true" class="form-control rounded-pill h-55px text-center"
-                       formControlName="hour"
-                       mask="Hh" type="text">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-6 col-sm-2">
-        <button (click)="smsService.submit()"
-                class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl">
-          ارسال
-        </button>
-      </div>
-      <div class="col-6 col-sm-2">
-        <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl"
-                type="submit">
-          انصراف
-        </button>
-      </div>
-    </div>
-  </div>
+<form action="" dir="rtl">
+  <ul class="nav justify-content-start mt-3">
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/admin/main/sms/pattern']"
+         routerLinkActive="active">
+        الگوی پیامکی
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/admin/main/sms/list']"
+         routerLinkActive="active">
+        پیامک های ارسال شده
+      </a>
+    </li>
+  </ul>
+  <hr class="nav-line">
+  <router-outlet></router-outlet>
 </form>
+
