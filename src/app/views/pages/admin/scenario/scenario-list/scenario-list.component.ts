@@ -46,17 +46,6 @@ export class ScenarioListComponent implements OnInit
       title: 'غیرفعال',
       checked: false,
     },
-    // {
-    //   id: '3',
-    //   title: 'در انتظار',
-    //   checked: false,
-    // },
-    // {
-    //   id: '4',
-    //   title: 'رد شده',
-    //   checked: false,
-    // }
-
   ];
 
   constructor(
