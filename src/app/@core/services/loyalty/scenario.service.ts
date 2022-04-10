@@ -192,13 +192,13 @@ export class ScenarioService extends BaseService<Scenario>
         this.baseInfoService.productGroups$.next(productGroups);
       });
       this.form.controls['freeProductCodes'].enable();
-      this.form.controls['addFreeProductReward'].enable();
+      this.form.get('purchaseReward.addFreeProductReward')?.enable();
       if (value.length > 1 || (value.length === 1 && value[0] === 'all'))
       {
         this.form.controls['freeProductCodes'].setValue([]);
         this.form.controls['freeProductCodes'].disable();//addFreeProductReward
-        this.form.controls['addFreeProductReward'].setValue(false);
-        this.form.controls['addFreeProductReward'].disable();
+        this.form.get('purchaseReward.addFreeProductReward')?.setValue(false);
+        this.form.get('purchaseReward.addFreeProductReward')?.disable();
 
       }
     });
