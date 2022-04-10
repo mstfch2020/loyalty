@@ -222,7 +222,6 @@ export class ScenarioListComponent implements OnInit
   login()
   {
     // this.authService.retrieveToken();
-    debugger;
 
     // const token = this.oidcSecurityService.authorize();
     // this.oidcSecurityService.revokeAccessToken().subscribe(console.log);
@@ -302,11 +301,9 @@ export class ScenarioListComponent implements OnInit
     }
     if (this.theFilterDateFromSelected)
     {
-      request.periodFilter = this.scenarioService.getPeriodOfString(this.theFilterDateFromSelected);
+      request.periodFilter = { date: this.scenarioService.getPeriodOfString(this.theFilterDateFromSelected) };
     }
     this.scenarioService.getSenariosGrid(request);
-
-
   }
 
   closeFilterForm(event: boolean, filterType: number)

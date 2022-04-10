@@ -5,7 +5,7 @@ export interface GetAllSenarios
   pageSize: number;
   pageIndex: number;
   brandFilter: BrandFilter;
-  periodFilter: Period;
+  periodFilter: ScenarioDate;
   statusFilter: StatusFilter;
   customersFilter: CustomersFilter;
 }
@@ -25,4 +25,8 @@ export class CustomersFilter
 export class StatusFilter
 {
   status = 0;
+}
+export interface ScenarioDate
+{
+  date: Period;
 }

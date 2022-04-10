@@ -47,7 +47,6 @@ export class AuthService extends StoreService<UserState> {
 
     this.manager.getUser().then(user =>
     {
-      debugger;
       this.user = user;
     });
 
@@ -75,7 +74,13 @@ export class AuthService extends StoreService<UserState> {
 
   startAuthentication(): Promise<any>
   {
-    this.manager.revokeAccessToken().then(value => { debugger; }).catch(value => { debugger; });
+    this.manager.revokeAccessToken().then(value =>
+    {
+
+    }).catch(value =>
+    {
+
+    });
     return this.manager.signinSilent();
   }
 

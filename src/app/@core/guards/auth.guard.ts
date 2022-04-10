@@ -26,7 +26,6 @@ export class AuthGuard implements CanActivate, CanLoad
 
   private checkAuth()
   {
-    debugger;
 
     if (this.userService.isLoggedIn())
     {

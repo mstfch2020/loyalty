@@ -119,7 +119,12 @@
                   </span>
                 </td>
                 <td class="text-center padding-1 fs-08">
-                  {{scenario.senarioType.id.toString() === "1" ? 'فعال' : 'غیر فعال'}}
+                  <ng-container [ngSwitch]="scenario.senarioType.id.toString()">
+                    <span *ngSwitchCase="'1'"> فعال</span>
+                    <span *ngSwitchCase="'2'"> غیر فعال</span>
+                    <span *ngSwitchDefault="'0'"> </span>
+                  </ng-container>
+
                 </td>
               </tr>
             </tbody>
