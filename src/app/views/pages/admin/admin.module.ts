@@ -28,12 +28,12 @@ import { ScenarioComponent } from './scenario/scenario.component';
 import { ScenarioListComponent } from './scenario/scenario-list/scenario-list.component';
 import { SendSmsComponent } from './send-sms/send-sms.component';
 import { SwitchComponent } from './switch/switch.component';
-import { SystemSettingsDiscountGridComponent } from './system-settings/system-settings-discount/system-settings-discount-grid/system-settings-discount-grid.component';
-import { SystemSettingsDiscountRootComponent } from './system-settings/system-settings-discount/system-settings-discount-root/system-settings-discount-root.component';
+import { SystemSettingsComponent } from './system-settings/system-settings.component';
+import { SystemSettingsDiscountListComponent } from './system-settings/system-settings-discount/system-settings-discount-list/system-settings-discount-list.component';
+import { SystemSettingsDiscountEditComponent } from './system-settings/system-settings-discount/system-settings-discount-edit/system-settings-discount-edit.component';
 import { SystemSettingsDiscountComponent } from './system-settings/system-settings-discount/system-settings-discount.component';
 import { SystemSettingsLevelComponent } from './system-settings/system-settings-level/system-settings-level.component';
 import { SystemSettingsScenarioComponent } from './system-settings/system-settings-scenario/system-settings-scenario.component';
-import { SystemSettingsComponent } from './system-settings/system-settings.component';
 import { UsersComponent } from "./users/users.component";
 import { DiscountCodeListComponent } from './discount-code/discount-code-list/discount-code-list.component';
 import { DiscountCodeEditComponent } from './discount-code/discount-code-edit/discount-code-edit.component';
@@ -68,11 +68,11 @@ import { FilterPipe } from 'src/app/@core/data/pipes/filter.pipe';
     CustomerGroupTemporaryRootComponent,
     CustomerGroupTemporaryCampaignComponent,
     SystemSettingsComponent,
-    SystemSettingsDiscountComponent,
     SystemSettingsLevelComponent,
+    SystemSettingsDiscountComponent,
     SystemSettingsScenarioComponent,
-    SystemSettingsDiscountGridComponent,
-    SystemSettingsDiscountRootComponent,
+    SystemSettingsDiscountListComponent,
+    SystemSettingsDiscountEditComponent,
     CustomerGroupTemporaryEditComponent,
     BehavioralScenarioComponent,
     PurchaseScenarioComponent,
@@ -85,7 +85,7 @@ import { FilterPipe } from 'src/app/@core/data/pipes/filter.pipe';
     SendSmsCreateComponent,
     FilterComponent,
     FilterDateComponent,
-    FilterPipe,
+    FilterPipe,   
   ],
   imports: [
     FormsModule,

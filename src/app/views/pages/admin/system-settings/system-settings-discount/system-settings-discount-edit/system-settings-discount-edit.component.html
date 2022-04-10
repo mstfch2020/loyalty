@@ -1,0 +1,108 @@
+<form [formGroup]="form" action="" dir="rtl">
+    <div class="container-fluid">
+        <div class="row mt-2">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-4">
+                            برند :
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <ng-select [items]="cars" [multiple]="true" appendTo="body" bindLabel="name"
+                            formControlName="selectedCar1" class="form-control mb-3">
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-4">
+                            نوع کاربری :
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <ng-select [items]="cars" [multiple]="true" formControlName="selectedCar2" appendTo="body"
+                            bindLabel="name" class="form-control mb-3">
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-3">
+                            پایه پورسانت :
+                        </label>
+                    </div>
+                    <div class="col-4">
+                        <div [ngClass]="{'border-red':percent>100}"
+                            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                            <input [(ngModel)]="percent" class="text-center text-black border-0 h-40px w-100 mr-8-px"
+                                formControlName='sendingDiscount' thousandSeparator="," type="text">
+                            <div class="fs-08 text-gray-500">
+                                %
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-3">
+                            تخفیف برای مشتریان :
+                        </label>
+                    </div>
+                    <div class="col-9 d-flex flex-row gap-3 align-items-center">
+                        <span class="text-black">
+                            از
+                        </span>
+                        <div>
+                            <div [ngClass]="{'border-red':percentFrom>100}"
+                                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                                <input [(ngModel)]="percentFrom"
+                                    class="text-center text-black border-0 h-40px w-100 mr-8-px"
+                                    formControlName='sendingDiscount' thousandSeparator="," type="text">
+                                <div class="fs-08 text-gray-500">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-black">
+                            تا
+                        </span>
+                        <div>
+                            <div [ngClass]="{'border-red':percentTo>100}"
+                                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                                <input [(ngModel)]="percentTo"
+                                    class="text-center text-black border-0 h-40px w-100 mr-8-px"
+                                    formControlName='sendingDiscount' thousandSeparator="," type="text">
+                                <div class="fs-08 text-gray-500">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-2">
+                <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+                    type="submit">
+                    ذخیره
+                </button>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+                    dir="rtl" type="submit">
+                    انصراف
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
