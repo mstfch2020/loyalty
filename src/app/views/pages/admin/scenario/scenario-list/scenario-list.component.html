@@ -4,10 +4,11 @@
       <div class="col-12">
         <h5 class="font-yekan-bold fs-20px text-black">
           مشاهده
+          {{activeFilterName}}
         </h5>
       </div>
     </div>
-    <div *ngIf="theViewList.length>0" class="row mt-4">
+    <div *ngIf="theViewList.length>0||activeFilterName!==0" class="row mt-4">
       <div class="col-12">
         <div class="table-responsive">
           <table cellspacing="1" class="table table-hover border-0 border-spacing-lg">
@@ -19,8 +20,7 @@
                   </div>
                 </th>
                 <th class="text-end font-yekan-bold fs-08 cursor-pointer" scope="col">
-                  <div (click)="openFilterForm(1)"
-                    [ngClass]="{'filter-header':filterCustomer}" class="p-6px">
+                  <div (click)="openFilterForm(1)" [ngClass]="{'filter-header':activeFilterName===1}" class="p-6px">
                     مشتری
                     <svg *ngIf="theFilterCustomerSelectedList.length==0" class="bi bi-funnel" fill="currentColor"
                       height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -34,12 +34,11 @@
                     </svg>
                   </div>
                   <app-filter (applyEvent)="applyFilterForm($event,1)" (cancelEvent)="closeFilterForm($event,1)"
-                    [items]="theFilterCustomerList" [visible]="filterCustomer">
+                    [items]="theFilterCustomerList" [visible]="activeFilterName===1">
                   </app-filter>
                 </th>
                 <th class="text-end font-yekan-bold fs-08 cursor-pointer" scope="col">
-                  <div (click)="openFilterForm(2)"
-                    [ngClass]="{'filter-header':filterDate}" class="p-6px">
+                  <div (click)="openFilterForm(2)" [ngClass]="{'filter-header':activeFilterName===2}" class="p-6px">
                     بازه تاریخی
                     <svg *ngIf="theFilterDateFromSelected" class="bi bi-funnel" fill="currentColor" height="16"
                       viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -53,12 +52,11 @@
                     </svg>
                   </div>
                   <app-filter-date (applyEvent)="applyFilterForm($event,2)" (cancelEvent)="closeFilterForm($event,2)"
-                    [visible]="filterDate">
+                    [visible]="activeFilterName===2">
                   </app-filter-date>
                 </th>
                 <th class="text-end font-yekan-bold fs-08 cursor-pointer" scope="col">
-                  <div (click)="openFilterForm(3)"
-                    [ngClass]="{'filter-header':filterBrands}" class="p-6px">
+                  <div (click)="openFilterForm(3)" [ngClass]="{'filter-header':activeFilterName===3}" class="p-6px">
                     برند
                     <svg *ngIf="theFilterBrandsSelectedList.length==0" class="bi bi-funnel" fill="currentColor"
                       height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -72,12 +70,11 @@
                     </svg>
                   </div>
                   <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
-                    [items]="theFilterBrandsList" [visible]="filterBrands">
+                    [items]="theFilterBrandsList" [visible]="activeFilterName===3">
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08 cursor-pointer w-100-px" scope="col">
-                  <div (click)="openFilterForm(4)"
-                    [ngClass]="{'filter-header':filterStatus}" class="p-6px">
+                  <div (click)="openFilterForm(4)" [ngClass]="{'filter-header':activeFilterName===4}" class="p-6px">
                     وضعیت
                     <svg *ngIf="theFilterStatusSelected==0" class="bi bi-funnel" fill="currentColor" height="16"
                       viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +88,7 @@
                     </svg>
                   </div>
                   <app-filter (applyEvent)="applyFilterForm($event,4)" (cancelEvent)="closeFilterForm($event,4)"
-                    [items]="theFilterStatusList" [visible]="filterStatus" [isRadio]="true">
+                    [items]="theFilterStatusList" [visible]="activeFilterName===4" [isRadio]="true">
                   </app-filter>
                 </th>
               </tr>

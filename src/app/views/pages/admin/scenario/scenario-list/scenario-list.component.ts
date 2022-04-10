@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { AmountTitle, FilterTitle, GetSenarios, IdTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model";
 import { BrandFilter, CustomersFilter, StatusFilter } from 'src/app/@core/data/loyalty/scenario/get-all-scenarios.model';
 import { AuthService } from 'src/app/@core/services/auth/auth.service';
@@ -11,7 +12,8 @@ import { ScenarioService } from "src/app/@core/services/loyalty/scenario.service
   templateUrl: './scenario-list.component.html',
   styleUrls: ['./scenario-list.component.scss']
 })
-export class ScenarioListComponent implements OnInit {
+export class ScenarioListComponent implements OnInit
+{
 
   theViewList = new Array<GetSenarios>();
 
@@ -29,10 +31,7 @@ export class ScenarioListComponent implements OnInit {
   pageIndex = 1;
   pageSize = 99999;
 
-  filterCustomer: boolean;
-  filterBrands: boolean;
-  filterDate: boolean;
-  filterStatus: boolean;
+  activeFilterName = FilterNames.None;
   theFilterCustomerSelectedCondition = 0;
   theFilterBrandsSelectedCondition = 0;
   theFilterStatusSelectedCondition = 0;
@@ -64,25 +63,26 @@ export class ScenarioListComponent implements OnInit {
     private router: Router,
     public scenarioService: ScenarioService,
     public baseInfoService: BaseInfoService,
-    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/) {
+    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/)
+  {
 
-    scenarioService.scenarios$.subscribe(value => {
+    scenarioService.scenarios$.subscribe(value =>
+    {
       this.theViewList = value;
     });
 
-    this.filterCustomer = false;
-    this.filterBrands = false;
-    this.filterDate = false;
-    this.filterStatus = false;
-
+    this.activeFilterName = FilterNames.None;
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     //this.router.navigate(['/admin/main/scenario/list']);
     this.scenarioService.getScenarios(this.pageSize, this.pageIndex);
 
-    this.baseInfoService.generalCustomers$.subscribe(value => {
-      value.forEach((value: IdTitle, key: number) => {
+    this.baseInfoService.generalCustomers$.subscribe(value =>
+    {
+      value.forEach((value: IdTitle, key: number) =>
+      {
         this.theFilterCustomerList.push({
           checked: false,
           id: value.id,
@@ -91,8 +91,10 @@ export class ScenarioListComponent implements OnInit {
       });
     });
 
-    this.baseInfoService.brands$.subscribe(value => {
-      value.forEach((value: IdTitle, key: number) => {
+    this.baseInfoService.brands$.subscribe(value =>
+    {
+      value.forEach((value: IdTitle, key: number) =>
+      {
         this.theFilterBrandsList.push({
           checked: false,
           id: value.id,
@@ -102,23 +104,28 @@ export class ScenarioListComponent implements OnInit {
     });
   }
 
-  goToEdit(id: string = '') {
-    if (id) {
+  goToEdit(id: string = '')
+  {
+    if (id)
+    {
       this.router.navigate(['/admin/main/scenario/edit'], { queryParams: { id: id } });
       return;
     }
     this.router.navigate(['/admin/main/scenario/edit']);
   }
 
-  getRewardsTitle(scenario: GetSenarios) {
+  getRewardsTitle(scenario: GetSenarios)
+  {
     const rewardsTitle = new Array<AmountTitle>();
     if (scenario?.senarioType?.id.toString() === '1')//purchase
     {
       const reward = scenario?.purchaseReward;
-      if (!reward) {
+      if (!reward)
+      {
         return;
       }
-      if (reward.sendingDiscountReward) {
+      if (reward.sendingDiscountReward)
+      {
 
         rewardsTitle.push({
           title: 'تخفیف هزینه ارسال',
@@ -126,14 +133,16 @@ export class ScenarioListComponent implements OnInit {
           type: 'sendingDiscountReward'
         });
       }
-      if (reward.basketDiscountReward) {
+      if (reward.basketDiscountReward)
+      {
         rewardsTitle.push({
           title: 'تخفیف سبد خرید',
           values: [reward.basketDiscountPercent.toString(), reward.basketDiscountThreshold.toString()],
           type: 'basketDiscountReward'
         });
       }
-      if (reward.productDiscountReward) {
+      if (reward.productDiscountReward)
+      {
         rewardsTitle.push({
           title: 'تخفیف کالا',
           values: [reward.productDiscountPercent.toString()],
@@ -141,21 +150,24 @@ export class ScenarioListComponent implements OnInit {
         });
       }
       // if (reward.addFreeProductReward) { rewardsTitle.push({ title: 'افزودن کالای رایگان به سبد خرید', values: [reward.sendingDiscount.toString()], type: 'addFreeProductReward' }); }
-      if (reward.refundReward) {
+      if (reward.refundReward)
+      {
         rewardsTitle.push({
           title: 'بازگشت وجه',
           values: [reward.refundPercent.toString(), reward.refundThreshold.toString()],
           type: 'refundReward'
         });
       }
-      if (reward.increasScoreReward) {
+      if (reward.increasScoreReward)
+      {
         rewardsTitle.push({
           title: 'افزایش امتیاز',
           values: [reward.increaseScorePercent.toString(), reward.increaseScoreThreshold.toString()],
           type: 'increasScoreReward'
         });
       }
-      if (reward.discountCodeReward) {
+      if (reward.discountCodeReward)
+      {
         rewardsTitle.push({
           title: 'کد تخفیف برای خرید بعدی',
           values: [reward.discountCodePercent.toString(), reward.discountCodeThreshold.toString()],
@@ -166,40 +178,49 @@ export class ScenarioListComponent implements OnInit {
     return rewardsTitle;
   }
 
-  getRewardsDetail(scenario: GetSenarios) {
+  getRewardsDetail(scenario: GetSenarios)
+  {
     const rewardsTitle = new Array<string>();
     if (scenario?.senarioType?.id.toString() === '1')//purchase
     {
       const reward = scenario?.purchaseReward;
-      if (!reward) {
+      if (!reward)
+      {
         return;
       }
-      if (reward.sendingDiscountReward) {
+      if (reward.sendingDiscountReward)
+      {
 
-        rewardsTitle.push(`تخفیف هزینه ارسال ${reward.sendingDiscount.toString()} %`);
+        rewardsTitle.push(`تخفیف هزینه ارسال ${ reward.sendingDiscount.toString() } %`);
       }
-      if (reward.basketDiscountReward) {
-        rewardsTitle.push(`تخفیف سبد خرید ${reward.basketDiscountPercent.toString()} % تا سقف ${reward.basketDiscountThreshold.toString()} تومان`);
+      if (reward.basketDiscountReward)
+      {
+        rewardsTitle.push(`تخفیف سبد خرید ${ reward.basketDiscountPercent.toString() } % تا سقف ${ reward.basketDiscountThreshold.toString() } تومان`);
       }
-      if (reward.productDiscountReward) {
-        rewardsTitle.push(`تخفیف کالا ${reward.productDiscountPercent.toString()} %`);
+      if (reward.productDiscountReward)
+      {
+        rewardsTitle.push(`تخفیف کالا ${ reward.productDiscountPercent.toString() } %`);
       }
       // if (reward.addFreeProductReward) { rewardsTitle.push({ title: 'افزودن کالای رایگان به سبد خرید', values: [reward.sendingDiscount.toString()], type: 'addFreeProductReward' }); }
-      if (reward.refundReward) {
-        rewardsTitle.push(`بازگشت وجه ${reward.refundPercent.toString()} % تا سقف ${reward.refundThreshold.toString()} تومان`);
+      if (reward.refundReward)
+      {
+        rewardsTitle.push(`بازگشت وجه ${ reward.refundPercent.toString() } % تا سقف ${ reward.refundThreshold.toString() } تومان`);
       }
-      if (reward.increasScoreReward) {
-        rewardsTitle.push(`افزایش امتیاز ${reward.increaseScorePercent.toString()} % تا سقف ${reward.increaseScoreThreshold.toString()} امتیاز`);
+      if (reward.increasScoreReward)
+      {
+        rewardsTitle.push(`افزایش امتیاز ${ reward.increaseScorePercent.toString() } % تا سقف ${ reward.increaseScoreThreshold.toString() } امتیاز`);
       }
-      if (reward.discountCodeReward) {
-        rewardsTitle.push(`کد تخفیف برای خرید بعدی ${reward.discountCodePercent.toString()} % تا سقف ${reward.discountCodeThreshold.toString()} تومان`);
+      if (reward.discountCodeReward)
+      {
+        rewardsTitle.push(`کد تخفیف برای خرید بعدی ${ reward.discountCodePercent.toString() } % تا سقف ${ reward.discountCodeThreshold.toString() } تومان`);
       }
 
     }
     return rewardsTitle;
   }
 
-  login() {
+  login()
+  {
     // this.authService.retrieveToken();
     debugger;
 
@@ -208,38 +229,30 @@ export class ScenarioListComponent implements OnInit {
 
   }
 
-  openFilterForm(filterType: number) {
+  openFilterForm(filterType: number)
+  {
 
-    switch (filterType) {
+    switch (filterType)
+    {
       case 1:
-        this.filterCustomer =  !this.filterCustomer;
-        this.filterDate = false;
-        this.filterBrands = false;
-        this.filterStatus = false;
+        this.activeFilterName = FilterNames.Customer;
         break;
       case 2:
-        this.filterDate = !this.filterDate;
-        this.filterCustomer =  false;
-        this.filterBrands = false;
-        this.filterStatus = false;
+        this.activeFilterName = FilterNames.Date;
         break;
       case 3:
-        this.filterBrands = !this.filterBrands;
-        this.filterDate = false;
-        this.filterCustomer =  false;
-        this.filterStatus = false;
+        this.activeFilterName = FilterNames.Brand;
         break;
       case 4:
-        this.filterStatus = !this.filterStatus;
-        this.filterBrands = false;
-        this.filterDate = false;
-        this.filterCustomer =  false;
+        this.activeFilterName = FilterNames.Status;
         break;
     }
   }
 
-  applyFilterForm(event: any, filterType: number) {
-    switch (filterType) {
+  applyFilterForm(event: any, filterType: number)
+  {
+    switch (filterType)
+    {
       case 1:
         this.theFilterCustomerSelectedList = event.value;
         this.theFilterCustomerSelectedCondition = parseInt(event.conditionType, 0);
@@ -260,29 +273,35 @@ export class ScenarioListComponent implements OnInit {
     const request: any = {};
     request.pageIndex = 1;
     request.pageSize = 999999;
-    if (this.theFilterBrandsSelectedList && this.theFilterBrandsSelectedList.length > 0) {
+    if (this.theFilterBrandsSelectedList && this.theFilterBrandsSelectedList.length > 0)
+    {
       request.brandFilter = new BrandFilter();
       request.brandFilter.brandIds = this.theFilterBrandsSelectedList.map(p => p.id);
       request.brandFilter.filterType = 0;
-      if (this.theFilterBrandsSelectedCondition != 0) {
+      if (this.theFilterBrandsSelectedCondition != 0)
+      {
         request.brandFilter.filterType = this.theFilterBrandsSelectedCondition;
       }
     }
 
-    if (this.theFilterCustomerSelectedList && this.theFilterCustomerSelectedList.length > 0) {
+    if (this.theFilterCustomerSelectedList && this.theFilterCustomerSelectedList.length > 0)
+    {
       request.customersFilter = new CustomersFilter();
       request.customersFilter.groupIds = this.theFilterCustomerSelectedList.map(p => p.id);
       request.customersFilter.filterType = 0;
-      if (this.theFilterCustomerSelectedCondition != 0) {
+      if (this.theFilterCustomerSelectedCondition != 0)
+      {
         request.customersFilter.filterType = this.theFilterCustomerSelectedCondition;
       }
     }
 
-    if (this.theFilterStatusSelected !== 0) {
+    if (this.theFilterStatusSelected !== 0)
+    {
       request.statusFilter = new StatusFilter();
       request.statusFilter.status = this.theFilterStatusSelected;
     }
-    if (this.theFilterDateFromSelected) {
+    if (this.theFilterDateFromSelected)
+    {
       request.periodFilter = this.scenarioService.getPeriodOfString(this.theFilterDateFromSelected);
     }
     this.scenarioService.getSenariosGrid(request);
@@ -290,22 +309,9 @@ export class ScenarioListComponent implements OnInit {
 
   }
 
-  closeFilterForm(event: boolean, filterType: number) {
-    switch (filterType) {
-      case 1:
-        this.filterCustomer = event;
-        break;
-      case 2:
-        this.filterDate = event;
-        break;
-      case 3:
-        this.filterBrands = event;
-        break;
-      case 4:
-        this.filterStatus = event;
-        break;
-    }
-
+  closeFilterForm(event: boolean, filterType: number)
+  {
+    this.activeFilterName = FilterNames.Searched;
   }
 
 }

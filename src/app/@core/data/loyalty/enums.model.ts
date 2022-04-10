@@ -79,3 +79,7 @@ export enum FilterType
   Equal = 2,
   Except = 3
 }
+export enum FilterNames
+{
+  None, Customer, Date, Brand, Status, Searched
+}
