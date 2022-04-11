@@ -134,6 +134,11 @@ const routes: Routes = [
             component: SystemSettingsDiscountComponent,
             children: [
               {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+              },
+              {
                 path: 'list',
                 component: SystemSettingsDiscountListComponent,
               },
