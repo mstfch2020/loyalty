@@ -69,6 +69,19 @@ export class FilterComponent implements OnInit
       return;
     }
     item.checked = !item.checked;
+
+    //if (this.items.findIndex(p => p.id === 'all' && p.checked) !== -1)
+    if (item.id === 'all')
+    {
+      this.items.forEach(p =>
+      {
+        if (item.checked)
+        {
+          p.checked = true;
+        }
+        else { p.checked = false; }
+      });
+    }
   }
 
 }

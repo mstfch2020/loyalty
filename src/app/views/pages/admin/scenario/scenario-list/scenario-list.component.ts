@@ -265,6 +265,10 @@ export class ScenarioListComponent implements OnInit
     {
       request.brandFilter = new BrandFilter();
       request.brandFilter.brandIds = this.theFilterBrandsSelectedList.map(p => p.id);
+      if (this.theFilterBrandsSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.brandFilter.brandIds = [];
+      }
       request.brandFilter.filterType = 0;
       if (this.theFilterBrandsSelectedCondition != 0)
       {
@@ -276,6 +280,10 @@ export class ScenarioListComponent implements OnInit
     {
       request.customersFilter = new CustomersFilter();
       request.customersFilter.groupIds = this.theFilterCustomerSelectedList.map(p => p.id);
+      if (this.theFilterCustomerSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.customersFilter.groupIds = [];
+      }
       request.customersFilter.filterType = 0;
       if (this.theFilterCustomerSelectedCondition != 0)
       {
