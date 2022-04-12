@@ -1,13 +1,11 @@
-import { Period } from "./period.model";
-
 export interface GetAllPromoterDiscountSettings
 {
   pageSize: number;
   pageIndex: number;
+  userTypeFilter: UserTypeFilter;
   brandFilter: BrandFilter;
-  periodFilter: ScenarioDate;
-  statusFilter: StatusFilter;
-  customersFilter: CustomersFilter;
+  customerDiscountFilter: CustomerDiscountFilter;
+  commissionBasisFilter: CommissionBasisFilter;
 }
 
 export class BrandFilter
@@ -16,20 +14,18 @@ export class BrandFilter
   filterType = 0;
 }
 
-export class CustomersFilter
+export class UserTypeFilter
 {
-  groupIds = new Array<string>();
-  campaignIds = new Array<string>();
-  phones = new Array<string>();
+  userTypeIds = new Array<string>();
   filterType = 0;
 }
 
-export class StatusFilter
+export class CommissionBasisFilter
 {
-  status = 0;
+  commissionBasisPeriod = new Array<number>();
 }
 
-export interface ScenarioDate
+export class CustomerDiscountFilter
 {
-  date: Period;
+  customerDiscountPeriod = new Array<number>();
 }
