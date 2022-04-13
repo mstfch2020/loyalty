@@ -97,10 +97,10 @@ export class ScenarioListComponent implements OnInit
   {
     if (id)
     {
-      this.router.navigate(['/admin/main/scenario/edit'], { queryParams: { id: id } });
+      this.router.navigate(['/admin/main/scenario/edit',id]);
       return;
     }
-    this.router.navigate(['/admin/main/scenario/edit']);
+    this.router.navigate(['/admin/main/scenario/create']);
   }
 
   getRewardsTitle(scenario: GetSenarios)

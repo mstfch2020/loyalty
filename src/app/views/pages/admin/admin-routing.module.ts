@@ -163,11 +163,14 @@ const routes: Routes = [
         component: ScenarioComponent,
         children: [
           {
-            path: '',
-            component: ScenarioListComponent,
+            path: '', redirectTo: 'list',pathMatch:'full'
           },
           {
-            path: 'edit',
+            path: 'edit/:id',
+            component: ScenarioRootComponent,
+          },
+          {
+            path: 'create',
             component: ScenarioRootComponent,
           },
           {
