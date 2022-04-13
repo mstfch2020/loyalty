@@ -18,17 +18,17 @@ import { ReportsComponent } from "./reports/reports.component";
 import { ScenarioListComponent } from "./scenario/scenario-list/scenario-list.component";
 import { ScenarioRootComponent } from "./scenario/scenario-root/scenario-root.component";
 import { ScenarioComponent } from "./scenario/scenario.component";
-import { SendSmsComponent } from "./send-sms/send-sms.component";
-import { SystemSettingsComponent } from "./system-settings/system-settings.component";
-import { SystemSettingsDiscountComponent } from "./system-settings/system-settings-discount/system-settings-discount.component";
-import { SystemSettingsDiscountListComponent } from './system-settings/system-settings-discount/system-settings-discount-list/system-settings-discount-list.component';
-import { SystemSettingsDiscountEditComponent } from './system-settings/system-settings-discount/system-settings-discount-edit/system-settings-discount-edit.component';
-import { SystemSettingsLevelComponent } from "./system-settings/system-settings-level/system-settings-level.component";
-import { SystemSettingsScenarioComponent } from "./system-settings/system-settings-scenario/system-settings-scenario.component";
-import { UsersComponent } from "./users/users.component";
+import { SendSmsCreateComponent } from "./send-sms/send-sms-create/send-sms-create.component";
 import { SendSmsListComponent } from "./send-sms/send-sms-list/send-sms-list.component";
 import { SendSmsPatternComponent } from "./send-sms/send-sms-pattern/send-sms-pattern.component";
-import { SendSmsCreateComponent } from "./send-sms/send-sms-create/send-sms-create.component";
+import { SendSmsComponent } from "./send-sms/send-sms.component";
+import { SystemSettingsDiscountEditComponent } from './system-settings/system-settings-discount/system-settings-discount-edit/system-settings-discount-edit.component';
+import { SystemSettingsDiscountListComponent } from './system-settings/system-settings-discount/system-settings-discount-list/system-settings-discount-list.component';
+import { SystemSettingsDiscountComponent } from "./system-settings/system-settings-discount/system-settings-discount.component";
+import { SystemSettingsLevelComponent } from "./system-settings/system-settings-level/system-settings-level.component";
+import { SystemSettingsScenarioComponent } from "./system-settings/system-settings-scenario/system-settings-scenario.component";
+import { SystemSettingsComponent } from "./system-settings/system-settings.component";
+import { UsersComponent } from "./users/users.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -163,12 +163,14 @@ const routes: Routes = [
         component: ScenarioComponent,
         children: [
           {
-            path: '',
-            redirectTo: 'list',
-            pathMatch: 'full'
+            path: '', redirectTo: 'list',pathMatch:'full'
           },
           {
-            path: 'edit',
+            path: 'edit/:id',
+            component: ScenarioRootComponent,
+          },
+          {
+            path: 'create',
             component: ScenarioRootComponent,
           },
           {
@@ -213,5 +215,6 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule {
+export class AdminRoutingModule
+{
 }
