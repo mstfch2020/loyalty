@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { BehaviorSubject } from 'rxjs';
 import { BehavioralReward, createBehavioralRewardFormGroup } from "../../data/loyalty/behavioral-reward.model";
 import { BehavioralRewardType, SenarioType } from '../../data/loyalty/enums.model';
-import { GetSenarios as SenarioDetail, IdTitleType } from "../../data/loyalty/get-senarios-grid.model";
+import { GetSenarios as SenarioDetail, IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { createPurchaseRewardFormGroup, PurchaseReward } from "../../data/loyalty/purchase-reward.model";
@@ -154,36 +154,13 @@ export class ScenarioService extends BaseService<Scenario>
       });
     }
 
-    const scenarioGeneralCustomers = new Array<IdTitleType>();
-    if (scenario.id && (scenario.customerGroupIds.length === 0 && scenario.campaignIds.length === 0 && scenario.phones.length === 0))
-    {
-      this.setValue('generalCustomers', ['all']);
-    } else
-    {
-      const generalCustomers = this.baseInfoService?.generalCustomers$?.getValue();
-      [...scenario.customerGroupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
-      {
-        const generalCustomer = generalCustomers.find(customer => customer.id === p);
-        if (!generalCustomer || generalCustomer.type === 3)
-        {
-          scenarioGeneralCustomers.push({ id: p, title: p, type: 3 });
-          return;
-        }
-        scenarioGeneralCustomers.push(generalCustomer);
-      });
-
-      this.setValue('generalCustomers', scenarioGeneralCustomers.map(p => p.id));
-
-      if (scenarioGeneralCustomers.length > 0)
-      {
-        const data = this.baseInfoService?.generalCustomers$?.getValue()?.concat(scenarioGeneralCustomers.filter(p => p.type === 3));
-        this.baseInfoService?.generalCustomers$?.next(data);
-      }
-    }
+    this.updateGeneralCustomer(scenario);
 
     this.form.controls['brandIds'].valueChanges.subscribe((value: Array<string>) =>
     {
-      this.baseInfoService.getProductGroupsByBrandIds(value).subscribe(productGroups =>
+      const generalCustomers = this.getCustomerByBrandId(scenario);
+      this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
+      this.baseInfoService?.getProductGroupsByBrandIds(value)?.subscribe(productGroups =>
       {
         const defArray: Array<ProductGroup> = [{ id: 'all', title: 'همه', brandId: '' }];
         if (!productGroups) { productGroups = []; }
@@ -204,6 +181,42 @@ export class ScenarioService extends BaseService<Scenario>
     });
     this.form.markAllAsTouched();
   }
+  private updateGeneralCustomer(scenario: Scenario)
+  {
+    const scenarioGeneralCustomers = new Array<IdTitleTypeBrandId>();
+    if (scenario.id && (scenario.customerGroupIds.length === 0 && scenario.campaignIds.length === 0 && scenario.phones.length === 0))
+    {
+      this.setValue('generalCustomers', ['all']);
+    }
+    else
+    {
+      const generalCustomers = this.getCustomerByBrandId(scenario);
+      this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
+      [...scenario.customerGroupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
+      {
+        const generalCustomer = generalCustomers.find(customer => customer.id === p);
+        if (!generalCustomer || generalCustomer.type === 3)
+        {
+          scenarioGeneralCustomers.push({ id: p, title: p, type: 3, brandId: '' });
+          return;
+        }
+        scenarioGeneralCustomers.push(generalCustomer);
+      });
+
+      this.setValue('generalCustomers', scenarioGeneralCustomers.map(p => p.id));
+
+      if (scenarioGeneralCustomers.length > 0)
+      {
+        const data = this.baseInfoService?.generalCustomers$?.getValue()?.concat(scenarioGeneralCustomers.filter(p => p.type === 3));
+        this.baseInfoService?.generalCustomers$?.next(data);
+      }
+    }
+  }
+  getCustomerByBrandId(scenario: Scenario): Array<IdTitleTypeBrandId>
+  {
+    return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || scenario.brandIds.length === 0 || scenario.brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
+  }
+
   percentValidation(value: number): boolean
   {
     if (value > 100 || value < 0)

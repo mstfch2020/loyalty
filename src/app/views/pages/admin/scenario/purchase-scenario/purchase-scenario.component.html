@@ -94,7 +94,7 @@
               </div>
               <div class="col-12 col-sm-9">
                 <ng-select (change)="scenarioService.brandChanged($event,'generalCustomers')"
-                  [addTag]="scenarioService.addCustomer" [items]="baseInfoService.generalCustomers$|async"
+                  [addTag]="scenarioService.addCustomer" [items]="baseInfoService.generalCustomersByBrandId$|async"
                   [multiple]="true" [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id"
                   class="form-control" formControlName="generalCustomers">
                 </ng-select>

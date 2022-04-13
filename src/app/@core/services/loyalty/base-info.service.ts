@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, forkJoin, Observable } from "rxjs";
-import { EnumTitle, IdTitle, IdTitleType } from "../../data/loyalty/get-senarios-grid.model";
+import { EnumTitle, IdTitle, IdTitleType, IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
@@ -24,8 +24,9 @@ export class BaseInfoService
   productGroupsSingle$ = new BehaviorSubject<Array<ProductGroup>>([]);
   applyOnType$ = new BehaviorSubject<Array<EnumTitle>>([]);
   freeProducts$ = new BehaviorSubject<Array<IdTitle>>([]);
-  generalCustomers$ = new BehaviorSubject<Array<IdTitleType>>([]);
-  generalCustomersSingle$ = new BehaviorSubject<Array<IdTitleType>>([]);
+  generalCustomers$ = new BehaviorSubject<Array<IdTitleTypeBrandId>>([]);
+  generalCustomersByBrandId$ = new BehaviorSubject<Array<IdTitleTypeBrandId>>([]);
+  generalCustomersSingle$ = new BehaviorSubject<Array<IdTitleTypeBrandId>>([]);
   productCodes$ = new BehaviorSubject<Array<string>>([]);
 
   applyOnType: Array<EnumTitle> = [
@@ -73,6 +74,7 @@ export class BaseInfoService
       this.customerGroups$.next(resultValue?.customerGroups === null ? [] : resultValue?.customerGroups);
       this.products$.next(resultValue?.products === null ? [] : resultValue?.products);
       this.generalCustomers$.next(resultValue?.generalCustomers === null ? defArrayType : resultValue?.generalCustomers.concat(defArrayType));
+      this.generalCustomersByBrandId$.next(resultValue?.generalCustomers === null ? defArrayType : resultValue?.generalCustomers.concat(defArrayType));
       this.generalCustomersSingle$.next(resultValue?.generalCustomers === null ? [] : resultValue?.generalCustomers);
 
       this.productGroups$.next(resultValue?.productGroups === null ? defArray : resultValue?.productGroups.concat(defArray));
