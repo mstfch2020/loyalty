@@ -24,7 +24,7 @@ export class ScenarioService extends BaseService<Scenario>
 
   addFreeProduct(term: string)
   {
-    if (this.isValidProductCode(term))
+    if (isValidProductCode(term))
     {
       return term;
     }
@@ -45,21 +45,14 @@ export class ScenarioService extends BaseService<Scenario>
 
   addProductGroups(term: string)
   {
-    if (this.isValidProductCode(term))
+    if (isValidProductCode(term))
     {
       return { id: term, title: term, type: 3 };
     }
     return null;
   }
 
-  isValidProductCode(term: string): boolean
-  {
-    if (term && new RegExp(Utility.numberRegEx).test(term) && term.length === 7)
-    {
-      return true;
-    }
-    return false;
-  }
+
 
   constructor(public override formBuilder: FormBuilder,
     private baseInfoService: BaseInfoService,
@@ -84,8 +77,8 @@ export class ScenarioService extends BaseService<Scenario>
       phones: [scenario.phones, [Validators.required]],
       userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
       discountedProductGroupIds: [scenario.discountedProductGroupIds, [Validators.required]],
-      discountedProductCodes: [scenario.discountedProductCodes?.filter(p => !Utility.isNullOrEmpty(p) && this.isValidProductCode(p)), [Validators.required]],
-      freeProductCodes: [scenario.freeProductCodes?.filter(p => !Utility.isNullOrEmpty(p) && this.isValidProductCode(p)), [Validators.required]],
+      discountedProductCodes: [scenario.discountedProductCodes?.filter(p => !Utility.isNullOrEmpty(p) && isValidProductCode(p)), [Validators.required]],
+      freeProductCodes: [scenario.freeProductCodes?.filter(p => !Utility.isNullOrEmpty(p) && isValidProductCode(p)), [Validators.required]],
       startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMin), [Validators.required]],
       endDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMax), [Validators.required]],
       periodMin: createPeriodFormGroup(scenario.periodMin, this.formBuilder),
@@ -512,3 +505,12 @@ export class ScenarioService extends BaseService<Scenario>
 
   }
 }
+
+function isValidProductCode(term: string)
+{
+  if (term && new RegExp(Utility.numberRegEx).test(term) && term.length === 7)
+  {
+    return true;
+  }
+  return false;
+};
