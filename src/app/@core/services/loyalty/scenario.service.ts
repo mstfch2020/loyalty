@@ -24,7 +24,7 @@ export class ScenarioService extends BaseService<Scenario>
 
   addFreeProduct(term: string)
   {
-    if (term && new RegExp(Utility.numberRegEx).test(term))
+    if (this.isValidProductCode(term))
     {
       return term;
     }
@@ -45,11 +45,20 @@ export class ScenarioService extends BaseService<Scenario>
 
   addProductGroups(term: string)
   {
-    if (term && new RegExp(Utility.numberRegEx).test(term) && term.length === 7)
+    if (this.isValidProductCode(term))
     {
       return { id: term, title: term, type: 3 };
     }
     return null;
+  }
+
+  isValidProductCode(term: string): boolean
+  {
+    if (term && new RegExp(Utility.numberRegEx).test(term) && term.length === 7)
+    {
+      return true;
+    }
+    return false;
   }
 
   constructor(public override formBuilder: FormBuilder,
@@ -75,8 +84,8 @@ export class ScenarioService extends BaseService<Scenario>
       phones: [scenario.phones, [Validators.required]],
       userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
       discountedProductGroupIds: [scenario.discountedProductGroupIds, [Validators.required]],
-      discountedProductCodes: [scenario.discountedProductCodes, [Validators.required]],
-      freeProductCodes: [scenario.freeProductCodes, [Validators.required]],
+      discountedProductCodes: [scenario.discountedProductCodes?.filter(p => !Utility.isNullOrEmpty(p) && this.isValidProductCode(p)), [Validators.required]],
+      freeProductCodes: [scenario.freeProductCodes?.filter(p => !Utility.isNullOrEmpty(p) && this.isValidProductCode(p)), [Validators.required]],
       startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMin), [Validators.required]],
       endDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMax), [Validators.required]],
       periodMin: createPeriodFormGroup(scenario.periodMin, this.formBuilder),
@@ -103,6 +112,7 @@ export class ScenarioService extends BaseService<Scenario>
       const productGroups = this.baseInfoService?.productGroups$?.getValue();
       [...scenario.discountedProductGroupIds, ...scenario.discountedProductCodes].forEach((p: string) =>
       {
+        if (Utility.isNullOrEmpty(p)) { return; }
         const productGroup = productGroups.find(customer => customer.id === p);
         if (!productGroup || productGroup.id === productGroup.title)
         {
@@ -194,6 +204,7 @@ export class ScenarioService extends BaseService<Scenario>
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
       [...scenario.customerGroupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
       {
+        if (Utility.isNullOrEmpty(p)) { return; }
         const generalCustomer = generalCustomers.find(customer => customer.id === p);
         if (!generalCustomer || generalCustomer.type === 3)
         {
