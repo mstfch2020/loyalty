@@ -209,6 +209,7 @@ export class ScenarioService extends BaseService<Scenario>
       {
         const data = this.baseInfoService?.generalCustomers$?.getValue()?.concat(scenarioGeneralCustomers.filter(p => p.type === 3));
         this.baseInfoService?.generalCustomers$?.next(data);
+        this.baseInfoService?.generalCustomersByBrandId$?.next(data);
       }
     }
   }
