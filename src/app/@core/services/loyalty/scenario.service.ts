@@ -450,7 +450,8 @@ export class ScenarioService extends BaseService<Scenario>
       const productGroup = productGroups.find(a => a.id === p);
       if (!productGroup)
       {
-        value.discountedProductCodes.push(p);
+        if (new RegExp(Utility.numberRegEx).test(p) && p.length === 7)
+        { value.discountedProductCodes.push(p); }
         return;
       }
       value.discountedProductGroupIds.push(p);
