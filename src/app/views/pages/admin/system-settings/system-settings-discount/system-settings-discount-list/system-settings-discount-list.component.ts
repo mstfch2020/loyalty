@@ -6,8 +6,9 @@ import { AuthService } from 'src/app/@core/services/auth/auth.service';
 import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { FilterTitle, IdTitle } from 'src/app/@core/data/loyalty/get-senarios-grid.model';
 import { BrandFilter } from 'src/app/@core/data/loyalty/scenario/get-all-scenarios.model';
-import {ScenarioService} from "../../../../../../@core/services/loyalty/scenario.service";
-import {DiscountService} from "../../../../../../@core/services/loyalty/discount.service";
+import { ScenarioService } from "../../../../../../@core/services/loyalty/scenario.service";
+import { DiscountService } from "../../../../../../@core/services/loyalty/discount.service";
+import { PromoterDiscountSettingService } from '../../../../../../@core/services/loyalty/promoter-discount-setting.service';
 
 @Component({
   selector: 'app-system-settings-discount-list',
@@ -44,19 +45,19 @@ export class SystemSettingsDiscountListComponent implements OnInit {
   constructor(
     private router: Router,
     private modalService: NgbModal,
-    // public promoterDiscountSetting: PromoterDiscountSetting,
+    public promoterDiscountSettingService: PromoterDiscountSettingService,
     public baseInfoService: BaseInfoService,
     private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/) {
 
-    // discountService.Discounts$.subscribe(value =>
-    // {
-    //   this.theViewList = value;
-    // });
+    promoterDiscountSettingService.promoterDiscountSettings$.subscribe(value => {
+      this.theViewList = value;
+    });
 
     this.activeFilterName = FilterNames.None;
   }
 
   ngOnInit(): void {
+    this.promoterDiscountSettingService.getPromoterDiscountSetting(this.pageSize, this.pageIndex);
   }
 
   /**
