@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
-import { AmountTitle, FilterTitle, GetSenarios, IdTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model";
+import { AmountTitle, FilterTitle, GetSenarios, IdTitle, IdTitleTypeBrandId } from "src/app/@core/data/loyalty/get-senarios-grid.model";
 import { BrandFilter, CustomersFilter, StatusFilter } from 'src/app/@core/data/loyalty/scenario/get-all-scenarios.model';
 import { AuthService } from 'src/app/@core/services/auth/auth.service';
 import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
@@ -18,7 +18,7 @@ export class ScenarioListComponent implements OnInit
   theViewList = new Array<GetSenarios>();
 
   theFilterCustomerList = new Array<FilterTitle>();
-  theFilterCustomerSelectedList = new Array<IdTitle>();
+  theFilterCustomerSelectedList = new Array<IdTitleTypeBrandId>();
 
   theFilterBrandsList = new Array<FilterTitle>();
   theFilterBrandsSelectedList = new Array<IdTitle>();
@@ -38,12 +38,12 @@ export class ScenarioListComponent implements OnInit
   theFilterStatusList: Array<FilterTitle> = [
     {
       id: '1',
-      title: 'فعال',
+      title: 'فعال', type: 0,
       checked: false,
     },
     {
       id: '2',
-      title: 'غیرفعال',
+      title: 'غیرفعال', type: 0,
       checked: false,
     },
   ];
@@ -70,24 +70,24 @@ export class ScenarioListComponent implements OnInit
 
     this.baseInfoService.generalCustomers$.subscribe(value =>
     {
-      value.forEach((value: IdTitle, key: number) =>
+      value.forEach(p =>
       {
         this.theFilterCustomerList.push({
           checked: false,
-          id: value.id,
-          title: value.title
+          id: p.id,
+          title: p.title, type: p.type,
         });
       });
     });
 
     this.baseInfoService.brands$.subscribe(value =>
     {
-      value.forEach((value: IdTitle, key: number) =>
+      value.forEach(p =>
       {
         this.theFilterBrandsList.push({
           checked: false,
-          id: value.id,
-          title: value.title
+          id: p.id,
+          title: p.title, type: 0
         });
       });
     });
@@ -97,7 +97,7 @@ export class ScenarioListComponent implements OnInit
   {
     if (id)
     {
-      this.router.navigate(['/admin/main/scenario/edit',id]);
+      this.router.navigate(['/admin/main/scenario/edit', id]);
       return;
     }
     this.router.navigate(['/admin/main/scenario/create']);
@@ -279,10 +279,14 @@ export class ScenarioListComponent implements OnInit
     if (this.theFilterCustomerSelectedList && this.theFilterCustomerSelectedList.length > 0)
     {
       request.customersFilter = new CustomersFilter();
-      request.customersFilter.groupIds = this.theFilterCustomerSelectedList.map(p => p.id);
+      request.customersFilter.groupIds = this.theFilterCustomerSelectedList.filter(a => a.type === 1).map(p => p.id);
+      request.customersFilter.campaignIds = this.theFilterCustomerSelectedList.filter(a => a.type === 2).map(p => p.id);
+      request.customersFilter.phones = this.theFilterCustomerSelectedList.filter(a => a.type === 3).map(p => p.id);
       if (this.theFilterCustomerSelectedList.findIndex(p => p.id === 'all') !== -1)
       {
         request.customersFilter.groupIds = [];
+        request.customersFilter.campaignIds = [];
+        request.customersFilter.phones = [];
       }
       request.customersFilter.filterType = 0;
       if (this.theFilterCustomerSelectedCondition != 0)

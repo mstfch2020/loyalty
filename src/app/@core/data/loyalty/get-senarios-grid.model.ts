@@ -3,7 +3,7 @@ import { PeriodModel } from "./period.model";
 export interface IdTitle { id: string; title: string; }
 export interface IdTitleType { id: string; title: string; type: number; }
 export interface IdTitleTypeBrandId { id: string; title: string; type: number; brandId: string; }
-export interface FilterTitle { id: string; title: string; checked: boolean; }
+export interface FilterTitle { id: string; title: string; checked: boolean; type: number; }
 export interface EnumTitle { id: number; title: string; }
 export interface Amount { min: number; max: number; }
 export interface AmountTitle { title: string; values: Array<string>; type: string; }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FilterTitle, IdTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model";
+import { FilterTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model";
+import { Utility } from 'src/app/@core/utils/Utility';
 
 @Component({
   selector: 'app-filter',
@@ -36,21 +37,13 @@ export class FilterComponent implements OnInit
 
   applyEventNotify()
   {
-
-    let theFilterValueList = new Array<IdTitle>();
-
-    this.items.forEach((item: FilterTitle, key: number) =>
+    if (this.searchValue && new RegExp(Utility.mobileRegEx).test(this.searchValue))
     {
-      if (item.checked)
-      {
-        theFilterValueList.push({
-          id: item.id,
-          title: item.title
-        });
-      }
-    });
-
-    this.applyEvent.emit({ value: theFilterValueList, conditionType: this.conditionType });
+      this.applyEvent.emit({ value: [{ id: this.searchValue, title: this.searchValue, type: 3 }], conditionType: this.conditionType });
+    } else
+    {
+      this.applyEvent.emit({ value: this.items.filter(p => p.checked), conditionType: this.conditionType });
+    }
     this.cancelEvent.emit(false);
   }
 
