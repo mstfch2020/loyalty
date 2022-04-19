@@ -5,6 +5,7 @@ export interface PromoterDiscountSetting {
   title: string;
   brandIds: Array<string>;// to do brandIds
   brandId: string;
+  userTypeIds: Array<string>;// to do userTypeIds
   userTypeId: string;
   commissionBasis: number;
   customerDiscountMin: number;
@@ -13,13 +14,14 @@ export interface PromoterDiscountSetting {
 
 export const promoterDiscountSettingInit: PromoterDiscountSetting = {
   id: '',
+  title:'',
   brandIds: [],
   brandId:'',
+  userTypeIds:[],
+  userTypeId:'',
   commissionBasis:0,
   customerDiscountMin:0,
   customerDiscountMax:100,
-  title:'',
-  userTypeId:''
 };
 
 

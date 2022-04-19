@@ -30,7 +30,7 @@ export function callGetService<T>(url: string, http: HttpClient, uiService: UiSe
       uiService.showSnackBar(res?.meta?.errorMessage, '', 3000);
     } else
     {
-      uiService.showSnackBar('خطا در انجام عملیات....', '', 3000);
+      uiService.alert('خطا در اتصال به سرویس!');
     }
     return of(null);
   }));
@@ -55,7 +55,7 @@ export function callPostService<T>(url: string, http: HttpClient, uiService: UiS
       uiService.showSnackBar(res?.meta?.errorMessage, '', 3000);
     } else
     {
-      uiService.showSnackBar('خطا در انجام عملیات....', '', 3000);
+      uiService.alert('خطا در اتصال به سرویس!');
     }
     return of(null);
   }));

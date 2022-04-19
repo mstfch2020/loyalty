@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 
 @Component({
   selector: 'app-system-settings-discount',
@@ -8,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 export class SystemSettingsDiscountComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(
+    public promoterDiscountSettingService: PromoterDiscountSettingService, 
+    private baseInfoService: BaseInfoService)
+  {
+  }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+    this.baseInfoService.loadBaseInfo(() => { });
   }
 
 }

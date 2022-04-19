@@ -93,62 +93,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center">توزیع کننده</td>
-                                <td class="text-center">خیلی سبز</td>
-                                <td class="text-center">
-                                    <div class="pr-40px">
-                                        40%
-                                    </div>
+                            <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList">
+                                <td class="text-end padding-1" scope="row">
+                                    {{item.title}}
                                 </td>
-                                <td class="text-center">
-                                    <div class="pr-90px">
-                                        از 10% تا 30%
-                                    </div>
+                                <td class="text-end padding-1 fs-08">
+                                    {{item.brandId}}
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">توزیع کننده</td>
-                                <td class="text-center">منتشران</td>
-                                <td class="text-center">
-                                    <div class="pr-40px">
-                                        40%
-                                    </div>
+                                <td class="text-end padding-1 fs-08">
+                                  {{item.commissionBasis}}
                                 </td>
-                                <td class="text-center">
-                                    <div class="pr-90px">
-                                        از 5% تا 15%
-                                    </div>
+                                <td class="text-end padding-1 fs-08">
+                                    از
+                                    {{item.customerDiscountMin}}
+                                    تا
+                                    {{item.customerDiscountMax}}
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">توزیع کننده</td>
-                                <td class="text-center">گاج</td>
-                                <td class="text-center">
-                                    <div class="pr-40px">
-                                        40%
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="pr-90px">
-                                        از 25% تا 35%
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">توزیع کننده</td>
-                                <td class="text-center">خیلی سبز</td>
-                                <td class="text-center">
-                                    <div class="pr-40px">
-                                        40%
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="pr-90px">
-                                        از 10% تا 13%
-                                    </div>
-                                </td>
-                            </tr>
+                              </tr>
                         </tbody>
                     </table>
                 </div>
@@ -157,7 +118,7 @@
     </div>
     <div class="row mt-5">
         <div class="col-12 col-sm-3">
-            <button (click)="open(generateCodeModal)"
+            <button
                 class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
                 type="submit">
                 تعریف کد جدید
@@ -165,81 +126,3 @@
         </div>
     </div>
 </div>
-<ng-template #generateCodeModal let-modal>
-    <div class="modal-body" dir="rtl">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <span class="font-yekan-bold h6 text-end text-black">
-                        ایجاد کد جدید
-                    </span>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-3 d-flex flex-row align-items-center">
-                    <div class="d-flex flex-row align-items-center">
-                        <div class="text-black fs-09">
-                            پورسانت :
-                            <span class="mr-1">
-                                30%
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 d-flex flex-row align-items-center">
-                    <div class="d-flex flex-row align-items-center">
-                        <div class="text-black fs-09">
-                            بازه مجاز تخفیف:
-                            <span class="mr-1">
-                                10% تا 20%
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-5">
-                    <div class="d-flex flex-row gap-3 align-items-center">
-                        <div class="text-black fs-09 w-120-px">
-                            مقدار تخفیف :
-                        </div>
-                        <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px w-100-px">
-                            <input class="text-center text-black border-0 h-40px w-100"
-                                formControlName="refundToWalletPercent" mask="percent" thousandSeparator=","
-                                type="text">
-                            <div class="fs-08 text-gray-500">
-                                %
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col">
-                    <div class="form-check form-switch float-end d-flex flex-row align-items-center">
-                        <div>
-                            <input class="form-check-input" id="sendSMS" type="checkbox">
-                        </div>
-                        <div class="text-black mr-3 mt-4-px fs-09">
-                            ارسال پیامک
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-4 mb-3">
-                <div class="col-3">
-                    <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-                        dir="rtl" type="submit">
-                        ذخیره
-                    </button>
-                </div>
-                <div class="col-3">
-                    <button (click)="close()"
-                        class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-                        type="submit">
-                        انصراف
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</ng-template>

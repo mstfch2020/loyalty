@@ -32,7 +32,7 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     this.form = this.formBuilder.group({
       id: [promoterDiscountSetting.id, [Validators.required]],
       title: [promoterDiscountSetting.title, [Validators.required]],
-      userTypeId: [promoterDiscountSetting.userTypeId, [Validators.required]],
+      userTypeIds: [promoterDiscountSetting.userTypeIds.length === 0 && promoterDiscountSetting.id ? ['all'] : promoterDiscountSetting.userTypeIds, [Validators.required]],
       brandIds: [promoterDiscountSetting.brandIds.length === 0 && promoterDiscountSetting.id ? ['all'] : promoterDiscountSetting.brandIds, [Validators.required]],
       customerDiscountMin: [promoterDiscountSetting.customerDiscountMin, [Validators.required]],
       customerDiscountMax: [promoterDiscountSetting.customerDiscountMax, [Validators.required]],
@@ -41,12 +41,12 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
   }
 
   getPromoterDiscountSetting(pageSize: number, pageIndex: number) {
-    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetAllSenarios';
+    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetPromoterDiscountSettingsGrid';
     const request: any = {};
     request.pageSize = pageSize;
     request.pageIndex = pageIndex;
 
-    return callPostService<Array<PromoterDiscountSettingDetail>>(url, this.http, this.uiService, request).subscribe(value => {
+    return callGetService<Array<PromoterDiscountSettingDetail>>(url, this.http, this.uiService, request).subscribe(value => {
       if (!value) {
         this.promoterDiscountSettings$.next([]);
         return;
@@ -57,9 +57,9 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
 
   getPromoterDiscountSettingGrid(request: GetAllPromoterDiscountSettings) {
 
-    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetAllSenarios';
+    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetPromoterDiscountSettingsGrid';
 
-    return callPostService<Array<PromoterDiscountSettingDetail>>(url, this.http, this.uiService, request).subscribe(value => {
+    return callGetService<Array<PromoterDiscountSettingDetail>>(url, this.http, this.uiService, request).subscribe(value => {
       if (!value) {
         value = [];
       }
@@ -68,9 +68,9 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
   }
 
   getPromoterDiscountSettingById(id: string) {
-    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetSenarioById';
+    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetPromoterDiscountSettingById';
     return callGetService<PromoterDiscountSetting>(url, this.http, this.uiService, {
-      senarioId: id
+      id: id
     });
   }
 
@@ -80,19 +80,7 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
     const url = this.settingService.settings?.baseUrl + `PromoterDiscountSetting/${option}`;
 
-    if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
-      !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax')) {
-      this.uiService.alert('بازه زمانی را وارد نمایید.');
-      return;
-    }
-
-
     const value = this.form.value;
-
-    if (!value.title) {
-      this.uiService.alert('نام سناریو را وارد نمایید.');
-      return;
-    }
 
     if (!value.brandIds || value.brandIds.length === 0) {
       this.uiService.alert('برند را مشخص نمایید.');
@@ -104,57 +92,20 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
       return;
     }
 
-    if (!value.generalCustomers || value.generalCustomers.length === 0) {
-      this.uiService.alert('مشتری را مشخص نمایید.');
+    if (value.commissionBasis === null || value.commissionBasis === 0) {
+      this.uiService.alert('پایه پورسانت را مشخص نمایید.');
       return;
     }
 
-    value.customerGroupIds = [];
-    value.campaignIds = [];
-    value.phones = [];
-    const generalCustomers = this.baseInfoService.generalCustomers$.getValue();
-
-    [...value.generalCustomers].forEach((p: string) => {
-      const generalCustomer = generalCustomers.find(customer => customer.id === p);
-      if (!generalCustomer) {
-        value.phones.push(p);
-        return;
-      }
-      switch (generalCustomer?.type) {
-        case 1: { value.customerGroupIds.push(p); break; }
-        case 2: { value.campaignIds.push(p); break; }
-        default: { value.phones.push(p); break; }
-      }
-    });
-
-    if (value.generalCustomers.some((p: string) => p === 'all')) {
-      value.customerGroupIds = [];
-      value.campaignIds = [];
-      value.phones = [];
+    if (value.customerDiscountMin === null || value.customerDiscountMin === 0) {
+      this.uiService.alert('تخفیف برای مشتری را مشخص نمایید.');
+      return;
     }
 
-    delete value.generalCustomers;
-
-    value.discountedProductGroupIds = [];
-    value.discountedProductCodes = [];
-    const productGroups = this.baseInfoService.productGroups$.getValue();
-
-    [...value.productGroups].forEach((p: string) => {
-      const productGroup = productGroups.find(a => a.id === p);
-      if (!productGroup) {
-        if (new RegExp(Utility.numberRegEx).test(p) && p.length === 7) { value.discountedProductCodes.push(p); }
-        return;
-      }
-      value.discountedProductGroupIds.push(p);
-    });
-
-    if (value.productGroupIds.some((p: string) => p === 'all')) {
-      value.discountedProductGroupIds = [];
-      value.discountedProductCodes = [];
-      value.productGroupIds = [];
+    if (value.customerDiscountMax === null || value.customerDiscountMax === 0) {
+      this.uiService.alert('تخفیف برای مشتری را مشخص نمایید.');
+      return;
     }
-
-    delete value.productGroups;
 
     if (value.brandIds.some((p: string) => p === 'all')) {
       value.brandIds = [];
@@ -166,7 +117,6 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
 
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
 
-    console.log(value);
     callPostService<PromoterDiscountSetting>(url, this.http, this.uiService, value).subscribe(value => {
       this.form.controls['id'].setValue(value?.id);
       this.uiService.success('با موفقیت ثبت شد.');
@@ -175,5 +125,5 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     });
 
   }
-  
+
 }

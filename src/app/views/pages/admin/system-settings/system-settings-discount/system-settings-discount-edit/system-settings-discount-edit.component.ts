@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-system-settings-discount-edit',
@@ -9,24 +10,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SystemSettingsDiscountEditComponent implements OnInit {
 
-  form: FormGroup;
-
   public percent: number;
   public percentFrom: number;
   public percentTo: number;
 
-  cars = [
-    { id: 1, name: 'زینجا' },
-    { id: 2, name: 'مون' },
-    { id: 3, name: 'قهر کرده' },
-    { id: 4, name: '09192935850' },
-  ];
-
-  constructor(private formBuilder: FormBuilder, private modalService: NgbModal) {
-    this.form = this.formBuilder.group({
-      selectedCar1: [null, [Validators.required]],
-      selectedCar2: [null, [Validators.required]]
-    });
+  constructor(
+    private router: Router,
+    public promoterDiscountSettingService: PromoterDiscountSettingService,
+    public baseInfoService: BaseInfoService) {
 
     this.percent = 0;
     this.percentFrom = 0;
@@ -34,7 +25,15 @@ export class SystemSettingsDiscountEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form.markAllAsTouched();
+    this.promoterDiscountSettingService.form.markAllAsTouched();
+  }
+
+  get isDisabled(): boolean {
+    return this.promoterDiscountSettingService.isDisabled;
+  };
+
+  backToList() {
+    this.router.navigate(['/admin/main/settings/discount/list']);
   }
 
 }

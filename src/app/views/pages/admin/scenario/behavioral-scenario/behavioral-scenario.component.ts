@@ -9,8 +9,9 @@ import {ScenarioService} from 'src/app/@core/services/loyalty/scenario.service';
 })
 export class BehavioralScenarioComponent implements OnInit {
 
-  constructor(public scenarioService: ScenarioService, public baseInfoService: BaseInfoService) {
-
+  constructor(
+    public scenarioService: ScenarioService,
+    public baseInfoService: BaseInfoService) {
   }
 
   get isDisabled(): boolean {
