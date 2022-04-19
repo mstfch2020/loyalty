@@ -162,7 +162,7 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
       const productGroup = productGroups.find(a => a.id === p);
       if (!productGroup)
       {
-        if (new RegExp(Utility.numberRegEx).test(p?.toString()) && p?.toString().length === 7) { value.discountedProductCodes.push(parseInt(p?.toString(), 0)); }
+        if (new RegExp(Utility.numberRegEx).test(p?.toString()) && p?.toString().length === 7) { value.discountedProductCodes.push(p?.toString()); }
         return;
       }
       value.discountedProductGroupIds.push(p);

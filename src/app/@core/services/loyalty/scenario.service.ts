@@ -26,7 +26,7 @@ export class ScenarioService extends BaseService<Scenario>
   {
     if (isValidProductCode(term))
     {
-      return parseInt(term, 0);
+      return term;
     }
     // this.uiService.showSnackBar('کد تخفیف باید عدد 7 رقمی باشد.', '', 3000);
     this.uiService.alert('کد تخفیف باید عدد 7 رقمی باشد.');
@@ -464,7 +464,7 @@ export class ScenarioService extends BaseService<Scenario>
       if (!productGroup)
       {
         if (new RegExp(Utility.numberRegEx).test(p?.toString()) && p?.toString()?.length === 7)
-        { value.discountedProductCodes.push(parseInt(p?.toString(), 0)); }
+        { value.discountedProductCodes.push(p?.toString()); }
         return;
       }
       value.discountedProductGroupIds.push(p);
