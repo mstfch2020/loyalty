@@ -23,8 +23,8 @@ export interface Scenario
   activityId: string;
   purchaseReward: PurchaseReward,
   discountedProductGroupIds: Array<string>;// to do  discountedProductGroupIds
-  discountedProductCodes: Array<string>;
-  freeProductCodes: Array<string>;// to do freeProductId
+  discountedProductCodes: Array<number>;
+  freeProductCodes: Array<number>;// to do freeProductId
   behavioralReward: BehavioralReward;
   id: string | null;
 }

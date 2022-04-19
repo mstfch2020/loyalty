@@ -27,7 +27,7 @@ export class BaseInfoService
   generalCustomers$ = new BehaviorSubject<Array<IdTitleTypeBrandId>>([]);
   generalCustomersByBrandId$ = new BehaviorSubject<Array<IdTitleTypeBrandId>>([]);
   generalCustomersSingle$ = new BehaviorSubject<Array<IdTitleTypeBrandId>>([]);
-  productCodes$ = new BehaviorSubject<Array<string>>([]);
+  productCodes$ = new BehaviorSubject<Array<number>>([]);
 
   applyOnType: Array<EnumTitle> = [
     { id: 1, title: 'قیمت قبل از تخفیف کالا' },

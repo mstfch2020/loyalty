@@ -26,7 +26,7 @@ export class ScenarioService extends BaseService<Scenario>
   {
     if (isValidProductCode(term))
     {
-      return term;
+      return parseInt(term, 0);
     }
     // this.uiService.showSnackBar('کد تخفیف باید عدد 7 رقمی باشد.', '', 3000);
     this.uiService.alert('کد تخفیف باید عدد 7 رقمی باشد.');
@@ -77,8 +77,8 @@ export class ScenarioService extends BaseService<Scenario>
       phones: [scenario.phones, [Validators.required]],
       userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
       discountedProductGroupIds: [scenario.discountedProductGroupIds, [Validators.required]],
-      discountedProductCodes: [scenario.discountedProductCodes?.filter(p => !Utility.isNullOrEmpty(p) && isValidProductCode(p)), [Validators.required]],
-      freeProductCodes: [scenario.freeProductCodes?.filter(p => !Utility.isNullOrEmpty(p) && isValidProductCode(p)), [Validators.required]],
+      discountedProductCodes: [scenario.discountedProductCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
+      freeProductCodes: [scenario.freeProductCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
       startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMin), [Validators.required]],
       endDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMax), [Validators.required]],
       periodMin: createPeriodFormGroup(scenario.periodMin, this.formBuilder),
@@ -99,17 +99,19 @@ export class ScenarioService extends BaseService<Scenario>
 
     });
 
+    this.baseInfoService?.productCodes$?.next(scenario.freeProductCodes.concat(scenario.discountedProductCodes));
+
     if (scenario.id && (scenario.discountedProductGroupIds.length === 0 && scenario.discountedProductCodes.length === 0)) { } else
     {
       const scenarioProductGroups = new Array<ProductGroup>();
       const productGroups = this.baseInfoService?.productGroups$?.getValue();
-      [...scenario.discountedProductGroupIds, ...scenario.discountedProductCodes].forEach((p: string) =>
+      [...scenario.discountedProductGroupIds, ...scenario.discountedProductCodes].forEach((p: any) =>
       {
-        if (Utility.isNullOrEmpty(p)) { return; }
-        const productGroup = productGroups.find(customer => customer.id === p);
+        if (Utility.isNullOrEmpty(p?.toString())) { return; }
+        const productGroup = productGroups.find(customer => customer.id === p?.toString());
         if (!productGroup || productGroup.id === productGroup.title)
         {
-          scenarioProductGroups.push({ id: p, title: p, brandId: 'null' });
+          scenarioProductGroups.push({ id: p?.toString(), title: p?.toString(), brandId: 'null' });
           return;
         }
         scenarioProductGroups.push(productGroup);
@@ -444,29 +446,34 @@ export class ScenarioService extends BaseService<Scenario>
       value.phones = [];
     }
 
+
+    if (value.productGroupIds.some((p: string) => p === 'all'))
+    {
+      value.productGroupIds = [];
+    }
+
     delete value.generalCustomers;
 
     value.discountedProductGroupIds = [];
     value.discountedProductCodes = [];
     const productGroups = this.baseInfoService.productGroups$.getValue();
 
-    [...value.productGroups].forEach((p: string) =>
+    [...value.productGroups].forEach((p: any) =>
     {
       const productGroup = productGroups.find(a => a.id === p);
       if (!productGroup)
       {
-        if (new RegExp(Utility.numberRegEx).test(p) && p.length === 7)
-        { value.discountedProductCodes.push(p); }
+        if (new RegExp(Utility.numberRegEx).test(p?.toString()) && p?.toString()?.length === 7)
+        { value.discountedProductCodes.push(parseInt(p?.toString(), 0)); }
         return;
       }
       value.discountedProductGroupIds.push(p);
     });
 
-    if (value.productGroupIds.some((p: string) => p === 'all'))
+    if (value.productGroups.some((p: string) => p === 'all'))
     {
       value.discountedProductGroupIds = [];
       value.discountedProductCodes = [];
-      value.productGroupIds = [];
     }
 
     delete value.productGroups;
