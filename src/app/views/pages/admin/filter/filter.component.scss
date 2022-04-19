@@ -1,16 +1,28 @@
-.form-filter{
+.filter-container {
+  border-bottom: 2px solid #eff3f3;
+  padding: 6px;
+}
+
+.filter-container.selected {
+  background-color: white;
+  border-radius: 18px;
+  border-bottom: 2px solid #e9e3e3;
+  padding: 6px;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.form-filter {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 2px 5px 0px #d7d7d7;
   padding: 6px;
   width: 170px;
-  float: right;
-  position: absolute;
-  margin-top: 35px;
-  margin-right: -45px;
 }
 
-.form-filter .select{
+.form-filter .select {
   border: 1px solid #b2e8e9;
   border-radius: 8px;
   padding: 4px;
@@ -18,13 +30,13 @@
   width: 85%;
 }
 
-.form-filter .by{
+.form-filter .by {
   margin-top: 5px;
   margin-right: 5px;
   float: right;
 }
 
-.form-filter .body{
+.form-filter .body {
   width: 100%;
   float: right;
   border-radius: 10px;
@@ -34,7 +46,7 @@
   margin-bottom: 10px;
 }
 
-.form-filter .body .search{
+.form-filter .body .search {
   border: 1px solid #b2e8e9;
   border-radius: 8px;
   padding: 4px;
@@ -42,19 +54,19 @@
   width: 100%;
 }
 
-.form-filter .body .search input[type="text"]{
+.form-filter .body .search input[type="text"] {
   border: none;
   float: right;
   width: 85%;
 }
 
-.form-filter .body .search .icon{
+.form-filter .body .search .icon {
   width: 10%;
   float: right;
   cursor: pointer;
 }
 
-.form-filter .body .list{
+.form-filter .body .list {
   width: 100%;
   max-height: 115px;
   padding: 4px;
@@ -63,7 +75,7 @@
   margin-top: 5px;
 }
 
-.btn-cancel-filter{
+.btn-cancel-filter {
   width: 45%;
   float: right;
   margin-right: 12px;
@@ -73,20 +85,20 @@
   padding: 10px;
 }
 
-.btn-apply-filter{
+.btn-apply-filter {
   width: 45%;
   float: right;
-  border:none;
+  border: none;
   border-bottom: 2px solid #d59013;
   border-radius: 30px;
   padding: 10px;
   background-color: orange;
 }
 
-.btn-cancel-filter:hover{
+.btn-cancel-filter:hover {
   border: 1px solid red;
 }
 
-.btn-apply-filter:hover{
+.btn-apply-filter:hover {
   background-color: #ee9c00;
 }

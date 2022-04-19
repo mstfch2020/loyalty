@@ -44,7 +44,6 @@ import { SendSmsCreateComponent } from './send-sms/send-sms-create/send-sms-crea
 import { FilterComponent } from './filter/filter.component';
 import { FilterDateComponent } from './filter-date/filter-date.component';
 import { FilterPipe } from 'src/app/@core/data/pipes/filter.pipe';
-import { FilterTestComponent } from './filter-test/filter-test.component';
 
 
 @NgModule({
@@ -87,7 +86,6 @@ import { FilterTestComponent } from './filter-test/filter-test.component';
     FilterComponent,
     FilterDateComponent,
     FilterPipe,
-    FilterTestComponent,   
   ],
   imports: [
     FormsModule,
