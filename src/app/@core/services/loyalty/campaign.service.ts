@@ -24,12 +24,10 @@ export class CampaignService extends BaseService<Campaign>
     super(formBuilder, campaignInit);
   }
 
-  getCampaign(pageSize: number, pageIndex: number)
+  getCampaign(data: any)
   {
     const url = this.settingService.settings?.baseUrl + 'Campaign/GetCampaignsGrid';
-    return callGetService<Array<CampaignGrid>>(url, this.http, this.uiService, {
-      pageSize: pageSize, pageIndex: pageIndex
-    }).subscribe(value =>
+    return callPostService<Array<CampaignGrid>>(url, this.http, this.uiService, data).subscribe(value =>
     {
       if (!value) { value = []; }
       this.Campaigns$.next(value);

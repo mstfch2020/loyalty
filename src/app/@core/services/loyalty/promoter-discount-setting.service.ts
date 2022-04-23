@@ -43,7 +43,7 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
 
   getPromoterDiscountSetting(pageSize: number, pageIndex: number)
   {
-    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetAllSenarios';
+    const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios';
     const request: any = {};
     request.pageSize = pageSize;
     request.pageIndex = pageIndex;
