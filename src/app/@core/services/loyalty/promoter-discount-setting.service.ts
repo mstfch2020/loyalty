@@ -23,8 +23,7 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     private baseInfoService: BaseInfoService,
     public http: HttpClient,
     public settingService: SettingsService,
-    public uiService: UiService)
-  {
+    public uiService: UiService) {
     super(formBuilder, promoterDiscountSettingInit);
   }
 
