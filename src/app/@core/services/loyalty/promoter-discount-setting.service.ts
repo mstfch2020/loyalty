@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
+import { GetAllPromoterDiscountSettings } from 'src/app/@core/data/loyalty/get-all-promoter-discount-settings.module';
+import { GetPromoterDiscountSetting as PromoterDiscountSettingDetail } from "src/app/@core/data/loyalty/get-promoter-discount-setting-grid.model";
+import { PromoterDiscountSetting, PromoterDiscountSettingGrid, promoterDiscountSettingInit } from "src/app/@core/data/loyalty/promoter-discount-setting.model";
+import { Utility } from 'src/app/@core/utils/Utility';
+import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { SettingsService } from "../settings-service";
 import { BaseService, callGetService, callPostService } from "./BaseService";
-import { Utility } from 'src/app/@core/utils/Utility';
-import { PromoterDiscountSetting, PromoterDiscountSettingGrid } from "src/app/@core/data/loyalty/promoter-discount-setting.model";
-import { GetPromoterDiscountSetting as PromoterDiscountSettingDetail } from "src/app/@core/data/loyalty/get-promoter-discount-setting-grid.model";
-import { promoterDiscountSettingInit } from "src/app/@core/data/loyalty/promoter-discount-setting.model";
-import { GetAllPromoterDiscountSettings } from 'src/app/@core/data/loyalty/get-all-promoter-discount-settings.module';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +23,8 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     private baseInfoService: BaseInfoService,
     public http: HttpClient,
     public settingService: SettingsService,
-    public uiService: UiService) {
+    public uiService: UiService)
+  {
     super(formBuilder, promoterDiscountSettingInit);
   }
 
@@ -79,6 +79,13 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     this.uiService.alertService.clearAllMessages();
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
     const url = this.settingService.settings?.baseUrl + `PromoterDiscountSetting/${option}`;
+
+    if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
+      !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax')) {
+      this.uiService.alert('بازه زمانی را وارد نمایید.');
+      return;
+    }
+
 
     const value = this.form.value;
 
