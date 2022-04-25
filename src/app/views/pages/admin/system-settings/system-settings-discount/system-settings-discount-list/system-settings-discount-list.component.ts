@@ -6,9 +6,8 @@ import { AuthService } from 'src/app/@core/services/auth/auth.service';
 import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { FilterTitle, IdTitle } from 'src/app/@core/data/loyalty/get-senarios-grid.model';
 import { BrandFilter } from 'src/app/@core/data/loyalty/scenario/get-all-scenarios.model';
-import { ScenarioService } from "../../../../../../@core/services/loyalty/scenario.service";
-import { DiscountService } from "../../../../../../@core/services/loyalty/discount.service";
-import { PromoterDiscountSettingService } from '../../../../../../@core/services/loyalty/promoter-discount-setting.service';
+import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
+import { CommissionBasisFilter } from '../../../../../../@core/data/loyalty/get-all-promoter-discount-settings.module';
 
 @Component({
   selector: 'app-system-settings-discount-list',
@@ -21,8 +20,8 @@ export class SystemSettingsDiscountListComponent implements OnInit {
 
   theViewList = new Array<any>();
 
-  theFilterTypeList = new Array<FilterTitle>();
-  theFilterTypeSelectedList = new Array<IdTitle>();
+  theFilterUserTypeList = new Array<FilterTitle>();
+  theFilterUserTypeSelectedList = new Array<IdTitle>();
 
   theFilterBrandsList = new Array<FilterTitle>();
   theFilterBrandsSelectedList = new Array<IdTitle>();
@@ -38,9 +37,10 @@ export class SystemSettingsDiscountListComponent implements OnInit {
   pageSize = 99999;
 
   activeFilterName = FilterNames.None;
-  theFilterCustomerSelectedCondition = 0;
+  theFilterUserTypeSelectedCondition = 0;
   theFilterBrandsSelectedCondition = 0;
-  theFilterStatusSelectedCondition = 0;
+  theFilterCommissionSelectedCondition = 0;
+  theFilterPercentSelectedCondition = 0;
 
   constructor(
     private router: Router,
@@ -58,6 +58,30 @@ export class SystemSettingsDiscountListComponent implements OnInit {
 
   ngOnInit(): void {
     this.promoterDiscountSettingService.getPromoterDiscountSetting(this.pageSize, this.pageIndex);
+
+    this.baseInfoService.brands$.subscribe(value =>
+      {
+        value.forEach(p =>
+        {
+          this.theFilterBrandsList.push({
+            checked: false,
+            id: p.id,
+            title: p.title, type: 0
+          });
+        });
+      });
+
+      this.baseInfoService.userTypes$.subscribe(value =>
+        {
+          value.forEach(p =>
+          {
+            this.theFilterUserTypeList.push({
+              checked: false,
+              id: p.id,
+              title: p.title, type: 0
+            });
+          });
+        });
   }
 
   /**
@@ -95,10 +119,9 @@ export class SystemSettingsDiscountListComponent implements OnInit {
 
   goToEdit(id: string = '') {
     if (id) {
-      this.router.navigate(['/admin/main/discount/edit'], { queryParams: { id: id } });
+      this.router.navigate(['/admin/main/settings/discount/edit'], { queryParams: { id: id } });
       return;
     }
-    this.router.navigate(['/admin/main/discount/edit']);
   }
 
   openFilterForm(filterType: number) {
@@ -122,7 +145,7 @@ export class SystemSettingsDiscountListComponent implements OnInit {
   applyFilterForm(event: any, filterType: number) {
     switch (filterType) {
       case 1:
-        this.theFilterTypeSelectedList = event.value;
+        this.theFilterUserTypeSelectedList = event.value;
         break;
       case 2:
         this.theFilterBrandsList = event.value;

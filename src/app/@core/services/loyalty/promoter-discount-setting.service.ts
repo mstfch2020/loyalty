@@ -79,13 +79,6 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
     const url = this.settingService.settings?.baseUrl + `PromoterDiscountSetting/${option}`;
 
-    if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
-      !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax')) {
-      this.uiService.alert('بازه زمانی را وارد نمایید.');
-      return;
-    }
-
-
     const value = this.form.value;
 
     if (!value.brandIds || value.brandIds.length === 0) {

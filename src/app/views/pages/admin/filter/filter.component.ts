@@ -20,12 +20,14 @@ export class FilterComponent implements OnInit {
   form: FormGroup;
   searchValue = '';
   conditionType = 1;
+  isChecked: boolean;
 
   constructor(public formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({ dateFrom: ['', [Validators.required]], });
     this.title = '';
     this.searchValue = '';
     this.items = [];
+    this.isChecked = false;
   }
 
   ngOnInit(): void {
@@ -41,6 +43,14 @@ export class FilterComponent implements OnInit {
     } else {
       this.applyEvent.emit({ value: this.items.filter(p => p.checked), conditionType: this.conditionType });
     }
+
+    var theCheckedItems = this.items.filter(w => w.checked);
+    if (theCheckedItems.length > 0) {
+      this.isChecked = true;
+    } else {
+      this.isChecked = false;
+    }
+
     this.cancelEvent.emit(false);
   }
 
