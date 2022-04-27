@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -9,14 +9,19 @@ export class PaginationComponent implements OnInit {
 
   @Input() pageSize: number;
   @Input() itemsPerPage: number;
-  @Output() pageIndex: number;
+  @Output() notifyPageIndex: EventEmitter<number> = new EventEmitter<number>();
 
   thePageList = new Array<any>();
+  currentPage: any;
 
   constructor() {
     this.pageSize = 0;
     this.itemsPerPage = 0;
-    this.pageIndex = 1;
+    this.currentPage = {
+      'pageIndex': 1,
+      'allowSelected': true,
+      'selected': true
+    }
   }
 
   ngOnInit(): void {
@@ -24,38 +29,63 @@ export class PaginationComponent implements OnInit {
     let countPage = Math.round(this.pageSize / this.itemsPerPage);
 
     for (let _i = 1; _i <= countPage; _i++) {
-      if (countPage > 10) {
+      if (countPage > 8) {
         if (_i < 5) {
           this.thePageList.push({
-            'pageNumber': _i,
-            'selected': false
+            'pageIndex': _i,
+            'allowSelected': true,
+            'selected': (_i == 1) ? true : false
           });
         } else {
           this.thePageList.push({
-            'pageNumber': '...',
+            'pageIndex': '...',
+            'allowSelected': false,
             'selected': false
           });
           this.thePageList.push({
-            'pageNumber': countPage,
+            'pageIndex': countPage,
+            'allowSelected': true,
             'selected': false
           });
           break;
         }
       } else {
         this.thePageList.push({
-          'pageNumber': _i,
-          'selected': false
+          'pageIndex': _i,
+          'allowSelected': true,
+          'selected': (_i == 1) ? true : false
         });
       }
     }
 
   }
 
-  selectPage(item: any) {
-    this.thePageList.forEach((page: any) => {
-      page.selected = false;
-    });
-    item.selected = true;
+  selectedPage(item: any) {
+    if (item.allowSelected) {
+      this.thePageList.forEach((page: any) => {
+        page.selected = false;
+      });
+      item.selected = true;
+      this.currentPage = item;
+      this.notifyPageIndex.emit(item.pageIndex);
+    }
+  }
+
+  nextPage() {
+    let countPage = Math.round(this.pageSize / this.itemsPerPage);
+    if (this.currentPage.pageIndex < countPage) {
+      this.currentPage.pageIndex = this.currentPage.pageIndex + 1;
+      console.log(this.currentPage);
+      this.selectedPage(this.currentPage);
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage.pageIndex > 1) {
+      this.currentPage.pageIndex = this.currentPage.pageIndex - 1;
+      console.log(this.currentPage);
+      this.selectedPage(this.currentPage);
+    }
   }
 
 }

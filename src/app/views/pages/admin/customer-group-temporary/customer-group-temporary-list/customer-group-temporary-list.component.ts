@@ -12,7 +12,7 @@ export class CustomerGroupTemporaryListComponent implements OnInit
 
   public theViewList = new Array<any>();
   pageIndex = 1;
-  pageSize = 99999;
+  pageSize = 40;
 
   constructor(private router: Router, public campaignService: CampaignService) { }
 
@@ -36,6 +36,11 @@ export class CustomerGroupTemporaryListComponent implements OnInit
   {
     $event.preventDefault();
     $event.stopPropagation();
+  }
+
+  selectedPageIndex(event: number) {
+    this.pageIndex = event;
+    this.campaignService.getCampaign({ pageSize: this.pageSize, pageIndex: this.pageIndex });
   }
 
 }

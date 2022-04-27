@@ -1,17 +1,18 @@
 <div class="row">
     <div class="d-flex">
         <div class="pagination">
-            <div class="nav-left" data-bs-toggle="tooltip" data-bs-placement="top" title="بعدی">
+            <div class="nav-left" (click)="prevPage()" data-bs-toggle="tooltip" data-bs-placement="top" title="بعدی">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
                     class="bi bi-chevron-right font-yekan-bold text-black" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                 </svg>
             </div>
-            <div class="page-number" [ngClass]="{'selected':item.selected}" *ngFor="let item of thePageList" (click)="selectPage(item)">
-                {{item.pageNumber}}
+            <div class="page-number" [ngClass]="{'selected':item.selected}" *ngFor="let item of thePageList"
+                (click)="selectedPage(item)">
+                {{item.pageIndex}}
             </div>
-            <div class="nav-right" data-bs-toggle="tooltip" data-bs-placement="top" title="قبلی">
+            <div class="nav-right" (click)="nextPage()" data-bs-toggle="tooltip" data-bs-placement="top" title="قبلی">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
                     class="bi bi-chevron-left font-yekan-bold text-black" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
