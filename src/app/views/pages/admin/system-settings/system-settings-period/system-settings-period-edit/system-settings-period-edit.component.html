@@ -1,0 +1,48 @@
+<form action="" dir="rtl">
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-4">
+                            برند :
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <ng-select 
+                            [items]="baseInfoService.brands$|async" [multiple]="true"
+                            appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+                            formControlName="brandIds">
+                        </ng-select>
+                        <!-- <div *ngIf="!scenarioService.form.get('brandIds')?.valid && scenarioService.form.get('brandIds')?.touched && !isDisabled"
+                            class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                            برند را مشخص نمایید
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-4">
+                            بازه زمانی :
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <ng-select 
+                            [items]="baseInfoService.brands$|async" [multiple]="false" 
+                            appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+                            formControlName="period">
+                        </ng-select>
+                        <!-- <div *ngIf="!scenarioService.form.get('brandIds')?.valid && scenarioService.form.get('brandIds')?.touched && !isDisabled"
+                            class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                            بازه زمانی را انتخاب نمایید
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

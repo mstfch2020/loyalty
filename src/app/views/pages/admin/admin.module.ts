@@ -32,8 +32,6 @@ import { SystemSettingsComponent } from './system-settings/system-settings.compo
 import { SystemSettingsDiscountListComponent } from './system-settings/system-settings-discount/system-settings-discount-list/system-settings-discount-list.component';
 import { SystemSettingsDiscountEditComponent } from './system-settings/system-settings-discount/system-settings-discount-edit/system-settings-discount-edit.component';
 import { SystemSettingsDiscountComponent } from './system-settings/system-settings-discount/system-settings-discount.component';
-import { SystemSettingsLevelComponent } from './system-settings/system-settings-level/system-settings-level.component';
-import { SystemSettingsScenarioComponent } from './system-settings/system-settings-scenario/system-settings-scenario.component';
 import { UsersComponent } from "./users/users.component";
 import { DiscountCodeListComponent } from './discount-code/discount-code-list/discount-code-list.component';
 import { DiscountCodeEditComponent } from './discount-code/discount-code-edit/discount-code-edit.component';
@@ -45,6 +43,12 @@ import { FilterComponent } from './filter/filter.component';
 import { FilterDateComponent } from './filter-date/filter-date.component';
 import { FilterPipe } from 'src/app/@core/data/pipes/filter.pipe';
 import { PaginationComponent } from './pagination/pagination.component';
+import { SystemSettingsBehavioralComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral.component';
+import { SystemSettingsBehavioralEditComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-edit/system-settings-behavioral-edit.component';
+import { SystemSettingsBehavioralListComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-list/system-settings-behavioral-list.component';
+import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
+import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
+import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
 
 
 @NgModule({
@@ -69,9 +73,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     CustomerGroupTemporaryRootComponent,
     CustomerGroupTemporaryCampaignComponent,
     SystemSettingsComponent,
-    SystemSettingsLevelComponent,
     SystemSettingsDiscountComponent,
-    SystemSettingsScenarioComponent,
     SystemSettingsDiscountListComponent,
     SystemSettingsDiscountEditComponent,
     CustomerGroupTemporaryEditComponent,
@@ -88,6 +90,12 @@ import { PaginationComponent } from './pagination/pagination.component';
     FilterDateComponent,
     FilterPipe,
     PaginationComponent,
+    SystemSettingsBehavioralComponent,
+    SystemSettingsBehavioralEditComponent,
+    SystemSettingsBehavioralListComponent,
+    SystemSettingsPeriodComponent,
+    SystemSettingsPeriodEditComponent,
+    SystemSettingsPeriodListComponent,
   ],
   imports: [
     FormsModule,

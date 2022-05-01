@@ -3,6 +3,10 @@
   padding: 6px;
 }
 
+.filter-container .dropdown-menu{
+  right: 0px;
+}
+
 .filter-container.selected {
   background-color: white;
   border-radius: 18px;

@@ -1,0 +1,85 @@
+<div class="container-fluid mt-4">
+    <div class="row mt-3">
+        <div class="col-12">
+            <table cellspacing="0" class="table table-hover border-0">
+                <thead>
+                    <tr>
+                        <th class="text-end font-yekan-bold pr-2 fs-08 cursor-pointer" scope="col">
+                            <app-filter (applyEvent)="applyFilterForm($event,1)"
+                                (cancelEvent)="closeFilterForm($event,1)" [items]="theFilterActivityList"
+                                title="نام فعالیت">
+                            </app-filter>
+                        </th>
+                        <th class="text-end font-yekan-bold pr-2 fs-08 cursor-pointer" scope="col">
+                            <app-filter (applyEvent)="applyFilterForm($event,2)"
+                                (cancelEvent)="closeFilterForm($event,2)" [items]="theFilterKeyList" title="کلید">
+                            </app-filter>
+                        </th>
+                        <th class="text-start font-yekan-bold fs-08 cursor-pointer" scope="col">
+                            <div class="p-6px">
+                                سناریوهای مرتبط
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr (click)="goToEdit('4')">
+                        <td class="text-end pr-2 fs-08" scope="row">
+                            ثبت نظر
+                        </td>
+                        <td class="text-end pr-2 fs-08">
+                            comment
+                        </td>
+                        <td class="text-center fs-08">
+
+                        </td>
+                    </tr>
+                    <tr (click)="goToEdit('3')">
+                        <td class="text-end pr-2 fs-08" scope="row">
+                            معرفی دوستان
+                        </td>
+                        <td class="text-end pr-2 fs-08">
+                            intro
+                        </td>
+                        <td class="text-center fs-08">
+
+                        </td>
+                    </tr>
+                    <tr (click)="goToEdit('2')">
+                        <td class="text-end pr-2 fs-08" scope="row">
+                            ثبت کد معروف
+                        </td>
+                        <td class="text-end pr-2 fs-08">
+                            addintrocode
+                        </td>
+                        <td class="text-center fs-08">
+
+                        </td>
+                    </tr>
+                    <tr (click)="goToEdit('1')">
+                        <td class="text-end pr-2 fs-08" scope="row">
+                            ثبت مرور
+                        </td>
+                        <td class="text-end pr-2 fs-08">
+                            review
+                        </td>
+                        <td class="text-center fs-08">
+
+                        </td>
+                    </tr>
+                    <!-- <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList">
+                        <td class="text-end pr-2 fs-08" scope="row">
+                            {{item.userType}}
+                        </td>
+                        <td class="text-end pr-2 fs-08">
+                            {{item.brand}}
+                        </td>
+                        <td class="text-center fs-08">
+                            {{item.commissionBasis}}
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

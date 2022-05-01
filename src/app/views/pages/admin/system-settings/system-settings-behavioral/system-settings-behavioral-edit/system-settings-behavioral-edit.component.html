@@ -1,0 +1,58 @@
+<form action="" dir="rtl">
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-4">
+                            نام فعالیت :
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <input 
+                            class="form-control rounded-pill text-end text-black h-55px" formControlName="title"
+                            type="text">
+                        <!-- <div *ngIf="!scenarioService.form.get('title')?.valid && scenarioService.form.get('title')?.touched && !isDisabled"
+                            class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                            نام سناریو را وارد نمایید
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-4">
+                            کلید :
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <input 
+                            class="form-control rounded-pill text-end text-black h-55px" formControlName="title"
+                            type="text">
+                        <!-- <div *ngIf="!scenarioService.form.get('title')?.valid && scenarioService.form.get('title')?.touched && !isDisabled"
+                            class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                            نام سناریو را وارد نمایید
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-2">
+                <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+                    dir="rtl" type="submit">
+                    ذخیره
+                </button>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+                    dir="rtl" type="submit">
+                    انصراف
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

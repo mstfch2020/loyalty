@@ -25,10 +25,14 @@ import { SendSmsComponent } from "./send-sms/send-sms.component";
 import { SystemSettingsDiscountEditComponent } from './system-settings/system-settings-discount/system-settings-discount-edit/system-settings-discount-edit.component';
 import { SystemSettingsDiscountListComponent } from './system-settings/system-settings-discount/system-settings-discount-list/system-settings-discount-list.component';
 import { SystemSettingsDiscountComponent } from "./system-settings/system-settings-discount/system-settings-discount.component";
-import { SystemSettingsLevelComponent } from "./system-settings/system-settings-level/system-settings-level.component";
-import { SystemSettingsScenarioComponent } from "./system-settings/system-settings-scenario/system-settings-scenario.component";
 import { SystemSettingsComponent } from "./system-settings/system-settings.component";
 import { UsersComponent } from "./users/users.component";
+import { SystemSettingsBehavioralComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral.component';
+import { SystemSettingsBehavioralListComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-list/system-settings-behavioral-list.component';
+import { SystemSettingsBehavioralEditComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-edit/system-settings-behavioral-edit.component';
+import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
+import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
+import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -149,12 +153,42 @@ const routes: Routes = [
             ]
           },
           {
-            path: 'level',
-            component: SystemSettingsLevelComponent,
+            path: 'behavioral',
+            component: SystemSettingsBehavioralComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+              },
+              {
+                path: 'list',
+                component: SystemSettingsBehavioralListComponent,
+              },
+              {
+                path: 'edit',
+                component: SystemSettingsBehavioralEditComponent
+              }
+            ]
           },
           {
-            path: 'scenario',
-            component: SystemSettingsScenarioComponent,
+            path: 'period',
+            component: SystemSettingsPeriodComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+              },
+              {
+                path: 'list',
+                component: SystemSettingsPeriodListComponent,
+              },
+              {
+                path: 'edit',
+                component: SystemSettingsPeriodEditComponent
+              }
+            ]
           },
         ]
       },
@@ -163,7 +197,7 @@ const routes: Routes = [
         component: ScenarioComponent,
         children: [
           {
-            path: '', redirectTo: 'list',pathMatch:'full'
+            path: '', redirectTo: 'list', pathMatch: 'full'
           },
           {
             path: 'edit/:id',
@@ -215,6 +249,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule
-{
+export class AdminRoutingModule {
 }
