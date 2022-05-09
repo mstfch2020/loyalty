@@ -33,6 +33,8 @@ import { SystemSettingsBehavioralEditComponent } from './system-settings/system-
 import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
 import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
 import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
+import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern-list/discount-code-pattern-list.component';
+import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern-edit/discount-code-pattern-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -219,16 +221,24 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'list',
+            redirectTo: 'codelist',
             pathMatch: 'full'
           },
           {
-            path: 'edit',
+            path: 'editcode',
             component: DiscountCodeEditComponent,
           },
           {
-            path: 'list',
+            path: 'codelist',
             component: DiscountCodeListComponent,
+          },
+          {
+            path: 'editpattern',
+            component: DiscountCodePatternEditComponent,
+          },
+          {
+            path: 'patternlist',
+            component: DiscountCodePatternListComponent,
           }
         ]
       },

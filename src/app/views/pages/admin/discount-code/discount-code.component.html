@@ -1,1 +1,22 @@
-<router-outlet></router-outlet>
+<ng-container *ngIf="showTabLink">
+    <form action="" dir="rtl">
+        <ul class="nav justify-content-start mt-3">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/admin/main/discountcode/patternlist']" routerLinkActive="active">
+                    الگوهای کد تخفیف
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/admin/main/discountcode/codelist']" routerLinkActive="active">
+                    کدهای تولید شده
+                </a>
+            </li>
+        </ul>
+        <hr class="nav-line">
+        <router-outlet></router-outlet>
+    </form>
+</ng-container>
+
+<ng-container *ngIf="!showTabLink">
+    <router-outlet></router-outlet>
+</ng-container>

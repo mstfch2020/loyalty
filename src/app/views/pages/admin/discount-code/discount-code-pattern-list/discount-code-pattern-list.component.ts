@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { DiscountService } from "src/app/@core/services/loyalty/discount.service";
+import { Router } from '@angular/router';
+import { DiscountService } from 'src/app/@core/services/loyalty/discount.service';
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { AuthService } from 'src/app/@core/services/auth/auth.service';
-import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { FilterTitle, IdTitleTypeBrandId, IdTitle } from 'src/app/@core/data/loyalty/get-promoter-discount-setting-grid.model';
 
 @Component({
-  selector: 'app-discount-code-list',
-  templateUrl: './discount-code-list.component.html',
-  styleUrls: ['./discount-code-list.component.scss']
+  selector: 'app-discount-code-pattern-list',
+  templateUrl: './discount-code-pattern-list.component.html',
+  styleUrls: ['./discount-code-pattern-list.component.scss']
 })
-export class DiscountCodeListComponent implements OnInit {
+export class DiscountCodePatternListComponent implements OnInit {
 
   theViewList = new Array<any>();
 
@@ -57,35 +57,17 @@ export class DiscountCodeListComponent implements OnInit {
     this.theViewList = [
       {
         Index: '1',
-        Code: '100',
-        Discount: '10%',
-        Brands: 'تستی',
+        Name: 'مشاوران',
+        Brands: 'خیلی سبز-منتشران',
         DateTime: '1400/10/10 - 1400/11/12',
-        Pattern:'',
+        Discount: '25%',
       },
       {
         Index: '2',
-        Code: '200',
-        Discount: '20,000 تومان',
-        Brands: 'تستی',
+        Name: 'جایزه سوشال مدیا',
+        Brands: 'پرتقال-مون-خوب',
         DateTime: '1400/10/10 - 1400/11/12',
-        Pattern:'',
-      },
-      {
-        Index: '3',
-        Code: '300',
-        Discount: '15%',
-        Brands: 'تستی',
-        DateTime: '1400/10/10 - 1400/11/12',
-        Pattern:'',
-      },
-      {
-        Index: '4',
-        Code: '400',
-        Discount: '25,000 تومان',
-        Brands: 'تستی',
-        DateTime: '1400/10/25 - 1400/11/25',
-        Pattern:'',
+        Discount: '150,000 هزارتومان',
       },
     ];
   }
@@ -95,10 +77,10 @@ export class DiscountCodeListComponent implements OnInit {
 
   goToEdit(code: string = '') {
     if (code) {
-      this.router.navigate(['/admin/main/discountcode/editcode'], { queryParams: { id: code } });
+      this.router.navigate(['/admin/main/discountcode/editpattern'], { queryParams: { id: code } });
       return;
     }
-    this.router.navigate(['/admin/main/discountcode/codelist']);
+    this.router.navigate(['/admin/main/discountcode/patternlist']);
   }
 
   openFilterForm(filterType: number) {

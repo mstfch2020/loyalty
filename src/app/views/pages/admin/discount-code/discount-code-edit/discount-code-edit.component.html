@@ -13,6 +13,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               بازه زمانی :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -23,7 +24,7 @@
               <div class="mt-1">
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
                   [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-                  <input formControlName="startDate" class="form-control rounded-pill text-center text-black"
+                  <input formControlName="startDate" class="form-control h-55px rounded-pill text-center text-black"
                     [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
@@ -33,7 +34,7 @@
               <div class="mt-1">
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
                   [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-                  <input formControlName="endDate" class="form-control rounded-pill text-center text-black"
+                  <input formControlName="endDate" class="form-control h-55px rounded-pill text-center text-black"
                     [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
@@ -46,6 +47,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               برند :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -66,7 +68,8 @@
         <div class="row">
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
-              گروه مشتری :
+             مشتری :
+             <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -86,6 +89,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               نوع کاربری :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -107,7 +111,8 @@
         <div class="row">
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
-              گروه کالا :
+              تک کالا :
+              <span class="text-danger">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -158,15 +163,25 @@
                 از
               </span>
               <div class="mt-1">
-                <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text"
-                  mask="separator" thousandSeparator="," formControlName="purchanseAmountMin">
+                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="text-start text-black border-0 h-40px w-100" formControlName='purchanseAmountMin'
+                    mask="separator" thousandSeparator="," type="text">
+                  <div class="fs-08 text-gray-500">
+                    تومان
+                  </div>
+                </div>
               </div>
               <span class="text-black fs-09">
                 تا
               </span>
               <div class="mt-1">
-                <input class="form-control rounded-pill text-start text-black" placeholder="تومان" type="text"
-                  mask="separator" thousandSeparator="," formControlName="purchanseAmountMax">
+                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="text-start text-black border-0 h-40px w-100" formControlName='purchanseAmountMax'
+                    mask="separator" thousandSeparator="," type="text">
+                  <div class="fs-08 text-gray-500">
+                    تومان
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -194,8 +209,13 @@
         </div>
       </div>
       <div class="col-6 col-sm-2">
-        <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
-          thousandSeparator="," formControlName="discountVolumeValue">
+        <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+          <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeValue'
+            mask="separator" thousandSeparator="," type="text">
+          <div class="fs-08 text-gray-500">
+            تومان
+          </div>
+        </div>
       </div>
       <div class="col-12 col-sm-1">
         <div class="text-black mt-3 text-end text-sm-start fs-09">
@@ -203,8 +223,13 @@
         </div>
       </div>
       <div class="col-12 col-sm-2">
-        <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
-          thousandSeparator="," formControlName="discountVolumeThreshold">
+        <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+          <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeThreshold'
+            mask="separator" thousandSeparator="," type="text">
+          <div class="fs-08 text-gray-500">
+            تومان
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-4">
@@ -214,7 +239,7 @@
             تعداد دفعه استفاده :
           </label>
           <div class="flex-grow-1 flex-sm-grow-0">
-            <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
+            <input class="form-control h-55px rounded-pill text-center text-black" type="text" mask="separator"
               thousandSeparator="," formControlName="numberUsesPerUser">
           </div>
         </div>
@@ -225,7 +250,7 @@
         </div>
       </div>
       <div class="col-10 col-sm-2">
-        <input class="form-control rounded-pill mt-1 text-center text-black" type="text" mask="separator"
+        <input class="form-control h-55px rounded-pill mt-1 text-center text-black" type="text" mask="separator"
           thousandSeparator="," formControlName="numberUsesTotal">
       </div>
       <div class="col-2 col-sm-1">
@@ -256,7 +281,7 @@
       </div>
     </div>
     <div class="row mt-3">
-      <div class="col-12 col-sm-5">
+      <div class="col-12 col-sm-4">
         <div class="d-flex flex-row gap-3 mt-2">
           <label class="float-end float-sm-start mt-2">
             نوع تخفیف :
@@ -267,7 +292,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-6 mt-2 mt-sm-0">
+      <div class="col-12 col-sm-5 mt-2 mt-sm-0">
         <ng-select [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body" bindLabel="title"
           (change)="discountService.brandChanged($event,'productGroupIds')" bindValue="id" class="form-control mb-3"
           formControlName="productGroupsConditionIds">
@@ -301,7 +326,7 @@
       </div>
     </div>
     <div class="row mt-2">
-      <div class="col-12 col-sm-8">
+      <div class="col-12 col-sm-7">
         <div class="d-flex flex-row align-items-center mt-3">
           <input [value]="1" checked class="form-check-input" formControlName="discountCodeType" name="discountCodeType"
             type="radio" id="discountCodeTypeStatic">
@@ -309,7 +334,7 @@
             کد تخفیف ثابت
           </label>
           <div class="mr-1">
-            <input class="form-control rounded-pill text-center text-black" type="text"
+            <input class="form-control h-55px rounded-pill text-center text-black" type="text"
               formControlName="discountFixCode">
           </div>
         </div>
@@ -324,7 +349,7 @@
             کد تخفیف تصادفی با پیشوند
           </label>
           <div class="mr-1">
-            <input class="form-control rounded-pill text-center text-black" type="text"
+            <input class="form-control h-55px rounded-pill text-center text-black" type="text"
               formControlName="randomDiscountCodePrefix">
           </div>
         </div>
@@ -340,18 +365,34 @@
         </div>
       </div>
       <div class="col-12 col-sm-2">
-        <input class="form-control rounded-pill text-center text-black" type="text" mask="separator"
+        <input class="form-control h-55px rounded-pill text-center text-black" type="text" mask="separator"
           thousandSeparator="," formControlName="randomDiscountCodeCount">
       </div>
     </div>
+    <hr>
     <div class="row mt-4">
-      <div class="col-6 col-sm-2">
+      <div class="col-12 col-sm-6">
+        <div class="d-flex flex-row align-items-center">
+          <input [value]="2" checked class="form-check-input" formControlName="discountCodeType" name="discountCodeType"
+            id="discountCodeTypeRandom" type="checkbox">
+          <label class="form-check-label mr-1 cursor-pointer" for="discountCodeTypeRandom">
+            به عنوان الگو ذخیره شود. نام الگو:
+          </label>
+          <div class="mr-1">
+            <input class="form-control h-55px rounded-pill text-center text-black" type="text"
+              formControlName="patternName">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-6 col-sm-3">
         <button class="btn btn-warning w-100 rounded-pill fw-bold font-yekan-bold px-4 text-white d-block" dir="rtl"
           (click)="open(generateCodeModalPattern)">
-          ذخیره الگو
+          ذخیره
         </button>
       </div>
-      <div class="col-6 col-sm-2">
+      <div class="col-6 col-sm-3">
         <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl"
           (click)="open(generateCodeModal,true)" type="submit">
           تولید کد

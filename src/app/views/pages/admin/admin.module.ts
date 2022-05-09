@@ -49,6 +49,8 @@ import { SystemSettingsBehavioralListComponent } from './system-settings/system-
 import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
 import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
 import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
+import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern-list/discount-code-pattern-list.component';
+import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern-edit/discount-code-pattern-edit.component';
 
 
 @NgModule({
@@ -96,6 +98,8 @@ import { SystemSettingsPeriodListComponent } from './system-settings/system-sett
     SystemSettingsPeriodComponent,
     SystemSettingsPeriodEditComponent,
     SystemSettingsPeriodListComponent,
+    DiscountCodePatternListComponent,
+    DiscountCodePatternEditComponent,
   ],
   imports: [
     FormsModule,
