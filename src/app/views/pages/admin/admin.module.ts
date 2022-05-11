@@ -33,8 +33,6 @@ import { SystemSettingsDiscountListComponent } from './system-settings/system-se
 import { SystemSettingsDiscountEditComponent } from './system-settings/system-settings-discount/system-settings-discount-edit/system-settings-discount-edit.component';
 import { SystemSettingsDiscountComponent } from './system-settings/system-settings-discount/system-settings-discount.component';
 import { UsersComponent } from "./users/users.component";
-import { DiscountCodeListComponent } from './discount-code/discount-code-list/discount-code-list.component';
-import { DiscountCodeEditComponent } from './discount-code/discount-code-edit/discount-code-edit.component';
 import { DisplayAlertComponent } from "../../general/display-alert/display-alert.component";
 import { SendSmsPatternComponent } from './send-sms/send-sms-pattern/send-sms-pattern.component';
 import { SendSmsListComponent } from './send-sms/send-sms-list/send-sms-list.component';
@@ -49,8 +47,12 @@ import { SystemSettingsBehavioralListComponent } from './system-settings/system-
 import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
 import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
 import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
-import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern-list/discount-code-pattern-list.component';
-import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern-edit/discount-code-pattern-edit.component';
+import { DiscountCodeGeneratedComponent } from './discount-code/discount-code-generated/discount-code-generated.component';
+import { DiscountCodeGeneratedEditComponent } from './discount-code/discount-code-generated/discount-code-generated-edit/discount-code-generated-edit.component';
+import { DiscountCodeGeneratedListComponent } from './discount-code/discount-code-generated/discount-code-generated-list/discount-code-generated-list.component';
+import { DiscountCodePatternComponent } from './discount-code/discount-code-pattern/discount-code-pattern.component';
+import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern/discount-code-pattern-edit/discount-code-pattern-edit.component';
+import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern/discount-code-pattern-list/discount-code-pattern-list.component';
 
 
 @NgModule({
@@ -82,8 +84,6 @@ import { DiscountCodePatternEditComponent } from './discount-code/discount-code-
     BehavioralScenarioComponent,
     PurchaseScenarioComponent,
     DiscountCodeComponent,
-    DiscountCodeListComponent,
-    DiscountCodeEditComponent,
     DisplayAlertComponent,
     SendSmsPatternComponent,
     SendSmsListComponent,
@@ -98,8 +98,12 @@ import { DiscountCodePatternEditComponent } from './discount-code/discount-code-
     SystemSettingsPeriodComponent,
     SystemSettingsPeriodEditComponent,
     SystemSettingsPeriodListComponent,
-    DiscountCodePatternListComponent,
+    DiscountCodeGeneratedComponent,
+    DiscountCodeGeneratedEditComponent,
+    DiscountCodeGeneratedListComponent,
+    DiscountCodePatternComponent,
     DiscountCodePatternEditComponent,
+    DiscountCodePatternListComponent,
   ],
   imports: [
     FormsModule,

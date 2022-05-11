@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, HostListener } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { FilterTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model";
 import { Utility } from 'src/app/@core/utils/Utility';
 
@@ -17,20 +17,21 @@ export class FilterComponent implements OnInit {
   @Output() cancelEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() applyEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  form: FormGroup;
-  searchValue = '';
+  filterForm!: FormGroup;
   conditionType = 1;
   isChecked: boolean;
 
-  constructor(public formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group({ dateFrom: ['', [Validators.required]], });
+  constructor() {
     this.title = '';
-    this.searchValue = '';
     this.items = [];
     this.isChecked = false;
   }
 
   ngOnInit(): void {
+    this.filterForm = new FormGroup({
+      conditionType: new FormControl(null),
+      searchValue: new FormControl(null)
+    });
   }
 
   cancelEventNotify() {
@@ -38,8 +39,11 @@ export class FilterComponent implements OnInit {
   }
 
   applyEventNotify() {
-    if (this.searchValue && new RegExp(Utility.mobileRegEx).test(this.searchValue)) {
-      this.applyEvent.emit({ value: [{ id: this.searchValue, title: this.searchValue, type: 3 }], conditionType: this.conditionType });
+
+    let searchValue = this.filterForm.get('searchValue')?.value;
+
+    if (searchValue && new RegExp(Utility.mobileRegEx).test(searchValue)) {
+      this.applyEvent.emit({ value: [{ id: searchValue, title: searchValue, type: 3 }], conditionType: this.conditionType });
     } else {
       this.applyEvent.emit({ value: this.items.filter(p => p.checked), conditionType: this.conditionType });
     }

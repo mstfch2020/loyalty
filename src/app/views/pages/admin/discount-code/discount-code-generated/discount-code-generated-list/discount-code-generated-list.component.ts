@@ -7,11 +7,11 @@ import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { FilterTitle, IdTitleTypeBrandId, IdTitle } from 'src/app/@core/data/loyalty/get-promoter-discount-setting-grid.model';
 
 @Component({
-  selector: 'app-discount-code-list',
-  templateUrl: './discount-code-list.component.html',
-  styleUrls: ['./discount-code-list.component.scss']
+  selector: 'app-discount-code-generated-list',
+  templateUrl: './discount-code-generated-list.component.html',
+  styleUrls: ['./discount-code-generated-list.component.scss']
 })
-export class DiscountCodeListComponent implements OnInit {
+export class DiscountCodeGeneratedListComponent implements OnInit {
 
   theViewList = new Array<any>();
 
@@ -95,10 +95,10 @@ export class DiscountCodeListComponent implements OnInit {
 
   goToEdit(code: string = '') {
     if (code) {
-      this.router.navigate(['/admin/main/discountcode/editcode'], { queryParams: { id: code } });
+      this.router.navigate(['/admin/main/discountcode/generated/edit'], { queryParams: { id: code } });
       return;
     }
-    this.router.navigate(['/admin/main/discountcode/codelist']);
+    this.router.navigate(['/admin/main/discountcode/generated/list']);
   }
 
   openFilterForm(filterType: number) {
@@ -147,5 +147,4 @@ export class DiscountCodeListComponent implements OnInit {
   selectedPageIndex(event: number) {
     this.pageIndex = event;
   }
-
 }

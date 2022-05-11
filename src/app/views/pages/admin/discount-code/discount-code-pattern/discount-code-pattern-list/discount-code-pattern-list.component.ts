@@ -77,10 +77,10 @@ export class DiscountCodePatternListComponent implements OnInit {
 
   goToEdit(code: string = '') {
     if (code) {
-      this.router.navigate(['/admin/main/discountcode/editpattern'], { queryParams: { id: code } });
+      this.router.navigate(['/admin/main/discountcode/pattern/edit'], { queryParams: { id: code } });
       return;
     }
-    this.router.navigate(['/admin/main/discountcode/patternlist']);
+    this.router.navigate(['/admin/main/discountcode/pattern/list']);
   }
 
   openFilterForm(filterType: number) {

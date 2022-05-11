@@ -7,7 +7,6 @@ import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { FilterTitle, IdTitle } from 'src/app/@core/data/loyalty/get-senarios-grid.model';
 import { BrandFilter } from 'src/app/@core/data/loyalty/scenario/get-all-scenarios.model';
 import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
-import { CommissionBasisFilter } from '../../../../../../@core/data/loyalty/get-all-promoter-discount-settings.module';
 
 @Component({
   selector: 'app-system-settings-discount-list',
@@ -59,29 +58,25 @@ export class SystemSettingsDiscountListComponent implements OnInit {
   ngOnInit(): void {
     this.promoterDiscountSettingService.getPromoterDiscountSetting(this.pageSize, this.pageIndex);
 
-    this.baseInfoService.brands$.subscribe(value =>
-      {
-        value.forEach(p =>
-        {
-          this.theFilterBrandsList.push({
-            checked: false,
-            id: p.id,
-            title: p.title, type: 0
-          });
+    this.baseInfoService.brands$.subscribe(value => {
+      value.forEach(p => {
+        this.theFilterBrandsList.push({
+          checked: false,
+          id: p.id,
+          title: p.title, type: 0
         });
       });
+    });
 
-      this.baseInfoService.userTypes$.subscribe(value =>
-        {
-          value.forEach(p =>
-          {
-            this.theFilterUserTypeList.push({
-              checked: false,
-              id: p.id,
-              title: p.title, type: 0
-            });
-          });
+    this.baseInfoService.userTypes$.subscribe(value => {
+      value.forEach(p => {
+        this.theFilterUserTypeList.push({
+          checked: false,
+          id: p.id,
+          title: p.title, type: 0
         });
+      });
+    });
   }
 
   /**
@@ -170,7 +165,7 @@ export class SystemSettingsDiscountListComponent implements OnInit {
       }
     }
 
-    //this.scenarioService.getSenariosGrid(request);
+    this.promoterDiscountSettingService.getPromoterDiscountSettingGrid(request);
   }
 
   closeFilterForm(event: boolean, filterType: number) {

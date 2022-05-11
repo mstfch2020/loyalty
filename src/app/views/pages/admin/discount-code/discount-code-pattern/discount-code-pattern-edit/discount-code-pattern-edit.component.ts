@@ -7,12 +7,11 @@ import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.servic
 import { DiscountService } from "src/app/@core/services/loyalty/discount.service";
 
 @Component({
-  selector: 'app-discount-code-edit',
-  templateUrl: './discount-code-edit.component.html',
-  styleUrls: ['./discount-code-edit.component.scss']
+  selector: 'app-discount-code-pattern-edit',
+  templateUrl: './discount-code-pattern-edit.component.html',
+  styleUrls: ['./discount-code-pattern-edit.component.scss']
 })
-export class DiscountCodeEditComponent implements OnInit
-{
+export class DiscountCodePatternEditComponent implements OnInit {
 
   closeResult = '';
 
@@ -20,56 +19,43 @@ export class DiscountCodeEditComponent implements OnInit
     private route: ActivatedRoute,
     public discountService: DiscountService,
     public baseInfoService: BaseInfoService,
-    private modalService: NgbModal)
-  {
-    this.route.queryParams.subscribe(params =>
-    {
+    private modalService: NgbModal) {
+    this.route.queryParams.subscribe(params => {
       const id = params['id'];
-      if (id)
-      {
-        this.discountService.getDiscountById(id).subscribe((value) =>
-        {
+      if (id) {
+        this.discountService.getDiscountById(id).subscribe((value) => {
 
-          this.baseInfoService.loadBaseInfo(() =>
-          {
-            if (!value)
-            {
+          this.baseInfoService.loadBaseInfo(() => {
+            if (!value) {
               value = discountInit;
             }
             this.discountService.createForm(value);
           }, value?.brandIds);
         });
-      } else
-      {
+      } else {
 
         this.baseInfoService.loadBaseInfo(() => { this.discountService.createForm(discountInit); });
       }
     });
   }
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.discountService.form.markAllAsTouched();
   }
 
-  open(content: any, generateCodes = false)
-  {
-    if (generateCodes)
-    {
+  open(content: any, generateCodes = false) {
+    if (generateCodes) {
       this.discountService.setValue('generatedDiscountCodes', null);
-      if (this.discountService.getValue('discountCodeType') === DiscountCodeType.Random)
-      {
+      if (this.discountService.getValue('discountCodeType') === DiscountCodeType.Random) {
         const randomDiscountCodePrefix = this.discountService.getValue('randomDiscountCodePrefix');
         const randomDiscountCodeCount = this.discountService.getValue('randomDiscountCodeCount');
         const discountCodes = new Array<string>();
-        for (let i = 0; i < randomDiscountCodeCount; i++)
-        {
-          discountCodes.push(`${ randomDiscountCodePrefix }-${ i }`);
+        for (let i = 0; i < randomDiscountCodeCount; i++) {
+          discountCodes.push(`${randomDiscountCodePrefix}-${i}`);
         }
         this.discountService.setValue('generatedDiscountCodes', discountCodes);
 
-      } else
-      {
+      } else {
         const discountFixCode = this.discountService.getValue('discountFixCode');
 
         if (discountFixCode)
@@ -80,25 +66,21 @@ export class DiscountCodeEditComponent implements OnInit
       size: 'lg',
       backdrop: 'static',
       ariaLabelledBy: 'modal-basic-title'
-    }).result.then((result) =>
-    {
-      this.closeResult = `Closed with: ${ result }`;
-    }, (reason) =>
-    {
-      this.closeResult = `Dismissed ${ this.getDismissReason(reason) }`;
+    }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
   /**
    * Close all displayed modal
    */
-  close()
-  {
+  close() {
     this.modalService.dismissAll();
   }
 
-  saveCode()
-  {
+  saveCode() {
     this.close();
     this.discountService.submit();
   }
@@ -107,17 +89,13 @@ export class DiscountCodeEditComponent implements OnInit
    * Write code on Method
    * @return response()
    */
-  private getDismissReason(reason: any): string
-  {
-    if (reason === ModalDismissReasons.ESC)
-    {
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK)
-    {
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
-    } else
-    {
-      return `with: ${ reason }`;
+    } else {
+      return `with: ${reason}`;
     }
   }
 

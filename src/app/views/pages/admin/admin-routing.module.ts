@@ -9,8 +9,6 @@ import { CustomerGroupComponent } from "./customer-group/customer-group.componen
 import { CustomerEditComponent } from "./customer/customer-edit/customer-edit.component";
 import { CustomerListComponent } from "./customer/customer-list/customer-list.component";
 import { CustomerComponent } from "./customer/customer.component";
-import { DiscountCodeEditComponent } from "./discount-code/discount-code-edit/discount-code-edit.component";
-import { DiscountCodeListComponent } from "./discount-code/discount-code-list/discount-code-list.component";
 import { DiscountCodeComponent } from "./discount-code/discount-code.component";
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from "./profile/profile.component";
@@ -33,8 +31,12 @@ import { SystemSettingsBehavioralEditComponent } from './system-settings/system-
 import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
 import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
 import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
-import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern-list/discount-code-pattern-list.component';
-import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern-edit/discount-code-pattern-edit.component';
+import { DiscountCodePatternComponent } from './discount-code/discount-code-pattern/discount-code-pattern.component';
+import { DiscountCodeGeneratedComponent } from './discount-code/discount-code-generated/discount-code-generated.component';
+import { DiscountCodeGeneratedListComponent } from './discount-code/discount-code-generated/discount-code-generated-list/discount-code-generated-list.component';
+import { DiscountCodeGeneratedEditComponent } from './discount-code/discount-code-generated/discount-code-generated-edit/discount-code-generated-edit.component';
+import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern/discount-code-pattern-list/discount-code-pattern-list.component';
+import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern/discount-code-pattern-edit/discount-code-pattern-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -199,7 +201,9 @@ const routes: Routes = [
         component: ScenarioComponent,
         children: [
           {
-            path: '', redirectTo: 'list', pathMatch: 'full'
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full'
           },
           {
             path: 'edit/:id',
@@ -221,25 +225,47 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'codelist',
+            redirectTo: 'pattern',
             pathMatch: 'full'
           },
           {
-            path: 'editcode',
-            component: DiscountCodeEditComponent,
+            path: 'pattern',
+            component: DiscountCodePatternComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+              },
+              {
+                path: 'list',
+                component: DiscountCodePatternListComponent,
+              },
+              {
+                path: 'edit',
+                component: DiscountCodePatternEditComponent
+              }
+            ]
           },
           {
-            path: 'codelist',
-            component: DiscountCodeListComponent,
+            path: 'generated',
+            component: DiscountCodeGeneratedComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+              },
+              {
+                path: 'list',
+                component: DiscountCodeGeneratedListComponent,
+              },
+              {
+                path: 'edit',
+                component: DiscountCodeGeneratedEditComponent
+              }
+            ]
           },
-          {
-            path: 'editpattern',
-            component: DiscountCodePatternEditComponent,
-          },
-          {
-            path: 'patternlist',
-            component: DiscountCodePatternListComponent,
-          }
         ]
       },
       {

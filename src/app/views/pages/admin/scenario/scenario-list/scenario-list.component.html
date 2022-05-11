@@ -77,10 +77,8 @@
             </tbody>
           </table>
         </div>
-        <ng-container *ngIf="theViewList.length>0">
-          <app-pagination [itemsPerPage]="10" [pageSize]="100" (notifyPageIndex)="selectedPageIndex($event)">
-          </app-pagination>
-        </ng-container>
+        <app-pagination [itemsPerPage]="10" [pageSize]="100" (notifyPageIndex)="selectedPageIndex($event)">
+        </app-pagination>
       </div>
     </div>
     <div *ngIf="!theViewList||theViewList?.length===0" class="row mt-6">
