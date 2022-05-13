@@ -10,7 +10,7 @@ import { callGetService } from "./BaseService";
 @Injectable({ providedIn: 'root' })
 export class BaseInfoService
 {
-
+  commissionsBasis$ = new BehaviorSubject<Array<number>>([]);
   activity$ = new BehaviorSubject<Array<IdTitle>>([]);
   brands$ = new BehaviorSubject<Array<IdTitle>>([]);
   brandsSingle$ = new BehaviorSubject<Array<IdTitle>>([]);
@@ -172,6 +172,12 @@ export class BaseInfoService
   {
     const url = this.settingService.settings?.baseUrl + 'Group/GetCustomerDrpDown';
     return callGetService<Array<IdTitleType> | null>(url, this.http, this.uiService);
+  }
+
+  GetAllCommissionsBasis()
+  {
+    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetAllCommissionsBasis';
+    return callGetService<Array<number> | null>(url, this.http, this.uiService);
   }
 }
 

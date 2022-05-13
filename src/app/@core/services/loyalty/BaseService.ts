@@ -87,7 +87,7 @@ export function callPostPagingService<T>(url: string, http: HttpClient, uiServic
 
 export abstract class BaseService<T>{
   form: FormGroup;
-  total = 0;
+  totalPages = 0;
   _isDisabled = false;
   get isDisabled(): boolean { return this._isDisabled; }
   set isDisabled(value: boolean)

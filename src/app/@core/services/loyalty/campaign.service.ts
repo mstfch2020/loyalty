@@ -30,11 +30,11 @@ export class CampaignService extends BaseService<Campaign>
     return callPostPagingService<Array<CampaignGrid>>(url, this.http, this.uiService, data).subscribe(value =>
     {
       this.Campaigns$.next([]);
-      this.total = 0;
+      this.totalPages = 0;
       if (value?.data)
       {
         this.Campaigns$.next(value.data);
-        this.total = value.pagination.total;
+        this.totalPages = Math.round(value.pagination.total / data.pageSize);
       }
     });
   }

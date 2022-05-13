@@ -1,18 +1,21 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
+import { BehaviorSubject } from "rxjs";
 import { SMSSendingType } from "../../data/loyalty/enums.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
-import { SMS, smsInit } from "../../data/loyalty/sms.model";
+import { SMS, smsInit, SmsPatternGrid } from "../../data/loyalty/sms.model";
 import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callPostService } from "./BaseService";
+import { BaseService, callGetService, callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class SMSService extends BaseService<SMS>
 {
+  smsPattern$ = new BehaviorSubject<Array<SmsPatternGrid>>([]);
+
   constructor(public override formBuilder: FormBuilder,
     public baseInfoService: BaseInfoService,
     public http: HttpClient,
@@ -121,4 +124,43 @@ export class SMSService extends BaseService<SMS>
   // {
   //   return (this.form.controls[fgName] as any);
   // }
+
+  // getSmsPattern(data: any)
+  // {
+  //   const url = this.settingService.settings?.baseUrl + 'sms/GetSMSDEfinitionsGrid';
+  //   return callPostPagingService<Array<SmsPatternGrid>>(url, this.http, this.uiService, data).subscribe(value =>
+  //   {
+  //     this.smsPattern$.next([]);
+  //     this.total = 0;
+  //     if (value?.data)
+  //     {
+  //       this.smsPattern$.next(value.data);
+  //       this.total = value.pagination.total;
+  //     }
+  //   });
+  // }
+
+  getSmsPattern(data: any)
+  {
+    const url = this.settingService.settings?.baseUrl + 'Sms/GetSMSDEfinitionsGrid';
+    return callGetService<Array<SmsPatternGrid>>(url, this.http, this.uiService, data).subscribe(value =>
+    {
+      this.smsPattern$.next([]);
+      this.totalPages = 0;
+      if (value)
+      {
+        this.smsPattern$.next(value);
+        this.totalPages = 9999;
+      }
+    });
+  }
+
+  getSmsById(id: any)
+  {
+    const url = this.settingService.settings?.baseUrl + 'Sms/GetSMSDEfinitionById';
+    return callGetService<SMS>(url, this.http, this.uiService, {
+      id: id
+    });
+  }
+
 }

@@ -54,7 +54,7 @@ export class SystemSettingsPeriodListComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.promoterDiscountSettingService.getPromoterDiscountSetting(this.pageSize, this.pageIndex);
+    this.promoterDiscountSettingService.getPromoterDiscountSettingGrid({});
 
     this.baseInfoService.activity$.subscribe(value =>
     {
@@ -84,7 +84,7 @@ export class SystemSettingsPeriodListComponent implements OnInit
     switch (filterType)
     {
       case 6:
-        this.activeFilterName = FilterNames.Type;
+        this.activeFilterName = FilterNames.UserType;
         break;
       case 3:
         this.activeFilterName = FilterNames.Brand;

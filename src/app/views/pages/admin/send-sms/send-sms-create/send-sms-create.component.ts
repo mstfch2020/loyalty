@@ -1,38 +1,57 @@
 import { Component, OnInit } from '@angular/core';
-import {SMSService} from "src/app/@core/services/loyalty/SMS.service";
-import {BaseInfoService} from "src/app/@core/services/loyalty/base-info.service";
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { smsInit } from 'src/app/@core/data/loyalty/sms.model';
+import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
+import { SMSService } from "src/app/@core/services/loyalty/SMS.service";
 
 @Component({
   selector: 'app-send-sms-create',
   templateUrl: './send-sms-create.component.html',
   styleUrls: ['./send-sms-create.component.scss']
 })
-export class SendSmsCreateComponent implements OnInit {
+export class SendSmsCreateComponent implements OnInit
+{
 
-  constructor(public smsService: SMSService, public baseInfoService: BaseInfoService, private route: ActivatedRoute)
+  constructor(public service: SMSService, public baseInfoService: BaseInfoService, private route: ActivatedRoute)
   {
+    this.route.queryParams.subscribe(params =>
+    {
+      const id = params['id'];
+      this.updateScenarioFromServer(id);
+    });
+
+    this.route.params.subscribe(params =>
+    {
+      const id = params['id'];
+      this.updateScenarioFromServer(id);
+    });
 
   }
 
   ngOnInit(): void
   {
-    this.baseInfoService.loadBaseInfo(() => { });
-    this.baseInfoService.loadScenario();
-    this.route.queryParams.subscribe(params =>
-    {
-      const id = params['id'];
-      if (id)
-      {
-        // this.scenarioService.getScenarioById(id).subscribe((value) =>
-        // {
-        //   this.scenarioService.createForm(value);
-        //   this.baseInfoService.loadBaseInfo(value.brandIds);
-        // });
-      }
-    });
+  }
 
-    this.smsService.form.markAllAsTouched();
+  private updateScenarioFromServer(id: any)
+  {
+    if (id)
+    {
+      this.service.getSmsById(id).subscribe((value) =>
+      {
+        this.baseInfoService.loadBaseInfo(() =>
+        {
+          if (!value)
+          {
+            value = smsInit;
+          }
+          this.service.createForm(value);
+        });
+      });
+    }
+    else
+    {
+      this.baseInfoService.loadBaseInfo(() => { this.service.createForm(smsInit); });
+    }
   }
 
 }
