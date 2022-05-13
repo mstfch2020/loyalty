@@ -31,7 +31,7 @@ export class FilterComponent implements OnInit
   ngOnInit(): void
   {
     this.filterForm = new FormGroup({
-      conditionType: new FormControl(null),
+      conditionType: new FormControl(1),
       searchValue: new FormControl(null)
     });
   }

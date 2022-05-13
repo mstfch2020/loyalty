@@ -7,7 +7,7 @@
         </span>
       </div>
     </div>
-    <div class="row mt-4">
+    <div *ngIf="theViewList.length>0||activeFilterName!==0" class="row mt-4">
       <div class="col-12">
         <div class="table-responsive">
           <table cellspacing="1" class="table table-hover border-0 border-spacing-xs">
