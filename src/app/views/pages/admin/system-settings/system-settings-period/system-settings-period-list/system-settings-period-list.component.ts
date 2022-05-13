@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
-import { FilterTitle, IdTitle } from 'src/app/@core/data/loyalty/get-promoter-discount-setting-grid.model';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
-import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
+import { FilterTitle, IdTitle } from 'src/app/@core/data/loyalty/get-senarios-grid.model';
 import { AuthService } from 'src/app/@core/services/auth/auth.service';
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
 
 @Component({
   selector: 'app-system-settings-period-list',
   templateUrl: './system-settings-period-list.component.html',
   styleUrls: ['./system-settings-period-list.component.scss']
 })
-export class SystemSettingsPeriodListComponent implements OnInit {
+export class SystemSettingsPeriodListComponent implements OnInit
+{
 
   closeResult: string = '';
 
@@ -40,20 +41,25 @@ export class SystemSettingsPeriodListComponent implements OnInit {
     private modalService: NgbModal,
     public promoterDiscountSettingService: PromoterDiscountSettingService,
     public baseInfoService: BaseInfoService,
-    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/) {
+    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/)
+  {
 
-    promoterDiscountSettingService.promoterDiscountSettings$.subscribe(value => {
+    promoterDiscountSettingService.promoterDiscountSettings$.subscribe(value =>
+    {
       this.theViewList = value;
     });
 
     this.activeFilterName = FilterNames.None;
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.promoterDiscountSettingService.getPromoterDiscountSetting(this.pageSize, this.pageIndex);
 
-    this.baseInfoService.activity$.subscribe(value => {
-      value.forEach(p => {
+    this.baseInfoService.activity$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
         this.theFilterActivityList.push({
           checked: false,
           id: p.id,
@@ -63,16 +69,20 @@ export class SystemSettingsPeriodListComponent implements OnInit {
     });
   }
 
-  goToEdit(id: string = '') {
-    if (id) {
+  goToEdit(id: string = '')
+  {
+    if (id)
+    {
       this.router.navigate(['/admin/main/settings/period/edit'], { queryParams: { id: id } });
       return;
     }
   }
 
-  openFilterForm(filterType: number) {
+  openFilterForm(filterType: number)
+  {
 
-    switch (filterType) {
+    switch (filterType)
+    {
       case 6:
         this.activeFilterName = FilterNames.Type;
         break;
@@ -88,16 +98,18 @@ export class SystemSettingsPeriodListComponent implements OnInit {
     }
   }
 
-  applyFilterForm(event: any, filterType: number) {
-    switch (filterType) {
+  applyFilterForm(event: any, filterType: number)
+  {
+    switch (filterType)
+    {
       case 1:
-        this.theFilterActivityList= event.value;
+        this.theFilterActivityList = event.value;
         break;
       case 2:
         this.theFilterKeyList = event.value;
         break;
       case 3:
-        this.theFilterScenarioList= event.value;
+        this.theFilterScenarioList = event.value;
         break;
     }
 
@@ -117,7 +129,8 @@ export class SystemSettingsPeriodListComponent implements OnInit {
     this.promoterDiscountSettingService.getPromoterDiscountSettingGrid(request);
   }
 
-  closeFilterForm(event: boolean, filterType: number) {
+  closeFilterForm(event: boolean, filterType: number)
+  {
     this.activeFilterName = FilterNames.Searched;
   }
 

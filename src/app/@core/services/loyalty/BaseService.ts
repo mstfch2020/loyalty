@@ -4,7 +4,6 @@ import * as moment from 'jalali-moment';
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { IdTitle, IdTitleType } from "../../data/loyalty/get-senarios-grid.model";
-import { Period } from "../../data/loyalty/period.model";
 import { BaseResponse } from "../../data/root/base-response.model";
 import { UiService } from "../ui/ui.service";
 
@@ -61,8 +60,34 @@ export function callPostService<T>(url: string, http: HttpClient, uiService: UiS
   }));
 }
 
+export function callPostPagingService<T>(url: string, http: HttpClient, uiService: UiService, params: any = null): Observable<BaseResponse<T> | null>
+{
+  return http.post<BaseResponse<T>>(url, params).pipe(map(value =>
+  {
+    if (value.meta.code !== 200 || value.meta.errorMessage)
+    {
+      uiService.showSnackBar(value.meta.errorMessage, '', 3000);
+      return (null);
+    }
+    return (value);
+  }), catchError(err =>
+  {
+    console.log(err);
+    const res = <BaseResponse<any>>err.error;
+    if (res?.meta?.errorMessage)
+    {
+      uiService.showSnackBar(res?.meta?.errorMessage, '', 3000);
+    } else
+    {
+      uiService.alert('خطا در اتصال به سرویس!');
+    }
+    return of(null);
+  }));
+}
+
 export abstract class BaseService<T>{
   form: FormGroup;
+  total = 0;
   _isDisabled = false;
   get isDisabled(): boolean { return this._isDisabled; }
   set isDisabled(value: boolean)
@@ -108,37 +133,6 @@ export abstract class BaseService<T>{
       this.form.get(`${ formControlName }.seconds`)?.setValue(parseInt(time[2], 0));
     }
     return true;
-  }
-
-  getPeriodOfString(shamsiDate: string): Period | null
-  {
-    if (!shamsiDate)
-    {
-      return null;
-    }
-    const m = moment.from(shamsiDate.substring(0, 10), 'fa', 'YYYY/MM/DD');
-    if (!m.isValid())
-    {
-      return null;
-    }
-
-    const date = shamsiDate.substring(0, 10)?.split('/');
-    const period: any = {};
-    if (date && date.length === 3)
-    {
-      period.year = parseInt(date[0], 0);
-      period.month = parseInt(date[1], 0);
-      period.day = parseInt(date[2], 0);
-    }
-
-    const time = shamsiDate.substring(11, shamsiDate.length)?.split(':');
-    if (time && time.length === 3)
-    {
-      period.hours = parseInt(time[0], 0);
-      period.minutes = parseInt(time[1], 0);
-      period.seconds = parseInt(time[2], 0);
-    }
-    return period;
   }
 
   abstract submit(): void;

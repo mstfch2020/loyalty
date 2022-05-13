@@ -14,7 +14,7 @@ import { Utility } from '../../utils/Utility';
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callGetService, callPostService } from "./BaseService";
+import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class ScenarioService extends BaseService<Scenario>
@@ -254,38 +254,21 @@ export class ScenarioService extends BaseService<Scenario>
     this.form.get(`behavioralReward.behavioralRewardType`)?.setValue(BehavioralRewardType.ThirdParty);
   }
 
-  getScenarios(pageSize: number, pageIndex: number)
-  {
-    const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios';
-    const request: any = {};
-    request.pageSize = pageSize;
-    request.pageIndex = pageIndex;
-
-    return callPostService<Array<SenarioDetail>>(url, this.http, this.uiService, request).subscribe(value =>
-    {
-      if (!value)
-      {
-        this.scenarios$.next([]);
-        return;
-      }
-      this.scenarios$.next(value);
-    });
-  }
-
   getSenariosGrid(
     request: GetAllSenarios
   )
   {
     const url = this.settingService.settings?.baseUrl + 'Senario/GetAllSenarios';
 
-
-    return callPostService<Array<SenarioDetail>>(url, this.http, this.uiService, request).subscribe(value =>
+    return callPostPagingService<Array<SenarioDetail>>(url, this.http, this.uiService, request).subscribe(value =>
     {
-      if (!value)
+      this.scenarios$.next([]);
+      this.total = 0;
+      if (value?.data)
       {
-        value = [];
+        this.scenarios$.next(value?.data);
+        this.total = value.pagination.total;
       }
-      this.scenarios$.next(value);
     });
   }
 

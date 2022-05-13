@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DiscountService } from 'src/app/@core/services/loyalty/discount.service';
 import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
-import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { FilterTitle, IdTitle, IdTitleTypeBrandId } from 'src/app/@core/data/loyalty/get-senarios-grid.model';
 import { AuthService } from 'src/app/@core/services/auth/auth.service';
-import { FilterTitle, IdTitleTypeBrandId, IdTitle } from 'src/app/@core/data/loyalty/get-promoter-discount-setting-grid.model';
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { DiscountService } from 'src/app/@core/services/loyalty/discount.service';
 
 @Component({
   selector: 'app-discount-code-pattern-list',
   templateUrl: './discount-code-pattern-list.component.html',
   styleUrls: ['./discount-code-pattern-list.component.scss']
 })
-export class DiscountCodePatternListComponent implements OnInit {
+export class DiscountCodePatternListComponent implements OnInit
+{
 
   theViewList = new Array<any>();
 
@@ -50,7 +51,8 @@ export class DiscountCodePatternListComponent implements OnInit {
     private router: Router,
     public discountService: DiscountService,
     public baseInfoService: BaseInfoService,
-    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/) {
+    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/)
+  {
 
     this.activeFilterName = FilterNames.None;
 
@@ -72,20 +74,25 @@ export class DiscountCodePatternListComponent implements OnInit {
     ];
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
   }
 
-  goToEdit(code: string = '') {
-    if (code) {
+  goToEdit(code: string = '')
+  {
+    if (code)
+    {
       this.router.navigate(['/admin/main/discountcode/pattern/edit'], { queryParams: { id: code } });
       return;
     }
     this.router.navigate(['/admin/main/discountcode/pattern/list']);
   }
 
-  openFilterForm(filterType: number) {
+  openFilterForm(filterType: number)
+  {
 
-    switch (filterType) {
+    switch (filterType)
+    {
       case 1:
         this.activeFilterName = FilterNames.Customer;
         break;
@@ -101,8 +108,10 @@ export class DiscountCodePatternListComponent implements OnInit {
     }
   }
 
-  applyFilterForm(event: any, filterType: number) {
-    switch (filterType) {
+  applyFilterForm(event: any, filterType: number)
+  {
+    switch (filterType)
+    {
       case 1:
         this.theFilterCustomerSelectedList = event.value;
         this.theFilterCustomerSelectedCondition = parseInt(event.conditionType, 0);
@@ -122,11 +131,13 @@ export class DiscountCodePatternListComponent implements OnInit {
 
   }
 
-  closeFilterForm(event: boolean, filterType: number) {
+  closeFilterForm(event: boolean, filterType: number)
+  {
     this.activeFilterName = FilterNames.Searched;
   }
 
-  selectedPageIndex(event: number) {
+  selectedPageIndex(event: number)
+  {
     this.pageIndex = event;
   }
 

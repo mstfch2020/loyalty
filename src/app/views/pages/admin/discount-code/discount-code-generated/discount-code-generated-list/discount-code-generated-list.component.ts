@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { DiscountService } from "src/app/@core/services/loyalty/discount.service";
-import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
-import { AuthService } from 'src/app/@core/services/auth/auth.service';
 import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
-import { FilterTitle, IdTitleTypeBrandId, IdTitle } from 'src/app/@core/data/loyalty/get-promoter-discount-setting-grid.model';
+import { FilterTitle, IdTitle, IdTitleTypeBrandId } from 'src/app/@core/data/loyalty/get-senarios-grid.model';
+import { AuthService } from 'src/app/@core/services/auth/auth.service';
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { DiscountService } from "src/app/@core/services/loyalty/discount.service";
 
 @Component({
   selector: 'app-discount-code-generated-list',
   templateUrl: './discount-code-generated-list.component.html',
   styleUrls: ['./discount-code-generated-list.component.scss']
 })
-export class DiscountCodeGeneratedListComponent implements OnInit {
+export class DiscountCodeGeneratedListComponent implements OnInit
+{
 
   theViewList = new Array<any>();
 
@@ -50,7 +51,8 @@ export class DiscountCodeGeneratedListComponent implements OnInit {
     private router: Router,
     public discountService: DiscountService,
     public baseInfoService: BaseInfoService,
-    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/) {
+    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/)
+  {
 
     this.activeFilterName = FilterNames.None;
 
@@ -61,7 +63,7 @@ export class DiscountCodeGeneratedListComponent implements OnInit {
         Discount: '10%',
         Brands: 'تستی',
         DateTime: '1400/10/10 - 1400/11/12',
-        Pattern:'',
+        Pattern: '',
       },
       {
         Index: '2',
@@ -69,7 +71,7 @@ export class DiscountCodeGeneratedListComponent implements OnInit {
         Discount: '20,000 تومان',
         Brands: 'تستی',
         DateTime: '1400/10/10 - 1400/11/12',
-        Pattern:'',
+        Pattern: '',
       },
       {
         Index: '3',
@@ -77,7 +79,7 @@ export class DiscountCodeGeneratedListComponent implements OnInit {
         Discount: '15%',
         Brands: 'تستی',
         DateTime: '1400/10/10 - 1400/11/12',
-        Pattern:'',
+        Pattern: '',
       },
       {
         Index: '4',
@@ -85,25 +87,30 @@ export class DiscountCodeGeneratedListComponent implements OnInit {
         Discount: '25,000 تومان',
         Brands: 'تستی',
         DateTime: '1400/10/25 - 1400/11/25',
-        Pattern:'',
+        Pattern: '',
       },
     ];
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
   }
 
-  goToEdit(code: string = '') {
-    if (code) {
+  goToEdit(code: string = '')
+  {
+    if (code)
+    {
       this.router.navigate(['/admin/main/discountcode/generated/edit'], { queryParams: { id: code } });
       return;
     }
     this.router.navigate(['/admin/main/discountcode/generated/list']);
   }
 
-  openFilterForm(filterType: number) {
+  openFilterForm(filterType: number)
+  {
 
-    switch (filterType) {
+    switch (filterType)
+    {
       case 1:
         this.activeFilterName = FilterNames.Customer;
         break;
@@ -119,8 +126,10 @@ export class DiscountCodeGeneratedListComponent implements OnInit {
     }
   }
 
-  applyFilterForm(event: any, filterType: number) {
-    switch (filterType) {
+  applyFilterForm(event: any, filterType: number)
+  {
+    switch (filterType)
+    {
       case 1:
         this.theFilterCustomerSelectedList = event.value;
         this.theFilterCustomerSelectedCondition = parseInt(event.conditionType, 0);
@@ -140,11 +149,13 @@ export class DiscountCodeGeneratedListComponent implements OnInit {
 
   }
 
-  closeFilterForm(event: boolean, filterType: number) {
+  closeFilterForm(event: boolean, filterType: number)
+  {
     this.activeFilterName = FilterNames.Searched;
   }
 
-  selectedPageIndex(event: number) {
+  selectedPageIndex(event: number)
+  {
     this.pageIndex = event;
   }
 }

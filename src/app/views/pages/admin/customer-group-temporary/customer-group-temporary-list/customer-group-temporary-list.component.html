@@ -30,7 +30,7 @@
           </tbody>
         </table>
       </div>
-      <app-pagination [itemsPerPage]="40" [pageSize]="50" (notifyPageIndex)="selectedPageIndex($event)">
+      <app-pagination [pageSize]="40" [total]="50" (notifyPageIndex)="selectedPageIndex($event)">
       </app-pagination>
     </div>
   </div>

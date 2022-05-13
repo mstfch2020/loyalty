@@ -1,3 +1,5 @@
+import { BrandFilter } from "./scenario/get-all-scenarios.model";
+
 export interface GetAllPromoterDiscountSettings
 {
   pageSize: number;
@@ -6,12 +8,6 @@ export interface GetAllPromoterDiscountSettings
   brandFilter: BrandFilter;
   customerDiscountFilter: CustomerDiscountFilter;
   commissionBasisFilter: CommissionBasisFilter;
-}
-
-export class BrandFilter
-{
-  brandIds = new Array<string>();
-  filterType = 0;
 }
 
 export class UserTypeFilter

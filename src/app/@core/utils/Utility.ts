@@ -8,6 +8,37 @@ export class Utility
   static dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
   static mobileRegEx = /09[0-3][0-9]-?[0-9]{3}-?[0-9]{4}/;
 
+  public static getPeriodOfString(shamsiDate: string): Period | null
+  {
+    if (!shamsiDate)
+    {
+      return null;
+    }
+    const m = moment.from(shamsiDate.substring(0, 10), 'fa', 'YYYY/MM/DD');
+    if (!m.isValid())
+    {
+      return null;
+    }
+
+    const date = shamsiDate.substring(0, 10)?.split('/');
+    const period: any = {};
+    if (date && date.length === 3)
+    {
+      period.year = parseInt(date[0], 0);
+      period.month = parseInt(date[1], 0);
+      period.day = parseInt(date[2], 0);
+    }
+
+    const time = shamsiDate.substring(11, shamsiDate.length)?.split(':');
+    if (time && time.length === 3)
+    {
+      period.hours = parseInt(time[0], 0);
+      period.minutes = parseInt(time[1], 0);
+      period.seconds = parseInt(time[2], 0);
+    }
+    return period;
+  }
+
   static getFullDateTimeFromPeriodInPersion(period: Period): any
   {
     //if (!period || period.year < 1300) { return new Date().valueOf(); }
@@ -130,14 +161,16 @@ export class Utility
     return dateObject.toISOString();
   }
 
-  public static getENUM(ENUM:any): any[] {
+  public static getENUM(ENUM: any): any[]
+  {
     let myEnum = [];
     let objectEnum = Object.keys(ENUM);
-    const values = objectEnum.slice( 0 , objectEnum.length / 2 );
-    const keys = objectEnum.slice( objectEnum.length / 2 );
+    const values = objectEnum.slice(0, objectEnum.length / 2);
+    const keys = objectEnum.slice(objectEnum.length / 2);
 
-    for (let i = 0 ; i < objectEnum.length/2 ; i++ ) {
-      myEnum.push( { key: keys[i], value: values[i] } );
+    for (let i = 0; i < objectEnum.length / 2; i++)
+    {
+      myEnum.push({ key: keys[i], value: values[i] });
     }
 
     return myEnum;

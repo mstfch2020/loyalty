@@ -77,7 +77,8 @@
             </tbody>
           </table>
         </div>
-        <app-pagination [itemsPerPage]="10" [pageSize]="100" (notifyPageIndex)="selectedPageIndex($event)">
+        <app-pagination [pageSize]="pageSize" [total]="scenarioService.total"
+          (notifyPageIndex)="selectedPageIndex($event)">
         </app-pagination>
       </div>
     </div>
