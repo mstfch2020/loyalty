@@ -31,6 +31,19 @@ export class BaseSearch implements OnInit
   theFilterLevelsSelectedList = new Array<IdTitle>();
   theFilterLevelsSelectedCondition = 0;
 
+
+  theFilterUserTypeList = new Array<FilterTitle>();
+  theFilterUserTypeSelectedList = new Array<IdTitle>();
+  theFilterUserTypeSelectedCondition = 0;
+
+  theFilterCommissionList = new Array<FilterTitle>();
+  theFilterCommissionSelectedList = new Array<IdTitle>();
+  theFilterCommissionSelectedCondition = 0;
+
+  theFilterPercentList = new Array<FilterTitle>();
+  theFilterPercentSelectedList = new Array<IdTitle>();
+  theFilterPercentSelectedCondition = 0;
+
   theFilterDateList = new Array<FilterTitle>();
   theFilterDateFromSelected = "";
   theFilterDateToSelected = "";
@@ -97,27 +110,51 @@ export class BaseSearch implements OnInit
       });
     });
 
+    this.baseInfoService.userTypes$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
+        this.theFilterUserTypeList.push({
+          checked: false,
+          id: p.id,
+          title: p.title, type: 0
+        });
+      });
+    });
+
     this.search({ pageSize: this.pageSize, pageIndex: this.pageIndex });
   }
 
-  openFilterForm(filterType: number)
+  openFilterForm(filterType: FilterNames)
   {
-
-    switch (filterType)
-    {
-      case 1:
-        this.activeFilterName = FilterNames.Customer;
-        break;
-      case 2:
-        this.activeFilterName = FilterNames.Date;
-        break;
-      case 3:
-        this.activeFilterName = FilterNames.Brand;
-        break;
-      case 4:
-        this.activeFilterName = FilterNames.Status;
-        break;
-    }
+    this.activeFilterName = filterType;
+    // switch (filterType)
+    // {
+    //   case 1:
+    //     this.activeFilterName = FilterNames.Customer;
+    //     break;
+    //   case 2:
+    //     this.activeFilterName = FilterNames.Date;
+    //     break;
+    //   case 3:
+    //     this.activeFilterName = FilterNames.Brand;
+    //     break;
+    //   case 4:
+    //     this.activeFilterName = FilterNames.Status;
+    //     break;
+    //   case 6:
+    //     this.activeFilterName = FilterNames.Type;
+    //     break;
+    //   case 3:
+    //     this.activeFilterName = FilterNames.Brand;
+    //     break;
+    //   case 7:
+    //     this.activeFilterName = FilterNames.Commission;
+    //     break;
+    //   case 8:
+    //     this.activeFilterName = FilterNames.Percent;
+    //     break;
+    // }
   }
 
   applyFilterForm(event: any, filterType: number)
@@ -138,6 +175,18 @@ export class BaseSearch implements OnInit
         break;
       case 4:
         this.theFilterStatusSelected = parseInt(event.value[0].id, 0);
+        break;
+      case 6:
+        this.theFilterUserTypeSelectedList = event.value;
+        this.theFilterUserTypeSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case 7:
+        this.theFilterCommissionSelectedList = event.value;
+        this.theFilterCommissionSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case 8:
+        this.theFilterPercentSelectedList = event.value;
+        this.theFilterPercentSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case 9:
         this.theFilterLevelsSelectedList = event.value;
@@ -160,6 +209,51 @@ export class BaseSearch implements OnInit
     const request: any = {};
     request.pageIndex = this.pageIndex;
     request.pageSize = this.pageSize;
+
+    if (this.theFilterPercentSelectedList && this.theFilterPercentSelectedList.length > 0)
+    {
+      request.CommissionFilter = {} as any;
+      request.CommissionFilter.CustomerDiscounts = this.theFilterPercentSelectedList.map(p => p.id);
+      if (this.theFilterPercentSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.CommissionFilter.CustomerDiscounts = [];
+      }
+      request.CommissionFilter.filterType = 0;
+      if (this.theFilterPercentSelectedCondition != 0)
+      {
+        request.CommissionFilter.filterType = this.theFilterPercentSelectedCondition;
+      }
+    }
+
+    if (this.theFilterCommissionSelectedList && this.theFilterCommissionSelectedList.length > 0)
+    {
+      request.CommissionFilter = {} as any;
+      request.CommissionFilter.CommissionBasises = this.theFilterCommissionSelectedList.map(p => p.id);
+      if (this.theFilterCommissionSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.CommissionFilter.CommissionBasises = [];
+      }
+      request.CommissionFilter.filterType = 0;
+      if (this.theFilterCommissionSelectedCondition != 0)
+      {
+        request.CommissionFilter.filterType = this.theFilterCommissionSelectedCondition;
+      }
+    }
+
+    if (this.theFilterUserTypeSelectedList && this.theFilterUserTypeSelectedList.length > 0)
+    {
+      request.UserTypeFilter = {} as any;
+      request.UserTypeFilter.UserTypeIds = this.theFilterUserTypeSelectedList.map(p => p.id);
+      if (this.theFilterUserTypeSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.UserTypeFilter.UserTypeIds = [];
+      }
+      request.UserTypeFilter.filterType = 0;
+      if (this.theFilterUserTypeSelectedCondition != 0)
+      {
+        request.UserTypeFilter.filterType = this.theFilterUserTypeSelectedCondition;
+      }
+    }
 
     if (this.theFilterTitleFilterSelectedList && this.theFilterTitleFilterSelectedList.length > 0)
     {

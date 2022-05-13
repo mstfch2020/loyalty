@@ -14,6 +14,8 @@ export interface SMS
   sernarioIds: Array<IdTitle>;
 }
 
+export interface SmsPatternGrid { }
+
 export const smsInit: SMS = {
   id: '',
   text: '',

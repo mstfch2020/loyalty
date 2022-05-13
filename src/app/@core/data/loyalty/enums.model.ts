@@ -87,11 +87,11 @@ export enum FilterNames
   Brand = 3,
   Status = 4,
   Searched = 5,
-  Type = 6,
+  UserType = 6,
   Commission = 7,
   Percent = 8,
   Level = 9,
   Groups = 10,
   CustomerGroupTemporary = 11,
-  expireDate = 11,
+  ExpireDate = 12,
 }

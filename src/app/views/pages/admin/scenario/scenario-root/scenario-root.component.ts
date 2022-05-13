@@ -9,10 +9,10 @@ import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service
   templateUrl: './scenario-root.component.html',
   styleUrls: ['./scenario-root.component.scss']
 })
-export class ScenarioRootComponent implements OnInit,OnDestroy
+export class ScenarioRootComponent implements OnInit, OnDestroy
 {
 
-  constructor(private router: Router, public scenarioService: ScenarioService, private route: ActivatedRoute, private baseInfoService: BaseInfoService, private elementRef: ElementRef)
+  constructor(private router: Router, public service: ScenarioService, private route: ActivatedRoute, private baseInfoService: BaseInfoService, private elementRef: ElementRef)
   {
 
     this.route.queryParams.subscribe(params =>
@@ -32,7 +32,7 @@ export class ScenarioRootComponent implements OnInit,OnDestroy
   {
     if (id)
     {
-      this.scenarioService.getScenarioById(id).subscribe((value) =>
+      this.service.getScenarioById(id).subscribe((value) =>
       {
         this.baseInfoService.loadBaseInfo(() =>
         {
@@ -40,13 +40,13 @@ export class ScenarioRootComponent implements OnInit,OnDestroy
           {
             value = scenarioInit;
           }
-          this.scenarioService.createForm(value);
+          this.service.createForm(value);
         }, value?.brandIds);
       });
     }
     else
     {
-      this.baseInfoService.loadBaseInfo(() => { this.scenarioService.createForm(scenarioInit); });
+      this.baseInfoService.loadBaseInfo(() => { this.service.createForm(scenarioInit); });
     }
   }
 
@@ -57,7 +57,7 @@ export class ScenarioRootComponent implements OnInit,OnDestroy
 
   get isDisabled(): boolean
   {
-    return this.scenarioService.isDisabled;
+    return this.service.isDisabled;
   };
 
   ngOnInit(): void
@@ -66,7 +66,7 @@ export class ScenarioRootComponent implements OnInit,OnDestroy
 
   public selectedSwitch(event: boolean)
   {
-    this.scenarioService.form.controls['senarioType'].setValue(event ? 1 : 2);
+    this.service.form.controls['senarioType'].setValue(event ? 1 : 2);
   }
 
   backToList()

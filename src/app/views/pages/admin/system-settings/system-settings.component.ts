@@ -7,15 +7,18 @@ import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.servic
   templateUrl: './system-settings.component.html',
   styleUrls: ['./system-settings.component.scss']
 })
-export class SystemSettingsComponent implements OnInit {
+export class SystemSettingsComponent implements OnInit
+{
 
 
-  constructor(private router: Router,private BaseInfoService: BaseInfoService) {
+  constructor(private router: Router, private BaseInfoService: BaseInfoService)
+  {
 
   }
 
-  ngOnInit(): void {
-    // this.BaseInfoService.loadBaseInfo(() => { });
+  ngOnInit(): void
+  {
+    this.BaseInfoService.GetAllCommissionsBasis().subscribe(result => this.BaseInfoService.commissionsBasis$.next(result === null ? [] : result));
   }
 
 }
