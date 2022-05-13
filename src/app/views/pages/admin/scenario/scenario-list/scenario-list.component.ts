@@ -31,7 +31,6 @@ export class ScenarioListComponent extends BaseSearch implements OnInit
   override ngOnInit(): void
   {
     super.ngOnInit();
-    this.search({ pageSize: this.pageSize, pageIndex: this.pageIndex });
   }
 
 

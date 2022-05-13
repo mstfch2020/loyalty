@@ -13,9 +13,19 @@ export class BaseSearch implements OnInit
 {
   theFilterCustomerList = new Array<FilterTitle>();
   theFilterCustomerSelectedList = new Array<IdTitleTypeBrandId>();
+  theFilterCustomerSelectedCondition = 0;
+
+  // theFilterGroupList = new Array<FilterTitle>();
+  theFilterGroupSelectedList = new Array<IdTitleTypeBrandId>();
+  theFilterGroupSelectedCondition = 0;
 
   theFilterBrandsList = new Array<FilterTitle>();
   theFilterBrandsSelectedList = new Array<IdTitle>();
+  theFilterBrandsSelectedCondition = 0;
+
+  theFilterLevelsList = new Array<FilterTitle>();
+  theFilterLevelsSelectedList = new Array<IdTitle>();
+  theFilterLevelsSelectedCondition = 0;
 
   theFilterDateList = new Array<FilterTitle>();
   theFilterDateFromSelected = "";
@@ -26,8 +36,7 @@ export class BaseSearch implements OnInit
   pageSize = 20;
 
   activeFilterName = FilterNames.None;
-  theFilterCustomerSelectedCondition = 0;
-  theFilterBrandsSelectedCondition = 0;
+
   theFilterStatusSelectedCondition = 0;
   theFilterStatusList: Array<FilterTitle> = [
     {
@@ -44,6 +53,7 @@ export class BaseSearch implements OnInit
   constructor(public baseInfoService: BaseInfoService) { }
   ngOnInit(): void
   {
+    this.baseInfoService.loadBaseInfo(() => { });
     this.baseInfoService.generalCustomers$.subscribe(value =>
     {
       value.forEach(p =>
@@ -68,6 +78,20 @@ export class BaseSearch implements OnInit
         });
       });
     });
+
+    this.baseInfoService.customerLevel$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
+        this.theFilterLevelsList.push({
+          checked: false,
+          id: p.id,
+          title: p.title, type: 0
+        });
+      });
+    });
+
+    this.search({ pageSize: this.pageSize, pageIndex: this.pageIndex });
   }
 
   openFilterForm(filterType: number)
@@ -109,6 +133,14 @@ export class BaseSearch implements OnInit
       case 4:
         this.theFilterStatusSelected = parseInt(event.value[0].id, 0);
         break;
+      case 9:
+        this.theFilterLevelsSelectedList = event.value;
+        this.theFilterLevelsSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case 10:
+        this.theFilterGroupSelectedList = event.value;
+        this.theFilterGroupSelectedCondition = parseInt(event.conditionType, 0);
+        break;
     }
 
     const request: any = {};
@@ -128,6 +160,38 @@ export class BaseSearch implements OnInit
         request.brandFilter.filterType = this.theFilterBrandsSelectedCondition;
       }
     }
+
+
+    if (this.theFilterLevelsSelectedList && this.theFilterLevelsSelectedList.length > 0)
+    {
+      request.levelFilter = {} as any;
+      request.levelFilter.levels = this.theFilterLevelsSelectedList.map(p => p.id);
+      if (this.theFilterLevelsSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.levelFilter.levels = [];
+      }
+      request.levelFilter.filterType = 0;
+      if (this.theFilterLevelsSelectedCondition != 0)
+      {
+        request.levelFilter.filterType = this.theFilterLevelsSelectedCondition;
+      }
+    }
+
+    if (this.theFilterGroupSelectedList && this.theFilterGroupSelectedList.length > 0)
+    {
+      request.groupFilter = {} as any;
+      request.groupFilter.groups = this.theFilterGroupSelectedList.map(p => p.id);
+      if (this.theFilterGroupSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.groupFilter.groups = [];
+      }
+      request.groupFilter.filterType = 0;
+      if (this.theFilterGroupSelectedCondition != 0)
+      {
+        request.groupFilter.filterType = this.theFilterGroupSelectedCondition;
+      }
+    }
+
 
     if (this.theFilterCustomerSelectedList && this.theFilterCustomerSelectedList.length > 0)
     {

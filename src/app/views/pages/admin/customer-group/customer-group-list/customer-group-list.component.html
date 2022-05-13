@@ -12,53 +12,62 @@
         <div class="table-responsive">
           <table cellspacing="1" class="table table-hover border-0 border-spacing-xs">
             <thead>
-            <tr>
-              <th class="text-center font-yekan-bold fs-08 align-middle" scope="col">ردیف</th>
-              <th class="text-center font-yekan-bold fs-08" scope="col">
-                <app-filter title="تغییر سطح"></app-filter>
-              </th>
-              <th class="text-center font-yekan-bold fs-08" scope="col">
-                <app-filter title="برند"></app-filter>
-              </th>
-              <th class="text-center font-yekan-bold fs-08" scope="col">
-                <app-filter title="تعداد فعالیت"></app-filter>
-              </th>
-              <th class="text-center font-yekan-bold fs-08" scope="col">
-                <app-filter title="حجم امتیاز"></app-filter>
-              </th>
-              <th class="text-center font-yekan-bold fs-08" scope="col">
-                <app-filter title="قرار گیری در گروه مشتری"></app-filter>
-              </th>
-            </tr>
+              <tr>
+                <th class="text-center font-yekan-bold fs-08 align-middle" scope="col">ردیف</th>
+                <th class="text-center font-yekan-bold fs-08" scope="col">
+                  <app-filter (applyEvent)="applyFilterForm($event,9)" (cancelEvent)="closeFilterForm($event,9)"
+                    [items]="theFilterLevelsList" title="تغییر سطح">
+                  </app-filter>
+                </th>
+                <th class="text-center font-yekan-bold fs-08" scope="col">
+                  <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
+                    [items]="theFilterBrandsList" title="برند">
+                  </app-filter>
+                </th>
+                <th class="text-center font-yekan-bold fs-08" scope="col">
+                  <app-filter title="تعداد فعالیت"></app-filter>
+                </th>
+                <th class="text-center font-yekan-bold fs-08" scope="col">
+                  <app-filter title="حجم امتیاز"></app-filter>
+                </th>
+                <th class="text-center font-yekan-bold fs-08" scope="col">
+                  <app-filter (applyEvent)="applyFilterForm($event,10)" (cancelEvent)="closeFilterForm($event,10)"
+                    [items]="theFilterCustomerList" title="قرار گیری در گروه مشتری">
+                  </app-filter>
+                </th>
+              </tr>
             </thead>
             <tbody>
-            <tr (click)="goToEdit(customerGroup.id)" *ngFor="let customerGroup of theViewList;let i =index;">
-              <td class="text-center" scope="row">{{pageIndex+i}}</td>
-              <td class="text-center">
-                از {{customerGroup?.currentLevel?.title}} به {{customerGroup?.nextLevel?.title}}
-              </td>
-              <td class="text-center">
-                {{customerGroup?.brand?.title}}
-              </td>
-              <td class="text-center">
-                {{customerGroup?.activityCount}}
-              </td>
-              <td class="text-center">
-                {{customerGroup?.scoreThreshold}}
-              </td>
-              <td class="text-center">
-                {{customerGroup?.customerGroup?.title}}
-              </td>
-            </tr>
+              <tr (click)="goToEdit(customerGroup.id)" *ngFor="let customerGroup of theViewList;let i =index;">
+                <td class="text-center" scope="row">{{pageIndex+i}}</td>
+                <td class="text-center">
+                  از {{customerGroup?.level.currentLevel}} به {{customerGroup?.level?.nextLevel}}
+                </td>
+                <td class="text-center">
+                  {{customerGroup?.brand}}
+                </td>
+                <td class="text-center">
+                  {{customerGroup?.activityCount}}
+                </td>
+                <td class="text-center">
+                  {{customerGroup?.scoreThreshold}}
+                </td>
+                <td class="text-center">
+                  {{customerGroup?.customerGroup}}
+                </td>
+              </tr>
 
             </tbody>
           </table>
         </div>
+        <app-pagination [pageSize]="pageSize" [total]="customerGroupService.total"
+          (notifyPageIndex)="selectedPageIndex($event)">
+        </app-pagination>
       </div>
       <div class="row mt-5">
         <div class="col-6 col-sm-3">
           <button (click)="goToEdit('')"
-                  class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
+            class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
             گروه مشتری جدید
           </button>
         </div>

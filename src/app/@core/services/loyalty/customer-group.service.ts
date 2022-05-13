@@ -8,7 +8,7 @@ import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callGetService, callPostService } from "./BaseService";
+import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class CustomerGroupService extends BaseService<CustomerGroup>
@@ -24,15 +24,18 @@ export class CustomerGroupService extends BaseService<CustomerGroup>
     super(formBuilder, customerGroupInit);
   }
 
-  getCustomerGroups(pageSize: number, pageIndex: number)
+  getCustomerGroups(request: any)
   {
-    const url = this.settingService.settings?.baseUrl + 'CustomerGroupAndLevelRule/GetAllCustomerGroupRules';
-    return callGetService<Array<CustomerGroupDetail>>(url, this.http, this.uiService, {
-      pageSize: pageSize, pageIndex: pageIndex
-    }).subscribe(value =>
+    const url = this.settingService.settings?.baseUrl + 'CustomerGroupAndLevelRule/GetCustomerGroupRulesGrid';
+    return callPostPagingService<Array<CustomerGroupDetail>>(url, this.http, this.uiService, request).subscribe(value =>
     {
-      if (!value) { value = []; }
-      this.customerGroups$.next(value);
+      this.customerGroups$.next([]);
+      this.total = 0;
+      if (value?.data)
+      {
+        this.customerGroups$.next(value.data);
+        this.total = value.pagination.total;
+      }
     });
   }
 

@@ -1,15 +1,16 @@
-import { IdTitle } from "./get-senarios-grid.model";
+import { IdTitle } from './get-senarios-grid.model';
 
 export interface CustomerGroupDetail
 {
   id: string;
   brand: IdTitle;
-  customerGroup: IdTitle;
+  customerGroup: string;
   currentLevel: IdTitle;
   nextLevel: IdTitle;
   scoreThreshold: number;
   activityCount: number;
   userTypes: Array<IdTitle>;
+  level: any;
 
 }
 export interface CustomerGroup
