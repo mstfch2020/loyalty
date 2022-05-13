@@ -9,28 +9,32 @@ import { FilterTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model"
 })
 export class FilterDateComponent implements OnInit {
 
-  @Input() title:string;
+  @Input() title: string;
   @Input() items = new Array<FilterTitle>();
+  @Input() visible = false;
 
   @Output() cancelEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() applyEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  form: FormGroup;
+  filterForm: FormGroup;
+
   constructor(public formBuilder: FormBuilder) {
-    this.title='';
-    this.form = this.formBuilder.group({ dateFrom: ['', [Validators.required]], });
     this.items = [];
+    this.title = '';
+    this.visible = false;
+    this.filterForm = this.formBuilder.group({ dateFrom: ['', [Validators.nullValidator]], });
   }
 
   ngOnInit(): void {
   }
 
   cancelEventNotify() {
+    this.visible = false;
     this.cancelEvent.emit(false);
   }
 
   applyEventNotify() {
-    this.applyEvent.emit({ dateFrom: this.form.controls['dateFrom'].value });
+    this.applyEvent.emit({ dateFrom: this.filterForm.controls['dateFrom'].value });
     this.cancelEvent.emit(false);
   }
 
