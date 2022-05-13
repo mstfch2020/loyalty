@@ -8,7 +8,7 @@ import { SMS } from "../../data/loyalty/sms.model";
 import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
-import { BaseService, callGetService, callPostService } from "./BaseService";
+import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
 import { FileSrevice } from "./file.service";
 
 @Injectable({ providedIn: 'root' })
@@ -27,10 +27,15 @@ export class CampaignService extends BaseService<Campaign>
   getCampaign(data: any)
   {
     const url = this.settingService.settings?.baseUrl + 'Campaign/GetCampaignsGrid';
-    return callPostService<Array<CampaignGrid>>(url, this.http, this.uiService, data).subscribe(value =>
+    return callPostPagingService<Array<CampaignGrid>>(url, this.http, this.uiService, data).subscribe(value =>
     {
-      if (!value) { value = []; }
-      this.Campaigns$.next(value);
+      this.Campaigns$.next([]);
+      this.total = 0;
+      if (value?.data)
+      {
+        this.Campaigns$.next(value.data);
+        this.total = value.pagination.total;
+      }
     });
   }
 

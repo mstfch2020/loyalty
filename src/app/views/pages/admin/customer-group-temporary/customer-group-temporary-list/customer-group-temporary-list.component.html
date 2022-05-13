@@ -13,8 +13,16 @@
           <thead>
             <tr>
               <th class="text-right font-yekan-bold fs-08" scope="col">ردیف</th>
-              <th class="text-right font-yekan-bold fs-08" scope="col">نام گروه مشتری</th>
-              <th class="text-right font-yekan-bold fs-08" scope="col">تاریخ انقضای گروه مشتری موقت</th>
+              <th class="text-center font-yekan-bold fs-08" scope="col">
+                <app-filter (applyEvent)="applyFilterForm($event,11)" (cancelEvent)="closeFilterForm($event,11)"
+                  [items]="theFilterCustomerList" title="نام گروه مشتری">
+                </app-filter>
+              </th>
+              <th class="text-end font-yekan-bold fs-08 cursor-pointer w-170-px" scope="col">
+                <app-filter-date (applyEvent)="applyFilterForm($event,12)" (cancelEvent)="closeFilterForm($event,12)"
+                  title="تاریخ انقضای گروه مشتری موقت">
+                </app-filter-date>
+              </th>
               <th class="text-right font-yekan-bold fs-08" scope="col">عملیات</th>
             </tr>
           </thead>
@@ -30,7 +38,7 @@
           </tbody>
         </table>
       </div>
-      <app-pagination [pageSize]="40" [total]="50" (notifyPageIndex)="selectedPageIndex($event)">
+      <app-pagination [pageSize]="pageSize" [total]="service.total" (notifyPageIndex)="selectedPageIndex($event)">
       </app-pagination>
     </div>
   </div>

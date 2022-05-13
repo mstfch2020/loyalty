@@ -92,4 +92,6 @@ export enum FilterNames
   Percent = 8,
   Level = 9,
   Groups = 10,
+  CustomerGroupTemporary = 11,
+  expireDate = 11,
 }

@@ -15,12 +15,14 @@ export class CustomerGroupListComponent extends BaseSearch implements OnInit
 
   theViewList = new Array<CustomerGroupDetail>();
 
-  constructor(private router: Router, public customerGroupService: CustomerGroupService, public override baseInfoService: BaseInfoService)
+  constructor(private router: Router,
+    public service: CustomerGroupService,
+    public override baseInfoService: BaseInfoService)
   {
 
     super(baseInfoService);
 
-    customerGroupService.customerGroups$.subscribe(value =>
+    service.customerGroups$.subscribe(value =>
     {
       this.theViewList = value;
     });
@@ -34,7 +36,7 @@ export class CustomerGroupListComponent extends BaseSearch implements OnInit
 
   override search(request: any)
   {
-    this.customerGroupService.getCustomerGroups(request);
+    this.service.getCustomerGroups(request);
   }
 
   goToEdit(id: string)

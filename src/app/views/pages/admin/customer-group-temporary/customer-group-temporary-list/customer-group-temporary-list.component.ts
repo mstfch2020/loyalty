@@ -1,25 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { CampaignService } from "src/app/@core/services/loyalty/campaign.service";
+import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
 
 @Component({
   selector: 'app-customer-group-temporary-list',
   templateUrl: './customer-group-temporary-list.component.html',
   styleUrls: ['./customer-group-temporary-list.component.scss']
 })
-export class CustomerGroupTemporaryListComponent implements OnInit
+export class CustomerGroupTemporaryListComponent extends BaseSearch implements OnInit
 {
 
   public theViewList = new Array<any>();
-  pageIndex = 1;
-  pageSize = 40;
 
-  constructor(private router: Router, public campaignService: CampaignService) { }
-
-  ngOnInit(): void
+  constructor(private router: Router,
+    public service: CampaignService,
+    public override baseInfoService: BaseInfoService)
   {
-    this.campaignService.Campaigns$.subscribe(value => this.theViewList = value);
-    this.campaignService.getCampaign({ pageSize: this.pageSize, pageIndex: this.pageIndex });
+    super(baseInfoService);
+  }
+
+  override ngOnInit(): void
+  {
+    super.ngOnInit();
+    this.service.Campaigns$.subscribe(value => this.theViewList = value);
+  }
+
+  override search(request: any)
+  {
+    this.service.getCampaign(request);
   }
 
   goToEdit(id: string)
@@ -37,10 +47,4 @@ export class CustomerGroupTemporaryListComponent implements OnInit
     $event.preventDefault();
     $event.stopPropagation();
   }
-
-  selectedPageIndex(event: number) {
-    this.pageIndex = event;
-    this.campaignService.getCampaign({ pageSize: this.pageSize, pageIndex: this.pageIndex });
-  }
-
 }

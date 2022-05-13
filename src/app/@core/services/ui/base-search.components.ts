@@ -16,6 +16,10 @@ export class BaseSearch implements OnInit
   theFilterCustomerSelectedCondition = 0;
 
   // theFilterGroupList = new Array<FilterTitle>();
+
+  theFilterTitleFilterSelectedList = new Array<IdTitleTypeBrandId>();
+  theFilterTitleFilterSelectedCondition = 0;
+
   theFilterGroupSelectedList = new Array<IdTitleTypeBrandId>();
   theFilterGroupSelectedCondition = 0;
 
@@ -31,6 +35,8 @@ export class BaseSearch implements OnInit
   theFilterDateFromSelected = "";
   theFilterDateToSelected = "";
   theFilterStatusSelected = 0;
+
+  theExpireDateSelected = "";
 
   pageIndex = 1;
   pageSize = 20;
@@ -141,11 +147,35 @@ export class BaseSearch implements OnInit
         this.theFilterGroupSelectedList = event.value;
         this.theFilterGroupSelectedCondition = parseInt(event.conditionType, 0);
         break;
+
+      case 11:
+        this.theFilterTitleFilterSelectedList = event.value;
+        this.theFilterTitleFilterSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case 12:
+        this.theExpireDateSelected = event?.dateFrom;
+        break;
     }
 
     const request: any = {};
     request.pageIndex = this.pageIndex;
     request.pageSize = this.pageSize;
+
+    if (this.theFilterTitleFilterSelectedList && this.theFilterTitleFilterSelectedList.length > 0)
+    {
+      request.titleFilter = {} as any;
+      request.titleFilter.titles = this.theFilterTitleFilterSelectedList.map(p => p.id);
+      if (this.theFilterTitleFilterSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.titleFilter.titles = [];
+      }
+      request.titleFilter.filterType = 0;
+      if (this.theFilterTitleFilterSelectedCondition != 0)
+      {
+        request.titleFilter.filterType = this.theFilterTitleFilterSelectedCondition;
+      }
+    }
+
     if (this.theFilterBrandsSelectedList && this.theFilterBrandsSelectedList.length > 0)
     {
       request.brandFilter = new BrandFilter();
