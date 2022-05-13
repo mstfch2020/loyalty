@@ -18,22 +18,22 @@
                 </th>
                 <th class="text-end font-yekan-bold fs-08 col-sm-3 col-md-3" scope="col">
                   <app-filter (applyEvent)="applyFilterForm($event,1)" (cancelEvent)="closeFilterForm($event,1)"
-                    [visible]="filterCustomer" [items]="theFilterCustomerList" title="مشتری">
+                    [visible]="activeFilterName===1" [items]="theFilterCustomerList" title="مشتری">
                   </app-filter>
                 </th>
                 <th class="text-end font-yekan-bold fs-08 w-170-px" scope="col">
                   <app-filter-date (applyEvent)="applyFilterForm($event,2)" (cancelEvent)="closeFilterForm($event,2)"
-                    title="بازه تاریخی">
+                    title="بازه تاریخی" [visible]="activeFilterName===2">
                   </app-filter-date>
                 </th>
                 <th class="text-end font-yekan-bold fs-08" scope="col">
                   <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
-                    [items]="theFilterBrandsList" title="برند">
+                    [items]="theFilterBrandsList" title="برند" [visible]="activeFilterName===3">
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08 w-120-px" scope="col">
                   <app-filter (applyEvent)="applyFilterForm($event,4)" (cancelEvent)="closeFilterForm($event,4)"
-                    [items]="theFilterStatusList" title="وضعیت" [isRadio]="true">
+                    [items]="theFilterStatusList" title="وضعیت" [isRadio]="true" [visible]="activeFilterName===4">
                   </app-filter>
                 </th>
               </tr>

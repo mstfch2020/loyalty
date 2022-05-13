@@ -11,15 +11,9 @@ import { BaseInfoService } from "../loyalty/base-info.service";
 })
 export class BaseSearch implements OnInit
 {
-
-  filterCustomer:boolean;
-  filterBrands: boolean;
-  filterDate: boolean;
-  filterStatus: boolean;
-
   theFilterCustomerList = new Array<FilterTitle>();
   theFilterCustomerSelectedList = new Array<IdTitleTypeBrandId>();
-  theFilterCustomerSelectedCondition = 0; 
+  theFilterCustomerSelectedCondition = 0;
 
   theFilterTitleFilterSelectedList = new Array<IdTitleTypeBrandId>();
   theFilterTitleFilterSelectedCondition = 0;
@@ -74,11 +68,9 @@ export class BaseSearch implements OnInit
     },
   ];
 
-  constructor(public baseInfoService: BaseInfoService) { 
-    this.filterCustomer = false;
-    this.filterBrands = false;
-    this.filterDate = false;
-    this.filterStatus = false;
+  constructor(public baseInfoService: BaseInfoService)
+  {
+
   }
 
   ngOnInit(): void
@@ -139,37 +131,12 @@ export class BaseSearch implements OnInit
   openFilterForm(filterType: FilterNames)
   {
     this.activeFilterName = filterType;
-    // switch (filterType)
-    // {
-    //   case 1:
-    //     this.activeFilterName = FilterNames.Customer;
-    //     break;
-    //   case 2:
-    //     this.activeFilterName = FilterNames.Date;
-    //     break;
-    //   case 3:
-    //     this.activeFilterName = FilterNames.Brand;
-    //     break;
-    //   case 4:
-    //     this.activeFilterName = FilterNames.Status;
-    //     break;
-    //   case 6:
-    //     this.activeFilterName = FilterNames.Type;
-    //     break;
-    //   case 3:
-    //     this.activeFilterName = FilterNames.Brand;
-    //     break;
-    //   case 7:
-    //     this.activeFilterName = FilterNames.Commission;
-    //     break;
-    //   case 8:
-    //     this.activeFilterName = FilterNames.Percent;
-    //     break;
-    // }
+
   }
 
   applyFilterForm(event: any, filterType: number)
   {
+    this.activeFilterName = FilterNames.Searched;
     switch (filterType)
     {
       case 1:
@@ -358,6 +325,7 @@ export class BaseSearch implements OnInit
     }
 
     this.search(request);
+    this.activeFilterName = FilterNames.Searched;
   }
 
   search(request: any) { }
@@ -365,21 +333,6 @@ export class BaseSearch implements OnInit
   closeFilterForm(event: boolean, filterType: number)
   {
     this.activeFilterName = FilterNames.Searched;
-
-    switch (filterType) {
-      case FilterNames.Customer:
-        this.filterCustomer = event;
-        break;
-      case FilterNames.Date:
-        this.filterDate = event;
-        break;
-      case FilterNames.Brand:
-        this.filterBrands = event;
-        break;
-      case FilterNames.Status:
-        this.filterStatus = event;
-        break;
-    }
   }
 
   selectedPageIndex(event: number)
