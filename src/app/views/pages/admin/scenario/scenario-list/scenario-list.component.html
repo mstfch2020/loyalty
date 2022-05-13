@@ -13,25 +13,25 @@
           <table cellspacing="1" class="table table-hover border-0 border-spacing-lg">
             <thead>
               <tr>
-                <th class="text-end font-yekan-bold pr-2 w-50 fs-08 align-middle" scope="col">
+                <th class="text-end font-yekan-bold pr-2 col-sm-4 col-md-4 fs-08 align-middle" scope="col">
                   عنوان
                 </th>
-                <th class="text-end font-yekan-bold fs-08 cursor-pointer" scope="col">
+                <th class="text-end font-yekan-bold fs-08 col-sm-3 col-md-3" scope="col">
                   <app-filter (applyEvent)="applyFilterForm($event,1)" (cancelEvent)="closeFilterForm($event,1)"
-                    [items]="theFilterCustomerList" title="مشتری">
+                    [visible]="filterCustomer" [items]="theFilterCustomerList" title="مشتری">
                   </app-filter>
                 </th>
-                <th class="text-end font-yekan-bold fs-08 cursor-pointer w-170-px" scope="col">
+                <th class="text-end font-yekan-bold fs-08 w-170-px" scope="col">
                   <app-filter-date (applyEvent)="applyFilterForm($event,2)" (cancelEvent)="closeFilterForm($event,2)"
                     title="بازه تاریخی">
                   </app-filter-date>
                 </th>
-                <th class="text-end font-yekan-bold fs-08 cursor-pointer" scope="col">
+                <th class="text-end font-yekan-bold fs-08" scope="col">
                   <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
                     [items]="theFilterBrandsList" title="برند">
                   </app-filter>
                 </th>
-                <th class="text-center font-yekan-bold fs-08 cursor-pointer w-100-px" scope="col">
+                <th class="text-center font-yekan-bold fs-08 w-120-px" scope="col">
                   <app-filter (applyEvent)="applyFilterForm($event,4)" (cancelEvent)="closeFilterForm($event,4)"
                     [items]="theFilterStatusList" title="وضعیت" [isRadio]="true">
                   </app-filter>

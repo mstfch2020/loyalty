@@ -11,11 +11,15 @@ import { BaseInfoService } from "../loyalty/base-info.service";
 })
 export class BaseSearch implements OnInit
 {
+
+  filterCustomer:boolean;
+  filterBrands: boolean;
+  filterDate: boolean;
+  filterStatus: boolean;
+
   theFilterCustomerList = new Array<FilterTitle>();
   theFilterCustomerSelectedList = new Array<IdTitleTypeBrandId>();
-  theFilterCustomerSelectedCondition = 0;
-
-  // theFilterGroupList = new Array<FilterTitle>();
+  theFilterCustomerSelectedCondition = 0; 
 
   theFilterTitleFilterSelectedList = new Array<IdTitleTypeBrandId>();
   theFilterTitleFilterSelectedCondition = 0;
@@ -56,7 +60,14 @@ export class BaseSearch implements OnInit
       checked: false,
     },
   ];
-  constructor(public baseInfoService: BaseInfoService) { }
+
+  constructor(public baseInfoService: BaseInfoService) { 
+    this.filterCustomer = false;
+    this.filterBrands = false;
+    this.filterDate = false;
+    this.filterStatus = false;
+  }
+
   ngOnInit(): void
   {
     this.baseInfoService.loadBaseInfo(() => { });
@@ -260,6 +271,21 @@ export class BaseSearch implements OnInit
   closeFilterForm(event: boolean, filterType: number)
   {
     this.activeFilterName = FilterNames.Searched;
+
+    switch (filterType) {
+      case FilterNames.Customer:
+        this.filterCustomer = event;
+        break;
+      case FilterNames.Date:
+        this.filterDate = event;
+        break;
+      case FilterNames.Brand:
+        this.filterBrands = event;
+        break;
+      case FilterNames.Status:
+        this.filterStatus = event;
+        break;
+    }
   }
 
   selectedPageIndex(event: number)
