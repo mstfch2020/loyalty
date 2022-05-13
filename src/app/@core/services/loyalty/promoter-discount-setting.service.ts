@@ -65,11 +65,11 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     return callGetService<Array<GetPromoterDiscountSettingGrid>>(url, this.http, this.uiService, request).subscribe(value =>
     {
       this.promoterDiscountSettings$.next([]);
-      this.total = 0;
+      this.totalPages = 0;
       if (value)
       {
         this.promoterDiscountSettings$.next(value);
-        this.total = 9999;
+        this.totalPages = 9999;
       }
     });
   }

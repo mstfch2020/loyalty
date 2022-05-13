@@ -263,11 +263,11 @@ export class ScenarioService extends BaseService<Scenario>
     return callPostPagingService<Array<SenarioDetail>>(url, this.http, this.uiService, request).subscribe(value =>
     {
       this.scenarios$.next([]);
-      this.total = 0;
+      this.totalPages = 0;
       if (value?.data)
       {
         this.scenarios$.next(value?.data);
-        this.total = value.pagination.total;
+        this.totalPages = Math.round(value.pagination.total / request.pageSize);
       }
     });
   }

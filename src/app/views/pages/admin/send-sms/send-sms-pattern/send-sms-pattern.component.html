@@ -86,7 +86,8 @@
             </tbody>
           </table>
         </div>
-        <app-pagination [pageSize]="pageSize" [total]="service.total" (notifyPageIndex)="selectedPageIndex($event)">
+        <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages"
+          (notifyPageIndex)="selectedPageIndex($event)">
         </app-pagination>
       </div>
       <div class="row mt-5">

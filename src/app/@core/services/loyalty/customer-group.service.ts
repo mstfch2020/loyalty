@@ -30,11 +30,11 @@ export class CustomerGroupService extends BaseService<CustomerGroup>
     return callPostPagingService<Array<CustomerGroupDetail>>(url, this.http, this.uiService, request).subscribe(value =>
     {
       this.customerGroups$.next([]);
-      this.total = 0;
+      this.totalPages = 0;
       if (value?.data)
       {
         this.customerGroups$.next(value.data);
-        this.total = value.pagination.total;
+        this.totalPages = Math.round(value.pagination.total / request.pageSize);
       }
     });
   }

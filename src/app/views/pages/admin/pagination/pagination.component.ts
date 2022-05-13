@@ -7,17 +7,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class PaginationComponent implements OnInit
 {
-
-  @Input() total: number;
   @Input() pageSize: number;
   @Output() notifyPageIndex: EventEmitter<number> = new EventEmitter<number>();
-  totalPages = 0;
+  @Input() totalPages = 0;
   thePageList = new Array<any>();
   currentPage: any;
 
   constructor()
   {
-    this.total = 0;
     this.pageSize = 0;
     this.currentPage = {
       'pageIndex': 1,
@@ -28,9 +25,6 @@ export class PaginationComponent implements OnInit
 
   ngOnInit(): void
   {
-
-    this.totalPages = Math.round(this.total / this.pageSize);
-
     for (let _i = 1; _i <= this.totalPages; _i++)
     {
       if (this.totalPages > 8)

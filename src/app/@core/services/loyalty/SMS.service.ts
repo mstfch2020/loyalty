@@ -146,11 +146,11 @@ export class SMSService extends BaseService<SMS>
     return callGetService<Array<SmsPatternGrid>>(url, this.http, this.uiService, data).subscribe(value =>
     {
       this.smsPattern$.next([]);
-      this.total = 0;
+      this.totalPages = 0;
       if (value)
       {
         this.smsPattern$.next(value);
-        this.total = 9999;
+        this.totalPages = 9999;
       }
     });
   }
