@@ -30,7 +30,7 @@
                                         </svg>
                                     </label>
                                     <app-filter (applyEvent)="applyFilterForm($event,3)"
-                                        (cancelEvent)="closeFilterForm($event,3)" [items]="theFilterBrandsList">
+                                        (cancelEvent)="closeFilterForm($event,3)" [items]="theFilterBrandsList" [visible]="activeFilterName==3">
                                     </app-filter>
                                 </th>
                                 <th class="text-end font-yekan-bold fs-08 cursor-pointer" scope="col">
@@ -51,7 +51,7 @@
                                         </svg>
                                     </label>
                                     <app-filter-date (applyEvent)="applyFilterForm($event,11)"
-                                        (cancelEvent)="closeFilterForm($event,11)">
+                                        (cancelEvent)="closeFilterForm($event,11)" [visible]="activeFilterName==11">
                                     </app-filter-date>
                                 </th>
                                 <th class="text-end font-yekan-bold fs-08 cursor-pointer" scope="col">
@@ -72,7 +72,7 @@
                                         </svg>
                                     </label>
                                     <app-filter (applyEvent)="applyFilterForm($event,8)"
-                                        (cancelEvent)="closeFilterForm($event,8)" [items]="theFilterCustomerList">
+                                        (cancelEvent)="closeFilterForm($event,8)" [items]="theFilterCustomerList" [visible]="activeFilterName==8">
                                     </app-filter>
                                 </th>
                             </tr>
