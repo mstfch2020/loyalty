@@ -11,7 +11,7 @@ export class FilterDateComponent implements OnInit {
 
   @Input() title: string;
   @Input() items = new Array<FilterTitle>();
-  @Input() visible = false;
+  @Input() visible :boolean;
 
   @Output() cancelEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() applyEvent: EventEmitter<any> = new EventEmitter<any>();

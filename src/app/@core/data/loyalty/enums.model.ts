@@ -94,4 +94,5 @@ export enum FilterNames
   Groups = 10,
   CustomerGroupTemporary = 11,
   expireDate = 11,
+  Title = 12,
 }

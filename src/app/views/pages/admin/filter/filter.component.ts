@@ -11,8 +11,9 @@ import { Utility } from 'src/app/@core/utils/Utility';
 export class FilterComponent implements OnInit {
 
   @Input() title: string;
-  @Input() isRadio = false;
-  @Input() visible = false;
+  @Input() align: string;
+  @Input() isRadio: boolean;
+  @Input() visible: boolean;
 
   @Input() items = new Array<FilterTitle>();
   @Output() cancelEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -23,8 +24,10 @@ export class FilterComponent implements OnInit {
 
   constructor() {
     this.title = '';
+    this.align = '';
     this.items = [];
     this.isChecked = false;
+    this.isRadio = false;
     this.visible = false;
   }
 
