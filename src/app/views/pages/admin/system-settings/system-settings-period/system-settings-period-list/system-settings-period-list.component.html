@@ -4,20 +4,14 @@
             <table cellspacing="0" class="table table-hover border-0">
                 <thead>
                     <tr>
-                        <th class="text-end font-yekan-bold pr-2 fs-08 cursor-pointer" scope="col">
-                            <div class="p-6px">
-                                ردیف
-                            </div>
+                        <th class="text-center font-yekan-bold w-80-px fs-08 cursor-pointer" scope="col">
+                            ردیف
                         </th>
-                        <th class="text-end font-yekan-bold pr-2 fs-08 cursor-pointer" scope="col">
-                            <div class="p-6px">
-                                برند
-                            </div>
+                        <th class="text-end font-yekan-bold fs-08 cursor-pointer" scope="col">
+                            برند
                         </th>
                         <th class="text-center font-yekan-bold fs-08 cursor-pointer" scope="col">
-                            <app-filter (applyEvent)="applyFilterForm($event,2)"
-                                (cancelEvent)="closeFilterForm($event,2)" [items]="theFilterKeyList" title="بازه زمانی ریست">
-                            </app-filter>
+                            بازه زمانی ریست
                         </th>
                     </tr>
                 </thead>
@@ -30,29 +24,29 @@
                             خیلی سبر
                         </td>
                         <td class="text-center fs-08">
-2ماهه
+                            2ماهه
                         </td>
                     </tr>
                     <tr (click)="goToEdit('3')">
                         <td class="text-end pr-2 fs-08" scope="row">
-                           2
+                            2
                         </td>
                         <td class="text-end pr-2 fs-08">
                             خوب
                         </td>
                         <td class="text-center fs-08">
-6ماهه
+                            6ماهه
                         </td>
                     </tr>
                     <tr (click)="goToEdit('2')">
                         <td class="text-end pr-2 fs-08" scope="row">
-                           3
+                            3
                         </td>
                         <td class="text-end pr-2 fs-08">
                             زینجا
                         </td>
                         <td class="text-center fs-08">
-1ماهه
+                            1ماهه
                         </td>
                     </tr>
                     <tr (click)="goToEdit('1')">
@@ -63,7 +57,7 @@
                             پرتقال
                         </td>
                         <td class="text-center fs-08">
-3ماهه
+                            3ماهه
                         </td>
                     </tr>
                     <!-- <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList">

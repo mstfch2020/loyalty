@@ -12,59 +12,63 @@
         <table class="table table-hover border-0 border-spacing-xs" cellspacing="1">
           <thead>
             <tr>
-              <th class="text-right font-yekan-bold fs-08" scope="col">ردیف</th>
-              <th class="text-center font-yekan-bold fs-08" scope="col">
+              <th class="text-end font-yekan-bold fs-08 align-middle w-100-px pr-2" scope="col">ردیف</th>
+              <th class="text-end font-yekan-bold fs-08" scope="col">
                 <label [ngClass]="{'selected':activeFilterName==1}" (click)="openFilterForm(1)" class="filter-title">
                   نام گروه مشتری
-                  <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterCustomerList.length==0" height="16"
+                  <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterCustomerSelectedList.length==0" height="16"
                     viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                   </svg>
-                  <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterCustomerList.length>0"
+                  <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterCustomerSelectedList.length>0"
                     fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
                   </svg>
                 </label>
                 <app-filter (applyEvent)="applyFilterForm($event,1)" (cancelEvent)="closeFilterForm($event,1)"
-                  [items]="theFilterCustomerList">
+                  [items]="theFilterCustomerList" [visible]="activeFilterName==1">
                 </app-filter>
               </th>
-              <th class="text-end font-yekan-bold fs-08 cursor-pointer w-170-px" scope="col">
-                <label [ngClass]="{'selected':activeFilterName==12}" (click)="openFilterForm(12)" class="filter-title">
+              <th class="text-end font-yekan-bold fs-08 col-md-4 col-sm-4 cursor-pointer" scope="col">
+                <label [ngClass]="{'selected':activeFilterName==2}" (click)="openFilterForm(2)" class="filter-title">
                   تاریخ انقضای گروه مشتری موقت
-                  <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterCustomerList.length==0" height="16"
+                  <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterDateFromSelected.length==0" height="16"
                     viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                   </svg>
-                  <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterCustomerList.length>0"
+                  <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterDateFromSelected.length>=10"
                     fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
                   </svg>
                 </label>
-                <app-filter-date (applyEvent)="applyFilterForm($event,12)" (cancelEvent)="closeFilterForm($event,12)">
+                <app-filter-date (applyEvent)="applyFilterForm($event,2)" 
+                (cancelEvent)="closeFilterForm($event,2)" [visible]="activeFilterName==2">
                 </app-filter-date>
               </th>
-              <th class="text-right font-yekan-bold fs-08" scope="col">عملیات</th>
+              <th class="text-right font-yekan-bold fs-08 align-middle w-100-px" scope="col">عملیات</th>
             </tr>
           </thead>
           <tbody>
             <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList;let i =index;">
-              <td scope="row">{{pageIndex+i}}</td>
-              <td>{{item.title}}</td>
-              <td>{{item.expireDate.full}}</td>
-              <td (click)="deleteItem($event,item.id)">
+              <td scope="row" class="pr-2">{{pageIndex+i}}</td>
+              <td class="pr-1">{{item.title}}</td>
+              <td class="pr-1">{{item.expireDate.full}}</td>
+              <td (click)="deleteItem($event,item.id)">               
                 حذف
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages"
-        (notifyPageIndex)="selectedPageIndex($event)">
+      <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages" (notifyPageIndex)="selectedPageIndex($event)">
       </app-pagination>
     </div>
   </div>
