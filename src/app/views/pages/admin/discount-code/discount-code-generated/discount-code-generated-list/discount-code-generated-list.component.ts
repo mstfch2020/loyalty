@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
-import { CustomerGroupService } from "src/app/@core/services/loyalty/customer-group.service";
+import { DiscountService } from 'src/app/@core/services/loyalty/discount.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
 
 @Component({
@@ -15,27 +15,21 @@ export class DiscountCodeGeneratedListComponent extends BaseSearch implements On
   theViewList = new Array<any>();
 
   constructor(private router: Router,
-    public service: CustomerGroupService,
+    public service: DiscountService,
     public override baseInfoService: BaseInfoService)
   {
-
     super(baseInfoService);
-
-    service.customerGroups$.subscribe(value =>
-    {
-      this.theViewList = value;
-    });
   }
 
   override ngOnInit(): void
   {
     super.ngOnInit();
-    this.baseInfoService.loadCustomerLevel();
+    this.service.Discounts$.subscribe(value => this.theViewList = value);
   }
 
   override search(request: any)
   {
-    this.service.getCustomerGroups(request);
+    this.service.GetDiscountCodesGeneratedGrid(request);
   }
 
   goToEdit(id: string)

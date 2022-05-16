@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
+import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
 import { promoterDiscountSettingInit } from '../../../../../../@core/data/loyalty/promoter-discount-setting.model';
 
 @Component({
@@ -9,7 +9,8 @@ import { promoterDiscountSettingInit } from '../../../../../../@core/data/loyalt
   templateUrl: './system-settings-discount-edit.component.html',
   styleUrls: ['./system-settings-discount-edit.component.scss']
 })
-export class SystemSettingsDiscountEditComponent implements OnInit {
+export class SystemSettingsDiscountEditComponent implements OnInit
+{
 
   public percent: number;
   public percentFrom: number;
@@ -20,23 +21,24 @@ export class SystemSettingsDiscountEditComponent implements OnInit {
     private route: ActivatedRoute,
     private elementRef: ElementRef,
     public promoterDiscountSettingService: PromoterDiscountSettingService,
-    public baseInfoService: BaseInfoService) {
+    public baseInfoService: BaseInfoService)
+  {
 
     this.percent = 0;
     this.percentFrom = 0;
     this.percentTo = 0;
-    
+
     this.route.queryParams.subscribe(params =>
-      {
-        const id = params['id'];
-        this.updateSystemSettingsDiscountFromServer(id);
-      });
-  
-      this.route.params.subscribe(params =>
-      {
-        const id = params['id'];
-        this.updateSystemSettingsDiscountFromServer(id);
-      });
+    {
+      const id = params['id'];
+      this.updateSystemSettingsDiscountFromServer(id);
+    });
+
+    this.route.params.subscribe(params =>
+    {
+      const id = params['id'];
+      this.updateSystemSettingsDiscountFromServer(id);
+    });
   }
 
   private updateSystemSettingsDiscountFromServer(id: any)
@@ -52,7 +54,7 @@ export class SystemSettingsDiscountEditComponent implements OnInit {
             value = promoterDiscountSettingInit;
           }
           this.promoterDiscountSettingService.createForm(value);
-        }, value?.brandIds);
+        });
       });
     }
     else
@@ -66,15 +68,18 @@ export class SystemSettingsDiscountEditComponent implements OnInit {
     this.elementRef.nativeElement.remove();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.promoterDiscountSettingService.form.markAllAsTouched();
   }
 
-  get isDisabled(): boolean {
+  get isDisabled(): boolean
+  {
     return this.promoterDiscountSettingService.isDisabled;
   };
 
-  backToList() {
+  backToList()
+  {
     this.router.navigate(['/admin/main/settings/discount/list']);
   }
 

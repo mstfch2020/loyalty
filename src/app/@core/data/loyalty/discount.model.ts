@@ -2,6 +2,7 @@ import { ApplyOnType, DiscountCodeType, DiscountType, DiscountVolumeType } from 
 import { Period, periodInit } from "./period.model";
 
 export interface DiscountGrid { }
+export interface DiscountCodesGeneratedGrid { }
 
 export interface Discount
 {

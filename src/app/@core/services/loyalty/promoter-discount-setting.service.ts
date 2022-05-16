@@ -30,13 +30,12 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
   createForm(promoterDiscountSetting: PromoterDiscountSetting)
   {
     this.form = this.formBuilder.group({
-      id: [promoterDiscountSetting.id, [Validators.required]],
-      // title: [promoterDiscountSetting.title, [Validators.required]],
-      userTypeIds: [promoterDiscountSetting.userTypeIds.length === 0 && promoterDiscountSetting.id ? ['all'] : promoterDiscountSetting.userTypeIds, [Validators.required]],
-      brandIds: [promoterDiscountSetting.brandIds.length === 0 && promoterDiscountSetting.id ? ['all'] : promoterDiscountSetting.brandIds, [Validators.required]],
+      brandId: [promoterDiscountSetting.brandId, [Validators.required]],
+      commissionBasis: [promoterDiscountSetting.commissionBasis, [Validators.required]],
       customerDiscountMin: [promoterDiscountSetting.customerDiscountMin, [Validators.required]],
       customerDiscountMax: [promoterDiscountSetting.customerDiscountMax, [Validators.required]],
-      commissionBasis: [promoterDiscountSetting.commissionBasis, [Validators.required]],
+      id: [promoterDiscountSetting.id, [Validators.required]],
+      userTypeId: [promoterDiscountSetting.userTypeId, [Validators.required]],
     });
   }
 
@@ -91,45 +90,36 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
 
     const value = this.form.value;
 
-    if (!value.brandIds || value.brandIds.length === 0)
+    if (!value.brandId)
     {
       this.uiService.alert('برند را مشخص نمایید.');
       return;
     }
 
-    if (!value.userTypeIds || value.userTypeIds.length === 0)
+    if (!value.userTypeId)
     {
       this.uiService.alert('نوع کاربری را مشخص نمایید.');
       return;
     }
 
-    if (value.commissionBasis === null || value.commissionBasis === 0)
+    if (!value.commissionBasis)
     {
       this.uiService.alert('پایه پورسانت را مشخص نمایید.');
       return;
     }
 
-    if (value.customerDiscountMin === null || value.customerDiscountMin === 0)
+    if (!value.customerDiscountMin)
     {
       this.uiService.alert('تخفیف برای مشتری را مشخص نمایید.');
       return;
     }
 
-    if (value.customerDiscountMax === null || value.customerDiscountMax === 0)
+    if (!value.customerDiscountMax)
     {
       this.uiService.alert('تخفیف برای مشتری را مشخص نمایید.');
       return;
     }
 
-    if (value.brandIds.some((p: string) => p === 'all'))
-    {
-      value.brandIds = [];
-    }
-
-    if (value.userTypeIds.some((p: string) => p === 'all'))
-    {
-      value.userTypeIds = [];
-    }
 
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
 

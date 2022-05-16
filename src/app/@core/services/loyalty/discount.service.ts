@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
-import { Discount, DiscountGrid, discountInit } from "../../data/loyalty/discount.model";
+import { Discount, DiscountCodesGeneratedGrid, DiscountGrid, discountInit } from "../../data/loyalty/discount.model";
 import { DiscountType, DiscountVolumeType } from "../../data/loyalty/enums.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { Utility } from "../../utils/Utility";
@@ -15,6 +15,7 @@ import { BaseService, callGetService, callPostPagingService, callPostService } f
 export class DiscountService extends BaseService<Discount>
 {
   Discounts$ = new BehaviorSubject<Array<DiscountGrid>>([]);
+  DiscountCodesGenerateds$ = new BehaviorSubject<Array<DiscountCodesGeneratedGrid>>([]);
 
   constructor(public override formBuilder: FormBuilder, private baseInfoService: BaseInfoService,
     public http: HttpClient,
@@ -27,6 +28,21 @@ export class DiscountService extends BaseService<Discount>
   GetDiscountCodePatternsGrid(request: any)
   {
     const url = this.settingService.settings?.baseUrl + 'DiscountCode/GetDiscountCodePatternsGrid';
+    return callPostPagingService<Array<DiscountGrid>>(url, this.http, this.uiService, request).subscribe(value =>
+    {
+      this.DiscountCodesGenerateds$.next([]);
+      this.totalPages = 0;
+      if (value?.data)
+      {
+        this.DiscountCodesGenerateds$.next(value.data);
+        this.totalPages = Math.round(value.pagination.total / request.pageSize);
+      }
+    });
+  }
+
+  GetDiscountCodesGeneratedGrid(request: any)
+  {
+    const url = this.settingService.settings?.baseUrl + 'DiscountCode/GetDiscountCodesGeneratedGrid';
     return callPostPagingService<Array<DiscountGrid>>(url, this.http, this.uiService, request).subscribe(value =>
     {
       this.Discounts$.next([]);

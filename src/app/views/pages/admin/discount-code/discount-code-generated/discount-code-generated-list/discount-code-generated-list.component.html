@@ -1,125 +1,128 @@
 <div dir="rtl">
-    <div class="container-fluid">
-      <div *ngIf="theViewList.length>0" class="row mt-4">
-        <div class="col-12">
-          <div class="table-responsive">
-            <table cellspacing="1" class="table table-hover border-0 border-spacing-xs">
-              <thead>
-                <tr>
-                  <th class="text-center font-yekan-bold w-80-px fs-08 align-middle" scope="col">
-                    ردیف
-                  </th>
-                  <th class="text-end font-yekan-bold fs-08" scope="col">
-                    <label [ngClass]="{'selected':activeFilterName==8}" (click)="openFilterForm(8)" class="filter-title">
-                      کد تخفیف
-                       <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterPercentSelectedList.length==0" height="16"
-                         viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                         <path
-                           d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
-                       </svg>
-                       <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterPercentSelectedList.length>0"
-                         fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                         <path
-                           d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
-                       </svg>
-                     </label>
-                     <app-filter (applyEvent)="applyFilterForm($event,8)" (cancelEvent)="closeFilterForm($event,8)"
-                       [items]="theFilterPercentList" [visible]="activeFilterName==8" >
-                     </app-filter>
-                  </th>
-                  <th class="text-end font-yekan-bold fs-08" scope="col">
-                    <label [ngClass]="{'selected':activeFilterName==8}" (click)="openFilterForm(8)" class="filter-title">
-                      حجم تخفیف
-                       <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterPercentSelectedList.length==0" height="16"
-                         viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                         <path
-                           d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
-                       </svg>
-                       <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterPercentSelectedList.length>0"
-                         fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                         <path
-                           d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
-                       </svg>
-                     </label>
-                     <app-filter (applyEvent)="applyFilterForm($event,8)" (cancelEvent)="closeFilterForm($event,8)"
-                       [items]="theFilterPercentList" [visible]="activeFilterName==8" >
-                     </app-filter>
-                  </th>
-                  <th class="text-end font-yekan-bold fs-08" scope="col">
-                    <label [ngClass]="{'selected':activeFilterName==3}" (click)="openFilterForm(3)" class="filter-title">
-                      برند
-                      <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterBrandsSelectedList.length==0" height="16"
-                        viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
-                      </svg>
-                      <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterBrandsSelectedList.length>0"
-                        fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
-                      </svg>
-                    </label>
-                    <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
-                      [items]="theFilterBrandsList" [visible]="activeFilterName==3" >
-                    </app-filter>
-                  </th>
-                  <th class="text-end font-yekan-bold fs-08" scope="col">
-                    <app-filter (applyEvent)="applyFilterForm($event,1)" (cancelEvent)="closeFilterForm($event,1)"
-                      [items]="theFilterCustomerList" title="بازه زمانی">
-                    </app-filter>
-                  </th>
-                  <th class="text-start font-yekan-bold fs-08 align-middle" scope="col">
-                    الگوی تخفیف
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr (click)="goToEdit(discount.Code)" *ngFor="let discount of theViewList">
-                  <td class="text-center" scope="row">
-                    {{discount.Index}}
-                  </td>
-                  <td class="text-end">
-                    {{discount.Code}}
-                  </td>
-                  <td class="text-end">
-                    {{discount.Discount}}
-                  </td>
-                  <td class="text-end">
-                    {{discount.Brands}}
-                  </td>
-                  <td class="text-end">
-                    {{discount.DateTime}}
-                  </td>
-                  <td class="text-start">
-                    {{discount.Pattern}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+  <div class="container-fluid">
+    <div *ngIf="theViewList.length>0||activeFilterName!==0" class="row mt-4">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table cellspacing="1" class="table table-hover border-0 border-spacing-xs">
+            <thead>
+              <tr>
+                <th class="text-center font-yekan-bold w-80-px fs-08 align-middle" scope="col">
+                  ردیف
+                </th>
+                <th class="text-end font-yekan-bold fs-08" scope="col">
+                  <label [ngClass]="{'selected':activeFilterName==8}" (click)="openFilterForm(8)" class="filter-title">
+                    کد تخفیف
+                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterPercentSelectedList.length==0"
+                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                    </svg>
+                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterPercentSelectedList.length>0"
+                      fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
+                    </svg>
+                  </label>
+                  <app-filter (applyEvent)="applyFilterForm($event,8)" (cancelEvent)="closeFilterForm($event,8)"
+                    [items]="theFilterPercentList" [visible]="activeFilterName==8">
+                  </app-filter>
+                </th>
+                <th class="text-end font-yekan-bold fs-08" scope="col">
+                  <label [ngClass]="{'selected':activeFilterName==8}" (click)="openFilterForm(8)" class="filter-title">
+                    حجم تخفیف
+                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterPercentSelectedList.length==0"
+                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                    </svg>
+                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterPercentSelectedList.length>0"
+                      fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
+                    </svg>
+                  </label>
+                  <app-filter (applyEvent)="applyFilterForm($event,8)" (cancelEvent)="closeFilterForm($event,8)"
+                    [items]="theFilterPercentList" [visible]="activeFilterName==8">
+                  </app-filter>
+                </th>
+                <th class="text-end font-yekan-bold fs-08" scope="col">
+                  <label [ngClass]="{'selected':activeFilterName==3}" (click)="openFilterForm(3)" class="filter-title">
+                    برند
+                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterBrandsSelectedList.length==0"
+                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                    </svg>
+                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterBrandsSelectedList.length>0"
+                      fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
+                    </svg>
+                  </label>
+                  <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
+                    [items]="theFilterBrandsList" [visible]="activeFilterName==3">
+                  </app-filter>
+                </th>
+                <th class="text-end font-yekan-bold fs-08" scope="col">
+                  <app-filter (applyEvent)="applyFilterForm($event,1)" (cancelEvent)="closeFilterForm($event,1)"
+                    [items]="theFilterCustomerList" title="بازه زمانی">
+                  </app-filter>
+                </th>
+                <th class="text-start font-yekan-bold fs-08 align-middle" scope="col">
+                  الگوی تخفیف
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="goToEdit(discount.Code)" *ngFor="let discount of theViewList">
+                <td class="text-center" scope="row">
+                  {{discount.Index}}
+                </td>
+                <td class="text-end">
+                  {{discount.Code}}
+                </td>
+                <td class="text-end">
+                  {{discount.Discount}}
+                </td>
+                <td class="text-end">
+                  {{discount.Brands}}
+                </td>
+                <td class="text-end">
+                  {{discount.DateTime}}
+                </td>
+                <td class="text-start">
+                  {{discount.Pattern}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div *ngIf="!theViewList||theViewList?.length===0" class="row mt-6">
-        <div class="col-12">
-          <div class="text-center font-yekan-bold text-black fs-09">
-            کدهای تخفیف شما به محض ایجاد، در این صفحه نمایش داده می‌شود.
-          </div>
-          <div class="text-center font-yekan-bold text-gray-500 mt-2 fs-09">
-            از دکمه زیر برای ایجاد یک کد تخفیف جدید استفاده کنید.
-          </div>
-          <div class="text-center mt-4">
-            <img alt="Empty page" src="assets/img/icons/empty.png">
-          </div>
+      <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages"
+        (notifyPageIndex)="selectedPageIndex($event)">
+      </app-pagination>
+    </div>
+    <div *ngIf="!theViewList||theViewList?.length===0" class="row mt-6">
+      <div class="col-12">
+        <div class="text-center font-yekan-bold text-black fs-09">
+          کدهای تخفیف شما به محض ایجاد، در این صفحه نمایش داده می‌شود.
         </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-12 col-sm-3">
-          <button (click)="goToEdit('')"
-            class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
-            ایجاد کد تخفیف
-          </button>
+        <div class="text-center font-yekan-bold text-gray-500 mt-2 fs-09">
+          از دکمه زیر برای ایجاد یک کد تخفیف جدید استفاده کنید.
+        </div>
+        <div class="text-center mt-4">
+          <img alt="Empty page" src="assets/img/icons/empty.png">
         </div>
       </div>
     </div>
+    <div class="row mt-5">
+      <div class="col-12 col-sm-3">
+        <button (click)="goToEdit('')"
+          class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
+          ایجاد کد تخفیف
+        </button>
+      </div>
+    </div>
   </div>
-  <br>
+</div>
+<br>

@@ -6,13 +6,13 @@
           <thead>
             <tr>
               <th class="text-end font-yekan-bold pr-2 fs-08 cursor-pointer" scope="col">
-               نوع کاربری
+                نوع کاربری
               </th>
               <th class="text-end font-yekan-bold pr-2 fs-08 cursor-pointer" scope="col">
-             برند
+                برند
               </th>
               <th class="text-start font-yekan-bold fs-08 cursor-pointer" scope="col">
-               پایه پورسانت
+                پایه پورسانت
               </th>
               <th class="text-start font-yekan-bold fs-08 cursor-pointer" scope="col">
                 بازه تخفیف مشتری تعریف شده
@@ -38,6 +38,9 @@
         </table>
       </div>
     </div>
+    <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages"
+      (notifyPageIndex)="selectedPageIndex($event)">
+    </app-pagination>
   </div>
   <div class="row mt-5">
     <div class="col-12 col-sm-3">

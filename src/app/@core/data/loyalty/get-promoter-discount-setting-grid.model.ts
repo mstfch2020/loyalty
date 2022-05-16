@@ -3,14 +3,11 @@ import { PeriodModel } from "./period.model";
 
 export interface GetPromoterDiscountSettingGrid
 {
-  id: string | null;
-  title: string;
-  brandIds: Array<string>;// to do brandIds
-  brandId: string;
-  userTypeId: string;
+  brand: string;
   commissionBasis: number;
-  customerDiscountMin: number;
-  customerDiscountMax: number;
+  customerDiscountRange: string;
+  userType: string;
+  id: string;
 }
 
 export interface GetPromoterDiscountSetting

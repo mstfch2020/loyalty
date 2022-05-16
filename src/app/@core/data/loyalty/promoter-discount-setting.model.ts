@@ -1,27 +1,22 @@
 export interface PromoterDiscountSettingGrid { }
 
-export interface PromoterDiscountSetting {
-  id: string | null;
-  title: string;
-  brandIds: Array<string>;// to do brandIds
+export interface PromoterDiscountSetting
+{
   brandId: string;
-  userTypeIds: Array<string>;// to do userTypeIds
-  userTypeId: string;
   commissionBasis: number;
   customerDiscountMin: number;
   customerDiscountMax: number;
+  id: string | null;
+  userTypeId: string;
 }
 
 export const promoterDiscountSettingInit: PromoterDiscountSetting = {
+  brandId: '',
+  commissionBasis: 0,
+  customerDiscountMin: 0,
+  customerDiscountMax: 100,
   id: '',
-  title:'',
-  brandIds: [],
-  brandId:'',
-  userTypeIds:[],
-  userTypeId:'',
-  commissionBasis:0,
-  customerDiscountMin:0,
-  customerDiscountMax:100,
+  userTypeId: '',
 };
 
 
