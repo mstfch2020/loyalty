@@ -9,7 +9,6 @@ import { FilterTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model"
 })
 export class FilterDateComponent implements OnInit {
 
-  @Input() title: string;
   @Input() items = new Array<FilterTitle>();
   @Input() visible :boolean;
 
@@ -20,7 +19,6 @@ export class FilterDateComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder) {
     this.items = [];
-    this.title = '';
     this.visible = false;
     this.filterForm = this.formBuilder.group({ dateFrom: ['', [Validators.nullValidator]], });
   }

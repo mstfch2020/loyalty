@@ -53,6 +53,7 @@ import { DiscountCodeGeneratedListComponent } from './discount-code/discount-cod
 import { DiscountCodePatternComponent } from './discount-code/discount-code-pattern/discount-code-pattern.component';
 import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern/discount-code-pattern-edit/discount-code-pattern-edit.component';
 import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern/discount-code-pattern-list/discount-code-pattern-list.component';
+import { FilterTextComponent } from './filter-text/filter-text.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { DiscountCodePatternListComponent } from './discount-code/discount-code-
     DiscountCodePatternComponent,
     DiscountCodePatternEditComponent,
     DiscountCodePatternListComponent,
+    FilterTextComponent,
   ],
   imports: [
     FormsModule,

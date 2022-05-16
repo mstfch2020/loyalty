@@ -1,0 +1,30 @@
+<div class="form-filter" [formGroup]="filterForm" *ngIf="visible">
+    <div class="body">
+        <div class="d-flex flex-column gap-2">
+            <ng-container *ngIf="filterType==1">
+                <input class="filter-text-input"
+                    [ngClass]="{'text-center':align==1,'text-start':align==2,'text-end':align==3}"
+                    formControlName="textValue" type="text" maxlength="{{length}}">
+            </ng-container>
+            <ng-container *ngIf="filterType==2">
+                <input class="filter-int-input"
+                    [ngClass]="{'text-center':align==1,'text-start':align==2,'text-end':align==3}"
+                    formControlName="intValue" type="number" maxlength="{{length}}">
+            </ng-container>
+            <ng-container *ngIf="filterType==3">
+                <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true"
+                [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                <input #datepickerInput3 [dropSpecialCharacters]="false" [dropSpecialCharacters]="false"
+                  [leadZeroDateTime]="true" class="filter-date-input text-center text-black" dir="ltr"
+                  formControlName="dateFrom" mask="0000/M0/d0" type="text" placeholder="تاریخ" />
+              </ng-persian-datepicker>
+            </ng-container>
+        </div>
+    </div>
+    <button (click)="applyEventNotify()" class="btn-apply-filter">
+        فیلتر
+    </button>
+    <button (click)="cancelEventNotify()" class="btn-cancel-filter">
+        انصراف
+    </button>
+</div>
