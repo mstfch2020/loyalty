@@ -69,21 +69,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr (click)="goToEdit(discount.Index)" *ngFor="let discount of theViewList">
+              <tr (click)="goToEdit(discount.id)" *ngFor="let discount of theViewList;let i=index;">
                 <td class="text-center" scope="row">
-                  {{discount.Index}}
+                  {{((pageIndex-1)*pageSize)+i}}
                 </td>
                 <td class="text-end">
-                  {{discount.Name}}
+                  {{discount.patternName}}
                 </td>
                 <td class="text-end">
-                  {{discount.Brands}}
+                  {{discount.brands.join('،')}}
                 </td>
                 <td class="text-end">
-                  {{discount.DateTime}}
+                  {{discount.periodMax.full}}-{{discount.periodMin.full}}
                 </td>
                 <td class="text-end">
-                  {{discount.Discount}}
+                  {{getVolume(discount)}}
                 </td>
               </tr>
             </tbody>

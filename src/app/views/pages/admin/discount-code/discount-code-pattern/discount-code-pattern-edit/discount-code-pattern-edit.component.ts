@@ -11,91 +11,113 @@ import { DiscountService } from "src/app/@core/services/loyalty/discount.service
   templateUrl: './discount-code-pattern-edit.component.html',
   styleUrls: ['./discount-code-pattern-edit.component.scss']
 })
-export class DiscountCodePatternEditComponent implements OnInit {
+export class DiscountCodePatternEditComponent implements OnInit
+{
 
   closeResult = '';
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    public discountService: DiscountService,
+    public service: DiscountService,
     public baseInfoService: BaseInfoService,
-    private modalService: NgbModal) {
-    this.route.queryParams.subscribe(params => {
+    private modalService: NgbModal)
+  {
+    this.route.queryParams.subscribe(params =>
+    {
       const id = params['id'];
-      if (id) {
-        this.discountService.getDiscountById(id).subscribe((value) => {
+      if (id)
+      {
+        this.service.getDiscountById(id).subscribe((value) =>
+        {
 
-          this.baseInfoService.loadBaseInfo(() => {
-            if (!value) {
+          this.baseInfoService.loadBaseInfo(() =>
+          {
+            if (!value)
+            {
               value = discountInit;
             }
-            this.discountService.createForm(value);
+            this.service.createForm(value);
           }, value?.brandIds);
         });
-      } else {
+      } else
+      {
 
-        this.baseInfoService.loadBaseInfo(() => { this.discountService.createForm(discountInit); });
+        this.baseInfoService.loadBaseInfo(() => { this.service.createForm(discountInit); });
       }
     });
   }
 
-  ngOnInit(): void {
-    this.discountService.form.markAllAsTouched();
+  ngOnInit(): void
+  {
+    this.service.form.markAllAsTouched();
   }
 
-  open(content: any, generateCodes = false) {
-    if (generateCodes) {
-      this.discountService.setValue('generatedDiscountCodes', null);
-      if (this.discountService.getValue('discountCodeType') === DiscountCodeType.Random) {
-        const randomDiscountCodePrefix = this.discountService.getValue('randomDiscountCodePrefix');
-        const randomDiscountCodeCount = this.discountService.getValue('randomDiscountCodeCount');
+  open(content: any, generateCodes = false)
+  {
+    if (generateCodes)
+    {
+      this.service.setValue('generatedDiscountCodes', null);
+      if (this.service.getValue('discountCodeType') === DiscountCodeType.Random)
+      {
+        const randomDiscountCodePrefix = this.service.getValue('randomDiscountCodePrefix');
+        const randomDiscountCodeCount = this.service.getValue('randomDiscountCodeCount');
         const discountCodes = new Array<string>();
-        for (let i = 0; i < randomDiscountCodeCount; i++) {
-          discountCodes.push(`${randomDiscountCodePrefix}-${i}`);
+        for (let i = 0; i < randomDiscountCodeCount; i++)
+        {
+          discountCodes.push(`${ randomDiscountCodePrefix }-${ i }`);
         }
-        this.discountService.setValue('generatedDiscountCodes', discountCodes);
+        this.service.setValue('generatedDiscountCodes', discountCodes);
 
-      } else {
-        const discountFixCode = this.discountService.getValue('discountFixCode');
+      } else
+      {
+        const discountFixCode = this.service.getValue('discountFixCode');
 
         if (discountFixCode)
-          this.discountService.setValue('generatedDiscountCodes', [discountFixCode]);
+          this.service.setValue('generatedDiscountCodes', [discountFixCode]);
       }
     }
     this.modalService.open(content, {
       size: 'lg',
       backdrop: 'static',
       ariaLabelledBy: 'modal-basic-title'
-    }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    }).result.then((result) =>
+    {
+      this.closeResult = `Closed with: ${ result }`;
+    }, (reason) =>
+    {
+      this.closeResult = `Dismissed ${ this.getDismissReason(reason) }`;
     });
   }
 
   /**
    * Close all displayed modal
    */
-  close() {
+  close()
+  {
     this.modalService.dismissAll();
   }
 
-  saveCode() {
+  saveCode()
+  {
     this.close();
-    this.discountService.submit();
+    this.service.submit();
   }
 
   /**
    * Write code on Method
    * @return response()
    */
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
+  private getDismissReason(reason: any): string
+  {
+    if (reason === ModalDismissReasons.ESC)
+    {
       return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK)
+    {
       return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
+    } else
+    {
+      return `with: ${ reason }`;
     }
   }
 

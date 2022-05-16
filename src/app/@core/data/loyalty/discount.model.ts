@@ -1,11 +1,22 @@
 import { ApplyOnType, DiscountCodeType, DiscountType, DiscountVolumeType } from "./enums.model";
 import { Period, periodInit } from "./period.model";
 
-export interface DiscountGrid { }
+export interface DiscountGrid
+{
+  id: string;
+  brands: Array<string>;
+  patternName: string;
+  periodMax: Period;
+  periodMin: Period;
+  volume: number;
+  volumeType: DiscountVolumeType;
+
+}
 export interface DiscountCodesGeneratedGrid { }
 
 export interface Discount
 {
+  staticCode: string;
   id: string;
   periodMin: Period;
   periodMax: Period;
@@ -61,5 +72,5 @@ export const discountInit: Discount = {
   discountFixCode: '',
   randomDiscountCodePrefix: '',
   randomDiscountCodeCount: 0,
-
+  staticCode: '',
 };

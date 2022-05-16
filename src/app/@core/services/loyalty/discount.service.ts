@@ -14,6 +14,10 @@ import { BaseService, callGetService, callPostPagingService, callPostService } f
 @Injectable({ providedIn: 'root' })
 export class DiscountService extends BaseService<Discount>
 {
+  submit(): void
+  {
+    throw new Error("Method not implemented.");
+  }
   Discounts$ = new BehaviorSubject<Array<DiscountGrid>>([]);
   DiscountCodesGenerateds$ = new BehaviorSubject<Array<DiscountCodesGeneratedGrid>>([]);
 
@@ -30,11 +34,11 @@ export class DiscountService extends BaseService<Discount>
     const url = this.settingService.settings?.baseUrl + 'DiscountCode/GetDiscountCodePatternsGrid';
     return callPostPagingService<Array<DiscountGrid>>(url, this.http, this.uiService, request).subscribe(value =>
     {
-      this.DiscountCodesGenerateds$.next([]);
+      this.Discounts$.next([]);
       this.totalPages = 0;
       if (value?.data)
       {
-        this.DiscountCodesGenerateds$.next(value.data);
+        this.Discounts$.next(value.data);
         this.totalPages = Math.round(value.pagination.total / request.pageSize);
       }
     });
@@ -45,11 +49,11 @@ export class DiscountService extends BaseService<Discount>
     const url = this.settingService.settings?.baseUrl + 'DiscountCode/GetDiscountCodesGeneratedGrid';
     return callPostPagingService<Array<DiscountGrid>>(url, this.http, this.uiService, request).subscribe(value =>
     {
-      this.Discounts$.next([]);
+      this.DiscountCodesGenerateds$.next([]);
       this.totalPages = 0;
       if (value?.data)
       {
-        this.Discounts$.next(value.data);
+        this.DiscountCodesGenerateds$.next(value.data);
         this.totalPages = Math.round(value.pagination.total / request.pageSize);
       }
     });
@@ -69,7 +73,7 @@ export class DiscountService extends BaseService<Discount>
       userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
       productGroupIds: [scenario.productGroupIds.length === 0 && scenario.id ? ['all'] : scenario.productGroupIds, [Validators.required]],
       productGroupsExceptedIds: [scenario.productGroupsExceptedIds, [Validators.required]],
-      productGroupsConditionIds: [scenario.productGroupsExceptedIds, [Validators.required]],
+      productGroupsConditionIds: [scenario.productGroupsConditionIds, [Validators.required]],
       purchanseAmountMin: [scenario.purchanseAmountMin, [Validators.required]],
       purchanseAmountMax: [scenario.purchanseAmountMax, [Validators.required]],
       generatedDiscountCodes: [scenario.generatedDiscountCodes, [Validators.required]],
@@ -86,7 +90,7 @@ export class DiscountService extends BaseService<Discount>
       randomDiscountCodePrefix: [scenario.randomDiscountCodePrefix, [Validators.required]],
       randomDiscountCodeCount: [scenario.randomDiscountCodeCount, [Validators.required]],
       discountFixCode: [scenario.discountFixCode, [Validators.required]],
-
+      staticCode: [scenario.staticCode, [Validators.required]],
 
     });
 
@@ -128,15 +132,20 @@ export class DiscountService extends BaseService<Discount>
     this.setValue('discountType', DiscountType.ShoppingBasket);
   }
 
-  submit(): void
+  submitDiscount(isCreate: boolean): void
   {
-    if (this.form.invalid)
-    {
-      this.uiService.showSnackBar('موارد الزامی در فرم را وارد نمایید.', '', 3000);
-      return;
-    }
     console.log(this.form.value);
-    const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
+    let option = 'CreatePattern';
+    if (!isCreate)
+    {
+      if (Utility.isNullOrEmpty(this.getValue('id')))
+      {
+        option = 'CreateWithGeneratingCode';
+      } else
+      {
+        option = 'GenerateCode';
+      }
+    }
     const url = this.settingService.settings?.baseUrl + `DiscountCode/${ option }`;
 
     this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin');
