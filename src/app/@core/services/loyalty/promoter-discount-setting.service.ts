@@ -8,7 +8,7 @@ import { Utility } from 'src/app/@core/utils/Utility';
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callGetService, callPostService } from "./BaseService";
+import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
 
 @Injectable({
   providedIn: 'root'
@@ -62,14 +62,14 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
 
     const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetPromoterDiscountSettingsGrid';
 
-    return callGetService<Array<GetPromoterDiscountSettingGrid>>(url, this.http, this.uiService, request).subscribe(value =>
+    return callPostPagingService<Array<GetPromoterDiscountSettingGrid>>(url, this.http, this.uiService, request).subscribe(value =>
     {
       this.promoterDiscountSettings$.next([]);
       this.totalPages = 0;
-      if (value)
+      if (value?.data)
       {
-        this.promoterDiscountSettings$.next(value);
-        this.totalPages = 9999;
+        this.promoterDiscountSettings$.next(value.data);
+        this.totalPages = value.pagination.total;
       }
     });
   }

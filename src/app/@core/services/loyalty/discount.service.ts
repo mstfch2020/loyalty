@@ -9,7 +9,7 @@ import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callGetService, callPostService } from "./BaseService";
+import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class DiscountService extends BaseService<Discount>
@@ -24,15 +24,18 @@ export class DiscountService extends BaseService<Discount>
     super(formBuilder, discountInit);
   }
 
-  getDiscount(pageSize: number, pageIndex: number)
+  GetDiscountCodePatternsGrid(request: any)
   {
-    const url = this.settingService.settings?.baseUrl + 'Discount/GetDiscountsGrid';
-    return callGetService<Array<DiscountGrid>>(url, this.http, this.uiService, {
-      pageSize: pageSize, pageIndex: pageIndex
-    }).subscribe(value =>
+    const url = this.settingService.settings?.baseUrl + 'DiscountCode/GetDiscountCodePatternsGrid';
+    return callPostPagingService<Array<DiscountGrid>>(url, this.http, this.uiService, request).subscribe(value =>
     {
-      if (!value) { value = []; }
-      this.Discounts$.next(value);
+      this.Discounts$.next([]);
+      this.totalPages = 0;
+      if (value?.data)
+      {
+        this.Discounts$.next(value.data);
+        this.totalPages = Math.round(value.pagination.total / request.pageSize);
+      }
     });
   }
 

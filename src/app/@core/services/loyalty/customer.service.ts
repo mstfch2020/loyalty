@@ -4,7 +4,7 @@ import { BehaviorSubject } from "rxjs";
 import { CustomerDetail, CustomerMainGrid, CustomerSubGrid } from "../../data/loyalty/customer.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
-import { callGetService } from "./BaseService";
+import { callGetService, callPostPagingService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService
@@ -12,6 +12,7 @@ export class CustomerService
   customerMainGrid$ = new BehaviorSubject<Array<CustomerMainGrid>>([]);
   customerSubGrid$ = new BehaviorSubject<Array<CustomerSubGrid>>([]);
   customer$ = new BehaviorSubject<CustomerDetail>({} as CustomerDetail);
+  totalPages = 0;
 
   constructor(
     public http: HttpClient,
@@ -20,15 +21,18 @@ export class CustomerService
   {
   }
 
-  getCustomerMainGrid(pageSize: number, pageIndex: number)
+  getCustomerMainGrid(request: any)
   {
     const url = this.settingService.settings?.baseUrl + 'Customer/GetCustmersGrid';
-    return callGetService<Array<CustomerMainGrid>>(url, this.http, this.uiService, {
-      pageSize: pageSize, pageIndex: pageIndex
-    }).subscribe(value =>
+    return callPostPagingService<Array<CustomerMainGrid>>(url, this.http, this.uiService, request).subscribe(value =>
     {
-      if (!value) { value = []; }
-      this.customerMainGrid$.next(value);
+      this.customerMainGrid$.next([]);
+      this.totalPages = 0;
+      if (value?.data)
+      {
+        this.customerMainGrid$.next(value.data);
+        this.totalPages = Math.round(value.pagination.total / request.pageSize);
+      }
     });
   }
 
