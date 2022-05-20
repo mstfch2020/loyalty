@@ -2,6 +2,7 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
 import { FormControl, FormGroup } from '@angular/forms';
 import { FilterTitle } from "src/app/@core/data/loyalty/get-senarios-grid.model";
 import { Utility } from 'src/app/@core/utils/Utility';
+import { FilterType, AlignMode } from 'src/app/@core/data/Enums/Enumerations';
 
 @Component({
   selector: 'app-filter',
@@ -10,29 +11,36 @@ import { Utility } from 'src/app/@core/utils/Utility';
 })
 export class FilterComponent implements OnInit {
 
-  @Input() align: string;
+  @Input() isCriteria: boolean;
   @Input() isRadio: boolean;
   @Input() visible: boolean;
+  @Input() filterType: FilterType;
+  @Input() align: AlignMode;
+  @Input() length: number;
 
   @Input() items = new Array<FilterTitle>();
   @Output() cancelEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() applyEvent: EventEmitter<any> = new EventEmitter<any>();
 
   filterForm!: FormGroup;
-  isChecked: boolean;
 
   constructor() {
-    this.align = '';
     this.items = [];
-    this.isChecked = false;
+    this.isCriteria = false;
     this.isRadio = false;
     this.visible = false;
+    this.filterType = FilterType.Integer;
+    this.align = AlignMode.Center;
+    this.length = 11;
   }
 
   ngOnInit(): void {
     this.filterForm = new FormGroup({
       conditionType: new FormControl(1),
-      searchValue: new FormControl(null)
+      searchValue: new FormControl(null),
+      dateValue: new FormControl(null),
+      textValue: new FormControl(null),
+      intValue: new FormControl(null),
     });
   }
 
@@ -42,20 +50,25 @@ export class FilterComponent implements OnInit {
   }
 
   applyEventNotify() {
+
     this.visible = false;
-    let searchValue = this.filterForm.get('searchValue')?.value;
+    let value = null;
 
-    if (searchValue && new RegExp(Utility.mobileRegEx).test(searchValue)) {
-      this.applyEvent.emit({ value: [{ id: searchValue, title: searchValue, type: 3 }], conditionType: this.filterForm.get("conditionType")?.value });
-    } else {
-      this.applyEvent.emit({ value: this.items.filter(p => p.checked), conditionType: this.filterForm.get("conditionType")?.value });
-    }
+    switch (this.filterType) {
+      case FilterType.Integer: value = this.filterForm.get('textValue')?.value; this.applyEvent.emit(value); break;
+      case FilterType.String: value = this.filterForm.get('intValue')?.value; this.applyEvent.emit(value); break;
+      case FilterType.Date: value = this.filterForm.get('dateValue')?.value; this.applyEvent.emit(value); break;
+      case FilterType.OrderList:
+        {
+          let searchValue = this.filterForm.get('searchValue')?.value;
 
-    var theCheckedItems = this.items.filter(w => w.checked);
-    if (theCheckedItems.length > 0) {
-      this.isChecked = true;
-    } else {
-      this.isChecked = false;
+          if (searchValue && new RegExp(Utility.mobileRegEx).test(searchValue)) {
+            this.applyEvent.emit({ value: [{ id: searchValue, title: searchValue, type: 3 }], conditionType: this.filterForm.get("conditionType")?.value });
+          } else {
+            this.applyEvent.emit({ value: this.items.filter(p => p.checked), conditionType: this.filterForm.get(" ")?.value });
+          }
+        };
+        break;
     }
 
     this.cancelEvent.emit(false);

@@ -17,7 +17,8 @@
                   ردیف
                 </th>
                 <th class="text-center pr-1 font-yekan-bold w-140-px fs-08" scope="col">
-                  <label [ngClass]="{'selected':activeFilterName==12}" (click)="openFilterForm(12)" class="filter-title">
+                  <label [ngClass]="{'selected':activeFilterName==12}" (click)="openFilterForm(12)"
+                    class="filter-title">
                     شماره موبایل
                     <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterCustomerSelectedList.length==0"
                       height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -30,9 +31,9 @@
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
                     </svg>
                   </label>
-                  <app-filter-text (applyEvent)="applyFilterForm($event,12)" (cancelEvent)="closeFilterForm($event,12)"
+                  <app-filter (applyEvent)="applyFilterForm($event,12)" (cancelEvent)="closeFilterForm($event,12)"
                     [visible]="activeFilterName==12" [filterType]="1" [align]="1" [length]="11">
-                  </app-filter-text>
+                  </app-filter>
                 </th>
                 <th class="text-end col-md-3 col-sm-3 font-yekan-bold pr-3 fs-08" scope="col">
                   <label [ngClass]="{'filter-selected':activeFilterName==3}" (click)="openFilterForm(3)"
@@ -50,7 +51,7 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
-                    [visible]="activeFilterName==3" [items]="theFilterBrandsList">
+                    [visible]="activeFilterName==3" [items]="theFilterBrandsList" [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-end font-yekan-bold fs-08" scope="col">
@@ -68,7 +69,7 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,6)" (cancelEvent)="closeFilterForm($event,16)"
-                    [visible]="activeFilterName==6" [items]="theFilterUserTypeList">
+                    [visible]="activeFilterName==6" [items]="theFilterUserTypeList" [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-end font-yekan-bold fs-08" scope="col">
@@ -86,7 +87,7 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,1)" (cancelEvent)="closeFilterForm($event,1)"
-                    [visible]="activeFilterName==1" [items]="theFilterCustomerList">
+                    [visible]="activeFilterName==1" [items]="theFilterCustomerList" [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08 align-middle" scope="col">
@@ -107,9 +108,9 @@
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
                     </svg>
                   </label>
-                  <app-filter-date (applyEvent)="applyFilterForm($event,2)" (cancelEvent)="closeFilterForm($event,2)"
-                    [visible]="activeFilterName==2">
-                  </app-filter-date>
+                  <app-filter (applyEvent)="applyFilterForm($event,2)" (cancelEvent)="closeFilterForm($event,2)"
+                    [visible]="activeFilterName==2" [filterType]="5">
+                  </app-filter>
                 </th>
               </tr>
             </thead>

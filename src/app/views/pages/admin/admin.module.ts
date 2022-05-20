@@ -38,7 +38,6 @@ import { SendSmsPatternComponent } from './send-sms/send-sms-pattern/send-sms-pa
 import { SendSmsListComponent } from './send-sms/send-sms-list/send-sms-list.component';
 import { SendSmsCreateComponent } from './send-sms/send-sms-create/send-sms-create.component';
 import { FilterComponent } from './filter/filter.component';
-import { FilterDateComponent } from './filter-date/filter-date.component';
 import { FilterPipe } from 'src/app/@core/data/pipes/filter.pipe';
 import { PaginationComponent } from './pagination/pagination.component';
 import { SystemSettingsBehavioralComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral.component';
@@ -53,7 +52,6 @@ import { DiscountCodeGeneratedListComponent } from './discount-code/discount-cod
 import { DiscountCodePatternComponent } from './discount-code/discount-code-pattern/discount-code-pattern.component';
 import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern/discount-code-pattern-edit/discount-code-pattern-edit.component';
 import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern/discount-code-pattern-list/discount-code-pattern-list.component';
-import { FilterTextComponent } from './filter-text/filter-text.component';
 
 
 @NgModule({
@@ -90,7 +88,6 @@ import { FilterTextComponent } from './filter-text/filter-text.component';
     SendSmsListComponent,
     SendSmsCreateComponent,
     FilterComponent,
-    FilterDateComponent,
     FilterPipe,
     PaginationComponent,
     SystemSettingsBehavioralComponent,
@@ -105,7 +102,6 @@ import { FilterTextComponent } from './filter-text/filter-text.component';
     DiscountCodePatternComponent,
     DiscountCodePatternEditComponent,
     DiscountCodePatternListComponent,
-    FilterTextComponent,
   ],
   imports: [
     FormsModule,

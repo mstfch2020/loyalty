@@ -36,6 +36,7 @@ export class SystemSettingsBehavioralListComponent extends BaseSearch implements
 
   override search(request: any)
   {
+    request.pageSize = 20;
     this.service.GetActivitiesGrid(request);
   }
 

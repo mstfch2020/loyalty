@@ -26,7 +26,7 @@
                             </label>
                             <app-filter (applyEvent)="applyFilterForm($event,3)"
                                 (cancelEvent)="closeFilterForm($event,3)" [visible]="activeFilterName==3"
-                                [items]="theFilterBrandsList">
+                                [items]="theFilterBrandsList" [filterType]="5">
                             </app-filter>
                         </th>
                         <th class="text-end font-yekan-bold fs-08 cursor-pointer" scope="col">

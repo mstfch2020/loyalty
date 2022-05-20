@@ -34,6 +34,18 @@
   margin-bottom: 10px;
 }
 
+.filter-text-input ,
+.filter-int-input,
+.filter-date-input {
+    border: 1px solid #b2e8e9;
+    border-radius: 8px;
+    padding: 4px;
+    float: right;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 .form-filter .body .search {
   border: 1px solid #b2e8e9;
   border-radius: 8px;

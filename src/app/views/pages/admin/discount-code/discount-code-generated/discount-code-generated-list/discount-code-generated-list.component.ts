@@ -29,6 +29,7 @@ export class DiscountCodeGeneratedListComponent extends BaseSearch implements On
 
   override search(request: any)
   {
+    request.pageSize = 20;
     this.service.GetDiscountCodesGeneratedGrid(request);
   }
 

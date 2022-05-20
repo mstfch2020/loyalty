@@ -29,7 +29,7 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,9)" (cancelEvent)="closeFilterForm($event,9)"
-                    [items]="theFilterLevelsList" [visible]="activeFilterName==9" >
+                    [items]="theFilterLevelsList" [visible]="activeFilterName==9" [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08" scope="col">
@@ -47,7 +47,7 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
-                    [items]="theFilterBrandsList" [visible]="activeFilterName==3" >
+                    [items]="theFilterBrandsList" [visible]="activeFilterName==3" [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08" scope="col">
@@ -65,7 +65,7 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,7)" (cancelEvent)="closeFilterForm($event,7)"
-                    [items]="theFilterCommissionList" [visible]="activeFilterName==7" >
+                    [items]="theFilterCommissionList" [visible]="activeFilterName==7" [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08" scope="col">
@@ -83,7 +83,7 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,8)" (cancelEvent)="closeFilterForm($event,8)"
-                    [items]="theFilterPercentList" [visible]="activeFilterName==8" >
+                    [items]="theFilterPercentList" [visible]="activeFilterName==8" [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08" scope="col">
@@ -101,7 +101,7 @@
                      </svg>
                    </label>
                   <app-filter (applyEvent)="applyFilterForm($event,10)" (cancelEvent)="closeFilterForm($event,10)"
-                    [items]="theFilterGroupList" [visible]="activeFilterName==10" >
+                    [items]="theFilterGroupList" [visible]="activeFilterName==10"[filterType]="5" >
                   </app-filter>
                 </th>
               </tr>

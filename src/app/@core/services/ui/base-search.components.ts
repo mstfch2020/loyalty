@@ -58,12 +58,14 @@ export class BaseSearch implements OnInit {
   theFilterStatusList: Array<FilterTitle> = [
     {
       id: '1',
-      title: 'فعال', type: 0,
+      title: 'فعال', 
+      type: 0,
       checked: false,
     },
     {
       id: '2',
-      title: 'غیرفعال', type: 0,
+      title: 'غیرفعال', 
+      type: 0,
       checked: false,
     },
   ];
@@ -129,8 +131,8 @@ export class BaseSearch implements OnInit {
         this.theFilterCustomerSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case FilterNames.Date:
-        this.theFilterDateFromSelected = event?.dateFrom;
-        this.theFilterDateToSelected = event?.dateTo;
+        this.theFilterDateFromSelected = event;
+        this.theFilterDateToSelected = event;
         break;
       case FilterNames.Brand:
         this.theFilterBrandsSelectedList = event.value;

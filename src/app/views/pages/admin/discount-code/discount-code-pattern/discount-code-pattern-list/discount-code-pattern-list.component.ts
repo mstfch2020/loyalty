@@ -34,6 +34,7 @@ export class DiscountCodePatternListComponent extends BaseSearch implements OnIn
 
   override search(request: any)
   {
+    request.pageSize = 20;
     this.service.GetDiscountCodePatternsGrid(request);
   }
 

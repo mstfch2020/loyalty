@@ -38,6 +38,7 @@ export class SystemSettingsDiscountListComponent extends BaseSearch implements O
 
   override search(request: any)
   {
+    request.pageSize = 20;
     this.service.getPromoterDiscountSettingGrid(request);
   }
 

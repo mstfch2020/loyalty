@@ -36,6 +36,7 @@ export class CustomerGroupListComponent extends BaseSearch implements OnInit
 
   override search(request: any)
   {
+    request.pageSize = 20;
     this.service.getCustomerGroups(request);
   }
 
