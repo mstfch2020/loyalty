@@ -44,7 +44,7 @@ export class MainComponent implements OnInit {
       {
         title: 'کاربران پنل',
         url: '/admin/main/users',
-        visible: true
+        visible: false
       },
       {
         title: 'ارسال پیامک',
