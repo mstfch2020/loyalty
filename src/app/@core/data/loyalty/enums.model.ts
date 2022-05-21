@@ -96,4 +96,5 @@ export enum FilterNames
   ExpireDate = 12,
   expireDate = 11,
   Title = 12,
+  Paging = 13
 }

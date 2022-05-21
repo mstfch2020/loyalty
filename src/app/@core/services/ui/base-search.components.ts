@@ -9,7 +9,8 @@ import { BaseInfoService } from "../loyalty/base-info.service";
   selector: 'base-search',
   template: '',
 })
-export class BaseSearch implements OnInit {
+export class BaseSearch implements OnInit
+{
 
   theFilterCustomerList = new Array<FilterTitle>();
   theFilterCustomerSelectedList = new Array<IdTitleTypeBrandId>();
@@ -58,26 +59,30 @@ export class BaseSearch implements OnInit {
   theFilterStatusList: Array<FilterTitle> = [
     {
       id: '1',
-      title: 'فعال', 
+      title: 'فعال',
       type: 0,
       checked: false,
     },
     {
       id: '2',
-      title: 'غیرفعال', 
+      title: 'غیرفعال',
       type: 0,
       checked: false,
     },
   ];
 
-  constructor(public baseInfoService: BaseInfoService) {
+  constructor(public baseInfoService: BaseInfoService)
+  {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.baseInfoService.loadBaseInfo(() => { });
-    this.baseInfoService.generalCustomers$.subscribe(value => {
-      value.forEach(p => {
+    this.baseInfoService.generalCustomers$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
         this.theFilterCustomerList.push({
           checked: false,
           id: p.id,
@@ -87,8 +92,10 @@ export class BaseSearch implements OnInit {
       });
     });
 
-    this.baseInfoService.brands$.subscribe(value => {
-      value.forEach(p => {
+    this.baseInfoService.brands$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
         this.theFilterBrandsList.push({
           checked: false,
           id: p.id,
@@ -97,8 +104,10 @@ export class BaseSearch implements OnInit {
       });
     });
 
-    this.baseInfoService.customerLevel$.subscribe(value => {
-      value.forEach(p => {
+    this.baseInfoService.customerLevel$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
         this.theFilterLevelsList.push({
           checked: false,
           id: p.id,
@@ -107,8 +116,10 @@ export class BaseSearch implements OnInit {
       });
     });
 
-    this.baseInfoService.userTypes$.subscribe(value => {
-      value.forEach(p => {
+    this.baseInfoService.userTypes$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
         this.theFilterUserTypeList.push({
           checked: false,
           id: p.id,
@@ -120,12 +131,15 @@ export class BaseSearch implements OnInit {
     this.search({ pageSize: this.pageSize, pageIndex: this.pageIndex });
   }
 
-  openFilterForm(filterType: FilterNames) {
+  openFilterForm(filterType: FilterNames)
+  {
     this.activeFilterName = filterType;
   }
 
-  applyFilterForm(event: any, filterType: FilterNames) {
-    switch (filterType) {
+  applyFilterForm(event: any, filterType: FilterNames)
+  {
+    switch (filterType)
+    {
       case FilterNames.Customer:
         this.theFilterCustomerSelectedList = event.value;
         this.theFilterCustomerSelectedCondition = parseInt(event.conditionType, 0);
@@ -170,117 +184,148 @@ export class BaseSearch implements OnInit {
         break;
     }
 
+    if (filterType !== FilterNames.Paging)
+    {
+      this.pageIndex = 1;
+    }
+
     const request: any = {};
     request.pageIndex = this.pageIndex;
     request.pageSize = this.pageSize;
 
-    if (this.theFilterPercentSelectedList && this.theFilterPercentSelectedList.length > 0) {
+    if (this.theFilterPercentSelectedList && this.theFilterPercentSelectedList.length > 0)
+    {
       request.CommissionFilter = {} as any;
       request.CommissionFilter.CustomerDiscounts = this.theFilterPercentSelectedList.map(p => p.id);
-      if (this.theFilterPercentSelectedList.findIndex(p => p.id === 'all') !== -1) {
+      if (this.theFilterPercentSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
         request.CommissionFilter.CustomerDiscounts = [];
       }
       request.CommissionFilter.filterType = 0;
-      if (this.theFilterPercentSelectedCondition != 0) {
+      if (this.theFilterPercentSelectedCondition != 0)
+      {
         request.CommissionFilter.filterType = this.theFilterPercentSelectedCondition;
       }
     }
 
-    if (this.theFilterCommissionSelectedList && this.theFilterCommissionSelectedList.length > 0) {
+    if (this.theFilterCommissionSelectedList && this.theFilterCommissionSelectedList.length > 0)
+    {
       request.CommissionFilter = {} as any;
       request.CommissionFilter.CommissionBasises = this.theFilterCommissionSelectedList.map(p => p.id);
-      if (this.theFilterCommissionSelectedList.findIndex(p => p.id === 'all') !== -1) {
+      if (this.theFilterCommissionSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
         request.CommissionFilter.CommissionBasises = [];
       }
       request.CommissionFilter.filterType = 0;
-      if (this.theFilterCommissionSelectedCondition != 0) {
+      if (this.theFilterCommissionSelectedCondition != 0)
+      {
         request.CommissionFilter.filterType = this.theFilterCommissionSelectedCondition;
       }
     }
 
-    if (this.theFilterUserTypeSelectedList && this.theFilterUserTypeSelectedList.length > 0) {
+    if (this.theFilterUserTypeSelectedList && this.theFilterUserTypeSelectedList.length > 0)
+    {
       request.UserTypeFilter = {} as any;
       request.UserTypeFilter.UserTypeIds = this.theFilterUserTypeSelectedList.map(p => p.id);
-      if (this.theFilterUserTypeSelectedList.findIndex(p => p.id === 'all') !== -1) {
+      if (this.theFilterUserTypeSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
         request.UserTypeFilter.UserTypeIds = [];
       }
       request.UserTypeFilter.filterType = 0;
-      if (this.theFilterUserTypeSelectedCondition != 0) {
+      if (this.theFilterUserTypeSelectedCondition != 0)
+      {
         request.UserTypeFilter.filterType = this.theFilterUserTypeSelectedCondition;
       }
     }
 
-    if (this.theFilterTitleFilterSelectedList && this.theFilterTitleFilterSelectedList.length > 0) {
+    if (this.theFilterTitleFilterSelectedList && this.theFilterTitleFilterSelectedList.length > 0)
+    {
       request.titleFilter = {} as any;
       request.titleFilter.titles = this.theFilterTitleFilterSelectedList.map(p => p.id);
-      if (this.theFilterTitleFilterSelectedList.findIndex(p => p.id === 'all') !== -1) {
+      if (this.theFilterTitleFilterSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
         request.titleFilter.titles = [];
       }
       request.titleFilter.filterType = 0;
-      if (this.theFilterTitleFilterSelectedCondition != 0) {
+      if (this.theFilterTitleFilterSelectedCondition != 0)
+      {
         request.titleFilter.filterType = this.theFilterTitleFilterSelectedCondition;
       }
     }
 
-    if (this.theFilterBrandsSelectedList && this.theFilterBrandsSelectedList.length > 0) {
+    if (this.theFilterBrandsSelectedList && this.theFilterBrandsSelectedList.length > 0)
+    {
       request.brandFilter = new BrandFilter();
       request.brandFilter.brandIds = this.theFilterBrandsSelectedList.map(p => p.id);
-      if (this.theFilterBrandsSelectedList.findIndex(p => p.id === 'all') !== -1) {
+      if (this.theFilterBrandsSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
         request.brandFilter.brandIds = [];
       }
       request.brandFilter.filterType = 0;
-      if (this.theFilterBrandsSelectedCondition != 0) {
+      if (this.theFilterBrandsSelectedCondition != 0)
+      {
         request.brandFilter.filterType = this.theFilterBrandsSelectedCondition;
       }
     }
 
 
-    if (this.theFilterLevelsSelectedList && this.theFilterLevelsSelectedList.length > 0) {
+    if (this.theFilterLevelsSelectedList && this.theFilterLevelsSelectedList.length > 0)
+    {
       request.levelFilter = {} as any;
       request.levelFilter.levels = this.theFilterLevelsSelectedList.map(p => p.id);
-      if (this.theFilterLevelsSelectedList.findIndex(p => p.id === 'all') !== -1) {
+      if (this.theFilterLevelsSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
         request.levelFilter.levels = [];
       }
       request.levelFilter.filterType = 0;
-      if (this.theFilterLevelsSelectedCondition != 0) {
+      if (this.theFilterLevelsSelectedCondition != 0)
+      {
         request.levelFilter.filterType = this.theFilterLevelsSelectedCondition;
       }
     }
 
-    if (this.theFilterGroupSelectedList && this.theFilterGroupSelectedList.length > 0) {
+    if (this.theFilterGroupSelectedList && this.theFilterGroupSelectedList.length > 0)
+    {
       request.groupFilter = {} as any;
       request.groupFilter.groups = this.theFilterGroupSelectedList.map(p => p.id);
-      if (this.theFilterGroupSelectedList.findIndex(p => p.id === 'all') !== -1) {
+      if (this.theFilterGroupSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
         request.groupFilter.groups = [];
       }
       request.groupFilter.filterType = 0;
-      if (this.theFilterGroupSelectedCondition != 0) {
+      if (this.theFilterGroupSelectedCondition != 0)
+      {
         request.groupFilter.filterType = this.theFilterGroupSelectedCondition;
       }
     }
 
 
-    if (this.theFilterCustomerSelectedList && this.theFilterCustomerSelectedList.length > 0) {
+    if (this.theFilterCustomerSelectedList && this.theFilterCustomerSelectedList.length > 0)
+    {
       request.customersFilter = new CustomersFilter();
       request.customersFilter.groupIds = this.theFilterCustomerSelectedList.filter(a => a.type === 1).map(p => p.id);
       request.customersFilter.campaignIds = this.theFilterCustomerSelectedList.filter(a => a.type === 2).map(p => p.id);
       request.customersFilter.phones = this.theFilterCustomerSelectedList.filter(a => a.type === 3).map(p => p.id);
-      if (this.theFilterCustomerSelectedList.findIndex(p => p.id === 'all') !== -1) {
+      if (this.theFilterCustomerSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
         request.customersFilter.groupIds = [];
         request.customersFilter.campaignIds = [];
         request.customersFilter.phones = [];
       }
       request.customersFilter.filterType = 0;
-      if (this.theFilterCustomerSelectedCondition != 0) {
+      if (this.theFilterCustomerSelectedCondition != 0)
+      {
         request.customersFilter.filterType = this.theFilterCustomerSelectedCondition;
       }
     }
 
-    if (this.theFilterStatusSelected !== 0) {
+    if (this.theFilterStatusSelected !== 0)
+    {
       request.statusFilter = new StatusFilter();
       request.statusFilter.status = this.theFilterStatusSelected;
     }
-    if (this.theFilterDateFromSelected) {
+    if (this.theFilterDateFromSelected)
+    {
       request.periodFilter = { date: Utility.getPeriodOfString(this.theFilterDateFromSelected) };
     }
 
@@ -290,12 +335,14 @@ export class BaseSearch implements OnInit {
 
   search(request: any) { }
 
-  closeFilterForm(event: boolean, filterType: FilterNames) {
+  closeFilterForm(event: boolean, filterType: FilterNames)
+  {
     this.activeFilterName = FilterNames.Searched;
   }
 
-  selectedPageIndex(event: number) {
+  selectedPageIndex(event: number)
+  {
     this.pageIndex = event;
-    this.applyFilterForm(null, 0);
+    this.applyFilterForm(null, FilterNames.Paging);
   }
 }

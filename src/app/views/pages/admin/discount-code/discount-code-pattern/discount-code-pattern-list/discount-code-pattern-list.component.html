@@ -90,7 +90,7 @@
           </table>
         </div>
       </div>
-      <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages"
+      <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages" [pageIndex]="pageIndex"
         (notifyPageIndex)="selectedPageIndex($event)">
       </app-pagination>
     </div>
