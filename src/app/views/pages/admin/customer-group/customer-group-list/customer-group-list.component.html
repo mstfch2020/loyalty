@@ -17,8 +17,8 @@
                 <th class="text-center font-yekan-bold fs-08" scope="col">
                   <label [ngClass]="{'selected':activeFilterName==9}" (click)="openFilterForm(9)" class="filter-title">
                     تغییر سطح
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterLevelsSelectedList.length==0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterLevelsSelectedList.length==0" height="16"
+                      viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                     </svg>
@@ -35,8 +35,8 @@
                 <th class="text-center font-yekan-bold fs-08" scope="col">
                   <label [ngClass]="{'selected':activeFilterName==3}" (click)="openFilterForm(3)" class="filter-title">
                     برند
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterBrandsSelectedList.length==0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterBrandsSelectedList.length==0" height="16"
+                      viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                     </svg>
@@ -53,8 +53,8 @@
                 <th class="text-center font-yekan-bold fs-08" scope="col">
                   <label [ngClass]="{'selected':activeFilterName==7}" (click)="openFilterForm(7)" class="filter-title">
                     تعداد فعالیت
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterCommissionSelectedList.length==0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterCommissionSelectedList.length==0" height="16"
+                      viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                     </svg>
@@ -70,9 +70,9 @@
                 </th>
                 <th class="text-center font-yekan-bold fs-08" scope="col">
                   <label [ngClass]="{'selected':activeFilterName==8}" (click)="openFilterForm(8)" class="filter-title">
-                    حجم امتیاز
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterPercentSelectedList.length==0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                   حجم امتیاز
+                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterPercentSelectedList.length==0" height="16"
+                      viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                     </svg>
@@ -87,22 +87,21 @@
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08" scope="col">
-                  <label [ngClass]="{'selected':activeFilterName==10}" (click)="openFilterForm(10)"
-                    class="filter-title">
+                  <label [ngClass]="{'selected':activeFilterName==10}" (click)="openFilterForm(10)" class="filter-title">
                     قرار گیری در گروه مشتری
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterGroupSelectedList.length==0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
-                    </svg>
-                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterGroupSelectedList.length>0"
-                      fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
-                    </svg>
-                  </label>
+                     <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterGroupSelectedList.length==0" height="16"
+                       viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                       <path
+                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+                     </svg>
+                     <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterGroupSelectedList.length>0"
+                       fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                       <path
+                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
+                     </svg>
+                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,10)" (cancelEvent)="closeFilterForm($event,10)"
-                    [items]="theFilterGroupList" [visible]="activeFilterName==10" [filterType]="5">
+                    [items]="theFilterGroupList" [visible]="activeFilterName==10"[filterType]="5">
                   </app-filter>
                 </th>
               </tr>
@@ -130,7 +129,7 @@
             </tbody>
           </table>
         </div>
-        <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages" [pageIndex]="pageIndex"
+        <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages"
           (notifyPageIndex)="selectedPageIndex($event)">
         </app-pagination>
       </div>

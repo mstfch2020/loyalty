@@ -31,6 +31,9 @@ import { SystemSettingsBehavioralEditComponent } from './system-settings/system-
 import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
 import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
 import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
+import { SystemSettingsGroupsComponent } from './system-settings/system-settings-groups/system-settings-groups.component';
+import { SystemSettingsGroupsListComponent } from './system-settings/system-settings-groups/system-settings-groups-list/system-settings-groups-list.component';
+import { SystemSettingsGroupsEditComponent } from './system-settings/system-settings-groups/system-settings-groups-edit/system-settings-groups-edit.component';
 import { DiscountCodePatternComponent } from './discount-code/discount-code-pattern/discount-code-pattern.component';
 import { DiscountCodeGeneratedComponent } from './discount-code/discount-code-generated/discount-code-generated.component';
 import { DiscountCodeGeneratedListComponent } from './discount-code/discount-code-generated/discount-code-generated-list/discount-code-generated-list.component';
@@ -172,6 +175,25 @@ const routes: Routes = [
               {
                 path: 'edit',
                 component: SystemSettingsBehavioralEditComponent
+              }
+            ]
+          },
+          {
+            path: 'groups',
+            component: SystemSettingsGroupsComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'list',
+                pathMatch: 'full'
+              },
+              {
+                path: 'list',
+                component: SystemSettingsGroupsListComponent,
+              },
+              {
+                path: 'edit',
+                component: SystemSettingsGroupsEditComponent
               }
             ]
           },

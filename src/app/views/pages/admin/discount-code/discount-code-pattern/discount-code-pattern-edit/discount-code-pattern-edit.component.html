@@ -195,39 +195,53 @@
     </div>
     <div class="row mt-4">
       <div class="col-6 col-sm-4">
-        <div class="d-flex flex-row gap-3 mt-2">
+        <div class="d-flex flex-row gap-3 mt-3">
           <label class="float-end float-sm-start mt-2">
             حجم تخفیف :
           </label>
           <div class="mr-1">
             <app-switch [labelOne]="'تومان'" [labelTwo]="'درصد'"
-              (notifySelectionSwitch)="service.discountVolumeTypeChange($event)"></app-switch>
+              (notifySelectionSwitch)="service.discountVolumeTypeChange($event);checkDiscountVolumeType($event)">
+            </app-switch>
           </div>
         </div>
       </div>
-      <div class="col-6 col-sm-2">
-        <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-          <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeValue'
-            mask="separator" thousandSeparator="," type="text">
-          <div class="fs-08 text-gray-500">
-            تومان
+      <ng-container *ngIf="discountVolumeType==1">
+        <div class="col-6 col-sm-2">
+          <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+            <input class="text-center text-black border-0 h-40px w-100 mr-8-px" formControlName="discountVolumeValue"
+              mask="percent" thousandSeparator="," type="text">
+            <div class="fs-08 text-gray-500">
+              %
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-12 col-sm-1">
-        <div class="text-black mt-3 text-end text-sm-start fs-09">
-          تا سقف
-        </div>
-      </div>
-      <div class="col-12 col-sm-2">
-        <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-          <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeThreshold'
-            mask="separator" thousandSeparator="," type="text">
-          <div class="fs-08 text-gray-500">
-            تومان
+      </ng-container>
+      <ng-container *ngIf="discountVolumeType==2">
+        <div class="col-6 col-sm-2">
+          <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+            <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeValue'
+              mask="separator" thousandSeparator="," type="text">
+            <div class="fs-08 text-gray-500">
+              تومان
+            </div>
           </div>
         </div>
-      </div>
+        <div class="col-12 col-sm-1">
+          <div class="text-black mt-3 text-end text-sm-start fs-09">
+            تا سقف
+          </div>
+        </div>
+        <div class="col-12 col-sm-2">
+          <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+            <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeThreshold'
+              mask="separator" thousandSeparator="," type="text">
+            <div class="fs-08 text-gray-500">
+              تومان
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </div>
     <div class="row mt-4">
       <div class="col-12 col-sm-3">
@@ -337,16 +351,23 @@
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-8">
         <div class="d-flex flex-row align-items-center">
-          <input [value]="2" checked class="form-check-input" formControlName="discountCodeType" name="discountCodeType"
-            id="discountCodeTypeRandom" type="radio">
-          <label class="form-check-label mr-1 cursor-pointer" for="discountCodeTypeRandom">
-            کد تخفیف تصادفی با پیشوند
-          </label>
+          <div class="d-flex">
+            <input [value]="2" checked class="form-check-input" formControlName="discountCodeType"
+              name="discountCodeType" id="discountCodeTypeRandom" type="radio">
+            <label class="form-check-label mr-1 w-177-px cursor-pointer" for="discountCodeTypeRandom">
+              کد تخفیف تصادفی با پیشوند
+            </label>
+          </div>
           <div class="mr-1">
             <input class="form-control h-55px rounded-pill text-center text-black" type="text"
-              formControlName="randomDiscountCodePrefix">
+              formControlName="randomDiscountCodePrefix" maxlength="3">
+          </div>
+          <div class="mr-1">
+            <label class="fs-07 color-app-blue w-200-px">
+              حداکثر 3 کاراکتر وارد شود و فقط شامل حروف انگلیسی و عدد باشد
+            </label>
           </div>
         </div>
         <div
@@ -445,7 +466,6 @@
           <div class="text-black">
             کد (ها) با موفقیت ایجاد و فعال شد.
           </div>
-
         </div>
         <div class="row mt-5 mb-3">
           <div class="col-5">

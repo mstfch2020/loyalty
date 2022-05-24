@@ -14,11 +14,18 @@
         فعالیت های سناریو رفتاری
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="false">
       <a class="nav-link"
          [routerLink]="['/admin/main/settings/period']"
          routerLinkActive="active">
         بازه زمانی ریست سطوح مشتری
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+         [routerLink]="['/admin/main/settings/groups']"
+         routerLinkActive="active">
+        تنظیمات گروه مشتری
       </a>
     </li>
   </ul>

@@ -43,6 +43,9 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { SystemSettingsBehavioralComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral.component';
 import { SystemSettingsBehavioralEditComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-edit/system-settings-behavioral-edit.component';
 import { SystemSettingsBehavioralListComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-list/system-settings-behavioral-list.component';
+import { SystemSettingsGroupsComponent } from './system-settings/system-settings-groups/system-settings-groups.component';
+import { SystemSettingsGroupsEditComponent } from './system-settings/system-settings-groups/system-settings-groups-edit/system-settings-groups-edit.component';
+import { SystemSettingsGroupsListComponent } from './system-settings/system-settings-groups/system-settings-groups-list/system-settings-groups-list.component';
 import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
 import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
 import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
@@ -96,6 +99,9 @@ import { DiscountCodePatternListComponent } from './discount-code/discount-code-
     SystemSettingsPeriodComponent,
     SystemSettingsPeriodEditComponent,
     SystemSettingsPeriodListComponent,
+    SystemSettingsGroupsComponent,
+    SystemSettingsGroupsEditComponent,
+    SystemSettingsGroupsListComponent,
     DiscountCodeGeneratedComponent,
     DiscountCodeGeneratedEditComponent,
     DiscountCodeGeneratedListComponent,

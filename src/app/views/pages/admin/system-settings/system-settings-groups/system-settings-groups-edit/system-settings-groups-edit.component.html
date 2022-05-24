@@ -1,0 +1,120 @@
+<form [formGroup]="promoterDiscountSettingService.form" action="" dir="rtl">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h5 class="font-yekan-bold fs-18px text-black">
+                    بازه ریست گروه مشتری
+                </h5>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-3">
+                            برند :
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <ng-select (change)="promoterDiscountSettingService.brandChanged($event,'brandId')"
+                            [items]="baseInfoService.brands$|async" [multiple]="false" [readonly]="isDisabled"
+                            appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+                            formControlName="brandId">
+                        </ng-select>
+                        <div *ngIf="!promoterDiscountSettingService.form.get('brandId')?.valid && promoterDiscountSettingService.form.get('brandId')?.touched && !isDisabled"
+                            class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                            برند را مشخص نمایید
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-3">
+                            بازه زمانی ریست :
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <ng-select (change)="promoterDiscountSettingService.brandChanged($event,'userTypeId')"
+                            [items]="baseInfoService.userTypes$|async" [multiple]="false" [readonly]="isDisabled"
+                            appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+                            formControlName="userTypeId">
+                        </ng-select>
+                        <div *ngIf="!promoterDiscountSettingService.form.get('userTypeId')?.valid && promoterDiscountSettingService.form.get('userTypeId')?.touched && !isDisabled"
+                            class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                            بازه زمانی ریست را مشخص نمایید
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-2">
+                <h5 class="font-yekan-bold fs-18px text-black">
+                    گروه مشتری
+                </h5>
+            </div>
+            <div class="col-3">
+                <div class="font-yekan-regular fs-08 color-info mt-1 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle color-app-blue" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                      </svg>
+                      <span class="color-app-blue mr-3-px">
+                        گروه مشتری جدید
+                      </span>                    
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-3">
+                            گروه مشتری 1 :
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
+                        class="form-control rounded-pill text-end text-black h-55px" formControlName='title' type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-3">
+                        <label class="float-start mt-4">
+                            گروه مشتری 2 :
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-9">
+                        <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
+                        class="form-control rounded-pill text-end text-black h-55px" formControlName='title' type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-2">
+                <button (click)="promoterDiscountSettingService.submit()"
+                    class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+                    dir="rtl" type="submit">
+                    ذخیره
+                </button>
+            </div>
+            <div class="col-2">
+                <button (click)="backToList()"
+                    class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
+                    dir="rtl" type="submit">
+                    انصراف
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

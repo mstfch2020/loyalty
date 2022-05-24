@@ -5,11 +5,11 @@ import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/p
 import { promoterDiscountSettingInit } from 'src/app/@core/data/loyalty/promoter-discount-setting.model';
 
 @Component({
-  selector: 'app-system-settings-discount-edit',
-  templateUrl: './system-settings-discount-edit.component.html',
-  styleUrls: ['./system-settings-discount-edit.component.scss']
+  selector: 'app-system-settings-groups-edit',
+  templateUrl: './system-settings-groups-edit.component.html',
+  styleUrls: ['./system-settings-groups-edit.component.scss']
 })
-export class SystemSettingsDiscountEditComponent implements OnInit {
+export class SystemSettingsGroupsEditComponent implements OnInit {
 
   public percent: number;
   public percentFrom: number;
@@ -66,7 +66,8 @@ export class SystemSettingsDiscountEditComponent implements OnInit {
   };
 
   backToList() {
-    this.router.navigate(['/admin/main/settings/discount/list']);
+    this.router.navigate(['/admin/main/settings/groups/list']);
   }
+
 
 }

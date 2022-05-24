@@ -5,7 +5,7 @@
         <table cellspacing="0" class="table table-hover border-0">
           <thead>
             <tr>
-              <th class="text-end font-yekan-bold pr-2 fs-08" scope="col">
+              <th class="text-end font-yekan-bold pr-1 fs-08" scope="col">
                 <label [ngClass]="{'selected':activeFilterName==6}" (click)="openFilterForm(6)" class="filter-title">
                   نوع کاربری
                   <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterUserTypeSelectedList.length==0"
@@ -20,7 +20,7 @@
                   </svg>
                 </label>
                 <app-filter (applyEvent)="applyFilterForm($event,6)" (cancelEvent)="closeFilterForm($event,16)"
-                  [visible]="activeFilterName==6" [items]="theFilterUserTypeList">
+                  [visible]="activeFilterName==6" [isCriteria]="true" [items]="theFilterUserTypeList" [filterType]="5">
                 </app-filter>
               </th>
               <th class="text-end col-sm-3 col-md-3 font-yekan-bold pr-2 fs-08" scope="col">
@@ -39,7 +39,7 @@
                   </svg>
                 </label>
                 <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
-                  [visible]="activeFilterName==3" [items]="theFilterBrandsList">
+                  [visible]="activeFilterName==3" [isCriteria]="true" [items]="theFilterBrandsList" [filterType]="5">
                 </app-filter>
               </th>
               <th class="text-start font-yekan-bold fs-08" scope="col">
