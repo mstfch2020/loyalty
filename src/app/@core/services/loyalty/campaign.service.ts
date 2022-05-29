@@ -8,6 +8,7 @@ import { SMS } from "../../data/loyalty/sms.model";
 import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
+import { BaseInfoService } from "./base-info.service";
 import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
 import { FileSrevice } from "./file.service";
 
@@ -19,9 +20,9 @@ export class CampaignService extends BaseService<Campaign>
   constructor(public override formBuilder: FormBuilder,
     public http: HttpClient,
     public settingService: SettingsService,
-    public uiService: UiService, public fileSrevice: FileSrevice)
+    public override uiService: UiService, public fileSrevice: FileSrevice, public override baseInfoService: BaseInfoService)
   {
-    super(formBuilder, campaignInit);
+    super(formBuilder, uiService, baseInfoService, campaignInit);
   }
 
   getCampaign(data: any)

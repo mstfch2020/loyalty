@@ -17,12 +17,12 @@ export class SMSService extends BaseService<SMS>
   smsPattern$ = new BehaviorSubject<Array<SmsPatternGrid>>([]);
 
   constructor(public override formBuilder: FormBuilder,
-    public baseInfoService: BaseInfoService,
+    public override baseInfoService: BaseInfoService,
     public http: HttpClient,
     public settingService: SettingsService,
-    public uiService: UiService)
+    public override uiService: UiService)
   {
-    super(formBuilder, smsInit);
+    super(formBuilder, uiService, baseInfoService, smsInit);
     this.form = this.formBuilder.group({});
     this.createForm(smsInit);
   }

@@ -77,7 +77,7 @@
                   {{discount.patternName}}
                 </td>
                 <td class="text-end">
-                  {{discount.brands.join('،')}}
+                  {{discount.brands.length>0? discount.brands.join('،'):'همه'}}
                 </td>
                 <td class="text-end">
                   {{discount.periodMax.full}}-{{discount.periodMin.full}}

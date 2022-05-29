@@ -4,8 +4,11 @@ import * as moment from 'jalali-moment';
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { IdTitle, IdTitleType } from "../../data/loyalty/get-senarios-grid.model";
+import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { BaseResponse } from "../../data/root/base-response.model";
+import { Utility } from "../../utils/Utility";
 import { UiService } from "../ui/ui.service";
+import { BaseInfoService } from "./base-info.service";
 
 
 export function callGetService<T>(url: string, http: HttpClient, uiService: UiService, params: any = null): Observable<T | null>
@@ -96,7 +99,7 @@ export abstract class BaseService<T>{
     if (value) { this.form.disable(); } else { this.form.enable(); }
   }
 
-  constructor(public formBuilder: FormBuilder, initObject: T)
+  constructor(public formBuilder: FormBuilder, public uiService: UiService, public baseInfoService: BaseInfoService, initObject: T)
   {
     this.form = this.formBuilder.group({});
     this.createForm(initObject);
@@ -164,8 +167,96 @@ export abstract class BaseService<T>{
       this.form.controls[formControlName].setValue($event.filter(p => p.id !== 'all').map(p => p.id));
     }
   }
+
+  addFreeProduct(term: string)
+  {
+    if (isValidProductCode(term))
+    {
+      return term;
+    }
+    // this.uiService.showSnackBar('کد تخفیف باید عدد 7 رقمی باشد.', '', 3000);
+    this.uiService.alert('کد تخفیف باید عدد 7 رقمی باشد.');
+    return null;
+  }
+
+  addCustomer(term: string)
+  {
+    if (term && new RegExp(Utility.mobileRegEx).test(term))
+    {
+      return { id: term, title: term, type: 3 };
+    }
+    this.uiService.alert('شماره موبایل معتبر نمیباشد.');
+    return null;
+  }
+
+  addProductGroups(term: string)
+  {
+    if (isValidProductCode(term))
+    {
+      return { id: term, title: term, type: 3 };
+    }
+    return null;
+  }
+
+  public updateProductGroupsIdCode(data: string[], productGroups: ProductGroup[], formControlName: string)
+  {
+    const scenarioProductGroups = new Array<ProductGroup>();
+    data.forEach((p: any) =>
+    {
+      if (Utility.isNullOrEmpty(p?.toString())) { return; }
+      const productGroup = productGroups.find(customer => customer.id === p?.toString());
+      if (!productGroup || productGroup.id === productGroup.title)
+      {
+        scenarioProductGroups.push({ id: p?.toString(), title: p?.toString(), brandId: 'null' });
+        return;
+      }
+      scenarioProductGroups.push(productGroup);
+    });
+
+    this.setValue(formControlName, scenarioProductGroups.map(p => p.id));
+
+    if (scenarioProductGroups.length > 0)
+    {
+      const data = this.baseInfoService?.productGroups$?.getValue()?.concat(scenarioProductGroups.filter(p => p.id === p.title));
+      this.baseInfoService?.productGroups$?.next(data);
+    }
+  }
+
+  public updateValueForProductGroupsCodeIds(value: any, idsName: string, codesName: string, formName: string, productGroups: ProductGroup[])
+  {
+    value[idsName] = [];
+    value[codesName] = [];
+
+    [...value[formName]].forEach((p: any) =>
+    {
+      const productGroup = productGroups.find(a => a.id === p);
+      if (!productGroup)
+      {
+        if (new RegExp(Utility.numberRegEx).test(p?.toString()) && p?.toString()?.length === 7) { value[codesName].push(p?.toString()); }
+        return;
+      }
+      value[idsName].push(p);
+    });
+
+    if (value[formName].some((p: string) => p === 'all'))
+    {
+      value[idsName] = [];
+      value[codesName] = [];
+    }
+
+    delete value[formName];
+  }
+
 }
 
+export function isValidProductCode(term: string)
+{
+  if (term && new RegExp(Utility.numberRegEx).test(term) && term.length === 7)
+  {
+    return true;
+  }
+  return false;
+};
 
 // @Injectable({ providedIn: 'root' })
 // export class BaseService<T> {

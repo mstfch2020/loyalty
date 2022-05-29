@@ -14,7 +14,7 @@ import { Utility } from '../../utils/Utility';
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
+import { BaseService, callGetService, callPostPagingService, callPostService, isValidProductCode } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class ScenarioService extends BaseService<Scenario>
@@ -22,45 +22,13 @@ export class ScenarioService extends BaseService<Scenario>
 
   scenarios$ = new BehaviorSubject<Array<SenarioDetail>>([]);
 
-  addFreeProduct(term: string)
-  {
-    if (isValidProductCode(term))
-    {
-      return term;
-    }
-    // this.uiService.showSnackBar('کد تخفیف باید عدد 7 رقمی باشد.', '', 3000);
-    this.uiService.alert('کد تخفیف باید عدد 7 رقمی باشد.');
-    return null;
-  }
-
-  addCustomer(term: string)
-  {
-    if (term && new RegExp(Utility.mobileRegEx).test(term))
-    {
-      return { id: term, title: term, type: 3 };
-    }
-    this.uiService.alert('شماره موبایل معتبر نمیباشد.');
-    return null;
-  }
-
-  addProductGroups(term: string)
-  {
-    if (isValidProductCode(term))
-    {
-      return { id: term, title: term, type: 3 };
-    }
-    return null;
-  }
-
-
-
   constructor(public override formBuilder: FormBuilder,
-    private baseInfoService: BaseInfoService,
+    public override baseInfoService: BaseInfoService,
     public http: HttpClient,
     public settingService: SettingsService,
-    public uiService: UiService)
+    public override uiService: UiService)
   {
-    super(formBuilder, scenarioInit);
+    super(formBuilder, uiService, baseInfoService, scenarioInit);
   }
 
   createForm(scenario: Scenario)
@@ -93,8 +61,8 @@ export class ScenarioService extends BaseService<Scenario>
       purchaseRound2: [scenario.purchaseRoundType === 2 ? scenario.purchaseRound : 0, [Validators.required]],
 
       activityId: [scenario.activityId, [Validators.required]],
-      generalCustomers: [[scenario.id && (scenario.customerGroupIds.length === 0 && scenario.campaignIds.length === 0 && scenario.phones.length === 0) ? ['all'] : []], [Validators.required]],
-      productGroups: [[scenario.id && (scenario.discountedProductGroupIds.length === 0 && scenario.discountedProductCodes.length === 0) ? ['all'] : []], [Validators.required]],
+      generalCustomers: [[scenario.id && (scenario?.customerGroupIds?.length === 0 && scenario?.campaignIds?.length === 0 && scenario?.phones?.length === 0) ? ['all'] : []], [Validators.required]],
+      productGroups: [[scenario.id && (scenario?.discountedProductGroupIds?.length === 0 && scenario?.discountedProductCodes?.length === 0) ? ['all'] : []], [Validators.required]],
 
 
     });
@@ -103,61 +71,46 @@ export class ScenarioService extends BaseService<Scenario>
 
     if (scenario.id && (scenario.discountedProductGroupIds.length === 0 && scenario.discountedProductCodes.length === 0)) { } else
     {
-      const scenarioProductGroups = new Array<ProductGroup>();
+      const data = scenario.discountedProductGroupIds.concat(scenario.discountedProductCodes);
+      const formControlName = 'productGroups';
       const productGroups = this.baseInfoService?.productGroups$?.getValue();
-      [...scenario.discountedProductGroupIds, ...scenario.discountedProductCodes].forEach((p: any) =>
-      {
-        if (Utility.isNullOrEmpty(p?.toString())) { return; }
-        const productGroup = productGroups.find(customer => customer.id === p?.toString());
-        if (!productGroup || productGroup.id === productGroup.title)
-        {
-          scenarioProductGroups.push({ id: p?.toString(), title: p?.toString(), brandId: 'null' });
-          return;
-        }
-        scenarioProductGroups.push(productGroup);
-      });
 
-      this.setValue('productGroups', scenarioProductGroups.map(p => p.id));
-
-      if (scenarioProductGroups.length > 0)
-      {
-        const data = this.baseInfoService?.productGroups$?.getValue()?.concat(scenarioProductGroups.filter(p => p.id === p.title));
-        this.baseInfoService?.productGroups$?.next(data);
-      }
-
-      this.form.get('behavioralReward.discountCodePercent')?.valueChanges.subscribe(value =>
-      {
-        this.percentValidation(value);
-      });
-
-      this.form.get('behavioralReward.refundToWalletPercent')?.valueChanges.subscribe(value =>
-      {
-        this.percentValidation(value);
-      });
-
-      this.form.get('purchaseReward.productDiscountPercent')?.valueChanges.subscribe(value =>
-      {
-        this.percentValidation(value);
-      });
-      /*** */
-      this.form.get('purchaseReward.refundPercent')?.valueChanges.subscribe(value =>
-      {
-        this.percentValidation(value);
-      });
-
-      this.form.get('purchaseReward.increaseScorePercent')?.valueChanges.subscribe(value =>
-      {
-        this.percentValidation(value);
-      });
-      this.form.get('purchaseReward.sendingDiscount')?.valueChanges.subscribe(value =>
-      {
-        this.percentValidation(value);
-      });
-      this.form.get('purchaseReward.basketDiscountPercent')?.valueChanges.subscribe(value =>
-      {
-        this.percentValidation(value);
-      });
+      this.updateProductGroupsIdCode(data, productGroups, formControlName);
     }
+
+    this.form.get('behavioralReward.discountCodePercent')?.valueChanges.subscribe(value =>
+    {
+      this.percentValidation(value);
+    });
+
+    this.form.get('behavioralReward.refundToWalletPercent')?.valueChanges.subscribe(value =>
+    {
+      this.percentValidation(value);
+    });
+
+    this.form.get('purchaseReward.productDiscountPercent')?.valueChanges.subscribe(value =>
+    {
+      this.percentValidation(value);
+    });
+    /*** */
+    this.form.get('purchaseReward.refundPercent')?.valueChanges.subscribe(value =>
+    {
+      this.percentValidation(value);
+    });
+
+    this.form.get('purchaseReward.increaseScorePercent')?.valueChanges.subscribe(value =>
+    {
+      this.percentValidation(value);
+    });
+    this.form.get('purchaseReward.sendingDiscount')?.valueChanges.subscribe(value =>
+    {
+      this.percentValidation(value);
+    });
+    this.form.get('purchaseReward.basketDiscountPercent')?.valueChanges.subscribe(value =>
+    {
+      this.percentValidation(value);
+    });
+
 
     this.updateGeneralCustomer(scenario);
 
@@ -186,6 +139,7 @@ export class ScenarioService extends BaseService<Scenario>
     });
     this.form.markAllAsTouched();
   }
+
   private updateGeneralCustomer(scenario: Scenario)
   {
     const scenarioGeneralCustomers = new Array<IdTitleTypeBrandId>();
@@ -497,11 +451,3 @@ export class ScenarioService extends BaseService<Scenario>
   }
 }
 
-function isValidProductCode(term: string)
-{
-  if (term && new RegExp(Utility.numberRegEx).test(term) && term.length === 7)
-  {
-    return true;
-  }
-  return false;
-};

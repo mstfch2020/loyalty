@@ -73,8 +73,9 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="baseInfoService.customerGroups$|async" [multiple]="true" appendTo="body"
-              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="groupIds">
+            <ng-select (change)="service.brandChanged($event,'generalCustomers')" [addTag]="service.addCustomer"
+              [items]="baseInfoService.generalCustomers$|async" [multiple]="true" appendTo="body" bindLabel="title"
+              bindValue="id" class="form-control mb-3" formControlName="groupIds">
             </ng-select>
             <div *ngIf="!service.form.get('customerGroupIds')?.valid && service.form.get('customerGroupIds')?.touched"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
@@ -115,10 +116,10 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body"
-              (change)="service.brandChanged($event,'productGroupIds')" bindLabel="title" bindValue="id"
-              class="form-control mb-3" formControlName="productGroupIds">
+              (change)="service.brandChanged($event,'productGroups')" [addTag]="service.addProductGroups"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="productGroups">
             </ng-select>
-            <div *ngIf="!service.form.get('productGroupIds')?.valid && service.form.get('productGroupIds')?.touched"
+            <div *ngIf="!service.form.get('productGroups')?.valid && service.form.get('productGroups')?.touched"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               گروه مشتری را مشخص نمایید
             </div>
@@ -134,11 +135,11 @@
           </div>
           <div class="col-12 col-sm-9">
             <ng-select [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body"
-              (change)="service.brandChanged($event,'productGroupsExceptedIds')" bindLabel="title" bindValue="id"
-              class="form-control mb-3" formControlName="productGroupsExceptedIds">
+              (change)="service.brandChanged($event,'productGroupsExcepted')" [addTag]="service.addProductGroups"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="productGroupsExcepted">
             </ng-select>
             <div
-              *ngIf="!service.form.get('productGroupsExceptedIds')?.valid && service.form.get('productGroupsExceptedIds')?.touched"
+              *ngIf="!service.form.get('productGroupsExcepted')?.valid && service.form.get('productGroupsExcepted')?.touched"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               گروه مشتری را مشخص نمایید
             </div>
@@ -201,12 +202,12 @@
           </label>
           <div class="mr-1">
             <app-switch [labelOne]="'تومان'" [labelTwo]="'درصد'"
-              (notifySelectionSwitch)="service.discountVolumeTypeChange($event);checkDiscountVolumeType($event)">
+              (notifySelectionSwitch)="service.discountVolumeTypeChange($event);">
             </app-switch>
           </div>
         </div>
       </div>
-      <ng-container *ngIf="discountVolumeType==1">
+      <ng-container *ngIf="service.getValue('discountVolumeType')===2">
         <div class="col-6 col-sm-2">
           <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
             <input class="text-center text-black border-0 h-40px w-100 mr-8-px" formControlName="discountVolumeValue"
@@ -217,7 +218,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="discountVolumeType==2">
+      <ng-container *ngIf="service.getValue('discountVolumeType')===1">
         <div class="col-6 col-sm-2">
           <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
             <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeValue'
@@ -304,11 +305,11 @@
       </div>
       <div class="col-12 col-sm-5 mt-2 mt-sm-0">
         <ng-select [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body" bindLabel="title"
-          (change)="service.brandChanged($event,'productGroupsConditionIds')" bindValue="id" class="form-control mb-3"
-          formControlName="productGroupsConditionIds">
+          [addTag]="service.addProductGroups" (change)="service.brandChanged($event,'productGroupsCondition')"
+          bindValue="id" class="form-control mb-3" formControlName="productGroupsCondition">
         </ng-select>
         <div
-          *ngIf="!service.form.get('productGroupsConditionIds')?.valid && service.form.get('productGroupsConditionIds')?.touched"
+          *ngIf="!service.form.get('productGroupsCondition')?.valid && service.form.get('productGroupsCondition')?.touched"
           class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
           گروه کالا را مشخص نمایید
         </div>
@@ -362,7 +363,7 @@
           </div>
           <div class="mr-1">
             <input class="form-control h-55px rounded-pill text-center text-black" type="text"
-              formControlName="randomDiscountCodePrefix" maxlength="3">
+              formControlName="randomDiscountCodePrefix" maxlength="3" (keypress)="onKeyPress($event)">
           </div>
           <div class="mr-1">
             <label class="fs-07 color-app-blue w-200-px">

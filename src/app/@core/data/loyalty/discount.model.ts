@@ -22,10 +22,15 @@ export interface Discount
   periodMax: Period;
   brandIds: Array<string>;
   groupIds: Array<string>;
+  phones: Array<string>;
+  campaignIds: Array<string>;
   userTypeIds: Array<string>;
   productGroupIds: Array<string>;
+  productGroupCodes: Array<string>;
   productGroupsExceptedIds: Array<string>;
+  productGroupsExceptedCodes: Array<string>;
   productGroupsConditionIds: Array<string>;
+  productGroupsConditionCodes: Array<string>;
   purchanseAmountMin: number;
   purchanseAmountMax: number;
   patternName: string;
@@ -73,4 +78,9 @@ export const discountInit: Discount = {
   randomDiscountCodePrefix: '',
   randomDiscountCodeCount: 0,
   staticCode: '',
+  phones: [],
+  campaignIds: [],
+  productGroupCodes: [],
+  productGroupsExceptedCodes: [],
+  productGroupsConditionCodes: []
 };

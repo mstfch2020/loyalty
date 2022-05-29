@@ -16,12 +16,12 @@ export class CustomerGroupService extends BaseService<CustomerGroup>
   customerGroups$ = new BehaviorSubject<Array<CustomerGroupDetail>>([]);
 
   constructor(public override formBuilder: FormBuilder,
-    private baseInfoService: BaseInfoService,
+    public override  baseInfoService: BaseInfoService,
     public http: HttpClient,
     public settingService: SettingsService,
-    public uiService: UiService)
+    public override uiService: UiService)
   {
-    super(formBuilder, customerGroupInit);
+    super(formBuilder, uiService, baseInfoService, customerGroupInit);
   }
 
   getCustomerGroups(request: any)

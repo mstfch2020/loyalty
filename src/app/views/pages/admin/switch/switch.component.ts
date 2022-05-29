@@ -1,11 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
+import
+{
+  animate, state,
+  style, transition, trigger
 } from '@angular/animations';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-switch',
@@ -32,7 +30,8 @@ import {
     ]),
   ]
 })
-export class SwitchComponent implements OnInit {
+export class SwitchComponent implements OnInit
+{
 
   @Input() labelOne = 'عنوان اول';
   @Input() labelTwo = 'عنوان دوم';
@@ -41,26 +40,34 @@ export class SwitchComponent implements OnInit {
 
   @Input() isOneSelected = true;
 
-  constructor() {
+  constructor(private cdref: ChangeDetectorRef)
+  {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
 
   }
 
-  selection(item: boolean) {
-    if (this.isDisabled) {
+  selection(item: boolean)
+  {
+    if (this.isDisabled)
+    {
       return;
     }
     this.notifySelectionSwitch.emit(item);
     this.isOneSelected = item;
+    this.cdref.detectChanges();
+
   }
 
   isOpen = true;
 
-  toggle() {
+  toggle()
+  {
     this.isOpen = !this.isOpen;
+    this.cdref.detectChanges();
   }
 
 }

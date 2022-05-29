@@ -6,6 +6,7 @@ import { ActivityEditable, ActivityGrid, activityInit } from "../../data/loyalty
 import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
+import { BaseInfoService } from "./base-info.service";
 import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
 import { FileSrevice } from "./file.service";
 
@@ -17,9 +18,9 @@ export class ActivityService extends BaseService<ActivityEditable>
   constructor(public override formBuilder: FormBuilder,
     public http: HttpClient,
     public settingService: SettingsService,
-    public uiService: UiService, public fileSrevice: FileSrevice)
+    public override uiService: UiService, public fileSrevice: FileSrevice, public override baseInfoService: BaseInfoService)
   {
-    super(formBuilder, activityInit);
+    super(formBuilder, uiService, baseInfoService, activityInit);
   }
 
   GetActivitiesGrid(data: any)

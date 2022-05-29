@@ -19,12 +19,12 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
 
   constructor(
     public override formBuilder: FormBuilder,
-    private baseInfoService: BaseInfoService,
+    public override baseInfoService: BaseInfoService,
     public http: HttpClient,
     public settingService: SettingsService,
-    public uiService: UiService)
+    public override uiService: UiService)
   {
-    super(formBuilder, promoterDiscountSettingInit);
+    super(formBuilder, uiService, baseInfoService, promoterDiscountSettingInit);
   }
 
   createForm(promoterDiscountSetting: PromoterDiscountSetting)
