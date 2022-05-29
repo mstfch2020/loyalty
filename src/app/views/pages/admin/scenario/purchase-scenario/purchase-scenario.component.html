@@ -502,31 +502,20 @@
                 </label>
               </div>
             </div>
-            <div class="col-4 col-sm-2">
+            <div class="col-12 col-sm-2">
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                <input class="text-center text-black border-0 h-40px w-100 mr-8-px"
-                  formControlName="discountCodePercent" mask="percent" thousandSeparator="," type="text">
-                <div class="fs-08 text-gray-500">
-                  %
+
+                <ng-select [items]="baseInfoService.senarioDiscountCodePatterns$|async" [multiple]="false"
+                  [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+                  formControlName="discountCodePattern">
+                </ng-select>
+                <div
+                  *ngIf="!scenarioService.form.get('discountCodePattern')?.valid && scenarioService.form.get('discountCodePattern')?.touched && !isDisabled"
+                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                  کد تخفیف را مشخص نمایید
                 </div>
-              </div>
-            </div>
-            <div class="col-4 col-sm-3">
-              <div class="d-flex align-items-center mt-3">
-                <label class="form-check-label mr-1 cursor-pointer">
-                  سبد خرید تا سقف
-                </label>
-              </div>
-            </div>
-            <div class="col-4 col-sm-3">
-              <div [ngClass]="{'disabled':isDisabled}"
-                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                <input class="text-start text-black border-0 h-40px w-100 mr-8-px"
-                  formControlName="discountCodeThreshold" mask="separator" thousandSeparator="," type="text">
-                <div class="fs-08 text-gray-500">
-                  تومان
-                </div>
+
               </div>
             </div>
           </div>

@@ -126,6 +126,7 @@ export class ScenarioService extends BaseService<Scenario>
         productGroups = productGroups.concat(defArray);
         this.baseInfoService.productGroups$.next(productGroups);
       });
+
       this.form.controls['freeProductCodes'].enable();
       this.form.get('purchaseReward.addFreeProductReward')?.enable();
       if (value.length > 1 || (value.length === 1 && value[0] === 'all'))
@@ -136,6 +137,13 @@ export class ScenarioService extends BaseService<Scenario>
         this.form.get('purchaseReward.addFreeProductReward')?.disable();
 
       }
+
+      this.baseInfoService?.GetSenarioDiscountCodePatternsByBrandIds(value)?.subscribe(codePattern =>
+      {
+        if (!codePattern) { codePattern = []; }
+        this.baseInfoService.senarioDiscountCodePatterns$.next(codePattern);
+      });
+
     });
     this.form.markAllAsTouched();
   }

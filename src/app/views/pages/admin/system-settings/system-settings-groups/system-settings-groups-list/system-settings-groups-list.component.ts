@@ -13,7 +13,8 @@ import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
   templateUrl: './system-settings-groups-list.component.html',
   styleUrls: ['./system-settings-groups-list.component.scss']
 })
-export class SystemSettingsGroupsListComponent extends BaseSearch  implements OnInit {
+export class SystemSettingsGroupsListComponent extends BaseSearch implements OnInit
+{
 
   closeResult: string = '';
 
@@ -76,6 +77,7 @@ export class SystemSettingsGroupsListComponent extends BaseSearch  implements On
       this.router.navigate(['/admin/main/settings/groups/edit'], { queryParams: { id: id } });
       return;
     }
+    this.router.navigate(['/admin/main/settings/groups/edit']);
   }
 
 }

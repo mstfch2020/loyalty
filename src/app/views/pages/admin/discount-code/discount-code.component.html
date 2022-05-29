@@ -1,22 +1,20 @@
-<ng-container *ngIf="showTabLink">
-    <form action="" dir="rtl">
-        <ul class="nav justify-content-start mt-3">
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/admin/main/discountcode/pattern']" routerLinkActive="active">
-                    الگوهای کد تخفیف
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/admin/main/discountcode/generated']" routerLinkActive="active">
-                    کدهای تولید شده
-                </a>
-            </li>
-        </ul>
-        <hr class="nav-line">
-        <router-outlet></router-outlet>
-    </form>
-</ng-container>
+<form action="" dir="rtl" *ngIf="isInListRoute">
+  <ul class="nav justify-content-start mt-3">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/admin/main/discountcode/pattern']" routerLinkActive="active">
+        الگوهای کد تخفیف
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/admin/main/discountcode/generated']" routerLinkActive="active">
+        کدهای تولید شده
+      </a>
+    </li>
+  </ul>
+  <hr class="nav-line">
+  <router-outlet></router-outlet>
+</form>
 
-<ng-container *ngIf="!showTabLink">
-    <router-outlet></router-outlet>
-</ng-container>
+
+
+<router-outlet></router-outlet>

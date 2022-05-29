@@ -5,11 +5,12 @@ import { EnumTitle, IdTitle, IdTitleType, IdTitleTypeBrandId } from "../../data/
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
-import { callGetService } from "./BaseService";
+import { callGetService, callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class BaseInfoService
 {
+  senarioDiscountCodePatterns$ = new BehaviorSubject<Array<any>>([]);
   commissionsBasis$ = new BehaviorSubject<Array<number>>([]);
   activity$ = new BehaviorSubject<Array<IdTitle>>([]);
   brands$ = new BehaviorSubject<Array<IdTitle>>([]);
@@ -55,6 +56,7 @@ export class BaseInfoService
     };
 
     requests.productGroups = this.getProductGroupsByBrandIds(brandIds);
+    requests.senarioDiscountCodePatterns = this.GetSenarioDiscountCodePatternsByBrandIds(brandIds);
 
     if (productIds?.length > 0)
     {
@@ -79,6 +81,7 @@ export class BaseInfoService
 
       this.productGroups$.next(resultValue?.productGroups === null ? defArray : resultValue?.productGroups.concat(defArray));
       this.productGroupsSingle$.next(resultValue?.productGroups === null ? [] : resultValue?.productGroups);
+      this.senarioDiscountCodePatterns$.next(resultValue?.senarioDiscountCodePatterns === null ? [] : resultValue?.senarioDiscountCodePatterns);
 
       if (productIds?.length > 0)
       {
@@ -178,6 +181,16 @@ export class BaseInfoService
   {
     const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetAllCommissionsBasis';
     return callGetService<Array<number> | null>(url, this.http, this.uiService);
+  }
+
+  GetSenarioDiscountCodePatternsByBrandIds(brandIds: Array<string>)
+  {
+    const url = this.settingService.settings?.baseUrl + 'DiscountCode/GetSenarioDiscountCodePatterns';
+    if (!brandIds || brandIds.length === 0 || brandIds.some(p => p === 'all'))
+    {
+      return callPostService<any>(url, this.http, this.uiService, { brandIds: brandIds });
+    }
+    return callPostService<any>(url, this.http, this.uiService, { brandIds: brandIds });
   }
 }
 

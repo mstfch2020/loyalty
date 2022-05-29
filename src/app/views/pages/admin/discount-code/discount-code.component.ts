@@ -1,25 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-discount-code',
   templateUrl: './discount-code.component.html',
   styleUrls: ['./discount-code.component.scss']
 })
-export class DiscountCodeComponent implements OnInit {
+export class DiscountCodeComponent implements OnInit
+{
 
-  public showTabLink: boolean;
+  public isInListRoute = true;
 
-  constructor(private router: Router) {
-    this.showTabLink = true;
-    router.events.subscribe(val => {
-      if (val instanceof NavigationEnd) {
-        console.log(val.url);
-      }
+  constructor(private router: Router)
+  {
+    router.events.subscribe((val) =>
+    {
+      // see also
+      this.isInListRoute = document.URL.includes('list');
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+
   }
 
 }

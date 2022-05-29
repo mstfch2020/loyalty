@@ -19,6 +19,7 @@ export interface BehavioralReward
   refundReward: boolean;
   increasScoreReward: boolean;
   discountCodeReward: boolean;
+  discountCodePattern: string;
 }
 
 export const behavioralRewardInit: BehavioralReward = {
@@ -28,6 +29,7 @@ export const behavioralRewardInit: BehavioralReward = {
   increaseScoreThreshold: 0,
   refundToWalletPercent: 0,
   refundToWalletThreshold: 0,
+  discountCodePattern: '',
   discountCodePercent: 0,
   discountCodeThreshold: 0,
   discountCodeValidationType: 0,
@@ -59,5 +61,6 @@ export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralRewa
     refundReward: [behavioralReward.refundReward, [Validators.required]],
     increasScoreReward: [behavioralReward.increasScoreReward, [Validators.required]],
     discountCodeReward: [behavioralReward.discountCodeReward, [Validators.required]],
+    discountCodePattern: [behavioralReward.discountCodePattern, [Validators.required]],
   });
 };

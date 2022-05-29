@@ -58,8 +58,8 @@
               <div class="mt-1">
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
                   [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-                  <input formControlName="startDate" class="form-control rounded-pill h-55px text-center text-black" dir="ltr"
-                    [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" type="text" />
+                  <input formControlName="startDate" class="form-control rounded-pill h-55px text-center text-black"
+                    dir="ltr" [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" type="text" />
                 </ng-persian-datepicker>
               </div>
               <span class="text-black fs-09">
@@ -68,8 +68,8 @@
               <div class="mt-1">
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
                   [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-                  <input formControlName="endDate" class="form-control rounded-pill h-55px text-center text-black" dir="ltr"
-                    [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" type="text" />
+                  <input formControlName="endDate" class="form-control rounded-pill h-55px text-center text-black"
+                    dir="ltr" [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" type="text" />
                 </ng-persian-datepicker>
               </div>
             </div>
@@ -255,32 +255,19 @@
                 </label>
               </div>
             </div>
-            <div class="col-4 col-sm-2">
+            <div class="col-12 col-sm-2">
               <div class="d-flex flex-row align-items-center">
                 <div [ngClass]="{'disabled':isDisabled}"
                   class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                  <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
-                    formControlName="discountCodePercent" type="text" mask="percent" thousandSeparator=",">
-                  <div class="fs-08 text-gray-500">
-                    %
+                  <ng-select [items]="baseInfoService.senarioDiscountCodePatterns$|async" [multiple]="false"
+                    [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+                    formControlName="discountCodePattern">
+                  </ng-select>
+                  <div
+                    *ngIf="!scenarioService.form.get('discountCodePattern')?.valid && scenarioService.form.get('discountCodePattern')?.touched && !isDisabled"
+                    class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                    کد تخفیف را مشخص نمایید
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-4 col-sm-3">
-              <div class="d-flex align-items-center mt-3">
-                <label class="form-check-label mr-1 cursor-pointer">
-                  سبد خرید تا سقف
-                </label>
-              </div>
-            </div>
-            <div class="col-4 col-sm-3">
-              <div [ngClass]="{'disabled':isDisabled}"
-                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                <input [readOnly]="isDisabled" class="text-start text-black border-0 h-40px w-100"
-                  formControlName="discountCodeThreshold" type="text" mask="separator" thousandSeparator=",">
-                <div class="fs-08 text-gray-500">
-                  تومان
                 </div>
               </div>
             </div>

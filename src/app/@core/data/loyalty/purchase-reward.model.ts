@@ -14,17 +14,16 @@ export interface PurchaseReward
   refundThreshold: number;
   increaseScorePercent: number;
   increaseScoreThreshold: number;
+  discountCodePattern: string;
   discountCodePercent: number;
   discountCodeThreshold: number;
   discountCodeValidationType: RewardDiscountCodeValidationType;
   discountCodeDate: Period;
   discountCodeDaysAfterIssuedCode: number;
-
   sendingDiscountReward: boolean,
   basketDiscountReward: boolean,
   productDiscountReward: boolean,
   addFreeProductReward: boolean,
-
   refundReward: boolean,
   increasScoreReward: boolean,
   discountCodeReward: boolean,
@@ -40,6 +39,7 @@ export const purchaseRewardInit: PurchaseReward = {
   refundThreshold: 0,
   increaseScorePercent: 0,
   increaseScoreThreshold: 0,
+  discountCodePattern: '',
   discountCodePercent: 0,
   discountCodeThreshold: 0,
   discountCodeValidationType: RewardDiscountCodeValidationType.Date,
@@ -80,6 +80,7 @@ export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, fo
     refundReward: [purchaseReward.refundReward, [Validators.required]],
     increasScoreReward: [purchaseReward.increasScoreReward, [Validators.required]],
     discountCodeReward: [purchaseReward.discountCodeReward, [Validators.required]],
+    discountCodePattern: [purchaseReward.discountCodePattern, [Validators.required]],
     discountCodeDate: createPeriodFormGroup(purchaseReward.discountCodeDate, formBuilder),
     expierDate: [Utility.getFullDateTimeFromPeriodInPersion(purchaseReward.discountCodeDate), [Validators.required]]
   });
