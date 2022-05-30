@@ -2,6 +2,7 @@
     <ng-container *ngIf="isCriteria">
         <select class="select" formControlName="conditionType">
             <option selected [value]="1">شامل</option>
+            <option [value]="3">مساوی</option>
             <option [value]="2">به جز</option>
         </select>
         <div class="by">

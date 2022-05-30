@@ -493,19 +493,18 @@
       <div class="row mt-4">
         <div class="col-12 col-sm-8">
           <div class="row">
-            <div class="col-12 col-sm-4">
+            <div class="col-12 col-sm-5">
               <div class="d-flex flex-row align-items-center mt-3">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
-                  formControlName="discountCodeReward" name="discountCodeReward" type="checkbox">
-                <label class="form-check-label mr-1 cursor-pointer">
-                  کد تخفیف برای خرید بعدی
+                  formControlName="discountCodeReward" name="discountCodeReward" type="checkbox"  id="discountCodeRewardId">
+                <label class="form-check-label mr-1 cursor-pointer" for="discountCodeRewardId">
+                  کد تخفیف برای خرید بعدی از الگوی
                 </label>
               </div>
             </div>
-            <div class="col-12 col-sm-2">
+            <div class="col-12 col-sm-7">
               <div [ngClass]="{'disabled':isDisabled}"
-                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-
+                class="d-flex flex-row align-items-center gap-2">
                 <ng-select [items]="baseInfoService.senarioDiscountCodePatterns$|async" [multiple]="false"
                   [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
                   formControlName="discountCodePattern">
@@ -515,7 +514,6 @@
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   کد تخفیف را مشخص نمایید
                 </div>
-
               </div>
             </div>
           </div>

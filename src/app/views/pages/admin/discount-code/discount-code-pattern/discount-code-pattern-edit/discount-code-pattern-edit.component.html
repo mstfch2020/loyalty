@@ -121,7 +121,7 @@
             </ng-select>
             <div *ngIf="!service.form.get('productGroups')?.valid && service.form.get('productGroups')?.touched"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-              گروه مشتری را مشخص نمایید
+              تگ کالا را مشخص نمایید
             </div>
           </div>
         </div>
@@ -138,11 +138,6 @@
               (change)="service.brandChanged($event,'productGroupsExcepted')" [addTag]="service.addProductGroups"
               bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="productGroupsExcepted">
             </ng-select>
-            <div
-              *ngIf="!service.form.get('productGroupsExcepted')?.valid && service.form.get('productGroupsExcepted')?.touched"
-              class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-              گروه مشتری را مشخص نمایید
-            </div>
           </div>
         </div>
       </div>
