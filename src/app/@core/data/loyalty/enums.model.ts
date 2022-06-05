@@ -79,6 +79,17 @@ export enum FilterType
   Equal = 2,
   Except = 3
 }
+
+export enum RestPeriodType
+{
+  None = 0,
+  OneMonth = 1,
+  TwoMonths = 2,
+  ThreeMonths = 3,
+  SixMonths = 4,
+  twelveMonths = 5
+}
+
 export enum FilterNames
 {
   None = 0,
@@ -96,5 +107,19 @@ export enum FilterNames
   ExpireDate = 12,
   expireDate = 11,
   Title = 12,
-  Paging = 13
+  Paging = 13,
+  RestPeriodType = 14,
+  volumeFilter = 15,
+  DiscountCode = 16,
+  Phone = 17,
+  CreateAcountDateFilter = 18,
+  ActivityCount = 19,
+  Campaign = 20,
+  Score = 21,
+  ActivityCountList = 22,
+  Activities = 23,
+  ActivitiesKey = 24
+
 }
+
+

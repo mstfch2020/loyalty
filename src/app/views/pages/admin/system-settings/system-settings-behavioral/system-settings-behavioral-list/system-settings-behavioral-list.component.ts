@@ -44,9 +44,9 @@ export class SystemSettingsBehavioralListComponent extends BaseSearch implements
   {
     if (id)
     {
-      this.router.navigate(['/admin/main/settings/behavioral/edit', id]);
+      this.router.navigate(['admin/main/settings/behavioral/edit', id]);
       return;
     }
-    this.router.navigate(['/admin/main/settings/behavioral/edit']);
+    this.router.navigate(['admin/main/settings/behavioral/edit']);
   }
 }

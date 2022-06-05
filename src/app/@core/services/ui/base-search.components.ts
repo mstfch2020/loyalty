@@ -12,6 +12,25 @@ import { BaseInfoService } from "../loyalty/base-info.service";
 export class BaseSearch implements OnInit
 {
 
+  theActivityList = new Array<FilterTitle>();
+  theActivitySelectedList = new Array<IdTitleTypeBrandId>();
+  theActivitySelectedCondition = 0;
+
+  theActivityKeySelected = '';
+  theActivityKeySelectedCondition = 0;
+
+  theCampaignList = new Array<FilterTitle>();
+  theCampaignSelectedList = new Array<IdTitleTypeBrandId>();
+  theCampaignSelectedCondition = 0;
+
+  theScoreList = new Array<FilterTitle>();
+  theScoreSelectedList = new Array<IdTitleTypeBrandId>();
+  theScoreSelectedCondition = 0;
+
+  theActivityCountList = new Array<FilterTitle>();
+  theActivityCountListSelectedList = new Array<IdTitleTypeBrandId>();
+  theActivityCountListSelectedCondition = 0;
+
   theFilterCustomerList = new Array<FilterTitle>();
   theFilterCustomerSelectedList = new Array<IdTitleTypeBrandId>();
   theFilterCustomerSelectedCondition = 0;
@@ -39,22 +58,35 @@ export class BaseSearch implements OnInit
   theFilterCommissionSelectedList = new Array<IdTitle>();
   theFilterCommissionSelectedCondition = 0;
 
-  theFilterPercentList = new Array<FilterTitle>();
+  theFilterPercentList: Array<FilterTitle> = [];
   theFilterPercentSelectedList = new Array<IdTitle>();
   theFilterPercentSelectedCondition = 0;
 
   theFilterDateList = new Array<FilterTitle>();
   theFilterDateFromSelected = "";
   theFilterDateToSelected = "";
-  theFilterStatusSelected = 0;
+  theCreateAcountDateSelected = "";
 
   theExpireDateSelected = "";
+
+  volumeFilterSelected?: number | null = null;
+  volumeFilterSelectedCondition = 0;
+
+  activityCountFilterSelected?: number | null = null;
+  activityCountFilterSelectedCondition = 0;
+
+  discountCodeSelected?: number | null = null;
+  discountCodeSelectedCondition = 0;
+
+  phoneSelected?: number | null = null;
+  phoneSelectedCondition = 0;
 
   pageIndex = 1;
   pageSize = 20;
 
   activeFilterName = FilterNames.None;
 
+  theFilterStatusSelected = 0;
   theFilterStatusSelectedCondition = 0;
   theFilterStatusList: Array<FilterTitle> = [
     {
@@ -71,6 +103,41 @@ export class BaseSearch implements OnInit
     },
   ];
 
+  theFilterRestPeriodTypeSelected = new Array<IdTitle>();
+  theFilterRestPeriodTypeSelectedCondition = 0;
+  theFilterRestPeriodTypeList: Array<FilterTitle> = [
+    {
+      id: '1',
+      title: 'یک ماهه',
+      type: 0,
+      checked: false,
+    },
+    {
+      id: '2',
+      title: 'دو ماهه',
+      type: 0,
+      checked: false,
+    },
+    {
+      id: '3',
+      title: 'سه ماهه',
+      type: 0,
+      checked: false,
+    },
+    {
+      id: '4',
+      title: 'شش ماهه',
+      type: 0,
+      checked: false,
+    },
+    {
+      id: '5',
+      title: 'دوازده ماهه',
+      type: 0,
+      checked: false,
+    }
+  ];
+
   constructor(public baseInfoService: BaseInfoService)
   {
 
@@ -79,6 +146,98 @@ export class BaseSearch implements OnInit
   ngOnInit(): void
   {
     this.baseInfoService.loadBaseInfo(() => { });
+
+    [10, 20, 30, 40, 50, 60, 70, 80, 90, 100].forEach(p =>
+    {
+      this.theFilterPercentList.push({
+        id: p.toString(),
+        title: p.toString() + '%',
+        type: 0,
+        checked: false,
+      });
+    });
+
+    this.baseInfoService.commissionsBasis$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
+        this.theCampaignList.push({
+          checked: false,
+          id: p.toString(),
+          title: p.toString(),
+          type: 0,
+        });
+      });
+    });
+
+
+    this.baseInfoService.activity$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
+        this.theActivityList.push({
+          checked: false,
+          id: p.id,
+          title: p.title,
+          type: 0,
+        });
+      });
+    });
+
+    this.baseInfoService.allCampaigns$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
+        this.theCampaignList.push({
+          checked: false,
+          id: p.id,
+          title: p.title,
+          type: 0,
+        });
+      });
+    });
+
+    this.baseInfoService.scoresVolumes$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
+        this.theScoreList.push({
+          checked: false,
+          id: p.toString(),
+          title: p.toString(),
+          type: 0,
+        });
+      });
+    });
+
+    this.baseInfoService.activitiesCount$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
+        this.theActivityCountList.push({
+          checked: false,
+          id: p.toString(),
+          title: p.toString(),
+          type: 0,
+        });
+      });
+    });
+
+    this.baseInfoService.commissionsBasis$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
+        this.theFilterCommissionList.push({
+          checked: false,
+          id: p.toString(),
+          title: p.toString(),
+          type: 0,
+        });
+      });
+    });
+
+
+
     this.baseInfoService.generalCustomers$.subscribe(value =>
     {
       value.forEach(p =>
@@ -128,6 +287,18 @@ export class BaseSearch implements OnInit
       });
     });
 
+    this.baseInfoService.userTypes$.subscribe(value =>
+    {
+      value.forEach(p =>
+      {
+        this.theFilterGroupList.push({
+          checked: false,
+          id: p.id,
+          title: p.title, type: 0
+        });
+      });
+    });
+
     this.search({ pageSize: this.pageSize, pageIndex: this.pageIndex });
   }
 
@@ -145,8 +316,30 @@ export class BaseSearch implements OnInit
         this.theFilterCustomerSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case FilterNames.Date:
-        this.theFilterDateFromSelected = event;
-        this.theFilterDateToSelected = event;
+        this.theFilterDateFromSelected = event.value;
+        this.theFilterDateToSelected = event.value;
+        break;
+      case FilterNames.ExpireDate:
+        this.theExpireDateSelected = event?.value;
+        break;
+      case FilterNames.CreateAcountDateFilter:
+        this.theCreateAcountDateSelected = event.value;
+        break;
+      case FilterNames.volumeFilter:
+        this.volumeFilterSelected = event.value;
+        this.volumeFilterSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.ActivityCount:
+        this.activityCountFilterSelected = event.value;
+        this.activityCountFilterSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.DiscountCode:
+        this.discountCodeSelected = event.value;
+        this.discountCodeSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.Phone:
+        this.phoneSelected = event.value;
+        this.phoneSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case FilterNames.Brand:
         this.theFilterBrandsSelectedList = event.value;
@@ -154,6 +347,10 @@ export class BaseSearch implements OnInit
         break;
       case FilterNames.Status:
         this.theFilterStatusSelected = parseInt(event.value[0].id, 0);
+        break;
+      case FilterNames.RestPeriodType:
+        this.theFilterRestPeriodTypeSelected = event.value;
+        this.theFilterRestPeriodTypeSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case FilterNames.UserType:
         this.theFilterUserTypeSelectedList = event.value;
@@ -179,9 +376,32 @@ export class BaseSearch implements OnInit
         this.theFilterTitleFilterSelectedList = event.value;
         this.theFilterTitleFilterSelectedCondition = parseInt(event.conditionType, 0);
         break;
-      case FilterNames.expireDate:
-        this.theExpireDateSelected = event?.dateFrom;
+
+      case FilterNames.Campaign:
+        this.theCampaignSelectedList = event.value;
+        this.theCampaignSelectedCondition = parseInt(event.conditionType, 0);
         break;
+
+      case FilterNames.Activities:
+        this.theActivitySelectedList = event.value;
+        this.theActivitySelectedCondition = parseInt(event.conditionType, 0);
+        break;
+
+      case FilterNames.ActivitiesKey:
+        this.theActivityKeySelected = event.value;
+        this.theActivityKeySelectedCondition = parseInt(event.conditionType, 0);
+        break;
+
+      case FilterNames.Score:
+        this.theScoreSelectedList = event.value;
+        this.theScoreSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+
+      case FilterNames.ActivityCountList:
+        this.theActivityCountListSelectedList = event.value;
+        this.theActivityCountListSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+
     }
 
     if (filterType !== FilterNames.Paging)
@@ -195,16 +415,16 @@ export class BaseSearch implements OnInit
 
     if (this.theFilterPercentSelectedList && this.theFilterPercentSelectedList.length > 0)
     {
-      request.CommissionFilter = {} as any;
-      request.CommissionFilter.CustomerDiscounts = this.theFilterPercentSelectedList.map(p => p.id);
+      request.customerDiscountFilter = {} as any;
+      request.customerDiscountFilter.customerDiscounts = this.theFilterPercentSelectedList.map(p => parseInt(p.id, 0));
       if (this.theFilterPercentSelectedList.findIndex(p => p.id === 'all') !== -1)
       {
-        request.CommissionFilter.CustomerDiscounts = [];
+        request.customerDiscountFilter.customerDiscounts = [];
       }
-      request.CommissionFilter.filterType = 0;
+      request.customerDiscountFilter.filterType = 0;
       if (this.theFilterPercentSelectedCondition != 0)
       {
-        request.CommissionFilter.filterType = this.theFilterPercentSelectedCondition;
+        request.customerDiscountFilter.filterType = this.theFilterPercentSelectedCondition;
       }
     }
 
@@ -299,6 +519,94 @@ export class BaseSearch implements OnInit
       }
     }
 
+    if (this.theCampaignSelectedList && this.theCampaignSelectedList.length > 0)
+    {
+      request.campaignIdFilter = {} as any;
+      request.campaignIdFilter.Ids = this.theCampaignSelectedList.map(p => parseInt(p.id, 0));
+      if (this.theCampaignSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.campaignIdFilter.Ids = [];
+      }
+      request.campaignIdFilter.filterType = 0;
+      if (this.theCampaignSelectedCondition != 0)
+      {
+        request.campaignIdFilter.filterType = this.theCampaignSelectedCondition;
+      }
+    }
+
+    if (this.theActivitySelectedList && this.theActivitySelectedList.length > 0)
+    {
+      request.titleFilter = {} as any;
+      // request.titleFilter.titles = this.theActivitySelectedList.map(p => parseInt(p.id, 0));
+      request.titleFilter.titles = this.theActivitySelectedList.map(p => p.title);
+      if (this.theActivitySelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.titleFilter.titles = [];
+      }
+      request.titleFilter.filterType = 0;
+      if (this.theActivitySelectedCondition != 0)
+      {
+        request.titleFilter.filterType = this.theActivitySelectedCondition;
+      }
+    }
+
+    if (this.theActivityKeySelected)
+    {
+      request.keyFilter = {} as any;
+      request.keyFilter.keys = [this.theActivityKeySelected];
+      request.keyFilter.filterType = 0;
+      if (this.theActivityKeySelectedCondition != 0)
+      {
+        request.keyFilter.filterType = this.theActivityKeySelectedCondition;
+      }
+    }
+
+    if (this.theActivityCountListSelectedList && this.theActivityCountListSelectedList.length > 0)
+    {
+      request.activityCountsFilter = {} as any;
+      request.activityCountsFilter.activitiesCount = this.theActivityCountListSelectedList.map(p => p.id);
+      if (this.theActivityCountListSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.activityCountsFilter.activitiesCount = [];
+      }
+      request.activityCountsFilter.filterType = 0;
+      if (this.theActivityCountListSelectedCondition != 0)
+      {
+        request.activityCountsFilter.filterType = this.theActivityCountListSelectedCondition;
+      }
+    }
+
+    if (this.theScoreSelectedList && this.theScoreSelectedList.length > 0)
+    {
+      request.scoreFilter = {} as any;
+      request.scoreFilter.scores = this.theScoreSelectedList.map(p => p.id);
+      if (this.theScoreSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.scoreFilter.scores = [];
+      }
+      request.scoreFilter.filterType = 0;
+      if (this.theScoreSelectedCondition != 0)
+      {
+        request.scoreFilter.filterType = this.theScoreSelectedCondition;
+      }
+    }
+
+
+    if (this.theFilterRestPeriodTypeSelected && this.theFilterRestPeriodTypeSelected.length > 0)
+    {
+      request.ResetPeriodFilter = {} as any;
+      request.ResetPeriodFilter.Periods = this.theFilterRestPeriodTypeSelected.map(p => parseInt(p.id, 0));
+      if (this.theFilterRestPeriodTypeSelected.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.ResetPeriodFilter.Periods = [];
+      }
+      request.ResetPeriodFilter.filterType = 0;
+      if (this.theFilterRestPeriodTypeSelectedCondition != 0)
+      {
+        request.ResetPeriodFilter.filterType = this.theFilterRestPeriodTypeSelectedCondition;
+      }
+    }
+
 
     if (this.theFilterCustomerSelectedList && this.theFilterCustomerSelectedList.length > 0)
     {
@@ -324,9 +632,47 @@ export class BaseSearch implements OnInit
       request.statusFilter = new StatusFilter();
       request.statusFilter.status = this.theFilterStatusSelected;
     }
+
     if (this.theFilterDateFromSelected)
     {
       request.periodFilter = { date: Utility.getPeriodOfString(this.theFilterDateFromSelected) };
+    }
+
+    if (this.theExpireDateSelected)
+    {
+      request.expireFilter = { date: Utility.getPeriodOfString(this.theExpireDateSelected) };
+    }
+
+    if (this.theCreateAcountDateSelected)
+    {
+      request.createAcountDateSelected = { date: Utility.getPeriodOfString(this.theCreateAcountDateSelected) };
+    }
+
+    if (this.volumeFilterSelected)
+    {
+      request.volumeFilter = parseInt(this.volumeFilterSelected?.toString(), 0);
+    }
+
+    //todo need to fix later
+    if (this.activityCountFilterSelected)
+    {
+      request.activityCount = parseInt(this.activityCountFilterSelected?.toString(), 0);
+    }
+
+    if (this.discountCodeSelected)
+    {
+      request.codeFilter = {};
+      request.codeFilter.code = this.discountCodeSelected;
+      request.codeFilter.filterType = 0;
+      if (this.discountCodeSelectedCondition)
+      {
+        request.codeFilter.filterType = this.discountCodeSelectedCondition;
+      }
+    }
+
+    if (this.phoneSelected)
+    {
+      request.mobileFilter = this.phoneSelected;
     }
 
     this.search(request);

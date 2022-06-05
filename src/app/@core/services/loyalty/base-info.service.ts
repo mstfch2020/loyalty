@@ -12,6 +12,8 @@ export class BaseInfoService
 {
   senarioDiscountCodePatterns$ = new BehaviorSubject<Array<any>>([]);
   commissionsBasis$ = new BehaviorSubject<Array<number>>([]);
+  scoresVolumes$ = new BehaviorSubject<Array<number>>([]);
+  activitiesCount$ = new BehaviorSubject<Array<number>>([]);
   activity$ = new BehaviorSubject<Array<IdTitle>>([]);
   brands$ = new BehaviorSubject<Array<IdTitle>>([]);
   brandsSingle$ = new BehaviorSubject<Array<IdTitle>>([]);
@@ -29,11 +31,35 @@ export class BaseInfoService
   generalCustomersByBrandId$ = new BehaviorSubject<Array<IdTitleTypeBrandId>>([]);
   generalCustomersSingle$ = new BehaviorSubject<Array<IdTitleTypeBrandId>>([]);
   productCodes$ = new BehaviorSubject<Array<string>>([]);
+  allCampaigns$ = new BehaviorSubject<Array<IdTitle>>([]);
 
   applyOnType: Array<EnumTitle> = [
     { id: 1, title: 'قیمت قبل از تخفیف کالا' },
     { id: 2, title: 'قیمت بعد از تخفیف کالا' },
     { id: 3, title: 'قیمت بعد از اعمال سناریو' },
+  ];
+
+  RestPeriodTypeList: Array<EnumTitle> = [
+    {
+      id: 1,
+      title: 'یک ماهه'
+    },
+    {
+      id: 2,
+      title: 'دو ماهه'
+    },
+    {
+      id: 3,
+      title: 'سه ماهه'
+    },
+    {
+      id: 4,
+      title: 'شش ماهه'
+    },
+    {
+      id: 5,
+      title: 'دوازده ماهه'
+    }
   ];
 
   constructor(
@@ -109,6 +135,54 @@ export class BaseInfoService
     });
   }
 
+  loadAllCampaigns()
+  {
+    this.GetAllCampaigns().subscribe(value =>
+    {
+      if (!value) { value = []; }
+      this.allCampaigns$.next(value);
+    });
+  }
+
+  loadScoresVolumes()
+  {
+    this.GetAllScoresVolume().subscribe(value =>
+    {
+      if (!value?.score)
+      {
+        this.scoresVolumes$.next([]);
+        return;
+      }
+      this.scoresVolumes$.next(value.score);
+    });
+  }
+
+  loadActivitiesCount()
+  {
+    this.GetAllActivitiesCount().subscribe(value =>
+    {
+      if (!value?.activitiesCount)
+      {
+        this.activitiesCount$.next([]);
+        return;
+      }
+      this.activitiesCount$.next(value.activitiesCount);
+    });
+  }
+
+  loadComissions()
+  {
+    this.GetAllCommissionsBasis().subscribe(value =>
+    {
+      if (!value?.commissionsBasis)
+      {
+        this.commissionsBasis$.next([]);
+        return;
+      }
+      this.commissionsBasis$.next(value.commissionsBasis);
+
+    });
+  }
 
   getCustomerLevel(): Observable<Array<IdTitle> | null>
   {
@@ -180,7 +254,25 @@ export class BaseInfoService
   GetAllCommissionsBasis()
   {
     const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetAllCommissionsBasis';
-    return callGetService<Array<number> | null>(url, this.http, this.uiService);
+    return callGetService<any>(url, this.http, this.uiService);
+  }
+
+  GetAllCampaigns()
+  {
+    const url = this.settingService.settings?.baseUrl + 'Campaign/GetAllCampaigns';
+    return callGetService<Array<IdTitle>>(url, this.http, this.uiService);
+  }
+
+  GetAllScoresVolume()
+  {
+    const url = this.settingService.settings?.baseUrl + 'CustomerGroupAndLevelRule/GetAllScoresVolume';
+    return callGetService<any>(url, this.http, this.uiService);
+  }
+
+  GetAllActivitiesCount()
+  {
+    const url = this.settingService.settings?.baseUrl + 'CustomerGroupAndLevelRule/GetAllActivitiesCount';
+    return callGetService<any>(url, this.http, this.uiService);
   }
 
   GetSenarioDiscountCodePatternsByBrandIds(brandIds: Array<string>)

@@ -26,11 +26,11 @@ export interface Discount
   campaignIds: Array<string>;
   userTypeIds: Array<string>;
   productGroupIds: Array<string>;
-  productGroupCodes: Array<string>;
+  productCodes: Array<string>;
+  productExceptedCodes: Array<string>;
   productGroupsExceptedIds: Array<string>;
-  productGroupsExceptedCodes: Array<string>;
   productGroupsConditionIds: Array<string>;
-  productGroupsConditionCodes: Array<string>;
+  productConditionCodes: Array<string>;
   purchanseAmountMin: number;
   purchanseAmountMax: number;
   patternName: string;
@@ -58,7 +58,7 @@ export const discountInit: Discount = {
   groupIds: [],
   userTypeIds: [],
   productGroupIds: [],
-  productGroupsExceptedIds: [],
+  productExceptedCodes: [],
   productGroupsConditionIds: [],
   purchanseAmountMin: 0,
   purchanseAmountMax: 0,
@@ -80,7 +80,7 @@ export const discountInit: Discount = {
   staticCode: '',
   phones: [],
   campaignIds: [],
-  productGroupCodes: [],
-  productGroupsExceptedCodes: [],
-  productGroupsConditionCodes: []
+  productCodes: [],
+  productGroupsExceptedIds: [],
+  productConditionCodes: []
 };

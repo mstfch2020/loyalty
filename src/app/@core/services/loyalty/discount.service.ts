@@ -61,6 +61,15 @@ export class DiscountService extends BaseService<Discount>
     });
   }
 
+
+  getVolume(discount: DiscountGrid): string
+  {
+    if (discount.volumeType === DiscountVolumeType.Percent)
+      return `${ discount.volume } %`;
+    return `${ discount.volume } تومان`;
+
+  }
+
   createForm(scenario: Discount): void
   {
     this.form = this.formBuilder.group({
@@ -74,11 +83,11 @@ export class DiscountService extends BaseService<Discount>
       groupIds: [scenario.groupIds, [Validators.required]],
       userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
       productGroupIds: [scenario.productGroupIds.length === 0 && scenario.id ? ['all'] : scenario.productGroupIds, [Validators.required]],
-      productGroupCodes: [scenario.productGroupCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
-      productGroupsExceptedIds: [scenario.productGroupsExceptedIds, [Validators.required]],
-      productGroupsExceptedCodes: [scenario.productGroupsExceptedCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
-      productGroupsConditionIds: [scenario.productGroupsConditionIds, [Validators.required]],
-      productGroupsConditionCodes: [scenario.productGroupsConditionCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
+      productCodes: [scenario.productCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
+      productExceptedCodes: [scenario.productExceptedCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
+      productGroupsExceptedIds: [scenario.productGroupsExceptedIds.length === 0 && scenario.id ? ['all'] : scenario.productGroupsExceptedIds, [Validators.required]],
+      productGroupsConditionIds: [scenario.productGroupsConditionIds.length === 0 && scenario.id ? ['all'] : scenario.productGroupsConditionIds, [Validators.required]],
+      productConditionCodes: [scenario.productConditionCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
       purchanseAmountMin: [scenario.purchanseAmountMin, [Validators.required]],
       purchanseAmountMax: [scenario.purchanseAmountMax, [Validators.required]],
       generatedDiscountCodes: [scenario.generatedDiscountCodes, [Validators.required]],
@@ -97,47 +106,48 @@ export class DiscountService extends BaseService<Discount>
       discountFixCode: [scenario.discountFixCode, [Validators.required]],
       staticCode: [scenario.staticCode, [Validators.required]],
       generalCustomers: [[scenario.id && (scenario.groupIds?.length === 0 && scenario.campaignIds?.length === 0 && scenario.phones?.length === 0) ? ['all'] : []], [Validators.required]],
-      productGroups: [[scenario.id && (scenario.productGroupIds?.length === 0 && scenario.productGroupCodes?.length === 0) ? ['all'] : []], [Validators.required]],
-      productGroupsExcepted: [[scenario.id && (scenario.productGroupsExceptedIds?.length === 0 && scenario.productGroupsExceptedCodes?.length === 0) ? ['all'] : []], [Validators.required]],
-      productGroupsCondition: [[scenario.id && (scenario.productGroupsConditionIds?.length === 0 && scenario.productGroupsConditionCodes?.length === 0) ? ['all'] : []], [Validators.required]]
+      productGroups: [[scenario.id && (scenario.productGroupIds?.length === 0 && scenario.productCodes?.length === 0) ? ['all'] : []], [Validators.required]],
+      productGroupsExcepted: [[scenario.id && (scenario.productExceptedCodes?.length === 0 && scenario.productGroupsExceptedIds?.length === 0) ? ['all'] : []], [Validators.required]],
+      productGroupsCondition: [[scenario.id && (scenario.productGroupsConditionIds?.length === 0 && scenario.productConditionCodes?.length === 0) ? ['all'] : []], [Validators.required]]
 
     });
 
 
-    this.baseInfoService?.productCodes$?.next(scenario.productGroupCodes?.concat(scenario.productGroupsExceptedCodes)?.concat(scenario.productGroupsConditionCodes));
+    this.baseInfoService?.productCodes$?.next(scenario.productCodes?.concat(scenario.productGroupsExceptedIds)?.concat(scenario.productConditionCodes));
 
-    if (!scenario.id)
+    if (scenario.id)
     {
-      if (scenario.productGroupIds.length !== 0 || scenario.productGroupCodes.length !== 0)
+      if (scenario.productGroupIds.length !== 0 || scenario.productCodes.length !== 0)
       {
-        const data = scenario.productGroupIds.concat(scenario.productGroupCodes);
+        const data = scenario.productGroupIds.concat(scenario.productCodes);
         const formControlName = 'productGroups';
         const productGroups = this.baseInfoService?.productGroups$?.getValue();
 
         this.updateProductGroupsIdCode(data, productGroups, formControlName);
       }
 
-      if (scenario.productGroupsExceptedIds.length !== 0 || scenario.productGroupsExceptedCodes.length !== 0)
+      if (scenario.productGroupsExceptedIds.length !== 0 || scenario.productExceptedCodes.length !== 0)
       {
-        const data = scenario.productGroupsExceptedIds.concat(scenario.productGroupsExceptedCodes);
+        const data = scenario.productGroupsExceptedIds.concat(scenario.productExceptedCodes);
         const formControlName = 'productGroupsExcepted';
         const productGroups = this.baseInfoService?.productGroups$?.getValue();
 
         this.updateProductGroupsIdCode(data, productGroups, formControlName);
       }
 
-      if (scenario.productGroupsConditionIds.length !== 0 || scenario.productGroupsConditionCodes.length !== 0)
+      if (scenario.productGroupsConditionIds.length !== 0 || scenario.productConditionCodes.length !== 0)
       {
-        const data = scenario.productGroupsConditionIds.concat(scenario.productGroupsConditionCodes);
+        const data = scenario.productGroupsConditionIds.concat(scenario.productConditionCodes);
         const formControlName = 'productGroupsCondition';
         const productGroups = this.baseInfoService?.productGroups$?.getValue();
 
         this.updateProductGroupsIdCode(data, productGroups, formControlName);
       }
+
+      this.updateGeneralCustomer(scenario);
     }
 
 
-    this.updateGeneralCustomer(scenario);
 
     this.form.controls['brandIds'].valueChanges.subscribe(value =>
     {
@@ -245,7 +255,7 @@ export class DiscountService extends BaseService<Discount>
   submitDiscount(isCreate: boolean): void
   {
     console.log(this.form.value);
-
+    this.uiService.alertService.clearErrorMessages();
     let option = 'CreatePattern';
     if (!isCreate)
     {
@@ -309,25 +319,23 @@ export class DiscountService extends BaseService<Discount>
 
 
     let idsName = "productGroupIds";
-    let codesName = "productGroupCodes";
+    let codesName = "productCodes";
     let formName = "productGroups";
     const productGroups = this.baseInfoService.productGroups$.getValue();
 
     this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups);
 
     idsName = "productGroupsExceptedIds";
-    codesName = "productGroupsExceptedCodes";
+    codesName = "productExceptedCodes";
     formName = "productGroupsExcepted";
 
     this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups);
 
     idsName = "productGroupsConditionIds";
-    codesName = "productGroupsConditionCodes";
+    codesName = "productConditionCodes";
     formName = "productGroupsCondition";
 
     this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups);
-
-
 
     if (value.brandIds.some((p: string) => p === 'all'))
     {
@@ -339,11 +347,18 @@ export class DiscountService extends BaseService<Discount>
       value.userTypeIds = [];
     }
 
+    if (value.productGroupIds.length === 0 && value.productCodes.length === 0)
+    {
+      this.uiService.alert('تگ کالا را مشخص نمایید.');
+      return;
+    }
+
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
 
     console.log(value);
     callPostService<Discount>(url, this.http, this.uiService, value).subscribe(value =>
     {
+      if (!value) { return; }
       this.form.controls['id'].setValue(value?.id);
       this.uiService.showSnackBar('با موفقیت ثبت شد.', '', 3000);
     });

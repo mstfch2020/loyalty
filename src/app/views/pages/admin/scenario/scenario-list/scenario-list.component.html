@@ -70,7 +70,7 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
-                    [visible]="activeFilterName==3" [isCriteria]="true" [items]="theFilterBrandsList" [filterType]="5">
+                    [items]="theFilterBrandsList" [visible]="activeFilterName==3" [isCriteria]="true" [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08 w-120-px" scope="col">
@@ -90,7 +90,7 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,4)" (cancelEvent)="closeFilterForm($event,4)"
-                    [visible]="activeFilterName==4" [isCriteria]="false" [isRadio]="true" [items]="theFilterStatusList"
+                    [visible]="activeFilterName==4" [isCriteria]="true" [isRadio]="true" [items]="theFilterStatusList"
                     [filterType]="5">
                   </app-filter>
                 </th>

@@ -9,6 +9,12 @@ import { CustomerGroupComponent } from "./customer-group/customer-group.componen
 import { CustomerEditComponent } from "./customer/customer-edit/customer-edit.component";
 import { CustomerListComponent } from "./customer/customer-list/customer-list.component";
 import { CustomerComponent } from "./customer/customer.component";
+import { DiscountCodeGeneratedEditComponent } from './discount-code/discount-code-generated/discount-code-generated-edit/discount-code-generated-edit.component';
+import { DiscountCodeGeneratedListComponent } from './discount-code/discount-code-generated/discount-code-generated-list/discount-code-generated-list.component';
+import { DiscountCodeGeneratedComponent } from './discount-code/discount-code-generated/discount-code-generated.component';
+import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern/discount-code-pattern-edit/discount-code-pattern-edit.component';
+import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern/discount-code-pattern-list/discount-code-pattern-list.component';
+import { DiscountCodePatternComponent } from './discount-code/discount-code-pattern/discount-code-pattern.component';
 import { DiscountCodeComponent } from "./discount-code/discount-code.component";
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from "./profile/profile.component";
@@ -20,26 +26,20 @@ import { SendSmsCreateComponent } from "./send-sms/send-sms-create/send-sms-crea
 import { SendSmsListComponent } from "./send-sms/send-sms-list/send-sms-list.component";
 import { SendSmsPatternComponent } from "./send-sms/send-sms-pattern/send-sms-pattern.component";
 import { SendSmsComponent } from "./send-sms/send-sms.component";
+import { SystemSettingsBehavioralEditComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-edit/system-settings-behavioral-edit.component';
+import { SystemSettingsBehavioralListComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-list/system-settings-behavioral-list.component';
+import { SystemSettingsBehavioralComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral.component';
 import { SystemSettingsDiscountEditComponent } from './system-settings/system-settings-discount/system-settings-discount-edit/system-settings-discount-edit.component';
 import { SystemSettingsDiscountListComponent } from './system-settings/system-settings-discount/system-settings-discount-list/system-settings-discount-list.component';
 import { SystemSettingsDiscountComponent } from "./system-settings/system-settings-discount/system-settings-discount.component";
+import { SystemSettingsGroupsEditComponent } from './system-settings/system-settings-groups/system-settings-groups-edit/system-settings-groups-edit.component';
+import { SystemSettingsGroupsListComponent } from './system-settings/system-settings-groups/system-settings-groups-list/system-settings-groups-list.component';
+import { SystemSettingsGroupsComponent } from './system-settings/system-settings-groups/system-settings-groups.component';
+import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
+import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
+import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
 import { SystemSettingsComponent } from "./system-settings/system-settings.component";
 import { UsersComponent } from "./users/users.component";
-import { SystemSettingsBehavioralComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral.component';
-import { SystemSettingsBehavioralListComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-list/system-settings-behavioral-list.component';
-import { SystemSettingsBehavioralEditComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-edit/system-settings-behavioral-edit.component';
-import { SystemSettingsPeriodComponent } from './system-settings/system-settings-period/system-settings-period.component';
-import { SystemSettingsPeriodListComponent } from './system-settings/system-settings-period/system-settings-period-list/system-settings-period-list.component';
-import { SystemSettingsPeriodEditComponent } from './system-settings/system-settings-period/system-settings-period-edit/system-settings-period-edit.component';
-import { SystemSettingsGroupsComponent } from './system-settings/system-settings-groups/system-settings-groups.component';
-import { SystemSettingsGroupsListComponent } from './system-settings/system-settings-groups/system-settings-groups-list/system-settings-groups-list.component';
-import { SystemSettingsGroupsEditComponent } from './system-settings/system-settings-groups/system-settings-groups-edit/system-settings-groups-edit.component';
-import { DiscountCodePatternComponent } from './discount-code/discount-code-pattern/discount-code-pattern.component';
-import { DiscountCodeGeneratedComponent } from './discount-code/discount-code-generated/discount-code-generated.component';
-import { DiscountCodeGeneratedListComponent } from './discount-code/discount-code-generated/discount-code-generated-list/discount-code-generated-list.component';
-import { DiscountCodeGeneratedEditComponent } from './discount-code/discount-code-generated/discount-code-generated-edit/discount-code-generated-edit.component';
-import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern/discount-code-pattern-list/discount-code-pattern-list.component';
-import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern/discount-code-pattern-edit/discount-code-pattern-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -173,7 +173,7 @@ const routes: Routes = [
                 component: SystemSettingsBehavioralListComponent,
               },
               {
-                path: 'edit',
+                path: 'edit/:id',
                 component: SystemSettingsBehavioralEditComponent
               }
             ]
@@ -192,7 +192,7 @@ const routes: Routes = [
                 component: SystemSettingsGroupsListComponent,
               },
               {
-                path: 'edit',
+                path: 'edit/:id',
                 component: SystemSettingsGroupsEditComponent
               }
             ]
@@ -211,7 +211,7 @@ const routes: Routes = [
                 component: SystemSettingsPeriodListComponent,
               },
               {
-                path: 'edit',
+                path: 'edit/:id',
                 component: SystemSettingsPeriodEditComponent
               }
             ]
@@ -307,5 +307,6 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule {
+export class AdminRoutingModule
+{
 }

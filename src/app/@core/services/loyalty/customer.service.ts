@@ -1,16 +1,17 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { CustomerDetail, CustomerMainGrid, CustomerSubGrid } from "../../data/loyalty/customer.model";
+import { CustomerDetail, CustomerMainGrid, CustomerScenario, CustomerSubGrid } from "../../data/loyalty/customer.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
-import { callGetService, callPostPagingService } from "./BaseService";
+import { callGetService, callPostPagingService, callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService
 {
   customerMainGrid$ = new BehaviorSubject<Array<CustomerMainGrid>>([]);
   customerSubGrid$ = new BehaviorSubject<Array<CustomerSubGrid>>([]);
+  scenarioCustomer$ = new BehaviorSubject<Array<CustomerScenario>>([]);
   customer$ = new BehaviorSubject<CustomerDetail>({} as CustomerDetail);
   totalPages = 0;
 
@@ -45,6 +46,16 @@ export class CustomerService
     {
       if (!value) { value = []; }
       this.customerSubGrid$.next(value);
+    });
+  }
+
+  getCustomerScenarioGrid(request: any)
+  {
+    const url = this.settingService.settings?.baseUrl + 'Customer/GetCustmerSenariosGrid';
+    return callPostService<Array<CustomerScenario>>(url, this.http, this.uiService, request).subscribe(value =>
+    {
+      if (!value) { value = []; }
+      this.scenarioCustomer$.next(value);
     });
   }
 

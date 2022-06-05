@@ -17,22 +17,22 @@
                   ردیف
                 </th>
                 <th class="text-center pr-1 font-yekan-bold w-140-px fs-08" scope="col">
-                  <label [ngClass]="{'selected':activeFilterName==12}" (click)="openFilterForm(12)"
+                  <label [ngClass]="{'selected':activeFilterName===17}" (click)="openFilterForm(17)"
                     class="filter-title">
                     شماره موبایل
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterCustomerSelectedList.length==0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="!phoneSelected" height="16" viewBox="0 0 16 16"
+                      width="16" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                     </svg>
-                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterCustomerSelectedList.length>0"
-                      fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="phoneSelected" fill="currentColor" height="16"
+                      viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
                     </svg>
                   </label>
-                  <app-filter (applyEvent)="applyFilterForm($event,12)" (cancelEvent)="closeFilterForm($event,12)"
-                    [visible]="activeFilterName==12" [filterType]="1" [align]="1" [length]="11">
+                  <app-filter (applyEvent)="applyFilterForm($event,17)" (cancelEvent)="closeFilterForm($event,17)"
+                    [visible]="activeFilterName===17" [filterType]="2" [align]="1" [length]="11">
                   </app-filter>
                 </th>
                 <th class="text-end col-md-3 col-sm-3 font-yekan-bold pr-3 fs-08" scope="col">
@@ -69,7 +69,8 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,6)" (cancelEvent)="closeFilterForm($event,16)"
-                    [visible]="activeFilterName==6" [isCriteria]="true" [items]="theFilterUserTypeList" [filterType]="5">
+                    [visible]="activeFilterName==6" [isCriteria]="true" [items]="theFilterUserTypeList"
+                    [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-end font-yekan-bold fs-08" scope="col">
@@ -87,29 +88,30 @@
                     </svg>
                   </label>
                   <app-filter (applyEvent)="applyFilterForm($event,1)" (cancelEvent)="closeFilterForm($event,1)"
-                    [visible]="activeFilterName==1" [isCriteria]="true"  [items]="theFilterCustomerList" [filterType]="5">
+                    [visible]="activeFilterName==1" [isCriteria]="true" [items]="theFilterCustomerList"
+                    [filterType]="5">
                   </app-filter>
                 </th>
                 <th class="text-center font-yekan-bold fs-08 align-middle" scope="col">
                   امتیاز فعلی
                 </th>
                 <th class="text-start font-yekan-bold fs-08" scope="col">
-                  <label [ngClass]="{'filter-selected':activeFilterName==2}" (click)="openFilterForm(2)"
+                  <label [ngClass]="{'filter-selected':activeFilterName===18}" (click)="openFilterForm(18)"
                     class="filter-title">
                     تاریخ ساخت اکانت
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterDateFromSelected.length===0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="!theCreateAcountDateSelected" height="16"
+                      viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
                     </svg>
-                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterDateFromSelected.length===10"
+                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theCreateAcountDateSelected"
                       fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
                     </svg>
                   </label>
-                  <app-filter (applyEvent)="applyFilterForm($event,2)" (cancelEvent)="closeFilterForm($event,2)"
-                    [visible]="activeFilterName==2" [isCriteria]="false" [filterType]="3">
+                  <app-filter (applyEvent)="applyFilterForm($event,18)" (cancelEvent)="closeFilterForm($event,18)"
+                    [visible]="activeFilterName===18" [isCriteria]="false" [filterType]="3">
                   </app-filter>
                 </th>
               </tr>

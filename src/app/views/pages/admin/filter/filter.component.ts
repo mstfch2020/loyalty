@@ -55,30 +55,22 @@ export class FilterComponent implements OnInit
 
   applyEventNotify()
   {
-
     this.visible = false;
-    let value = null;
 
-    switch (this.filterType)
+    const searchValue = this.filterForm.get('searchValue')?.value;
+    if (this.filterType === FilterType.OrderList)
     {
-      case FilterType.Integer: value = this.filterForm.get('textValue')?.value; this.applyEvent.emit(value); break;
-      case FilterType.String: value = this.filterForm.get('intValue')?.value; this.applyEvent.emit(value); break;
-      case FilterType.Date: value = this.filterForm.get('dateValue')?.value; this.applyEvent.emit(value); break;
-      case FilterType.OrderList:
-        {
-          let searchValue = this.filterForm.get('searchValue')?.value;
-
-          if (searchValue && new RegExp(Utility.mobileRegEx).test(searchValue))
-          {
-            this.applyEvent.emit({ value: [{ id: searchValue, title: searchValue, type: 3 }], conditionType: this.filterForm.get("conditionType")?.value });
-          } else
-          {
-            this.applyEvent.emit({ value: this.items.filter(p => p.checked), conditionType: this.filterForm.get("conditionType")?.value });
-          }
-        };
-        break;
+      if (searchValue && new RegExp(Utility.mobileRegEx).test(searchValue))
+      {
+        this.applyEvent.emit({ value: [{ id: searchValue, title: searchValue, type: 3 }], conditionType: this.filterForm.get("conditionType")?.value });
+      } else
+      {
+        this.applyEvent.emit({ value: this.items.filter(p => p.checked), conditionType: this.filterForm.get("conditionType")?.value });
+      }
+    } else
+    {
+      this.applyEvent.emit({ value: searchValue, conditionType: this.filterForm.get("conditionType")?.value });
     }
-
     this.cancelEvent.emit(false);
   }
 

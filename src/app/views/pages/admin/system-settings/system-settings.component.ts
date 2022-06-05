@@ -18,7 +18,7 @@ export class SystemSettingsComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.BaseInfoService.GetAllCommissionsBasis().subscribe(result => this.BaseInfoService.commissionsBasis$.next(result === null ? [] : result));
+    this.BaseInfoService.loadComissions();
   }
 
 }

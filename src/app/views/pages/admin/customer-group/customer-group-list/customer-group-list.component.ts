@@ -31,6 +31,8 @@ export class CustomerGroupListComponent extends BaseSearch implements OnInit
   override ngOnInit(): void
   {
     super.ngOnInit();
+    this.baseInfoService.loadActivitiesCount();
+    this.baseInfoService.loadScoresVolumes();
     this.baseInfoService.loadCustomerLevel();
   }
 

@@ -24,6 +24,7 @@ export class CustomerGroupTemporaryListComponent extends BaseSearch implements O
   override ngOnInit(): void
   {
     super.ngOnInit();
+    this.baseInfoService.loadAllCampaigns();
     this.service.Campaigns$.subscribe(value => this.theViewList = value);
   }
 

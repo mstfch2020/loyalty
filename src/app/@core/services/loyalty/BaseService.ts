@@ -230,10 +230,13 @@ export abstract class BaseService<T>{
     [...value[formName]].forEach((p: any) =>
     {
       const productGroup = productGroups.find(a => a.id === p);
-      if (!productGroup)
+      //if (!productGroup)
       {
-        if (new RegExp(Utility.numberRegEx).test(p?.toString()) && p?.toString()?.length === 7) { value[codesName].push(p?.toString()); }
-        return;
+        if (new RegExp(Utility.numberRegEx).test(p?.toString()) && p?.toString()?.length === 7)
+        {
+          value[codesName].push(p?.toString());
+          return;
+        }
       }
       value[idsName].push(p);
     });

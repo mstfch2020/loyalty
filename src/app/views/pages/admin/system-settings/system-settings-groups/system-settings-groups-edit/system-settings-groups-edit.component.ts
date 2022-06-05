@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { promoterDiscountSettingInit } from 'src/app/@core/data/loyalty/promoter-discount-setting.model';
+import { groupModelInit } from 'src/app/@core/data/loyalty/group.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
-import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
+import { GroupService } from 'src/app/@core/services/loyalty/group.service';
 
 @Component({
   selector: 'app-system-settings-groups-edit',
@@ -16,42 +16,42 @@ export class SystemSettingsGroupsEditComponent implements OnInit
     private router: Router,
     private route: ActivatedRoute,
     private elementRef: ElementRef,
-    public promoterDiscountSettingService: PromoterDiscountSettingService,
+    public service: GroupService,
     public baseInfoService: BaseInfoService)
   {
 
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
-      this.updateSystemSettingsDiscountFromServer(id);
+      this.updateFromServer(id);
     });
 
     this.route.params.subscribe(params =>
     {
       const id = params['id'];
-      this.updateSystemSettingsDiscountFromServer(id);
+      this.updateFromServer(id);
     });
   }
 
-  private updateSystemSettingsDiscountFromServer(id: any)
+  private updateFromServer(id: any)
   {
     if (id)
     {
-      this.promoterDiscountSettingService.getPromoterDiscountSettingById(id).subscribe((value) =>
+      this.service.GetGroupSettingByBrandId(id).subscribe((value) =>
       {
         this.baseInfoService.loadBaseInfo(() =>
         {
           if (!value)
           {
-            value = promoterDiscountSettingInit;
+            value = groupModelInit;
           }
-          this.promoterDiscountSettingService.createForm(value);
+          this.service.createForm(value);
         });
       });
     }
     else
     {
-      this.baseInfoService.loadBaseInfo(() => { this.promoterDiscountSettingService.createForm(promoterDiscountSettingInit); });
+      this.baseInfoService.loadBaseInfo(() => { this.service.createForm(groupModelInit); });
     }
   }
 
@@ -62,13 +62,14 @@ export class SystemSettingsGroupsEditComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.promoterDiscountSettingService.form.markAllAsTouched();
+    this.service.form.markAllAsTouched();
   }
 
   get isDisabled(): boolean
   {
-    return this.promoterDiscountSettingService.isDisabled;
+    return this.service.isDisabled;
   };
+
 
   backToList()
   {

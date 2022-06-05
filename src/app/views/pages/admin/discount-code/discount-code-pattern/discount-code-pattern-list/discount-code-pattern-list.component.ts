@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DiscountGrid } from 'src/app/@core/data/loyalty/discount.model';
-import { DiscountVolumeType } from 'src/app/@core/data/loyalty/enums.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { DiscountService } from 'src/app/@core/services/loyalty/discount.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
@@ -46,12 +45,5 @@ export class DiscountCodePatternListComponent extends BaseSearch implements OnIn
       return;
     }
     this.router.navigate(['/admin/main/discountcode/pattern/edit']);
-  }
-  getVolume(discount: DiscountGrid): string
-  {
-    if (discount.volumeType === DiscountVolumeType.Percent)
-      return `${ discount.volume } %`;
-    return `${ discount.volume } تومان`;
-
   }
 }
