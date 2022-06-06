@@ -47,7 +47,7 @@ export class SystemSettingsGroupsListComponent extends BaseSearch implements OnI
   {
     if (id)
     {
-      this.router.navigate(['/admin/main/settings/groups/edit', id]);
+      this.router.navigate(['/admin/main/settings/groups/edit'], { queryParams: { id: id } });
       return;
     }
     this.router.navigate(['/admin/main/settings/groups/edit']);

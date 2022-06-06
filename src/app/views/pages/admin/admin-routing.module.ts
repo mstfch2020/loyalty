@@ -192,7 +192,7 @@ const routes: Routes = [
                 component: SystemSettingsGroupsListComponent,
               },
               {
-                path: 'edit/:id',
+                path: 'edit',
                 component: SystemSettingsGroupsEditComponent
               }
             ]
