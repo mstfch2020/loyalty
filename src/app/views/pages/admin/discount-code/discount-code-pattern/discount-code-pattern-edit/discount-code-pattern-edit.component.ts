@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { discountInit } from "src/app/@core/data/loyalty/discount.model";
@@ -21,7 +21,7 @@ export class DiscountCodePatternEditComponent implements OnInit
     private route: ActivatedRoute,
     public service: DiscountService,
     public baseInfoService: BaseInfoService,
-    private modalService: NgbModal)
+    private modalService: NgbModal, private cdref: ChangeDetectorRef)
   {
     this.route.queryParams.subscribe(params =>
     {
@@ -38,12 +38,13 @@ export class DiscountCodePatternEditComponent implements OnInit
               value = discountInit;
             }
             this.service.createForm(value);
+            this.cdref.detectChanges();
           }, value?.brandIds);
         });
       } else
       {
 
-        this.baseInfoService.loadBaseInfo(() => { this.service.createForm(discountInit); });
+        this.baseInfoService.loadBaseInfo(() => { this.service.createForm(discountInit); this.cdref.detectChanges(); });
       }
     });
 

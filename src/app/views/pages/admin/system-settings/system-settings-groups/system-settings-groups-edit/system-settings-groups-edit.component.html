@@ -17,9 +17,9 @@
             </label>
           </div>
           <div class="col-9">
-            <ng-select (change)="service.brandChanged($event,'brandId')" [items]="baseInfoService.brands$|async"
-              [multiple]="false" [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id"
-              class="form-control" formControlName="brandId">
+            <ng-select [items]="baseInfoService.brands$|async" [multiple]="false"
+              [readonly]="isDisabled||service.editMode" [disabled]="service.editMode" appendTo="body" bindLabel="title"
+              bindValue="id" class="form-control" formControlName="brandId">
             </ng-select>
             <div *ngIf="!service.form.get('brandId')?.valid && service.form.get('brandId')?.touched && !isDisabled"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
@@ -37,8 +37,9 @@
             </label>
           </div>
           <div class="col-9">
-            <ng-select [items]="baseInfoService.RestPeriodTypeList" [multiple]="false" [readonly]="isDisabled"
-              appendTo="body" bindLabel="title" bindValue="id" class="form-control" formControlName="restPeriodType">
+            <ng-select [items]="baseInfoService.RestPeriodTypeList" [multiple]="false"
+              [readonly]="isDisabled||service.editMode" [disabled]="service.editMode" appendTo="body" bindLabel="title"
+              bindValue="id" class="form-control" formControlName="restPeriodType">
             </ng-select>
             <div
               *ngIf="!service.form.get('restPeriodType')?.valid && service.form.get('restPeriodType')?.touched && !isDisabled"

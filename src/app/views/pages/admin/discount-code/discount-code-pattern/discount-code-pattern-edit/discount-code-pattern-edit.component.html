@@ -22,9 +22,14 @@
                 از
               </span>
               <div class="mt-1">
+                <input formControlName="startDate" class="form-control h-55px rounded-pill text-center text-black"
+                  *ngIf="service.isDisabled" [ngClass]="{'disabled':service.isDisabled}" [readOnly]="service.isDisabled"
+                  [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
-                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                  *ngIf="!service.isDisabled" [uiIsVisible]="!service.isDisabled" [uiTodayBtnEnable]="true"
+                  [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                   <input formControlName="startDate" class="form-control h-55px rounded-pill text-center text-black"
+                    [ngClass]="{'disabled':service.isDisabled}" [readOnly]="service.isDisabled"
                     [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
@@ -32,9 +37,14 @@
                 تا
               </span>
               <div class="mt-1">
+                <input formControlName="endDate" class="form-control h-55px rounded-pill text-center text-black"
+                  *ngIf="service.isDisabled" [ngClass]="{'disabled':service.isDisabled}" [readOnly]="service.isDisabled"
+                  [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
+
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
-                  [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                  *ngIf="!service.isDisabled" [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                   <input formControlName="endDate" class="form-control h-55px rounded-pill text-center text-black"
+                    [ngClass]="{'disabled':service.isDisabled}" [readOnly]="service.isDisabled"
                     [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                 </ng-persian-datepicker>
               </div>
@@ -196,7 +206,8 @@
             حجم تخفیف :
           </label>
           <div class="mr-1">
-            <app-switch [labelOne]="'تومان'" [labelTwo]="'درصد'"
+            <app-switch [labelOne]="'تومان'" [labelTwo]="'درصد'" [isDisabled]="service.isDisabled"
+              [isOneSelected]="service.getValue('discountVolumeType')===1"
               (notifySelectionSwitch)="service.discountVolumeTypeChange($event);">
             </app-switch>
           </div>
@@ -212,17 +223,6 @@
             </div>
           </div>
         </div>
-      </ng-container>
-      <ng-container *ngIf="service.getValue('discountVolumeType')===1">
-        <div class="col-6 col-sm-2">
-          <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-            <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeValue'
-              mask="separator" thousandSeparator="," type="text">
-            <div class="fs-08 text-gray-500">
-              تومان
-            </div>
-          </div>
-        </div>
         <div class="col-12 col-sm-1">
           <div class="text-black mt-3 text-end text-sm-start fs-09">
             تا سقف
@@ -231,6 +231,17 @@
         <div class="col-12 col-sm-2">
           <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
             <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeThreshold'
+              mask="separator" thousandSeparator="," type="text">
+            <div class="fs-08 text-gray-500">
+              تومان
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="service.getValue('discountVolumeType')===1">
+        <div class="col-6 col-sm-2">
+          <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+            <input class="text-start text-black border-0 h-40px w-100" formControlName='discountVolumeValue'
               mask="separator" thousandSeparator="," type="text">
             <div class="fs-08 text-gray-500">
               تومان
@@ -293,12 +304,13 @@
             نوع تخفیف :
           </label>
           <div class="mr-1 flex-grow-1">
-            <app-switch [labelOne]="'تک کالا'" [labelTwo]="'سبد خرید'"
+            <app-switch [labelOne]="'تگ کالا'" [labelTwo]="'سبد خرید'" [isDisabled]="service.isDisabled"
+              [isOneSelected]="service.getValue('discountType')===2"
               (notifySelectionSwitch)="service.discountTypeChange($event)"></app-switch>
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-5 mt-2 mt-sm-0">
+      <div class="col-12 col-sm-5 mt-2 mt-sm-0" *ngIf="service.getValue('discountType')===2">
         <ng-select [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body" bindLabel="title"
           [addTag]="service.addProductGroups" (change)="service.brandChanged($event,'productGroupsCondition')"
           bindValue="id" class="form-control mb-3" formControlName="productGroupsCondition">
@@ -393,7 +405,8 @@
           </label>
           <div class="mr-1">
             <input class="form-control h-55px rounded-pill text-center text-black" type="text"
-              formControlName="patternName">
+              formControlName="patternName" [disabled]="service.isDisabled" [ngClass]="{'disabled':service.isDisabled}"
+              [readOnly]="service.isDisabled">
           </div>
         </div>
       </div>
@@ -401,7 +414,8 @@
     <div class="row mt-4">
       <div class="col-6 col-sm-3">
         <button class="btn btn-warning w-100 rounded-pill fw-bold font-yekan-bold px-4 text-white d-block" dir="rtl"
-          (click)="service.submitDiscount(true)">
+          (click)="service.submitDiscount(true)" [disabled]="service.isDisabled"
+          [ngClass]="{'disabled':service.isDisabled}">
           ذخیره
         </button>
       </div>

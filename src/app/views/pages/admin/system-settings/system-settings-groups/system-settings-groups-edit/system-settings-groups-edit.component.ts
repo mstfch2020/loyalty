@@ -19,7 +19,6 @@ export class SystemSettingsGroupsEditComponent implements OnInit
     public service: GroupService,
     public baseInfoService: BaseInfoService)
   {
-
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
@@ -44,14 +43,26 @@ export class SystemSettingsGroupsEditComponent implements OnInit
           if (!value)
           {
             value = groupModelInit;
+            value.brandId = id;
           }
           this.service.createForm(value);
+          this.service.form?.controls['brandId']?.valueChanges?.subscribe(value =>
+          {
+            this.updateFromServer(value);
+          });
         });
       });
     }
     else
     {
-      this.baseInfoService.loadBaseInfo(() => { this.service.createForm(groupModelInit); });
+      this.baseInfoService.loadBaseInfo(() =>
+      {
+        this.service.createForm(groupModelInit);
+        this.service.form?.controls['brandId']?.valueChanges?.subscribe(value =>
+        {
+          this.updateFromServer(value);
+        });
+      });
     }
   }
 

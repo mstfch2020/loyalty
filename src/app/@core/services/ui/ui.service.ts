@@ -18,6 +18,7 @@ export class UiService
 
   success(message: string): void
   {
+    this.alertService.clearAllMessages();
     this.alertService.success(message);
   }
 

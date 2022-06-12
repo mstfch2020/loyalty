@@ -105,10 +105,10 @@ export class DiscountService extends BaseService<Discount>
       randomDiscountCodeCount: [scenario.randomDiscountCodeCount, [Validators.required]],
       discountFixCode: [scenario.discountFixCode, [Validators.required]],
       staticCode: [scenario.staticCode, [Validators.required]],
-      generalCustomers: [[scenario.id && (scenario.groupIds?.length === 0 && scenario.campaignIds?.length === 0 && scenario.phones?.length === 0) ? ['all'] : []], [Validators.required]],
-      productGroups: [[scenario.id && (scenario.productGroupIds?.length === 0 && scenario.productCodes?.length === 0) ? ['all'] : []], [Validators.required]],
-      productGroupsExcepted: [[scenario.id && (scenario.productExceptedCodes?.length === 0 && scenario.productGroupsExceptedIds?.length === 0) ? ['all'] : []], [Validators.required]],
-      productGroupsCondition: [[scenario.id && (scenario.productGroupsConditionIds?.length === 0 && scenario.productConditionCodes?.length === 0) ? ['all'] : []], [Validators.required]]
+      generalCustomers: [scenario.id && (scenario.groupIds?.length === 0 && scenario.campaignIds?.length === 0 && scenario.phones?.length === 0) ? ['all'] : [], [Validators.required]],
+      productGroups: [scenario.id && (scenario.productGroupIds?.length === 0 && scenario.productCodes?.length === 0) ? ['all'] : [], [Validators.required]],
+      productGroupsExcepted: [scenario.id && (scenario.productExceptedCodes?.length === 0 && scenario.productGroupsExceptedIds?.length === 0) ? ['all'] : [], [Validators.required]],
+      productGroupsCondition: [scenario.id && (scenario.productGroupsConditionIds?.length === 0 && scenario.productConditionCodes?.length === 0) ? ['all'] : [], [Validators.required]]
 
     });
 
@@ -182,6 +182,11 @@ export class DiscountService extends BaseService<Discount>
       // }
     });
     this.form.markAllAsTouched();
+
+    if (scenario.id)
+    {
+      this.isDisabled = true;
+    }
   }
 
 
@@ -269,17 +274,90 @@ export class DiscountService extends BaseService<Discount>
     }
     const url = this.settingService.settings?.baseUrl + `DiscountCode/${ option }`;
 
-    this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin');
-    this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax');
+    if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') || !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax'))
+    {
+      this.uiService.alert('بازه زمانی نادرست است.');
+    }
 
     const value = this.form.value;
+
+    if (!value.brandIds || value.brandIds.length === 0)
+    {
+      this.uiService.alert('برند را مشخص نمایید.');
+    }
+
+    if (!value.userTypeIds || value.userTypeIds.length === 0)
+    {
+      this.uiService.alert('نوع کاربری را مشخص نمایید.');
+    }
+
+    if (!this.form.value.productGroups || this.form.value.productGroups.length === 0)
+    {
+      this.uiService.alert('تگ کالا را مشخص نمایید.');
+    }
 
     if (!value.generalCustomers || value.generalCustomers.length === 0)
     {
       this.uiService.alert('مشتری را مشخص نمایید.');
-      return;
     }
 
+    if (value.discountVolumeType === DiscountVolumeType.Toman)
+    {
+      if (Utility.isNullOrEmpty(value.discountVolumeValue.toString()))
+      {
+        this.uiService.alert('حجم تخفیف را وارد نمایید.');
+      }
+    } else
+    {
+      if (Utility.isNullOrEmpty(value.discountVolumeValue.toString()))
+      {
+        this.uiService.alert('حجم تخفیف را وارد نمایید.');
+      }
+
+      if (Utility.isNullOrEmpty(value.discountVolumeThreshold.toString()))
+      {
+        this.uiService.alert('سقف تخفیف را وارد نمایید.');
+      }
+    }
+
+    if (value.discountType === DiscountType.Product)
+    {
+      if (!value.productGroupsCondition || value.productGroupsCondition.length === 0)
+      {
+        this.uiService.alert('نوع تخفیف را مشخص کنید.');
+      }
+    }
+    else
+    {
+      value.productGroupsCondition = [];
+    }
+
+    if (value.discountCodeType === 2)
+    {
+      if (Utility.isNullOrEmpty(value.randomDiscountCodeCount.toString()) || value.randomDiscountCodeCount <= 0)
+      {
+        this.uiService.alert('فیلد به تعداد را وارد نمایید.');
+      }
+
+      if (Utility.isNullOrEmpty(value.randomDiscountCodePrefix))
+      {
+        this.uiService.alert('کد تخفیف تصادفی را وارد نمایید.');
+      }
+    } else if (Utility.isNullOrEmpty(value.staticCode))
+    {
+      this.uiService.alert('کد تخفیف ثابت را وارد نمایید.');
+    }
+
+    if (Utility.isNullOrEmpty(value.patternName))
+    {
+      this.uiService.alert('عنوان الگو را وارد نمایید.');
+    }
+
+
+    if (this.uiService.alertService.getErrorMessages().length !== 0)
+    {
+      return;
+    }
 
     value.groupIds = [];
     value.campaignIds = [];
@@ -353,6 +431,12 @@ export class DiscountService extends BaseService<Discount>
       return;
     }
 
+    // if (value.discountType !== DiscountType.Product)
+    // {
+    //   value.productGroupsConditionIds = [];
+    //   value.productConditionCodes = [];
+    // }
+
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
 
     console.log(value);
@@ -360,7 +444,8 @@ export class DiscountService extends BaseService<Discount>
     {
       if (!value) { return; }
       this.form.controls['id'].setValue(value?.id);
-      this.uiService.showSnackBar('با موفقیت ثبت شد.', '', 3000);
+      if (value?.id)
+        this.uiService.success('با موفقیت ثبت شد.');
     });
 
   }

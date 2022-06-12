@@ -47,7 +47,7 @@ export class SwitchComponent implements OnInit
 
   ngOnInit(): void
   {
-
+    this.cdref.detectChanges();
   }
 
   selection(item: boolean)

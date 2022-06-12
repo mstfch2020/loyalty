@@ -16,6 +16,7 @@ import { BaseService, callGetService, callPostService } from "./BaseService";
 })
 export class GroupService extends BaseService<GroupModel>{
 
+  editMode = false;
   groups$ = new BehaviorSubject<Array<GroupGrid>>([]);
 
   constructor(
@@ -30,11 +31,13 @@ export class GroupService extends BaseService<GroupModel>{
 
   createForm(group: GroupModel)
   {
+    this.editMode = false;
     this.form = this.formBuilder.group({
       brandId: [group.brandId, [Validators.required]],
       restPeriodType: [group.restPeriodType, [Validators.required]],
       groups: this.formBuilder.array(group.groups.map(a => this.CreateRestPeriodType(a)))
     });
+    this.editMode = group.groups.some(p => !Utility.isNullOrEmpty(p.id));
   }
 
   get groups()
@@ -94,24 +97,31 @@ export class GroupService extends BaseService<GroupModel>{
     if (value.groups.length < 3)
     {
       this.uiService.alert('وارد نمودن حداقل سه گروه مشتری الزامی است.');
-      return;
-    }
-
-    if (!value.brandId)
-    {
-      this.uiService.alert('برند را مشخص نمایید.');
-      return;
-    }
-
-    if (!value.restPeriodType)
-    {
-      this.uiService.alert('بازه زمانی ریست را مشخص نمایید.');
-      return;
     }
 
     if (value.groups.some((p: IdTitle) => !Utility.isNullOrEmpty(p.id)))
     {
       delete value.restPeriodType;
+    }
+
+    if (!value.brandId)
+    {
+      this.uiService.alert('برند را مشخص نمایید.');
+    }
+
+    if (!value.restPeriodType)
+    {
+      this.uiService.alert('بازه زمانی ریست را مشخص نمایید.');
+    }
+
+    if (value.groups.some((p: IdTitle) => !Utility.isNullOrEmpty(p.id) && Utility.isNullOrEmpty(p.title)))
+    {
+      this.uiService.alert('نام گروه ثبت شده را انتخاب نمایید .');
+    }
+
+    if (this.uiService.alertService.getErrorMessages().length !== 0)
+    {
+      return;
     }
 
     callPostService<PromoterDiscountSetting>(url, this.http, this.uiService, value).subscribe(value =>

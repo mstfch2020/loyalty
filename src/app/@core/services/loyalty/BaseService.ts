@@ -44,7 +44,7 @@ export function callPostService<T>(url: string, http: HttpClient, uiService: UiS
   {
     if (value.meta.code !== 200 || value.meta.errorMessage)
     {
-      uiService.showSnackBar(value.meta.errorMessage, '', 3000);
+      uiService.alert(value.meta.errorMessage);
       return (null);
     }
     return (value.data);
@@ -54,7 +54,7 @@ export function callPostService<T>(url: string, http: HttpClient, uiService: UiS
     const res = <BaseResponse<any>>err.error;
     if (res?.meta?.errorMessage)
     {
-      uiService.showSnackBar(res?.meta?.errorMessage, '', 3000);
+      uiService.alert(res?.meta?.errorMessage);
     } else
     {
       uiService.alert('خطا در اتصال به سرویس!');
@@ -159,7 +159,7 @@ export abstract class BaseService<T>{
   {
     if ($event.length === 0) { return; }
     const all = $event[$event.length - 1];
-    if (all.id === 'all')
+    if (all?.id === 'all')
     {
       this.form.controls[formControlName].setValue([all.id]);
     } else

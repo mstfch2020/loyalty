@@ -173,7 +173,7 @@ const routes: Routes = [
                 component: SystemSettingsBehavioralListComponent,
               },
               {
-                path: 'edit/:id',
+                path: 'edit',
                 component: SystemSettingsBehavioralEditComponent
               }
             ]

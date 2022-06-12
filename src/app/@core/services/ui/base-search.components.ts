@@ -161,7 +161,7 @@ export class BaseSearch implements OnInit
     {
       value.forEach(p =>
       {
-        this.theCampaignList.push({
+        this.theFilterCommissionList.push({
           checked: false,
           id: p.toString(),
           title: p.toString(),
@@ -522,7 +522,7 @@ export class BaseSearch implements OnInit
     if (this.theCampaignSelectedList && this.theCampaignSelectedList.length > 0)
     {
       request.campaignIdFilter = {} as any;
-      request.campaignIdFilter.Ids = this.theCampaignSelectedList.map(p => parseInt(p.id, 0));
+      request.campaignIdFilter.Ids = this.theCampaignSelectedList.map(p => p.id);
       if (this.theCampaignSelectedList.findIndex(p => p.id === 'all') !== -1)
       {
         request.campaignIdFilter.Ids = [];
@@ -645,7 +645,7 @@ export class BaseSearch implements OnInit
 
     if (this.theCreateAcountDateSelected)
     {
-      request.createAcountDateSelected = { date: Utility.getPeriodOfString(this.theCreateAcountDateSelected) };
+      request.createAcountDateFilter = Utility.getPeriodOfString(this.theCreateAcountDateSelected);
     }
 
     if (this.volumeFilterSelected)

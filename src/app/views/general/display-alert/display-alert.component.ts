@@ -7,31 +7,38 @@ import { AlertService } from 'src/app/@core/services/ui/alert.service';
   templateUrl: './display-alert.component.html',
   styleUrls: ['./display-alert.component.scss']
 })
-export class DisplayAlertComponent implements OnInit {
+export class DisplayAlertComponent implements OnInit
+{
 
 
-  constructor(public alertService: AlertService) {
+  constructor(public alertService: AlertService)
+  {
   }
 
-  ngOnInit() {
+  ngOnInit()
+  {
   }
 
-  public clearErrorMessage(): void {
+  public clearErrorMessage(): void
+  {
 
     this.alertService.clearErrorMessages();
   }
 
-  public clearWarningMessage(): void {
+  public clearWarningMessage(): void
+  {
 
     this.alertService.clearWarningMessages();
   }
 
-  public clearInfoMessage(): void {
+  public clearInfoMessage(): void
+  {
 
     this.alertService.clearInfoMessages();
   }
 
-  public clearSuccessMessage(): void {
+  public clearSuccessMessage(): void
+  {
 
     this.alertService.clearSuccessMessages();
   }

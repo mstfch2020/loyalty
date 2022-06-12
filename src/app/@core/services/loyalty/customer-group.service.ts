@@ -79,7 +79,7 @@ export class CustomerGroupService extends BaseService<CustomerGroup>
     callPostService<SMS>(url, this.http, this.uiService, value).subscribe(value =>
     {
       this.form.controls['id'].setValue(value?.id);
-      this.uiService.success('با موفقیت ثبت شد.');
+      if (value?.id) { this.uiService.success('با موفقیت ثبت شد.'); }
     });
 
   }
