@@ -102,16 +102,14 @@ export class GroupService extends BaseService<GroupModel>{
     if (value.groups.some((p: IdTitle) => !Utility.isNullOrEmpty(p.id)))
     {
       delete value.restPeriodType;
+    } else if (!value.restPeriodType)
+    {
+      this.uiService.alert('بازه زمانی ریست را مشخص نمایید.');
     }
 
     if (!value.brandId)
     {
       this.uiService.alert('برند را مشخص نمایید.');
-    }
-
-    if (!value.restPeriodType)
-    {
-      this.uiService.alert('بازه زمانی ریست را مشخص نمایید.');
     }
 
     if (value.groups.some((p: IdTitle) => !Utility.isNullOrEmpty(p.id) && Utility.isNullOrEmpty(p.title)))

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { CustomerDetail, CustomerSubGrid } from "src/app/@core/data/loyalty/customer.model";
+import { CustomerDetail, CustomerScenario, CustomerSubGrid } from "src/app/@core/data/loyalty/customer.model";
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { CustomerService } from "src/app/@core/services/loyalty/customer.service";
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
@@ -17,7 +17,7 @@ export class CustomerEditComponent extends BaseSearch implements OnInit
   showHistory: boolean;
   customer = {} as CustomerDetail;
   subCustomerDetailList = new Array<CustomerSubGrid>();
-  customerScenarioList = new Array<any>();
+  customerScenarioList = new Array<CustomerScenario>();
   id = '';
   theViewList = new Array<any>();
 

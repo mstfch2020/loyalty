@@ -54,7 +54,7 @@
           </thead>
           <tbody>
             <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList;let i =index;">
-              <td scope="row" class="pr-2">{{pageIndex+i}}</td>
+              <td scope="row" class="pr-2">{{((pageIndex-1)*pageSize)+(i+1)}}</td>
               <td class="pr-1">{{item.title}}</td>
               <td class="pr-1">{{item.expireDate.full}}</td>
               <td (click)="deleteItem($event,item.id)">

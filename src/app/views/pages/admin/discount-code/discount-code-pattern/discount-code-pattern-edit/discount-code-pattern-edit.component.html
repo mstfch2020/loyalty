@@ -217,7 +217,7 @@
         <div class="col-6 col-sm-2">
           <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
             <input class="text-center text-black border-0 h-40px w-100 mr-8-px" formControlName="discountVolumeValue"
-              mask="percent" thousandSeparator="," type="text">
+              [dropSpecialCharacters]="false" mask="percent.2" thousandSeparator="," type="text">
             <div class="fs-08 text-gray-500">
               %
             </div>

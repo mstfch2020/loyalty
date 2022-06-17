@@ -68,7 +68,7 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
       if (value?.data)
       {
         this.promoterDiscountSettings$.next(value.data);
-        this.totalPages = Math.round(value.pagination.total / request.pageSize);
+        this.totalPages = Math.ceil(value.pagination.total / request.pageSize);
       }
     });
   }

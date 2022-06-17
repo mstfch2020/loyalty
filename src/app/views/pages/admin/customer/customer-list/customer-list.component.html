@@ -119,7 +119,7 @@
             <tbody>
               <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList;let i=index">
                 <td class="text-center padding-05 pr-1" scope="row">
-                  {{i+pageIndex}}
+                  {{((pageIndex-1)*pageSize)+(i+1)}}
                 </td>
                 <td class="text-center pr-1 fs-08">
                   {{item.phone}}

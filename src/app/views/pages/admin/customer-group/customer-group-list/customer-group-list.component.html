@@ -114,7 +114,7 @@
             </thead>
             <tbody>
               <tr (click)="goToEdit(customerGroup.id)" *ngFor="let customerGroup of theViewList;let i =index;">
-                <td class="text-center" scope="row">{{pageIndex+i}}</td>
+                <td class="text-center" scope="row">{{((pageIndex-1)*pageSize)+(i+1)}}</td>
                 <td class="text-center">
                   از {{customerGroup?.level.currentLevel}} به {{customerGroup?.level?.nextLevel}}
                 </td>

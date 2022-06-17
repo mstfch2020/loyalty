@@ -41,7 +41,7 @@ export class DiscountService extends BaseService<Discount>
       if (value?.data)
       {
         this.Discounts$.next(value.data);
-        this.totalPages = Math.round(value.pagination.total / request.pageSize);
+        this.totalPages = Math.ceil(value.pagination.total / request.pageSize);
       }
     });
   }
@@ -56,7 +56,7 @@ export class DiscountService extends BaseService<Discount>
       if (value?.data)
       {
         this.DiscountCodesGenerateds$.next(value.data);
-        this.totalPages = Math.round(value.pagination.total / request.pageSize);
+        this.totalPages = Math.ceil(value.pagination.total / request.pageSize);
       }
     });
   }

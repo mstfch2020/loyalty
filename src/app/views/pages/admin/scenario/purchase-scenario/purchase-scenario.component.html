@@ -277,17 +277,18 @@
             <div class="col-12 col-sm-4">
               <div class="d-flex flex-row align-items-center mt-3">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
-                  formControlName='sendingDiscountReward' id="sendingDiscountReward" type="checkbox">
+                  formControlName='sendingDiscountReward' id="sendingDiscountReward" type="checkbox"
+                  #sendingDiscountReward>
                 <label class="form-check-label mr-1 cursor-pointer" for="sendingDiscountReward">
                   تخفیف هزینه ارسال
                 </label>
               </div>
             </div>
             <div class="col-4 col-sm-3">
-              <div [ngClass]="{'disabled':isDisabled,'border-red':percent>100}"
+              <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-                <input [(ngModel)]="percent" [readOnly]="isDisabled"
-                  class="text-center text-black border-0 h-40px w-100 mr-8-px" formControlName='sendingDiscount'
+                <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100 mr-8-px"
+                  formControlName='sendingDiscount' [dropSpecialCharacters]="false" mask="percent.2"
                   thousandSeparator="," type="text">
                 <div class="fs-08 text-gray-500">
                   %
@@ -317,7 +318,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100 mr-8-px"
-                  formControlName="basketDiscountPercent" mask="percent" thousandSeparator="," type="text">
+                  formControlName="basketDiscountPercent" [dropSpecialCharacters]="false" mask="percent.2" type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -350,17 +351,19 @@
               <div class="d-flex flex-row align-items-center mt-3">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
                   formControlName="productDiscountReward" id="productDiscountReward" name="productDiscountReward"
-                  type="checkbox">
+                  #productDiscountReward type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer" for="productDiscountReward">
                   تخفیف کالا
                 </label>
+                {{scenarioService.form.get('purchaseReward.productDiscountReward')?.value}}
               </div>
             </div>
             <div class="col-4 col-sm-2">
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100 mr-8-px"
-                  formControlName="productDiscountPercent" mask="percent" thousandSeparator="," type="text">
+                  formControlName="productDiscountPercent" [dropSpecialCharacters]="false" mask="percent.2"
+                  thousandSeparator="," type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -390,10 +393,11 @@
               <div class="d-flex flex-row align-items-center mt-3">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
                   formControlName="addFreeProductReward" id="addFreeProductReward" name="addFreeProductReward"
-                  type="checkbox">
+                  #addFreeProductReward type="checkbox">
                 <label class="form-check-label mr-1 cursor-pointer" for="addFreeProductReward">
                   افزودن کالای رایگان به سبد خرید
                 </label>
+                {{scenarioService.form.get('purchaseReward.addFreeProductReward')?.value}}
               </div>
             </div>
             <div [formGroup]="scenarioService.form" class="col-12 col-sm-4">
@@ -421,7 +425,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100 mr-8-px" formControlName="refundPercent"
-                  mask="percent" thousandSeparator="," type="text">
+                  [dropSpecialCharacters]="false" mask="percent.2" thousandSeparator="," type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -464,7 +468,8 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input class="text-center text-black border-0 h-40px w-100 mr-8-px"
-                  formControlName="increaseScorePercent" mask="percent" thousandSeparator="," type="text">
+                  formControlName="increaseScorePercent" [dropSpecialCharacters]="false" mask="percent.2"
+                  thousandSeparator="," type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>
@@ -496,15 +501,15 @@
             <div class="col-12 col-sm-5">
               <div class="d-flex flex-row align-items-center mt-3">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" checked class="form-check-input"
-                  formControlName="discountCodeReward" name="discountCodeReward" type="checkbox"  id="discountCodeRewardId">
+                  formControlName="discountCodeReward" name="discountCodeReward" type="checkbox"
+                  id="discountCodeRewardId">
                 <label class="form-check-label mr-1 cursor-pointer" for="discountCodeRewardId">
                   کد تخفیف برای خرید بعدی از الگوی
                 </label>
               </div>
             </div>
             <div class="col-12 col-sm-7">
-              <div [ngClass]="{'disabled':isDisabled}"
-                class="d-flex flex-row align-items-center gap-2">
+              <div [ngClass]="{'disabled':isDisabled}" class="d-flex flex-row align-items-center gap-2">
                 <ng-select [items]="baseInfoService.senarioDiscountCodePatterns$|async" [multiple]="false"
                   [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
                   formControlName="discountCodePattern">

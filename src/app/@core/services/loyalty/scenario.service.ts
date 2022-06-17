@@ -46,7 +46,7 @@ export class ScenarioService extends BaseService<Scenario>
       userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
       discountedProductGroupIds: [scenario.discountedProductGroupIds, [Validators.required]],
       discountedProductCodes: [scenario.discountedProductCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
-      freeProductCodes: [scenario.freeProductCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
+      freeProductCodes: [scenario.freeProductCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), []],
       startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMin), [Validators.required]],
       endDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMax), [Validators.required]],
       periodMin: createPeriodFormGroup(scenario.periodMin, this.formBuilder),
@@ -62,7 +62,7 @@ export class ScenarioService extends BaseService<Scenario>
 
       activityId: [scenario.activityId, [Validators.required]],
       generalCustomers: [[scenario.id && (scenario?.customerGroupIds?.length === 0 && scenario?.campaignIds?.length === 0 && scenario?.phones?.length === 0) ? ['all'] : []], [Validators.required]],
-      productGroups: [[scenario.id && (scenario?.discountedProductGroupIds?.length === 0 && scenario?.discountedProductCodes?.length === 0) ? ['all'] : []], [Validators.required]],
+      productGroups: [[scenario.id && (scenario?.discountedProductGroupIds?.length === 0 && scenario?.discountedProductCodes?.length === 0) ? ['all'] : []], []],
 
 
     });
@@ -138,6 +138,17 @@ export class ScenarioService extends BaseService<Scenario>
 
       }
 
+      this.form.get('purchaseReward.addFreeProductReward')?.valueChanges.subscribe(value =>
+      {
+        if (value)
+        {
+          this.form.controls['freeProductCodes'].setValidators([Validators.required]);
+        } else
+        {
+          this.form.controls['freeProductCodes'].setValidators([]);
+        }
+      });
+
       this.baseInfoService?.GetSenarioDiscountCodePatternsByBrandIds(value)?.subscribe(codePattern =>
       {
         if (!codePattern) { codePattern = []; }
@@ -145,6 +156,59 @@ export class ScenarioService extends BaseService<Scenario>
       });
 
     });
+
+    this.form.get('purchaseReward.productDiscountReward')?.valueChanges.subscribe(value =>
+    {
+      if (value)
+      {
+        this.form.get('productGroups')?.addValidators(Validators.required);
+      } else
+      {
+        this.form.get('productGroups')?.clearValidators();
+      }
+      this.form.get('productGroups')?.updateValueAndValidity();
+    });
+
+    this.form.get('purchaseReward.addFreeProductReward')?.valueChanges.subscribe(value =>
+    {
+      if (value)
+      {
+        this.form.get('freeProductCodes')?.addValidators(Validators.required);
+      }
+      else
+      {
+        this.form.get('freeProductCodes')?.clearValidators();
+      }
+      this.form.get('freeProductCodes')?.updateValueAndValidity();
+    });
+
+
+    this.form.get('purchaseReward.discountCodeReward')?.valueChanges.subscribe(value =>
+    {
+      if (value)
+      {
+        this.form.get('purchaseReward.discountCodePattern')?.addValidators(Validators.required);
+      }
+      else
+      {
+        this.form.get('purchaseReward.discountCodePattern')?.clearValidators();
+      }
+      this.form.get('purchaseReward.discountCodePattern')?.updateValueAndValidity();
+    });
+
+    this.form.get('behavioralReward.discountCodeReward')?.valueChanges.subscribe(value =>
+    {
+      if (value)
+      {
+        this.form.get('behavioralReward.discountCodePattern')?.addValidators(Validators.required);
+      }
+      else
+      {
+        this.form.get('behavioralReward.discountCodePattern')?.clearValidators();
+      }
+      this.form.get('behavioralReward.discountCodePattern')?.updateValueAndValidity();
+    });
+
     this.form.markAllAsTouched();
   }
 
@@ -186,8 +250,9 @@ export class ScenarioService extends BaseService<Scenario>
     return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || scenario.brandIds.length === 0 || scenario.brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
   }
 
-  percentValidation(value: number): boolean
+  percentValidation(valueStr: string): boolean
   {
+    const value = Number(valueStr);
     if (value > 100 || value < 0)
     {
       this.uiService.alert('لطفا برای اقلام درصدی مقدار صحیح از صفر تا 100 را وارد نمایید.');
@@ -229,7 +294,7 @@ export class ScenarioService extends BaseService<Scenario>
       if (value?.data)
       {
         this.scenarios$.next(value?.data);
-        this.totalPages = Math.round(value.pagination.total / request.pageSize);
+        this.totalPages = Math.ceil(value.pagination.total / request.pageSize);
       }
     });
   }
@@ -433,6 +498,30 @@ export class ScenarioService extends BaseService<Scenario>
       value.userTypeIds = [];
     }
 
+    if (value?.purchaseReward?.discountCodeReward)
+    {
+      if (Utility.isNullOrEmpty(value.purchaseReward.discountCodePattern))
+      {
+        this.uiService.alert('الگوی کد تخفیف را انتخاب نمایید.');
+        return;
+      }
+    } else
+    {
+      delete value?.purchaseReward?.discountCodePattern;
+    }
+
+    if (value?.behavioralReward?.discountCodeReward)
+    {
+      if (Utility.isNullOrEmpty(value.behavioralReward.discountCodePattern))
+      {
+        this.uiService.alert('الگوی کد تخفیف را انتخاب نمایید.');
+        return;
+      }
+    } else
+    {
+      delete value?.behavioralReward?.discountCodePattern;
+    }
+
     if (this.getValue('senarioType') === SenarioType.Purchase)
     {
       delete value.behavioralReward;
@@ -445,14 +534,19 @@ export class ScenarioService extends BaseService<Scenario>
       delete value.productGroupIds;
     }
 
+
+
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
 
     console.log(value);
     callPostService<Scenario>(url, this.http, this.uiService, value).subscribe(value =>
     {
       this.form.controls['id'].setValue(value?.id);
-      this.uiService.success('با موفقیت ثبت شد.');
-      setTimeout(() => { this.uiService.alertService.clearAllMessages(); }, 1500);
+      if (value?.id)
+      {
+        this.uiService.success('با موفقیت ثبت شد.');
+      }
+      setTimeout(() => { this.uiService.alertService.clearAllMessages(); }, 3000);
 
     });
 

@@ -61,6 +61,6 @@ export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralRewa
     refundReward: [behavioralReward.refundReward, [Validators.required]],
     increasScoreReward: [behavioralReward.increasScoreReward, [Validators.required]],
     discountCodeReward: [behavioralReward.discountCodeReward, [Validators.required]],
-    discountCodePattern: [behavioralReward.discountCodePattern, [Validators.required]],
+    discountCodePattern: [behavioralReward.discountCodePattern, []],
   });
 };

@@ -105,30 +105,24 @@
                     </ng-container>
                   </div>
                   <div class="pr-1 mt-2 text-gray-500 fs-08">
-                    {{scenario.title}}
+                    {{scenario?.title}}
                   </div>
                 </td>
                 <td class="text-end padding-1 fs-08">
                   <span *ngFor="let cGroup of scenario.customerGroups;let i =index;">
-                    -{{cGroup.title}}
+                    -{{cGroup?.title}}
                   </span>
                 </td>
                 <td class="text-end padding-1 fs-08">
-                  {{scenario.period.min.full}} تا {{scenario.period.max.full}}
+                  {{scenario?.period?.min?.full}} تا {{scenario?.period?.max?.full}}
                 </td>
                 <td class="text-end padding-1 fs-08">
                   <span *ngFor="let cBrand of scenario.brands;let i =index;">
-                    -{{cBrand.title}}
+                    -{{cBrand?.title}}
                   </span>
                 </td>
                 <td class="text-center padding-1 fs-08">
-                  <ng-container [ngSwitch]="scenario.senarioType.id.toString()">
-                    <span *ngSwitchCase="'1'"> فعال</span>
-                    <span *ngSwitchCase="'2'"> غیر فعال</span>
-                    <span *ngSwitchCase="'3'"> در حال انتظار</span>
-                    <span *ngSwitchCase="'4'"> رد شده</span>
-                    <span *ngSwitchDefault> </span>
-                  </ng-container>
+                  <app-scenario-state [senarioStatus]="scenario?.senarioType?.id?.toString()??'0'"></app-scenario-state>
                 </td>
               </tr>
             </tbody>

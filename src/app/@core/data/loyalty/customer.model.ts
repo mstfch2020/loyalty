@@ -1,3 +1,4 @@
+import { SenarioStatusType } from './enums.model';
 import { Period } from './period.model';
 
 export interface CustomerMainGrid
@@ -21,6 +22,7 @@ export interface CustomerScenario
   minDate: Period;
   maxDate: Period;
   brands: Array<string>;
+  status: SenarioStatusType;
 }
 
 export interface CustomerDetail

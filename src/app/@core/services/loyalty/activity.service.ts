@@ -33,7 +33,7 @@ export class ActivityService extends BaseService<ActivityEditable>
       if (value?.data)
       {
         this.activitys$.next(value.data);
-        this.totalPages = Math.round(value.pagination.total / data.pageSize);
+        this.totalPages = Math.ceil(value.pagination.total / data.pageSize);
       }
     });
   }

@@ -32,7 +32,7 @@ export class CustomerService
       if (value?.data)
       {
         this.customerMainGrid$.next(value.data);
-        this.totalPages = Math.round(value.pagination.total / request.pageSize);
+        this.totalPages = Math.ceil(value.pagination.total / request.pageSize);
       }
     });
   }

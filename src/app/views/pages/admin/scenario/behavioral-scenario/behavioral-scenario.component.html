@@ -219,7 +219,8 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
-                  formControlName="refundToWalletPercent" type="text" mask="percent" thousandSeparator=",">
+                  formControlName="refundToWalletPercent" type="text" [dropSpecialCharacters]="false" mask="percent.2"
+                  thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>

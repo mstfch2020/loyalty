@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, forkJoin, Observable } from "rxjs";
-import { EnumTitle, IdTitle, IdTitleType, IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
+import { EnumTitle, IdTitle, IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
@@ -72,13 +72,18 @@ export class BaseInfoService
 
   loadBaseInfo(callback: any, brandIds: Array<string> = [], productIds: Array<string> = []): void
   {
+    if (!brandIds || brandIds.length === 0 || brandIds.some(p => p === 'all'))
+    {
+      brandIds = [];
+    }
+
     const requests: any = {
       activity: this.getActivity(),
       brands: this.getBrands(),
       userTypes: this.getUserTypes(),
       customerGroups: this.getCustomerGroups(),
       products: this.getProducts(),
-      generalCustomers: this.getGeneralCustomer()
+      generalCustomers: this.getGeneralCustomer({ text: '', brandIds: brandIds })
     };
 
     requests.productGroups = this.getProductGroupsByBrandIds(brandIds);
@@ -245,10 +250,15 @@ export class BaseInfoService
     return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 
-  getGeneralCustomer()
+  getGeneralCustomer(request: { text: string, brandIds: Array<string>; })
   {
+    if (!request.brandIds || request.brandIds.length === 0 || request.brandIds.some(p => p === 'all'))
+    {
+      request.brandIds = [];
+    }
+
     const url = this.settingService.settings?.baseUrl + 'Group/GetCustomerDrpDown';
-    return callGetService<Array<IdTitleType> | null>(url, this.http, this.uiService);
+    return callPostService<Array<IdTitleTypeBrandId> | null>(url, this.http, this.uiService, request);
   }
 
   GetAllCommissionsBasis()
@@ -280,7 +290,7 @@ export class BaseInfoService
     const url = this.settingService.settings?.baseUrl + 'DiscountCode/GetSenarioDiscountCodePatterns';
     if (!brandIds || brandIds.length === 0 || brandIds.some(p => p === 'all'))
     {
-      return callPostService<any>(url, this.http, this.uiService, { brandIds: brandIds });
+      return callPostService<any>(url, this.http, this.uiService, {});
     }
     return callPostService<any>(url, this.http, this.uiService, { brandIds: brandIds });
   }

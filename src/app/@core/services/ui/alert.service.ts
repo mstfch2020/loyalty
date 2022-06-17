@@ -1,17 +1,19 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BaseResponse } from '../../data/root/base-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlertService {
+export class AlertService
+{
 
   private errorMessages: string[];
   private warningMessages: string[];
   private infoMessages: string[];
   private successMessages: string[];
 
-  constructor() {
+  constructor()
+  {
 
     this.errorMessages = [];
     this.warningMessages = [];
@@ -23,26 +25,30 @@ export class AlertService {
    * Alert one error message and push it
    * @param message
    */
-  public error(message: string): void {
+  public error(message: string): void
+  {
 
-    if (message === undefined) {
+    if (message === undefined)
+    {
 
       return;
     }
 
-    if (message === null) {
+    if (message === null)
+    {
 
       return;
     }
 
     message = message.trim();
 
-    if (message === '') {
+    if (message === '')
+    {
 
       return;
     }
-
-    window.scrollTo(0,0);
+    if (this.errorMessages.findIndex(p => p === message) !== -1) { return; }
+    window.scrollTo(0, 0);
     this.errorMessages.push(message);
   }
 
@@ -50,26 +56,30 @@ export class AlertService {
    * Alert one warning message and push it
    * @param message
    */
-  public warning(message: string): void {
+  public warning(message: string): void
+  {
 
-    if (message === undefined) {
+    if (message === undefined)
+    {
 
       return;
     }
 
-    if (message === null) {
+    if (message === null)
+    {
 
       return;
     }
 
     message = message.trim();
 
-    if (message === '') {
+    if (message === '')
+    {
 
       return;
     }
 
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     this.warningMessages.push(message);
   }
 
@@ -77,26 +87,30 @@ export class AlertService {
    * Alert one information message and push it
    * @param message
    */
-  public info(message: string): void {
+  public info(message: string): void
+  {
 
-    if (message === undefined) {
+    if (message === undefined)
+    {
 
       return;
     }
 
-    if (message === null) {
+    if (message === null)
+    {
 
       return;
     }
 
     message = message.trim();
 
-    if (message === '') {
+    if (message === '')
+    {
 
       return;
     }
 
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     this.infoMessages.push(message);
   }
 
@@ -104,26 +118,30 @@ export class AlertService {
    * Alert one success message and push it
    * @param message
    */
-  public success(message: string): void {
+  public success(message: string): void
+  {
 
-    if (message === undefined) {
+    if (message === undefined)
+    {
 
       return;
     }
 
-    if (message === null) {
+    if (message === null)
+    {
 
       return;
     }
 
     message = message.trim();
 
-    if (message === '') {
+    if (message === '')
+    {
 
       return;
     }
 
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     this.successMessages.push(message);
   }
 
@@ -131,21 +149,26 @@ export class AlertService {
    * Check alert type and push it's
    * @param errorMessages
    */
-  public alerts(result: BaseResponse<any>): void {
+  public alerts(result: BaseResponse<any>): void
+  {
 
-    result?.errorMessages?.forEach((message, key) => {
+    result?.errorMessages?.forEach((message, key) =>
+    {
       this.error(message);
     });
 
-    result?.informationMessages?.forEach((message, key) => {
+    result?.informationMessages?.forEach((message, key) =>
+    {
       this.info(message);
     });
 
-    result?.successMessages?.forEach((message, key) => {
+    result?.successMessages?.forEach((message, key) =>
+    {
       this.success(message);
     });
 
-    result?.warningMessages?.forEach((message, key) => {
+    result?.warningMessages?.forEach((message, key) =>
+    {
       this.warning(message);
     });
 
@@ -155,11 +178,13 @@ export class AlertService {
    * Check alert type and push it's
    * @param errorMessages
    */
-  public exception(result: any): void {
+  public exception(result: any): void
+  {
 
     let expMessage = result['message'];
 
-    if (typeof (expMessage) === "string" && expMessage !== undefined) {
+    if (typeof (expMessage) === "string" && expMessage !== undefined)
+    {
       expMessage = 'خطا در ارتباط با سرور (500) : ' + expMessage;
       this.warning(expMessage);
       return;
@@ -168,52 +193,62 @@ export class AlertService {
     this.alerts(result);
   }
 
-  public clearErrorMessages(): void {
+  public clearErrorMessages(): void
+  {
 
     this.errorMessages = [];
   }
 
-  public clearWarningMessages(): void {
+  public clearWarningMessages(): void
+  {
 
     this.warningMessages = [];
   }
 
-  public clearInfoMessages(): void {
+  public clearInfoMessages(): void
+  {
 
     this.infoMessages = [];
   }
 
-  public clearSuccessMessages(): void {
+  public clearSuccessMessages(): void
+  {
 
     this.successMessages = [];
   }
 
-  public clearAllMessages(): void {
+  public clearAllMessages(): void
+  {
 
     this.reset();
   }
 
-  public getErrorMessages(): string[] {
+  public getErrorMessages(): string[]
+  {
 
     return this.errorMessages;
   }
 
-  public getWarningMessages(): string[] {
+  public getWarningMessages(): string[]
+  {
 
     return this.warningMessages;
   }
 
-  public getInfoMessages(): string[] {
+  public getInfoMessages(): string[]
+  {
 
     return this.infoMessages;
   }
 
-  public getSuccessMessages(): string[] {
+  public getSuccessMessages(): string[]
+  {
 
     return this.successMessages;
   }
 
-  private reset() {
+  private reset()
+  {
 
     this.errorMessages = [];
     this.warningMessages = [];

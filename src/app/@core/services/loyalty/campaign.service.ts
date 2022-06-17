@@ -35,7 +35,7 @@ export class CampaignService extends BaseService<Campaign>
       if (value?.data)
       {
         this.Campaigns$.next(value.data);
-        this.totalPages = Math.round(value.pagination.total / data.pageSize);
+        this.totalPages = Math.ceil(value.pagination.total / data.pageSize);
       }
     });
   }

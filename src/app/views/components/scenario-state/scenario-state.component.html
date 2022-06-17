@@ -1,0 +1,7 @@
+<ng-container [ngSwitch]="senarioStatus">
+  <span *ngSwitchCase="'1'"> فعال</span>
+  <span *ngSwitchCase="'2'"> غیر فعال</span>
+  <span *ngSwitchCase="'3'"> در حال انتظار</span>
+  <span *ngSwitchCase="'4'"> رد شده</span>
+  <span *ngSwitchDefault> </span>
+</ng-container>

@@ -16,8 +16,8 @@ export interface Scenario
   userTypeIds: Array<string>;// to do userTypeIds
   periodMin: Period;
   periodMax: Period;
-  purchaseAmountMin: number;
-  purchaseAmountMax: number;
+  purchaseAmountMin?: number | null;
+  purchaseAmountMax?: number | null;
   purchaseRoundType: PurchaseRoundType;
   purchaseRound: number;
   activityId: string;
@@ -40,8 +40,8 @@ export const scenarioInit: Scenario = {
   userTypeIds: [],
   periodMin: periodInit,
   periodMax: periodInit,
-  purchaseAmountMin: 0,
-  purchaseAmountMax: 0,
+  purchaseAmountMin: null,
+  purchaseAmountMax: null,
   purchaseRoundType: 1,
   purchaseRound: 0,
   purchaseRound2: 0,

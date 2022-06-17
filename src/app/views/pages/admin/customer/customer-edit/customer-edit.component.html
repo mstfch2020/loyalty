@@ -167,21 +167,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let customerSubGrid of customerScenarioList;let i=index;">
+              <tr *ngFor="let customerSubGrid of subCustomerDetailList;let i=index;">
                 <td class="text-center pr-1" scope="row">
                   {{pageIndex+i}}
                 </td>
                 <td class="text-end pr-1 fs-08">
-                  {{customerSubGrid.date?.full}}
+                  {{customerSubGrid?.date?.full}}
                 </td>
                 <td class="text-end fs-08">
-                  {{customerSubGrid.desctiption.title}} ({{customerSubGrid.desctiption.brand}})
+                  {{customerSubGrid?.desctiption?.title}} ({{customerSubGrid?.desctiption?.brand}})
                 </td>
                 <td class="text-end fs-08">
-                  {{customerSubGrid.operation}}
+                  {{customerSubGrid?.operation}}
                 </td>
                 <td class="text-center fs-08">
-                  +{{customerSubGrid.score}}
+                  {{customerSubGrid?.score}}
                 </td>
               </tr>
             </tbody>
@@ -267,7 +267,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let scenario of customer.senarios;let i= index;">
+              <tr *ngFor="let scenario of customerScenarioList;let i= index;">
                 <td class="text-center pr-1" scope="row">
                   {{scenario.rewards?.join('، ')}}
                   <span class="mr-1 text-muted">
@@ -284,7 +284,7 @@
                   {{scenario.brands.join('، ')}}
                 </td>
                 <td class="text-start fs-08">
-                  قابل استفاده
+                  <app-scenario-state [senarioStatus]="scenario?.status?.toString()??'0'"></app-scenario-state>
                 </td>
               </tr>
             </tbody>
