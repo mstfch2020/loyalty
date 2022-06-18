@@ -13,7 +13,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               بازه زمانی :
-              <span class="text-danger">*</span>
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -26,8 +26,7 @@
                   *ngIf="service.isDisabled" [ngClass]="{'disabled':service.isDisabled}" [readOnly]="service.isDisabled"
                   [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
                 <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
-                  *ngIf="!service.isDisabled" [uiIsVisible]="!service.isDisabled" [uiTodayBtnEnable]="true"
-                  [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                  *ngIf="!service.isDisabled" [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
                   <input formControlName="startDate" class="form-control h-55px rounded-pill text-center text-black"
                     [ngClass]="{'disabled':service.isDisabled}" [readOnly]="service.isDisabled"
                     [dropSpecialCharacters]="false" mask="0000/M0/d0" [leadZeroDateTime]="true" dir="ltr" type="text" />
@@ -57,7 +56,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               برند :
-              <span class="text-danger">*</span>
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -65,7 +64,8 @@
               (change)="service.brandChanged($event,'brandIds')" bindValue="id" class="form-control mb-3"
               formControlName="brandIds">
             </ng-select>
-            <div *ngIf="!service.form.get('brandIds')?.valid && service.form.get('brandIds')?.touched "
+            <div
+              *ngIf="!service.isDisabled&&!service.form.get('brandIds')?.valid && service.form.get('brandIds')?.touched "
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               برند را مشخص نمایید
             </div>
@@ -79,7 +79,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               مشتری :
-              <span class="text-danger">*</span>
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -87,7 +87,8 @@
               [items]="baseInfoService.generalCustomersByBrandId$|async" [multiple]="true" appendTo="body"
               bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="groupIds">
             </ng-select>
-            <div *ngIf="!service.form.get('customerGroupIds')?.valid && service.form.get('customerGroupIds')?.touched"
+            <div
+              *ngIf="!service.isDisabled&&!service.form.get('customerGroupIds')?.valid && service.form.get('customerGroupIds')?.touched"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               گروه مشتری را مشخص نمایید
             </div>
@@ -99,7 +100,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               نوع کاربری :
-              <span class="text-danger">*</span>
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -107,7 +108,8 @@
               (change)="service.brandChanged($event,'userTypeIds')" bindValue="id" class="form-control mb-3"
               formControlName="userTypeIds">
             </ng-select>
-            <div *ngIf="!service.form.get('userTypeIds')?.valid && service.form.get('userTypeIds')?.touched"
+            <div
+              *ngIf="!service.isDisabled&&!service.form.get('userTypeIds')?.valid && service.form.get('userTypeIds')?.touched"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               نوع کاربری را مشخص نمایید
             </div>
@@ -121,7 +123,7 @@
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
               تگ کالا :
-              <span class="text-danger">*</span>
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
             </label>
           </div>
           <div class="col-12 col-sm-9">
@@ -129,7 +131,8 @@
               (change)="service.brandChanged($event,'productGroups')" [addTag]="service.addProductGroups"
               bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="productGroups">
             </ng-select>
-            <div *ngIf="!service.form.get('productGroups')?.valid && service.form.get('productGroups')?.touched"
+            <div
+              *ngIf="!service.isDisabled&&!service.form.get('productGroups')?.valid && service.form.get('productGroups')?.touched"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               تگ کالا را مشخص نمایید
             </div>
@@ -289,7 +292,8 @@
             <ng-select [items]="baseInfoService.applyOnType$|async" [multiple]="false" appendTo="body" bindLabel="title"
               bindValue="id" class="form-control mb-3" formControlName="applyOnType">
             </ng-select>
-            <div *ngIf="!service.form.get('applyOnType')?.valid && service.form.get('applyOnType')?.touched"
+            <div
+              *ngIf="!service.isDisabled&&!service.form.get('applyOnType')?.valid && service.form.get('applyOnType')?.touched"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               نوع اعمال را مشخص نمایید
             </div>
@@ -316,7 +320,7 @@
           bindValue="id" class="form-control mb-3" formControlName="productGroupsCondition">
         </ng-select>
         <div
-          *ngIf="!service.form.get('productGroupsCondition')?.valid && service.form.get('productGroupsCondition')?.touched"
+          *ngIf="!service.isDisabled&&!service.form.get('productGroupsCondition')?.valid && service.form.get('productGroupsCondition')?.touched"
           class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
           گروه کالا را مشخص نمایید
         </div>
@@ -379,7 +383,7 @@
           </div>
         </div>
         <div
-          *ngIf="!service.form.get('randomDiscountCodePrefix')?.valid && service.form.get('randomDiscountCodePrefix')?.touched "
+          *ngIf="!service.isDisabled&&!service.form.get('randomDiscountCodePrefix')?.valid && service.form.get('randomDiscountCodePrefix')?.touched "
           class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
           اطلاعات مربوط به کد تخفیف ثابت یا تصادفی را کامل نمایید .
         </div>

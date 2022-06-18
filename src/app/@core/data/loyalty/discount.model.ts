@@ -31,8 +31,8 @@ export interface Discount
   productGroupsExceptedIds: Array<string>;
   productGroupsConditionIds: Array<string>;
   productConditionCodes: Array<string>;
-  purchanseAmountMin: number;
-  purchanseAmountMax: number;
+  purchanseAmountMin?: number | null;
+  purchanseAmountMax?: number | null;
   patternName: string;
   generatedDiscountCodes: Array<string>;
   discountVolumeType: number;
@@ -60,8 +60,8 @@ export const discountInit: Discount = {
   productGroupIds: [],
   productExceptedCodes: [],
   productGroupsConditionIds: [],
-  purchanseAmountMin: 0,
-  purchanseAmountMax: 0,
+  purchanseAmountMin: null,
+  purchanseAmountMax: null,
   patternName: '',
   generatedDiscountCodes: [],
   discountVolumeType: DiscountVolumeType.Toman,

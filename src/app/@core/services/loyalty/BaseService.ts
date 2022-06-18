@@ -26,10 +26,10 @@ export function callGetService<T>(url: string, http: HttpClient, uiService: UiSe
   }), catchError(err =>
   {
     console.log(err);
-    const res = <BaseResponse<any>>err.error;
-    if (res?.meta?.errorMessage)
+
+    if (err?.error?.meta?.errorMessage)
     {
-      uiService.showSnackBar(res?.meta?.errorMessage, '', 3000);
+      uiService.alert(err?.error?.meta?.errorMessage);
     } else
     {
       uiService.alert('خطا در اتصال به سرویس!');
@@ -51,10 +51,10 @@ export function callPostService<T>(url: string, http: HttpClient, uiService: UiS
   }), catchError(err =>
   {
     console.log(err);
-    const res = <BaseResponse<any>>err.error;
-    if (res?.meta?.errorMessage)
+
+    if (err?.error?.meta?.errorMessage)
     {
-      uiService.alert(res?.meta?.errorMessage);
+      uiService.alert(err?.error?.meta?.errorMessage);
     } else
     {
       uiService.alert('خطا در اتصال به سرویس!');
@@ -76,10 +76,10 @@ export function callPostPagingService<T>(url: string, http: HttpClient, uiServic
   }), catchError(err =>
   {
     console.log(err);
-    const res = <BaseResponse<any>>err.error;
-    if (res?.meta?.errorMessage)
+
+    if (err?.error?.meta?.errorMessage)
     {
-      uiService.showSnackBar(res?.meta?.errorMessage, '', 3000);
+      uiService.alert(err?.error?.meta?.errorMessage);
     } else
     {
       uiService.alert('خطا در اتصال به سرویس!');

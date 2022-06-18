@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="status">
+<ng-container [ngSwitch]="status" *ngIf="statusType===1">
   <span *ngSwitchCase="'1'"> فعال</span>
   <span *ngSwitchCase="'2'"> غیر فعال</span>
   <span *ngSwitchCase="'3'"> در حال انتظار</span>
@@ -6,7 +6,7 @@
   <span *ngSwitchDefault> </span>
 </ng-container>
 
-<ng-container [ngSwitch]="status">
+<ng-container [ngSwitch]="status" *ngIf="statusType===2">
   <span *ngSwitchCase="'1'"> استفاده شده</span>
   <span *ngSwitchCase="'2'">قابل استفاده</span>
   <span *ngSwitchDefault> </span>

@@ -107,7 +107,7 @@ export class DiscountService extends BaseService<Discount>
       staticCode: [scenario.staticCode, [Validators.required]],
       generalCustomers: [scenario.id && (scenario.groupIds?.length === 0 && scenario.campaignIds?.length === 0 && scenario.phones?.length === 0) ? ['all'] : [], [Validators.required]],
       productGroups: [scenario.id && (scenario.productGroupIds?.length === 0 && scenario.productCodes?.length === 0) ? ['all'] : [], [Validators.required]],
-      productGroupsExcepted: [scenario.id && (scenario.productExceptedCodes?.length === 0 && scenario.productGroupsExceptedIds?.length === 0) ? ['all'] : [], [Validators.required]],
+      productGroupsExcepted: [scenario.id && (scenario.productExceptedCodes?.length === 0 && scenario.productGroupsExceptedIds?.length === 0) ? ['all'] : [], []],
       productGroupsCondition: [scenario.id && (scenario.productGroupsConditionIds?.length === 0 && scenario.productConditionCodes?.length === 0) ? ['all'] : [], [Validators.required]]
 
     });
@@ -146,6 +146,11 @@ export class DiscountService extends BaseService<Discount>
 
       this.updateGeneralCustomer(scenario);
     }
+    this.validateDiscountCodeType(scenario.discountCodeType);
+    this.form.get('discountCodeType')?.valueChanges.subscribe((value) =>
+    {
+      this.validateDiscountCodeType(value);
+    });
 
     this.form.get('brandIds')?.valueChanges.subscribe((value: Array<string>) =>
     {
@@ -176,9 +181,28 @@ export class DiscountService extends BaseService<Discount>
     if (scenario.id)
     {
       this.isDisabled = true;
+    } else
+    {
+      this.isDisabled = false;
     }
   }
 
+
+  private validateDiscountCodeType(value: any)
+  {
+    if (value === 1)
+    {
+      this.form.get('staticCode')?.addValidators(Validators.required);
+      this.form.get('randomDiscountCodePrefix')?.clearValidators();
+    }
+    else
+    {
+      this.form.get('randomDiscountCodePrefix')?.addValidators(Validators.required);
+      this.form.get('staticCode')?.clearValidators();
+    }
+    this.form.get('staticCode')?.updateValueAndValidity();
+    this.form.get('randomDiscountCodePrefix')?.updateValueAndValidity();
+  }
 
   private updateGeneralCustomer(scenario: Discount)
   {
@@ -250,7 +274,7 @@ export class DiscountService extends BaseService<Discount>
   submitDiscount(isCreate: boolean): void
   {
     console.log(this.form.value);
-    this.uiService.alertService.clearErrorMessages();
+    this.uiService.alertService.clearAllMessages();
     let option = 'CreatePattern';
     if (!isCreate)
     {
@@ -338,15 +362,18 @@ export class DiscountService extends BaseService<Discount>
       this.uiService.alert('کد تخفیف ثابت را وارد نمایید.');
     }
 
-    if (Utility.isNullOrEmpty(value.patternName))
+    if (isCreate && Utility.isNullOrEmpty(value.patternName))
     {
       this.uiService.alert('عنوان الگو را وارد نمایید.');
     }
 
-
     if (this.uiService.alertService.getErrorMessages().length !== 0)
     {
       return;
+    }
+    if (value.discountCodeType !== 2)
+    {
+      value.randomDiscountCodeCount = 0;
     }
 
     value.groupIds = [];
