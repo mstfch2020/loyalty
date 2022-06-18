@@ -147,21 +147,11 @@ export class DiscountService extends BaseService<Discount>
       this.updateGeneralCustomer(scenario);
     }
 
-
-
-    this.form.controls['brandIds'].valueChanges.subscribe(value =>
+    this.form.get('brandIds')?.valueChanges.subscribe((value: Array<string>) =>
     {
-      this.baseInfoService.getProductGroupsByBrandIds(value).subscribe(productGroups =>
-      {
-        if (!productGroups) { productGroups = []; }
-        this.baseInfoService.productGroups$.next(productGroups);
-      });
-    });
-
-    this.form.controls['brandIds'].valueChanges.subscribe((value: Array<string>) =>
-    {
-      const generalCustomers = this.getCustomerByBrandId(scenario);
+      const generalCustomers = this.getCustomerByBrandId(value);
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
+
       this.baseInfoService?.getProductGroupsByBrandIds(value)?.subscribe(productGroups =>
       {
         const defArray: Array<ProductGroup> = [{ id: 'all', title: 'همه', brandId: '' }];
@@ -199,7 +189,7 @@ export class DiscountService extends BaseService<Discount>
     }
     else
     {
-      const generalCustomers = this.getCustomerByBrandId(scenario);
+      const generalCustomers = this.getCustomerByBrandId(scenario.brandIds);
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
       [...scenario.groupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
       {
@@ -223,9 +213,9 @@ export class DiscountService extends BaseService<Discount>
       }
     }
   }
-  getCustomerByBrandId(scenario: Discount): Array<IdTitleTypeBrandId>
+  getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
   {
-    return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || scenario.brandIds.length === 0 || scenario.brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
+    return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
   }
 
 

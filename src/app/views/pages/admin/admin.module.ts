@@ -6,7 +6,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgPersianDatepickerModule } from "ng-persian-datepicker";
 import { NgxMaskModule } from 'ngx-mask';
 import { FilterPipe } from 'src/app/@core/data/pipes/filter.pipe';
-import { ScenarioStateComponent } from '../../components/scenario-state/scenario-state.component';
+import { StateStatusViewComponent } from '../../components/scenario-state/state-status-view.component';
 import { DisplayAlertComponent } from "../../general/display-alert/display-alert.component";
 import { AdminRoutingModule } from "./admin-routing.module";
 import { CustomerGroupTemporaryCampaignComponent } from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
@@ -109,7 +109,7 @@ import { UsersComponent } from "./users/users.component";
     DiscountCodePatternComponent,
     DiscountCodePatternEditComponent,
     DiscountCodePatternListComponent,
-    ScenarioStateComponent,
+    StateStatusViewComponent,
   ],
   imports: [
     FormsModule,

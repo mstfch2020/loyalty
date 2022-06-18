@@ -24,7 +24,7 @@ export class DiscountCodeGeneratedListComponent extends BaseSearch implements On
   override ngOnInit(): void
   {
     super.ngOnInit();
-    this.service.Discounts$.subscribe(value => this.theViewList = value);
+    this.service.DiscountCodesGenerateds$.subscribe(value => this.theViewList = value);
   }
 
   override search(request: any)

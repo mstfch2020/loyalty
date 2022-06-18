@@ -122,4 +122,17 @@ export enum FilterNames
 
 }
 
+export enum StatusType
+{
+  None = 0,
+  ScenarioTypeStatus = 1,
+  UsageStateStatus = 2
 
+}
+
+export enum UsageState
+{
+  None = 0,
+  Used = 1, // استفاده شده
+  Involving = 2// قابل استفاده
+}

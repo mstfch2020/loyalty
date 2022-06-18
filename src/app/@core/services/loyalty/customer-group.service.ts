@@ -51,6 +51,12 @@ export class CustomerGroupService extends BaseService<CustomerGroup>
       activityCount: [scenario.activityCount, [Validators.required]],
       userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
     });
+
+    this.form.get('brandId')?.valueChanges.subscribe((value: string) =>
+    {
+      const generalCustomers = this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.brandId === value);
+      this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
+    });
   }
 
   getCustomerGroupById(id: any)

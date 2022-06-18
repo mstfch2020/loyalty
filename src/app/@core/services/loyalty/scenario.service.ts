@@ -116,7 +116,7 @@ export class ScenarioService extends BaseService<Scenario>
 
     this.form.controls['brandIds'].valueChanges.subscribe((value: Array<string>) =>
     {
-      const generalCustomers = this.getCustomerByBrandId(scenario);
+      const generalCustomers = this.getCustomerByBrandId(value);
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
       this.baseInfoService?.getProductGroupsByBrandIds(value)?.subscribe(productGroups =>
       {
@@ -221,7 +221,7 @@ export class ScenarioService extends BaseService<Scenario>
     }
     else
     {
-      const generalCustomers = this.getCustomerByBrandId(scenario);
+      const generalCustomers = this.getCustomerByBrandId(scenario.brandIds);
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
       [...scenario.customerGroupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
       {
@@ -245,9 +245,10 @@ export class ScenarioService extends BaseService<Scenario>
       }
     }
   }
-  getCustomerByBrandId(scenario: Scenario): Array<IdTitleTypeBrandId>
+
+  getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
   {
-    return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || scenario.brandIds.length === 0 || scenario.brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
+    return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
   }
 
   percentValidation(valueStr: string): boolean

@@ -108,7 +108,7 @@
             </label>
           </div>
           <div class="col-12 col-sm-9 mb-3">
-            <ng-select [items]="baseInfoService.generalCustomers$|async" [multiple]="true" appendTo="body"
+            <ng-select [items]="baseInfoService.generalCustomersByBrandId$|async" [multiple]="true" appendTo="body"
               (change)="scenarioService.brandChanged($event,'generalCustomers')" [readonly]="isDisabled"
               bindLabel="title" bindValue="id" class="form-control" formControlName="generalCustomers"
               [addTag]="scenarioService.addCustomer">
@@ -219,7 +219,7 @@
               <div [ngClass]="{'disabled':isDisabled}"
                 class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
                 <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100"
-                  formControlName="refundToWalletPercent" type="text" [dropSpecialCharacters]="false" mask="percent.2"
+                  formControlName="refundToWalletPercent" type="text" [dropSpecialCharacters]="false" mask="percent.3"
                   thousandSeparator=",">
                 <div class="fs-08 text-gray-500">
                   %

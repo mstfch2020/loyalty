@@ -103,6 +103,21 @@ export class BaseSearch implements OnInit
     },
   ];
 
+  theFilterUsageStatusList: Array<FilterTitle> = [
+    {
+      id: '1',
+      title: 'استفاده شده',
+      type: 0,
+      checked: false,
+    },
+    {
+      id: '2',
+      title: 'قابل استفاده',
+      type: 0,
+      checked: false,
+    },
+  ];
+
   theFilterRestPeriodTypeSelected = new Array<IdTitle>();
   theFilterRestPeriodTypeSelectedCondition = 0;
   theFilterRestPeriodTypeList: Array<FilterTitle> = [
