@@ -425,7 +425,8 @@
       </div>
       <div class="col-6 col-sm-3">
         <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl"
-          (click)="service.submitDiscount(false)" type="button">
+          (click)="service.submitDiscount(false)" type="button" [disabled]="!service.getValue('isProducable')"
+          [ngClass]="{'disabled':!service.getValue('isProducable')}">
           تولید کد
         </button>
       </div>

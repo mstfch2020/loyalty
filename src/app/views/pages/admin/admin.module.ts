@@ -20,12 +20,9 @@ import { CustomerGroupComponent } from './customer-group/customer-group.componen
 import { CustomerEditComponent } from './customer/customer-edit/customer-edit.component';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
 import { CustomerComponent } from './customer/customer.component';
-import { DiscountCodeGeneratedEditComponent } from './discount-code/discount-code-generated/discount-code-generated-edit/discount-code-generated-edit.component';
-import { DiscountCodeGeneratedListComponent } from './discount-code/discount-code-generated/discount-code-generated-list/discount-code-generated-list.component';
-import { DiscountCodeGeneratedComponent } from './discount-code/discount-code-generated/discount-code-generated.component';
-import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern/discount-code-pattern-edit/discount-code-pattern-edit.component';
-import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern/discount-code-pattern-list/discount-code-pattern-list.component';
-import { DiscountCodePatternComponent } from './discount-code/discount-code-pattern/discount-code-pattern.component';
+import { DiscountCodeGeneratedListComponent } from './discount-code/discount-code-generated-list/discount-code-generated-list.component';
+import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern-edit/discount-code-pattern-edit.component';
+import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern-list/discount-code-pattern-list.component';
 import { DiscountCodeComponent } from './discount-code/discount-code.component';
 import { FilterComponent } from './filter/filter.component';
 import { MainComponent } from './main/main.component';
@@ -103,10 +100,7 @@ import { UsersComponent } from "./users/users.component";
     SystemSettingsGroupsComponent,
     SystemSettingsGroupsEditComponent,
     SystemSettingsGroupsListComponent,
-    DiscountCodeGeneratedComponent,
-    DiscountCodeGeneratedEditComponent,
     DiscountCodeGeneratedListComponent,
-    DiscountCodePatternComponent,
     DiscountCodePatternEditComponent,
     DiscountCodePatternListComponent,
     StateStatusViewComponent,

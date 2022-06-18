@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ActivatedRoute } from "@angular/router";
+import { ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { discountInit } from "src/app/@core/data/loyalty/discount.model";
 import { DiscountCodeType, DiscountVolumeType } from "src/app/@core/data/loyalty/enums.model";
 import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
@@ -17,11 +17,11 @@ export class DiscountCodePatternEditComponent implements OnInit
   closeResult = '';
   discountVolumeType = DiscountVolumeType.Toman;
 
-  constructor(private router: Router,
+  constructor(
     private route: ActivatedRoute,
     public service: DiscountService,
     public baseInfoService: BaseInfoService,
-    private modalService: NgbModal, private cdref: ChangeDetectorRef)
+    private cdref: ChangeDetectorRef)
   {
     this.route.queryParams.subscribe(params =>
     {
@@ -79,17 +79,17 @@ export class DiscountCodePatternEditComponent implements OnInit
           this.service.setValue('generatedDiscountCodes', [discountFixCode]);
       }
     }
-    this.modalService.open(content, {
-      size: 'lg',
-      backdrop: 'static',
-      ariaLabelledBy: 'modal-basic-title'
-    }).result.then((result) =>
-    {
-      this.closeResult = `Closed with: ${ result }`;
-    }, (reason) =>
-    {
-      this.closeResult = `Dismissed ${ this.getDismissReason(reason) }`;
-    });
+    // this.modalService.open(content, {
+    //   size: 'lg',
+    //   backdrop: 'static',
+    //   ariaLabelledBy: 'modal-basic-title'
+    // }).result.then((result) =>
+    // {
+    //   this.closeResult = `Closed with: ${ result }`;
+    // }, (reason) =>
+    // {
+    //   this.closeResult = `Dismissed ${ this.getDismissReason(reason) }`;
+    // });
   }
 
   /**
@@ -97,7 +97,7 @@ export class DiscountCodePatternEditComponent implements OnInit
    */
   close()
   {
-    this.modalService.dismissAll();
+    // this.modalService.dismissAll();
   }
 
   saveCode()

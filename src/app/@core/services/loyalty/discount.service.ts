@@ -108,8 +108,8 @@ export class DiscountService extends BaseService<Discount>
       generalCustomers: [scenario.id && (scenario.groupIds?.length === 0 && scenario.campaignIds?.length === 0 && scenario.phones?.length === 0) ? ['all'] : [], [Validators.required]],
       productGroups: [scenario.id && (scenario.productGroupIds?.length === 0 && scenario.productCodes?.length === 0) ? ['all'] : [], [Validators.required]],
       productGroupsExcepted: [scenario.id && (scenario.productExceptedCodes?.length === 0 && scenario.productGroupsExceptedIds?.length === 0) ? ['all'] : [], []],
-      productGroupsCondition: [scenario.id && (scenario.productGroupsConditionIds?.length === 0 && scenario.productConditionCodes?.length === 0) ? ['all'] : [], [Validators.required]]
-
+      productGroupsCondition: [scenario.id && (scenario.productGroupsConditionIds?.length === 0 && scenario.productConditionCodes?.length === 0) ? ['all'] : [], [Validators.required]],
+      isProducable: [scenario.isProducable, []]
     });
 
 

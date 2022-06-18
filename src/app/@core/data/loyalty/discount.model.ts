@@ -48,6 +48,7 @@ export interface Discount
   randomDiscountCodePrefix: string;
   randomDiscountCodeCount: number;
   discountFixCode: string;
+  isProducable: boolean;
 }
 
 export const discountInit: Discount = {
@@ -82,5 +83,6 @@ export const discountInit: Discount = {
   campaignIds: [],
   productCodes: [],
   productGroupsExceptedIds: [],
-  productConditionCodes: []
+  productConditionCodes: [],
+  isProducable: true
 };
