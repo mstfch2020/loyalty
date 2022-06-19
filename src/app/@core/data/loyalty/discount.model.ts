@@ -34,6 +34,7 @@ export interface Discount
   purchanseAmountMin?: number | null;
   purchanseAmountMax?: number | null;
   patternName: string;
+  usePatternName: boolean,
   generatedDiscountCodes: Array<string>;
   discountVolumeType: number;
   discountVolumeValue: number;
@@ -84,5 +85,6 @@ export const discountInit: Discount = {
   productCodes: [],
   productGroupsExceptedIds: [],
   productConditionCodes: [],
-  isProducable: true
+  isProducable: true,
+  usePatternName: true
 };
