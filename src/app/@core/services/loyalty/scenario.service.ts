@@ -322,6 +322,20 @@ export class ScenarioService extends BaseService<Scenario>
       return;
     }
 
+
+    if (this.getValue('purchaseRoundType') === 1)
+    {
+      this.form.controls['purchaseRound'].setValue(Number(this.getValue('purchaseRound1')));
+    }
+    else if (this.getValue('purchaseRoundType') === 2)
+    {
+      this.form.controls['purchaseRound'].setValue(Number(this.getValue('purchaseRound2')));
+    } else
+    {
+      this.form.controls['purchaseRound'].setValue(0);
+
+    }
+
     if (this.getValue('senarioType') === SenarioType.Purchase)
     {
       this.updatePeriodFormControl(this.getValue('purchaseReward.expierDate'), 'purchaseReward.discountCodeDate');
@@ -344,6 +358,14 @@ export class ScenarioService extends BaseService<Scenario>
         this.uiService.alert('تگ کالا را مشخص نمایید.');
         return;
       }
+
+      const purchaseRound = this.getValue('purchaseRound');
+      if (!purchaseRound)
+      {
+        this.uiService.alert('لطفا مرتبه خرید وارد شود.');
+        return;
+      }
+
     } else
     {
       this.updatePeriodFormControl(this.getValue('behavioralReward.expierDate'), 'behavioralReward.discountCodeDate');
@@ -362,26 +384,6 @@ export class ScenarioService extends BaseService<Scenario>
         this.uiService.alert('فعالیت را مشخص نمایید.');
         return;
       }
-    }
-
-    if (this.getValue('purchaseRoundType') === 1)
-    {
-      this.form.controls['purchaseRound'].setValue(Number(this.getValue('purchaseRound1')));
-    }
-    else if (this.getValue('purchaseRoundType') === 2)
-    {
-      this.form.controls['purchaseRound'].setValue(Number(this.getValue('purchaseRound2')));
-    } else
-    {
-      this.form.controls['purchaseRound'].setValue(0);
-
-    }
-
-    const purchaseRound = this.getValue('purchaseRound');
-    if (!purchaseRound)
-    {
-      this.uiService.alert('لطفا مرتبه خرید وارد شود.');
-      return;
     }
 
     const value = this.form.value;
