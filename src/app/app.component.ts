@@ -20,6 +20,7 @@ export class AppComponent implements AfterViewInit
     router.events.subscribe((val) => this.alertService.clearAllMessages());
     config.notFoundText = 'موردی یافت نشد.';
   }
+
   ngAfterViewInit(): void
   {
     this.rootStoreService.isLoading().subscribe(value =>
@@ -33,6 +34,7 @@ export class AppComponent implements AfterViewInit
       this.isLoading = false;
       this.cdref?.detectChanges();
     });
-
+    if (window.location.origin + '/' === window.location.href)
+      this.router.navigate(['/admin/main']);
   }
 }

@@ -16,9 +16,6 @@ import { DiscountCodeComponent } from "./discount-code/discount-code.component";
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from "./profile/profile.component";
 import { ReportsComponent } from "./reports/reports.component";
-import { ScenarioListComponent } from "./scenario/scenario-list/scenario-list.component";
-import { ScenarioRootComponent } from "./scenario/scenario-root/scenario-root.component";
-import { ScenarioComponent } from "./scenario/scenario.component";
 import { SendSmsCreateComponent } from "./send-sms/send-sms-create/send-sms-create.component";
 import { SendSmsListComponent } from "./send-sms/send-sms-list/send-sms-list.component";
 import { SendSmsPatternComponent } from "./send-sms/send-sms-pattern/send-sms-pattern.component";
@@ -216,26 +213,8 @@ const routes: Routes = [
       },
       {
         path: 'scenario',
-        component: ScenarioComponent,
-        children: [
-          {
-            path: '',
-            redirectTo: 'list',
-            pathMatch: 'full'
-          },
-          {
-            path: 'edit/:id',
-            component: ScenarioRootComponent,
-          },
-          {
-            path: 'create',
-            component: ScenarioRootComponent,
-          },
-          {
-            path: 'list',
-            component: ScenarioListComponent,
-          }
-        ]
+        loadChildren: () => import('src/app/views/pages/admin/scenario/scenario.module')
+          .then(m => m.ScenarioModule)//, canLoad: [AuthGuard]
       },
       {
         path: 'discountcode',

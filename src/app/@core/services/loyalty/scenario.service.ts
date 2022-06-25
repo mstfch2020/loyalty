@@ -374,7 +374,16 @@ export class ScenarioService extends BaseService<Scenario>
     } else
     {
       this.form.controls['purchaseRound'].setValue(0);
+
     }
+
+    const purchaseRound = this.getValue('purchaseRound');
+    if (!purchaseRound)
+    {
+      this.uiService.alert('لطفا مرتبه خرید وارد شود.');
+      return;
+    }
+
     const value = this.form.value;
 
     if (!this.percentValidation(value.behavioralReward.discountCodePercent))

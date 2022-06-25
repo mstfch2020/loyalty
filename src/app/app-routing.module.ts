@@ -5,8 +5,8 @@ import { PageNotFoundComponent } from './views/general/page-not-found/page-not-f
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     redirectTo: 'admin/main',
-    pathMatch: 'full'
   },
   {
     path: 'admin',

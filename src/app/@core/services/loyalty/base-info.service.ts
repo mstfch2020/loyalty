@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, forkJoin, Observable } from "rxjs";
+import { BehaviorSubject, forkJoin, Observable, Subject, takeUntil } from "rxjs";
 import { EnumTitle, IdTitle, IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { SettingsService } from "../settings-service";
@@ -10,6 +10,41 @@ import { callGetService, callPostService } from "./BaseService";
 @Injectable({ providedIn: 'root' })
 export class BaseInfoService
 {
+  private unsubscribe = new Subject<void>();
+  destroy()
+  {
+    // Emit something to stop all Observables
+    this.unsubscribe.next();
+    // Complete the notifying Observable to remove it
+    this.unsubscribe.complete();
+
+    // this.senarioDiscountCodePatterns$?.complete();
+    // this.commissionsBasis$?.complete();
+    // this.scoresVolumes$?.complete();
+    // this.activitiesCount$?.complete();
+    // this.activity$?.complete();
+    // this.brands$?.complete();
+    // this.brandsSingle$?.complete();
+    // this.userTypes$?.complete();
+    // this.userTypesSinle$?.complete();
+    // this.customerGroups$?.complete();
+    // this.products$?.complete();
+    // this.scenarios$?.complete();
+    // this.customerLevel$?.complete();
+    // this.productGroups$?.complete();
+    // this.productGroups = [];
+    // this.productGroupsSingle$?.complete();
+    // this.applyOnType$?.complete();
+    // this.freeProducts$?.complete();
+    // this.generalCustomers$?.complete();
+    // this.generalCustomers = [];
+    // this.generalCustomersByBrandId$?.complete();
+    // this.generalCustomersSingle$?.complete();
+    // this.productCodes$?.complete();
+    // this.allCampaigns$?.complete();
+
+  }
+
   senarioDiscountCodePatterns$ = new BehaviorSubject<Array<any>>([]);
   commissionsBasis$ = new BehaviorSubject<Array<number>>([]);
   scoresVolumes$ = new BehaviorSubject<Array<number>>([]);
@@ -70,7 +105,7 @@ export class BaseInfoService
     this.applyOnType$.next(this.applyOnType);
   }
 
-  loadBaseInfo(callback: any, brandIds: Array<string> = [], productIds: Array<string> = []): void
+  loadBaseInfo(callback?: any, brandIds: Array<string> = [], productIds: Array<string> = []): void
   {
     if (!brandIds || brandIds.length === 0 || brandIds.some(p => p === 'all'))
     {
@@ -94,7 +129,7 @@ export class BaseInfoService
       requests.freeProducts = this.getFreeProducts(productIds);
     }
 
-    forkJoin(requests).subscribe(resutl =>
+    forkJoin(requests).pipe(takeUntil(this.unsubscribe)).subscribe(resutl =>
     {
       const resultValue = resutl as any;
       const defArray = [{ id: 'all', title: 'همه' }];
@@ -106,11 +141,13 @@ export class BaseInfoService
       this.userTypesSinle$.next(resultValue?.userTypes === null ? [] : resultValue?.userTypes);
       this.customerGroups$.next(resultValue?.customerGroups === null ? [] : resultValue?.customerGroups);
       this.products$.next(resultValue?.products === null ? [] : resultValue?.products);
-      this.generalCustomers$.next(resultValue?.generalCustomers === null ? defArrayType : resultValue?.generalCustomers.concat(defArrayType));
+      const generalCustomers = resultValue?.generalCustomers === null ? defArrayType : resultValue?.generalCustomers.concat(defArrayType);
+      this.generalCustomers$.next(generalCustomers);
       this.generalCustomersByBrandId$.next(resultValue?.generalCustomers === null ? defArrayType : resultValue?.generalCustomers.concat(defArrayType));
       this.generalCustomersSingle$.next(resultValue?.generalCustomers === null ? [] : resultValue?.generalCustomers);
 
-      this.productGroups$.next(resultValue?.productGroups === null ? defArray : resultValue?.productGroups.concat(defArray));
+      const productGroups = resultValue?.productGroups === null ? defArray : resultValue?.productGroups.concat(defArray);
+      this.productGroups$.next(productGroups);
       this.productGroupsSingle$.next(resultValue?.productGroups === null ? [] : resultValue?.productGroups);
       this.senarioDiscountCodePatterns$.next(resultValue?.senarioDiscountCodePatterns === null ? [] : resultValue?.senarioDiscountCodePatterns);
 
@@ -118,13 +155,16 @@ export class BaseInfoService
       {
         this.freeProducts$.next(resultValue?.freeProducts === null ? [] : resultValue?.freeProducts);
       }
-      callback();
+      if (callback)
+      {
+        callback();
+      }
     });
   }
 
   loadScenario()
   {
-    this.getScenario().subscribe(value =>
+    this.getScenario().pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
       if (!value) { value = []; }
       this.scenarios$.next(value);
@@ -133,7 +173,7 @@ export class BaseInfoService
 
   loadCustomerLevel()
   {
-    this.getCustomerLevel().subscribe(value =>
+    this.getCustomerLevel().pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
       if (!value) { value = []; }
       this.customerLevel$.next(value);
@@ -142,7 +182,7 @@ export class BaseInfoService
 
   loadAllCampaigns()
   {
-    this.GetAllCampaigns().subscribe(value =>
+    this.GetAllCampaigns().pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
       if (!value) { value = []; }
       this.allCampaigns$.next(value);
@@ -151,7 +191,7 @@ export class BaseInfoService
 
   loadScoresVolumes()
   {
-    this.GetAllScoresVolume().subscribe(value =>
+    this.GetAllScoresVolume().pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
       if (!value?.score)
       {
@@ -164,7 +204,7 @@ export class BaseInfoService
 
   loadActivitiesCount()
   {
-    this.GetAllActivitiesCount().subscribe(value =>
+    this.GetAllActivitiesCount().pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
       if (!value?.activitiesCount)
       {
@@ -177,7 +217,7 @@ export class BaseInfoService
 
   loadComissions()
   {
-    this.GetAllCommissionsBasis().subscribe(value =>
+    this.GetAllCommissionsBasis().pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
       if (!value?.commissionsBasis)
       {

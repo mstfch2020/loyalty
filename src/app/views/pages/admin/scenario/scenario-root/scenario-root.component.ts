@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { scenarioInit } from 'src/app/@core/data/loyalty/scenario.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service';
@@ -11,21 +12,9 @@ import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service
 })
 export class ScenarioRootComponent implements OnInit, OnDestroy
 {
-
+  private unsubscribe = new Subject<void>();
   constructor(private router: Router, public service: ScenarioService, private route: ActivatedRoute, private baseInfoService: BaseInfoService, private elementRef: ElementRef)
   {
-
-    this.route.queryParams.subscribe(params =>
-    {
-      const id = params['id'];
-      this.updateScenarioFromServer(id);
-    });
-
-    this.route.params.subscribe(params =>
-    {
-      const id = params['id'];
-      this.updateScenarioFromServer(id);
-    });
 
   }
   private updateScenarioFromServer(id: any)
@@ -52,7 +41,12 @@ export class ScenarioRootComponent implements OnInit, OnDestroy
 
   ngOnDestroy(): void
   {
-    this.elementRef.nativeElement.remove();
+    // Emit something to stop all Observables
+    this.unsubscribe.next();
+    // Complete the notifying Observable to remove it
+    this.unsubscribe.complete();
+
+    this.baseInfoService.destroy();
   }
 
   get isDisabled(): boolean
@@ -62,6 +56,17 @@ export class ScenarioRootComponent implements OnInit, OnDestroy
 
   ngOnInit(): void
   {
+    this.route.queryParams.pipe(takeUntil(this.unsubscribe)).subscribe(params =>
+    {
+      const id = params['id'];
+      this.updateScenarioFromServer(id);
+    });
+
+    this.route.params.pipe(takeUntil(this.unsubscribe)).subscribe(params =>
+    {
+      const id = params['id'];
+      this.updateScenarioFromServer(id);
+    });
   }
 
   public selectedSwitch(event: boolean)

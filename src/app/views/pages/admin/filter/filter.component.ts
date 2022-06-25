@@ -16,6 +16,7 @@ export class FilterComponent implements OnInit
   @Input() isRadio: boolean;
   @Input() visible: boolean;
   @Input() filterType: FilterType;
+  @Input() minLengthOrValue = 0;
   @Input() align: AlignMode;
   @Input() length: number;
 
@@ -55,9 +56,16 @@ export class FilterComponent implements OnInit
 
   applyEventNotify()
   {
-    this.visible = false;
 
+    this.filterForm.get('searchValue')?.setErrors(null);
     const searchValue = this.filterForm.get('searchValue')?.value;
+
+    if (this.minLengthOrValue !== 0 && this.minLengthOrValue > searchValue.length)
+    {
+      this.filterForm.get('searchValue')?.setErrors({ 'minLengthOrValue': true });
+      return;
+    }
+
     if (this.filterType === FilterType.OrderList)
     {
       if (searchValue && new RegExp(Utility.mobileRegEx).test(searchValue))
@@ -72,6 +80,7 @@ export class FilterComponent implements OnInit
       this.applyEvent.emit({ value: searchValue, conditionType: this.filterForm.get("conditionType")?.value });
     }
     this.cancelEvent.emit(false);
+    this.visible = false;
   }
 
   changed(item: FilterTitle)

@@ -5,8 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgPersianDatepickerModule } from "ng-persian-datepicker";
 import { NgxMaskModule } from 'ngx-mask';
-import { FilterPipe } from 'src/app/@core/data/pipes/filter.pipe';
-import { StateStatusViewComponent } from '../../components/scenario-state/state-status-view.component';
 import { DisplayAlertComponent } from "../../general/display-alert/display-alert.component";
 import { AdminRoutingModule } from "./admin-routing.module";
 import { CustomerGroupTemporaryCampaignComponent } from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
@@ -24,21 +22,15 @@ import { DiscountCodeGeneratedListComponent } from './discount-code/discount-cod
 import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern-edit/discount-code-pattern-edit.component';
 import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern-list/discount-code-pattern-list.component';
 import { DiscountCodeComponent } from './discount-code/discount-code.component';
-import { FilterComponent } from './filter/filter.component';
 import { MainComponent } from './main/main.component';
-import { PaginationComponent } from './pagination/pagination.component';
 import { ProfileComponent } from "./profile/profile.component";
 import { ReportsComponent } from './reports/reports.component';
-import { BehavioralScenarioComponent } from './scenario/behavioral-scenario/behavioral-scenario.component';
-import { PurchaseScenarioComponent } from './scenario/purchase-scenario/purchase-scenario.component';
-import { ScenarioListComponent } from './scenario/scenario-list/scenario-list.component';
-import { ScenarioRootComponent } from './scenario/scenario-root/scenario-root.component';
-import { ScenarioComponent } from './scenario/scenario.component';
+import { ScenarioModule } from './scenario/scenario.module';
 import { SendSmsCreateComponent } from './send-sms/send-sms-create/send-sms-create.component';
 import { SendSmsListComponent } from './send-sms/send-sms-list/send-sms-list.component';
 import { SendSmsPatternComponent } from './send-sms/send-sms-pattern/send-sms-pattern.component';
 import { SendSmsComponent } from './send-sms/send-sms.component';
-import { SwitchComponent } from './switch/switch.component';
+import { SharedModule } from './shared.module';
 import { SystemSettingsBehavioralEditComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-edit/system-settings-behavioral-edit.component';
 import { SystemSettingsBehavioralListComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-list/system-settings-behavioral-list.component';
 import { SystemSettingsBehavioralComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral.component';
@@ -60,12 +52,8 @@ import { UsersComponent } from "./users/users.component";
     MainComponent,
     ProfileComponent,
     UsersComponent,
-    SwitchComponent,
     SendSmsComponent,
     ReportsComponent,
-    ScenarioComponent,
-    ScenarioRootComponent,
-    ScenarioListComponent,
     CustomerComponent,
     CustomerListComponent,
     CustomerEditComponent,
@@ -81,16 +69,11 @@ import { UsersComponent } from "./users/users.component";
     SystemSettingsDiscountListComponent,
     SystemSettingsDiscountEditComponent,
     CustomerGroupTemporaryEditComponent,
-    BehavioralScenarioComponent,
-    PurchaseScenarioComponent,
     DiscountCodeComponent,
     DisplayAlertComponent,
     SendSmsPatternComponent,
     SendSmsListComponent,
     SendSmsCreateComponent,
-    FilterComponent,
-    FilterPipe,
-    PaginationComponent,
     SystemSettingsBehavioralComponent,
     SystemSettingsBehavioralEditComponent,
     SystemSettingsBehavioralListComponent,
@@ -103,7 +86,6 @@ import { UsersComponent } from "./users/users.component";
     DiscountCodeGeneratedListComponent,
     DiscountCodePatternEditComponent,
     DiscountCodePatternListComponent,
-    StateStatusViewComponent,
   ],
   imports: [
     FormsModule,
@@ -114,6 +96,8 @@ import { UsersComponent } from "./users/users.component";
     NgPersianDatepickerModule,
     AdminRoutingModule,
     NgxMaskModule.forRoot(),
+    ScenarioModule,
+    SharedModule
   ],
   exports: [
     MainComponent,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service';
 
@@ -7,16 +7,21 @@ import { ScenarioService } from 'src/app/@core/services/loyalty/scenario.service
   templateUrl: './purchase-scenario.component.html',
   styleUrls: ['./purchase-scenario.component.scss']
 })
-export class PurchaseScenarioComponent implements OnInit
+export class PurchaseScenarioComponent implements OnInit, OnDestroy
 {
 
-  percent:number;
+  percent: number;
 
   constructor(
     public scenarioService: ScenarioService,
     public baseInfoService: BaseInfoService)
   {
-    this.percent=0;
+    this.percent = 0;
+  }
+
+  ngOnDestroy(): void
+  {
+    this.baseInfoService.destroy();
   }
 
   get isDisabled(): boolean
