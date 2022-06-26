@@ -12,6 +12,9 @@ const routes: Routes = [
       {
         path: 'create',
         component: ScenarioRootComponent,
+      }, {
+        path: 'edit',
+        component: ScenarioRootComponent,
       },
       {
         path: 'list',

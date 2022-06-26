@@ -14,9 +14,9 @@ export class BaseInfoService
   destroy()
   {
     // Emit something to stop all Observables
-    this.unsubscribe.next();
-    // Complete the notifying Observable to remove it
-    this.unsubscribe.complete();
+    // this.unsubscribe.next();
+    // // Complete the notifying Observable to remove it
+    // this.unsubscribe.complete();
 
     // this.senarioDiscountCodePatterns$?.complete();
     // this.commissionsBasis$?.complete();

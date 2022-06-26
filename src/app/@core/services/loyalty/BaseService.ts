@@ -217,7 +217,9 @@ export abstract class BaseService<T>{
 
     if (scenarioProductGroups.length > 0)
     {
-      const data = this.baseInfoService?.productGroups$?.getValue()?.concat(scenarioProductGroups.filter(p => p.id === p.title));
+      const baseInfoData = this.baseInfoService?.productGroups$?.getValue();
+      const filteredData = scenarioProductGroups.filter(p => p.id === p.title);
+      const data = baseInfoData?.concat(filteredData);
       this.baseInfoService?.productGroups$?.next(data);
     }
   }

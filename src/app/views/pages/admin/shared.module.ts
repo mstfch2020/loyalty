@@ -6,7 +6,6 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { NgPersianDatepickerModule } from "ng-persian-datepicker";
 import { NgxMaskModule } from "ngx-mask";
 import { FilterPipe } from "src/app/@core/data/pipes/filter.pipe";
-import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
 import { StateStatusViewComponent } from "../../components/scenario-state/state-status-view.component";
 import { FilterComponent } from "./filter/filter.component";
 import { PaginationComponent } from "./pagination/pagination.component";
@@ -33,7 +32,7 @@ const COMPONENTS = [
     NgPersianDatepickerModule,
     NgxMaskModule.forRoot(),
   ],
-  providers: [BaseInfoService],
+  providers: [],
   exports: [
     ...COMPONENTS
   ]

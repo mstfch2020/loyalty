@@ -55,7 +55,7 @@ export class ScenarioListComponent extends BaseSearch implements OnInit, OnDestr
   {
     if (id)
     {
-      this.router.navigate(['/admin/main/scenario/edit', id]);
+      this.router.navigate(['/admin/main/scenario/edit'], { queryParams: { id: id } });
       return;
     }
     this.router.navigate(['/admin/main/scenario/create']);
