@@ -359,11 +359,14 @@ export class ScenarioService extends BaseService<Scenario>
         return;
       }
 
-      const purchaseRound = this.getValue('purchaseRound');
-      if (!purchaseRound)
+      if (this.getValue('purchaseRoundType') !== 3)
       {
-        this.uiService.alert('لطفا مرتبه خرید وارد شود.');
-        return;
+        const purchaseRound = this.getValue('purchaseRound');
+        if (!purchaseRound)
+        {
+          this.uiService.alert('لطفا مرتبه خرید وارد شود.');
+          return;
+        }
       }
 
     } else

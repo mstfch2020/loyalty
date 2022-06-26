@@ -61,12 +61,6 @@ export class ScenarioRootComponent implements OnInit, OnDestroy
       const id = params['id'];
       this.updateScenarioFromServer(id);
     });
-
-    this.route.params.pipe(takeUntil(this.unsubscribe)).subscribe(params =>
-    {
-      const id = params['id'];
-      this.updateScenarioFromServer(id);
-    });
   }
 
   public selectedSwitch(event: boolean)

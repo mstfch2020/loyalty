@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Subject, takeUntil } from "rxjs";
 import { FilterNames } from "../../data/loyalty/enums.model";
 import { FilterTitle, IdTitle, IdTitleTypeBrandId } from '../../data/loyalty/get-senarios-grid.model';
 import { BrandFilter, CustomersFilter, StatusFilter } from "../../data/loyalty/scenario/get-all-scenarios.model";
@@ -9,9 +10,9 @@ import { BaseInfoService } from "../loyalty/base-info.service";
   selector: 'base-search',
   template: '',
 })
-export class BaseSearch implements OnInit
+export class BaseSearch implements OnInit, OnDestroy
 {
-
+  public unsubscribe = new Subject<void>();
   theActivityList = new Array<FilterTitle>();
   theActivitySelectedList = new Array<IdTitleTypeBrandId>();
   theActivitySelectedCondition = 0;
@@ -162,6 +163,7 @@ export class BaseSearch implements OnInit
   {
     this.baseInfoService.loadBaseInfo(() => { });
 
+    this.theFilterPercentList = [];
     [10, 20, 30, 40, 50, 60, 70, 80, 90, 100].forEach(p =>
     {
       this.theFilterPercentList.push({
@@ -172,8 +174,9 @@ export class BaseSearch implements OnInit
       });
     });
 
-    this.baseInfoService.commissionsBasis$.subscribe(value =>
+    this.baseInfoService.commissionsBasis$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theFilterCommissionList = [];
       value.forEach(p =>
       {
         this.theFilterCommissionList.push({
@@ -186,8 +189,9 @@ export class BaseSearch implements OnInit
     });
 
 
-    this.baseInfoService.activity$.subscribe(value =>
+    this.baseInfoService.activity$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theActivityList = [];
       value.forEach(p =>
       {
         this.theActivityList.push({
@@ -199,8 +203,9 @@ export class BaseSearch implements OnInit
       });
     });
 
-    this.baseInfoService.allCampaigns$.subscribe(value =>
+    this.baseInfoService.allCampaigns$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theCampaignList = [];
       value.forEach(p =>
       {
         this.theCampaignList.push({
@@ -212,8 +217,9 @@ export class BaseSearch implements OnInit
       });
     });
 
-    this.baseInfoService.scoresVolumes$.subscribe(value =>
+    this.baseInfoService.scoresVolumes$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theScoreList = [];
       value.forEach(p =>
       {
         this.theScoreList.push({
@@ -225,8 +231,9 @@ export class BaseSearch implements OnInit
       });
     });
 
-    this.baseInfoService.activitiesCount$.subscribe(value =>
+    this.baseInfoService.activitiesCount$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theActivityCountList = [];
       value.forEach(p =>
       {
         this.theActivityCountList.push({
@@ -238,8 +245,9 @@ export class BaseSearch implements OnInit
       });
     });
 
-    this.baseInfoService.commissionsBasis$.subscribe(value =>
+    this.baseInfoService.commissionsBasis$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theFilterCommissionList = [];
       value.forEach(p =>
       {
         this.theFilterCommissionList.push({
@@ -253,8 +261,9 @@ export class BaseSearch implements OnInit
 
 
 
-    this.baseInfoService.generalCustomers$.subscribe(value =>
+    this.baseInfoService.generalCustomers$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theFilterCustomerList = [];
       value.forEach(p =>
       {
         this.theFilterCustomerList.push({
@@ -266,8 +275,9 @@ export class BaseSearch implements OnInit
       });
     });
 
-    this.baseInfoService.brands$.subscribe(value =>
+    this.baseInfoService.brands$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theFilterBrandsList = [];
       value.forEach(p =>
       {
         this.theFilterBrandsList.push({
@@ -278,8 +288,9 @@ export class BaseSearch implements OnInit
       });
     });
 
-    this.baseInfoService.customerLevel$.subscribe(value =>
+    this.baseInfoService.customerLevel$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theFilterLevelsList = [];
       value.forEach(p =>
       {
         this.theFilterLevelsList.push({
@@ -290,8 +301,9 @@ export class BaseSearch implements OnInit
       });
     });
 
-    this.baseInfoService.userTypes$.subscribe(value =>
+    this.baseInfoService.userTypes$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theFilterUserTypeList = [];
       value.forEach(p =>
       {
         this.theFilterUserTypeList.push({
@@ -302,8 +314,9 @@ export class BaseSearch implements OnInit
       });
     });
 
-    this.baseInfoService.userTypes$.subscribe(value =>
+    this.baseInfoService.userTypes$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
+      this.theFilterGroupList = [];
       value.forEach(p =>
       {
         this.theFilterGroupList.push({
@@ -705,5 +718,12 @@ export class BaseSearch implements OnInit
   {
     this.pageIndex = event;
     this.applyFilterForm(null, FilterNames.Paging);
+  }
+
+  ngOnDestroy(): void
+  {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+    this.baseInfoService.destroy();
   }
 }

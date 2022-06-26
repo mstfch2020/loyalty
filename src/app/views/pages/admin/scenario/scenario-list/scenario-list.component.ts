@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { AmountTitle, GetSenarios } from "src/app/@core/data/loyalty/get-senarios-grid.model";
 import { GetAllSenarios } from 'src/app/@core/data/loyalty/scenario/get-all-scenarios.model';
 import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
@@ -15,7 +15,7 @@ import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
 export class ScenarioListComponent extends BaseSearch implements OnInit, OnDestroy
 {
   theViewList = new Array<GetSenarios>();
-  private unsubscribe = new Subject<void>();
+
   constructor(
     private router: Router,
     public scenarioService: ScenarioService,
@@ -29,14 +29,9 @@ export class ScenarioListComponent extends BaseSearch implements OnInit, OnDestr
       this.theViewList = value;
     });
   }
-  ngOnDestroy(): void
+  override ngOnDestroy(): void
   {
-    // Emit something to stop all Observables
-    this.unsubscribe.next();
-    // Complete the notifying Observable to remove it
-    this.unsubscribe.complete();
-
-    this.baseInfoService.destroy();
+    super.ngOnDestroy();
   }
 
   override ngOnInit(): void
