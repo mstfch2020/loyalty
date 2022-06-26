@@ -23,6 +23,10 @@ export class DiscountCodePatternEditComponent implements OnInit
     public baseInfoService: BaseInfoService,
     private cdref: ChangeDetectorRef)
   {
+  }
+
+  ngOnInit(): void
+  {
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
@@ -39,20 +43,22 @@ export class DiscountCodePatternEditComponent implements OnInit
             }
             this.service.createForm(value);
             this.cdref.detectChanges();
+            this.brandIdChangeHandler();
           }, value?.brandIds);
         });
       } else
       {
 
-        this.baseInfoService.loadBaseInfo(() => { this.service.createForm(discountInit); this.cdref.detectChanges(); });
+        this.baseInfoService.loadBaseInfo(() => { this.service.createForm(discountInit); this.cdref.detectChanges(); this.brandIdChangeHandler(); });
       }
     });
+    this.service.form.markAllAsTouched();
+
 
   }
-
-  ngOnInit(): void
+  brandIdChangeHandler()
   {
-    this.service.form.markAllAsTouched();
+
   }
 
   open(content: any, generateCodes = false)

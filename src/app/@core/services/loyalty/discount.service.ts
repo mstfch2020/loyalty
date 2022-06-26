@@ -11,7 +11,7 @@ import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callGetService, callPostPagingService, callPostService, isValidProductCode } from "./BaseService";
+import { BaseService, callGetService, callPostPagingService, callPostService, isValidPhonenumber, isValidProductCode } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class DiscountService extends BaseService<Discount>
@@ -80,13 +80,15 @@ export class DiscountService extends BaseService<Discount>
       periodMin: createPeriodFormGroup(scenario.periodMin, this.formBuilder),
       periodMax: createPeriodFormGroup(scenario.periodMax, this.formBuilder),
       brandIds: [scenario.brandIds.length === 0 && scenario.id ? ['all'] : scenario.brandIds, [Validators.required]],
-      groupIds: [scenario.groupIds, [Validators.required]],
+      groupIds: [scenario.groupIds.length === 0 && scenario.id ? ['all'] : scenario.groupIds, [Validators.required]],
+      campaignIds: [scenario.campaignIds, [Validators.required]],
+      phones: [scenario.phones, [Validators.required]],
       userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
       productGroupIds: [scenario.productGroupIds.length === 0 && scenario.id ? ['all'] : scenario.productGroupIds, [Validators.required]],
       productCodes: [scenario.productCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
       productExceptedCodes: [scenario.productExceptedCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
-      productGroupsExceptedIds: [scenario.productGroupsExceptedIds.length === 0 && scenario.id ? ['all'] : scenario.productGroupsExceptedIds, [Validators.required]],
-      productGroupsConditionIds: [scenario.productGroupsConditionIds.length === 0 && scenario.id ? ['all'] : scenario.productGroupsConditionIds, [Validators.required]],
+      productGroupsExceptedIds: [scenario.productGroupsExceptedIds.length === 0 && scenario.id ? [] : scenario.productGroupsExceptedIds, [Validators.required]],
+      productGroupsConditionIds: [scenario.productGroupsConditionIds.length === 0 && scenario.id ? [] : scenario.productGroupsConditionIds, [Validators.required]],
       productConditionCodes: [scenario.productConditionCodes?.filter(p => !Utility.isNullOrEmpty(p?.toString()) && isValidProductCode(p?.toString())), [Validators.required]],
       purchanseAmountMin: [scenario.purchanseAmountMin, [Validators.required]],
       purchanseAmountMax: [scenario.purchanseAmountMax, [Validators.required]],
@@ -107,7 +109,7 @@ export class DiscountService extends BaseService<Discount>
       staticCode: [scenario.staticCode, [Validators.required]],
       generalCustomers: [scenario.id && (scenario.groupIds?.length === 0 && scenario.campaignIds?.length === 0 && scenario.phones?.length === 0) ? ['all'] : [], [Validators.required]],
       productGroups: [scenario.id && (scenario.productGroupIds?.length === 0 && scenario.productCodes?.length === 0) ? ['all'] : [], [Validators.required]],
-      productGroupsExcepted: [scenario.id && (scenario.productExceptedCodes?.length === 0 && scenario.productGroupsExceptedIds?.length === 0) ? ['all'] : [], []],
+      productGroupsExcepted: [scenario.id && (scenario.productExceptedCodes?.length === 0 && scenario.productGroupsExceptedIds?.length === 0) ? [] : [], []],
       productGroupsCondition: [scenario.id && (scenario.productGroupsConditionIds?.length === 0 && scenario.productConditionCodes?.length === 0) ? ['all'] : [], [Validators.required]],
       isProducable: [scenario.isProducable, []],
       usePatternName: [scenario.usePatternName, []],
@@ -118,46 +120,18 @@ export class DiscountService extends BaseService<Discount>
 
     if (scenario.id)
     {
-      if (scenario.productGroupIds.length !== 0 || scenario.productCodes.length !== 0)
-      {
-        const data = scenario.productGroupIds.concat(scenario.productCodes);
-        const formControlName = 'productGroups';
-        const productGroups = this.baseInfoService?.productGroups$?.getValue();
-
-        this.updateProductGroupsIdCode(data, productGroups, formControlName);
-      }
-
-      if (scenario.productGroupsExceptedIds.length !== 0 || scenario.productExceptedCodes.length !== 0)
-      {
-        const data = scenario.productGroupsExceptedIds.concat(scenario.productExceptedCodes);
-        const formControlName = 'productGroupsExcepted';
-        const productGroups = this.baseInfoService?.productGroups$?.getValue();
-
-        this.updateProductGroupsIdCode(data, productGroups, formControlName);
-      }
-
-      if (scenario.productGroupsConditionIds.length !== 0 || scenario.productConditionCodes.length !== 0)
-      {
-        const data = scenario.productGroupsConditionIds.concat(scenario.productConditionCodes);
-        const formControlName = 'productGroupsCondition';
-        const productGroups = this.baseInfoService?.productGroups$?.getValue();
-
-        this.updateProductGroupsIdCode(data, productGroups, formControlName);
-      }
+      const productGroups = this.baseInfoService?.productGroups$?.getValue();
+      this.updateProductGroupsInLocal(scenario, productGroups);
 
       this.updateGeneralCustomer(scenario);
     }
-    this.validateDiscountCodeType(scenario.discountCodeType);
-    this.form.get('discountCodeType')?.valueChanges.subscribe((value) =>
-    {
-      this.validateDiscountCodeType(value);
-    });
 
     this.form.get('brandIds')?.valueChanges.subscribe((value: Array<string>) =>
     {
       const generalCustomers = this.getCustomerByBrandId(value);
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
-
+      this.updatecustomerGroupForSubmit(this.form.value, true);
+      this.updateGeneralCustomer(this.form.value);
       this.baseInfoService?.getProductGroupsByBrandIds(value)?.subscribe(productGroups =>
       {
         const defArray: Array<ProductGroup> = [{ id: 'all', title: 'همه', brandId: '' }];
@@ -165,6 +139,8 @@ export class DiscountService extends BaseService<Discount>
         this.baseInfoService.productGroupsSingle$.next(productGroups);
         productGroups = productGroups.concat(defArray);
         this.baseInfoService.productGroups$.next(productGroups);
+        this.updateProductGroupsForSubmit(this.form.value);
+        this.updateProductGroupsInLocal(this.form.value, productGroups);
       });
 
       // this.form.controls['freeProductCodes'].enable();
@@ -177,6 +153,13 @@ export class DiscountService extends BaseService<Discount>
       //   this.form.get('purchaseReward.addFreeProductReward')?.disable();
       // }
     });
+
+    this.validateDiscountCodeType(scenario.discountCodeType);
+    this.form.get('discountCodeType')?.valueChanges.subscribe((value) =>
+    {
+      this.validateDiscountCodeType(value);
+    });
+
     this.form.markAllAsTouched();
 
     if (scenario.id)
@@ -188,6 +171,30 @@ export class DiscountService extends BaseService<Discount>
     }
   }
 
+
+  public updateProductGroupsInLocal(scenario: Discount, productGroups: ProductGroup[])
+  {
+    if (scenario.productGroupIds.length !== 0 || scenario.productCodes.length !== 0)
+    {
+      const data = scenario.productGroupIds.concat(scenario.productCodes);
+      const formControlName = 'productGroups';
+      this.updateProductGroupsIdCode(data, productGroups, formControlName);
+    }
+
+    if (scenario.productGroupsExceptedIds.length !== 0 || scenario.productExceptedCodes.length !== 0)
+    {
+      const data = scenario.productGroupsExceptedIds.concat(scenario.productExceptedCodes);
+      const formControlName = 'productGroupsExcepted';
+      this.updateProductGroupsIdCode(data, productGroups, formControlName);
+    }
+
+    if (scenario.productGroupsConditionIds.length !== 0 || scenario.productConditionCodes.length !== 0)
+    {
+      const data = scenario.productGroupsConditionIds.concat(scenario.productConditionCodes);
+      const formControlName = 'productGroupsCondition';
+      this.updateProductGroupsIdCode(data, productGroups, formControlName);
+    }
+  }
 
   private validateDiscountCodeType(value: any)
   {
@@ -207,7 +214,6 @@ export class DiscountService extends BaseService<Discount>
 
   private updateGeneralCustomer(scenario: Discount)
   {
-    const scenarioGeneralCustomers = new Array<IdTitleTypeBrandId>();
     if (scenario.id && (scenario.groupIds.length === 0 && scenario.campaignIds.length === 0 && scenario.phones.length === 0))
     {
       this.setValue('generalCustomers', ['all']);
@@ -216,28 +222,36 @@ export class DiscountService extends BaseService<Discount>
     {
       const generalCustomers = this.getCustomerByBrandId(scenario.brandIds);
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
-      [...scenario.groupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
-      {
-        if (Utility.isNullOrEmpty(p)) { return; }
-        const generalCustomer = generalCustomers.find(customer => customer.id === p);
-        if (!generalCustomer || generalCustomer.type === 3)
-        {
-          scenarioGeneralCustomers.push({ id: p, title: p, type: 3, brandId: '' });
-          return;
-        }
-        scenarioGeneralCustomers.push(generalCustomer);
-      });
-
-      this.setValue('generalCustomers', scenarioGeneralCustomers.map(p => p.id));
-
-      if (scenarioGeneralCustomers.length > 0)
-      {
-        const data = this.baseInfoService?.generalCustomers$?.getValue()?.concat(scenarioGeneralCustomers.filter(p => p.type === 3));
-        this.baseInfoService?.generalCustomers$?.next(data);
-        this.baseInfoService?.generalCustomersByBrandId$?.next(data);
-      }
+      this.updateCustomerGroupInLocal(scenario, generalCustomers);
     }
   }
+  public updateCustomerGroupInLocal(scenario: Discount, generalCustomers: IdTitleTypeBrandId[])
+  {
+    const scenarioGeneralCustomers = new Array<IdTitleTypeBrandId>();
+    [...scenario.groupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
+    {
+      if (Utility.isNullOrEmpty(p)) { return; }
+      const generalCustomer = generalCustomers.find(customer => customer.id === p);
+      if (generalCustomer)
+      {
+        scenarioGeneralCustomers.push(generalCustomer);
+      } else if (isValidPhonenumber(p))
+      {
+        scenarioGeneralCustomers.push({ id: p, title: p, type: 3, brandId: '' });
+        return;
+      }
+    });
+
+    this.setValue('generalCustomers', scenarioGeneralCustomers.map(p => p.id));
+
+    if (scenarioGeneralCustomers.length > 0)
+    {
+      const data = this.baseInfoService?.generalCustomers$?.getValue()?.concat(scenarioGeneralCustomers.filter(p => p.type === 3));
+      this.baseInfoService?.generalCustomers$?.next(data);
+      this.baseInfoService?.generalCustomersByBrandId$?.next(data);
+    }
+  }
+
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
   {
     return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
@@ -377,61 +391,14 @@ export class DiscountService extends BaseService<Discount>
       value.randomDiscountCodeCount = 0;
     }
 
-    value.groupIds = [];
-    value.campaignIds = [];
-    value.phones = [];
-    const generalCustomers = this.baseInfoService.generalCustomers$.getValue();
-
-    [...value.generalCustomers].forEach((p: string) =>
-    {
-      const generalCustomer = generalCustomers.find(customer => customer.id === p);
-      if (!generalCustomer)
-      {
-        value.phones.push(p);
-        return;
-      }
-      switch (generalCustomer?.type)
-      {
-        case 1: { value.groupIds.push(p); break; }
-        case 2: { value.campaignIds.push(p); break; }
-        default: { value.phones.push(p); break; }
-      }
-    });
-
-    if (value.generalCustomers.some((p: string) => p === 'all'))
-    {
-      value.groupIds = [];
-      value.campaignIds = [];
-      value.phones = [];
-    }
-
+    this.updatecustomerGroupForSubmit(value, true);
 
     if (value.productGroupIds.some((p: string) => p === 'all'))
     {
       value.productGroupIds = [];
     }
 
-    delete value.generalCustomers;
-
-
-    let idsName = "productGroupIds";
-    let codesName = "productCodes";
-    let formName = "productGroups";
-    const productGroups = this.baseInfoService.productGroups$.getValue();
-
-    this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups);
-
-    idsName = "productGroupsExceptedIds";
-    codesName = "productExceptedCodes";
-    formName = "productGroupsExcepted";
-
-    this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups);
-
-    idsName = "productGroupsConditionIds";
-    codesName = "productConditionCodes";
-    formName = "productGroupsCondition";
-
-    this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups);
+    this.updateProductGroupsForSubmit(value, true);
 
     if (value.brandIds.some((p: string) => p === 'all'))
     {
@@ -466,6 +433,63 @@ export class DiscountService extends BaseService<Discount>
         this.uiService.success('با موفقیت ثبت شد.');
     });
 
+  }
+
+  private updatecustomerGroupForSubmit(value: any, needDelete = false)
+  {
+    value.groupIds = [];
+    value.campaignIds = [];
+    value.phones = [];
+    const generalCustomers = this.baseInfoService.generalCustomers$.getValue();
+
+    [...value.generalCustomers].forEach((p: string) =>
+    {
+      const generalCustomer = generalCustomers.find(customer => customer.id === p);
+      if (!generalCustomer)
+      {
+        value.phones.push(p);
+        return;
+      }
+      switch (generalCustomer?.type)
+      {
+        case 1: { value.groupIds.push(p); break; }
+        case 2: { value.campaignIds.push(p); break; }
+        default: { value.phones.push(p); break; }
+      }
+    });
+
+    if (value.generalCustomers.some((p: string) => p === 'all'))
+    {
+      value.groupIds = [];
+      value.campaignIds = [];
+      value.phones = [];
+    }
+    if (needDelete)
+    {
+      delete value.generalCustomers;
+    }
+  }
+
+  public updateProductGroupsForSubmit(value: any, needDelete = false)
+  {
+    let idsName = "productGroupIds";
+    let codesName = "productCodes";
+    let formName = "productGroups";
+    const productGroups = this.baseInfoService.productGroups$.getValue();
+
+    this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups, needDelete);
+
+    idsName = "productGroupsExceptedIds";
+    codesName = "productExceptedCodes";
+    formName = "productGroupsExcepted";
+
+    this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups, needDelete);
+
+    idsName = "productGroupsConditionIds";
+    codesName = "productConditionCodes";
+    formName = "productGroupsCondition";
+
+    this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups, needDelete);
   }
 
   savePattern(): void

@@ -204,13 +204,15 @@ export abstract class BaseService<T>{
     data.forEach((p: any) =>
     {
       if (Utility.isNullOrEmpty(p?.toString())) { return; }
-      const productGroup = productGroups.find(customer => customer.id === p?.toString());
-      if (!productGroup || productGroup.id === productGroup.title)
+      const productGroup = productGroups.find(productGroup => productGroup.id === p?.toString());
+      if (productGroup)
+      {
+        scenarioProductGroups.push(productGroup);
+      } else if (isValidProductCode(p))
       {
         scenarioProductGroups.push({ id: p?.toString(), title: p?.toString(), brandId: 'null' });
         return;
       }
-      scenarioProductGroups.push(productGroup);
     });
 
     this.setValue(formControlName, scenarioProductGroups.map(p => p.id));
@@ -224,7 +226,7 @@ export abstract class BaseService<T>{
     }
   }
 
-  public updateValueForProductGroupsCodeIds(value: any, idsName: string, codesName: string, formName: string, productGroups: ProductGroup[])
+  public updateValueForProductGroupsCodeIds(value: any, idsName: string, codesName: string, formName: string, productGroups: ProductGroup[], needDelete = false)
   {
     value[idsName] = [];
     value[codesName] = [];
@@ -248,8 +250,8 @@ export abstract class BaseService<T>{
       value[idsName] = [];
       value[codesName] = [];
     }
-
-    delete value[formName];
+    if (needDelete)
+    { delete value[formName]; }
   }
 
 }
@@ -257,6 +259,15 @@ export abstract class BaseService<T>{
 export function isValidProductCode(term: string)
 {
   if (term && new RegExp(Utility.numberRegEx).test(term) && term.length === 7)
+  {
+    return true;
+  }
+  return false;
+};
+
+export function isValidPhonenumber(term: string)
+{
+  if (term && new RegExp(Utility.mobileRegEx).test(term))
   {
     return true;
   }

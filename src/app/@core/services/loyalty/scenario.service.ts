@@ -68,15 +68,8 @@ export class ScenarioService extends BaseService<Scenario>
     });
 
     this.baseInfoService?.productCodes$?.next(scenario.freeProductCodes.concat(scenario.discountedProductCodes));
-
-    if (scenario.id && (scenario.discountedProductGroupIds.length === 0 && scenario.discountedProductCodes.length === 0)) { } else
-    {
-      const data = scenario.discountedProductGroupIds.concat(scenario.discountedProductCodes);
-      const formControlName = 'productGroups';
-      const productGroups = this.baseInfoService?.productGroups$?.getValue();
-
-      this.updateProductGroupsIdCode(data, productGroups, formControlName);
-    }
+    const productGroups = this.baseInfoService?.productGroups$?.getValue();
+    this.productGroupUpdate(scenario, productGroups);
 
     this.form.get('behavioralReward.discountCodePercent')?.valueChanges.subscribe(value =>
     {
@@ -111,13 +104,15 @@ export class ScenarioService extends BaseService<Scenario>
       this.percentValidation(value);
     });
 
-
-    this.updateGeneralCustomer(scenario);
-
+    const generalCustomers = this.getCustomerByBrandId(scenario.brandIds);
+    this.updateGeneralCustomer(scenario, generalCustomers);
+    this.updateDiscountCode(scenario.brandIds);
     this.form.controls['brandIds'].valueChanges.subscribe((value: Array<string>) =>
     {
       const generalCustomers = this.getCustomerByBrandId(value);
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
+      this.updateCustomerGroupsForSubmit(this.form.value, false);
+      this.updateGeneralCustomer(this.form.value, generalCustomers);
       this.baseInfoService?.getProductGroupsByBrandIds(value)?.subscribe(productGroups =>
       {
         const defArray: Array<ProductGroup> = [{ id: 'all', title: 'همه', brandId: '' }];
@@ -125,6 +120,9 @@ export class ScenarioService extends BaseService<Scenario>
         this.baseInfoService.productGroupsSingle$.next(productGroups);
         productGroups = productGroups.concat(defArray);
         this.baseInfoService.productGroups$.next(productGroups);
+        this.updateProductGroupForSubmin(this.form.value, false);
+        this.productGroupUpdate(this.form.value, productGroups);
+        this.updateProductGroupsIdByBrandId(productGroups);
       });
 
       this.form.controls['freeProductCodes'].enable();
@@ -135,7 +133,6 @@ export class ScenarioService extends BaseService<Scenario>
         this.form.controls['freeProductCodes'].disable();//addFreeProductReward
         this.form.get('purchaseReward.addFreeProductReward')?.setValue(false);
         this.form.get('purchaseReward.addFreeProductReward')?.disable();
-
       }
 
       this.form.get('purchaseReward.addFreeProductReward')?.valueChanges.subscribe(value =>
@@ -149,11 +146,7 @@ export class ScenarioService extends BaseService<Scenario>
         }
       });
 
-      this.baseInfoService?.GetSenarioDiscountCodePatternsByBrandIds(value)?.subscribe(codePattern =>
-      {
-        if (!codePattern) { codePattern = []; }
-        this.baseInfoService.senarioDiscountCodePatterns$.next(codePattern);
-      });
+      this.updateDiscountCode(value);
 
     });
 
@@ -212,37 +205,72 @@ export class ScenarioService extends BaseService<Scenario>
     this.form.markAllAsTouched();
   }
 
-  private updateGeneralCustomer(scenario: Scenario)
+  private updateProductGroupsIdByBrandId(productGroups: ProductGroup[] | null)
   {
-    const scenarioGeneralCustomers = new Array<IdTitleTypeBrandId>();
+    const productGroupIds = this.form.get('productGroupIds');
+    if (productGroupIds)
+    {
+      productGroupIds.setValue(productGroupIds.value.filter((a: any) => productGroups?.some(b => b.id === a)));
+    }
+  }
+
+  private updateDiscountCode(value: string[])
+  {
+    this.baseInfoService?.GetSenarioDiscountCodePatternsByBrandIds(value)?.subscribe(codePattern =>
+    {
+      if (!codePattern) { codePattern = []; }
+      this.baseInfoService.senarioDiscountCodePatterns$.next(codePattern);
+      this.form.get('purchaseReward.discountCodePattern')?.setValue(null);
+      this.form.get('behavioralReward.discountCodePattern')?.setValue(null);
+    });
+  }
+
+  private productGroupUpdate(scenario: Scenario, productGroups: Array<ProductGroup>)
+  {
+    if (scenario.discountedProductGroupIds.length !== 0 || scenario.discountedProductCodes.length !== 0)
+    {
+      const data = scenario.discountedProductGroupIds.concat(scenario.discountedProductCodes);
+      const formControlName = 'productGroups';
+      this.updateProductGroupsIdCode(data, productGroups, formControlName);
+    }
+  }
+
+  private updateGeneralCustomer(scenario: Scenario, generalCustomers: IdTitleTypeBrandId[])
+  {
     if (scenario.id && (scenario.customerGroupIds.length === 0 && scenario.campaignIds.length === 0 && scenario.phones.length === 0))
     {
       this.setValue('generalCustomers', ['all']);
     }
     else
     {
-      const generalCustomers = this.getCustomerByBrandId(scenario.brandIds);
-      this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
-      [...scenario.customerGroupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
+      this.updateCustomerGroupInLocal(scenario, generalCustomers);
+    }
+  }
+
+  private updateCustomerGroupInLocal(scenario: Scenario, generalCustomers: IdTitleTypeBrandId[])
+  {
+    const scenarioGeneralCustomers = new Array<IdTitleTypeBrandId>();
+    [...scenario.customerGroupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
+    {
+      if (Utility.isNullOrEmpty(p)) { return; }
+      const generalCustomer = generalCustomers.find(customer => customer.id === p);
+      if (generalCustomer)
       {
-        if (Utility.isNullOrEmpty(p)) { return; }
-        const generalCustomer = generalCustomers.find(customer => customer.id === p);
-        if (!generalCustomer || generalCustomer.type === 3)
-        {
-          scenarioGeneralCustomers.push({ id: p, title: p, type: 3, brandId: '' });
-          return;
-        }
         scenarioGeneralCustomers.push(generalCustomer);
-      });
-
-      this.setValue('generalCustomers', scenarioGeneralCustomers.map(p => p.id));
-
-      if (scenarioGeneralCustomers.length > 0)
+      } else if (isValidProductCode(p))
       {
-        const data = this.baseInfoService?.generalCustomers$?.getValue()?.concat(scenarioGeneralCustomers.filter(p => p.type === 3));
-        this.baseInfoService?.generalCustomers$?.next(data);
-        this.baseInfoService?.generalCustomersByBrandId$?.next(data);
+        scenarioGeneralCustomers.push({ id: p, title: p, type: 3, brandId: '' });
+        return;
       }
+    });
+
+    this.setValue('generalCustomers', scenarioGeneralCustomers.map(p => p.id));
+
+    if (scenarioGeneralCustomers.length > 0)
+    {
+      const data = this.baseInfoService?.generalCustomers$?.getValue()?.concat(scenarioGeneralCustomers.filter(p => p.type === 3));
+      this.baseInfoService?.generalCustomers$?.next(data);
+      this.baseInfoService?.generalCustomersByBrandId$?.next(data);
     }
   }
 
@@ -443,65 +471,15 @@ export class ScenarioService extends BaseService<Scenario>
       delete value.activityId;
     }
 
-    value.customerGroupIds = [];
-    value.campaignIds = [];
-    value.phones = [];
-    const generalCustomers = this.baseInfoService.generalCustomers$.getValue();
-
-    [...value.generalCustomers].forEach((p: string) =>
-    {
-      const generalCustomer = generalCustomers.find(customer => customer.id === p);
-      if (!generalCustomer)
-      {
-        value.phones.push(p);
-        return;
-      }
-      switch (generalCustomer?.type)
-      {
-        case 1: { value.customerGroupIds.push(p); break; }
-        case 2: { value.campaignIds.push(p); break; }
-        default: { value.phones.push(p); break; }
-      }
-    });
-
-    if (value.generalCustomers.some((p: string) => p === 'all'))
-    {
-      value.customerGroupIds = [];
-      value.campaignIds = [];
-      value.phones = [];
-    }
-
+    this.updateCustomerGroupsForSubmit(value, true);
 
     if (value.productGroupIds.some((p: string) => p === 'all'))
     {
       value.productGroupIds = [];
     }
 
-    delete value.generalCustomers;
 
-    value.discountedProductGroupIds = [];
-    value.discountedProductCodes = [];
-    const productGroups = this.baseInfoService.productGroups$.getValue();
-
-    [...value.productGroups].forEach((p: any) =>
-    {
-      const productGroup = productGroups.find(a => a.id === p);
-      if (!productGroup)
-      {
-        if (new RegExp(Utility.numberRegEx).test(p?.toString()) && p?.toString()?.length === 7)
-        { value.discountedProductCodes.push(p?.toString()); }
-        return;
-      }
-      value.discountedProductGroupIds.push(p);
-    });
-
-    if (value.productGroups.some((p: string) => p === 'all'))
-    {
-      value.discountedProductGroupIds = [];
-      value.discountedProductCodes = [];
-    }
-
-    delete value.productGroups;
+    this.updateProductGroupForSubmin(value, true);
 
     if (value.brandIds.some((p: string) => p === 'all'))
     {
@@ -565,6 +543,51 @@ export class ScenarioService extends BaseService<Scenario>
 
     });
 
+  }
+
+  private updateCustomerGroupsForSubmit(value: any, needDelete = false)
+  {
+    value.customerGroupIds = [];
+    value.campaignIds = [];
+    value.phones = [];
+    const generalCustomers = this.baseInfoService.generalCustomers$.getValue();
+
+    [...value.generalCustomers].forEach((p: string) =>
+    {
+      const generalCustomer = generalCustomers.find(customer => customer.id === p);
+      if (!generalCustomer)
+      {
+        value.phones.push(p);
+        return;
+      }
+      switch (generalCustomer?.type)
+      {
+        case 1: { value.customerGroupIds.push(p); break; }
+        case 2: { value.campaignIds.push(p); break; }
+        default: { value.phones.push(p); break; }
+      }
+    });
+
+    if (value.generalCustomers.some((p: string) => p === 'all'))
+    {
+      value.customerGroupIds = [];
+      value.campaignIds = [];
+      value.phones = [];
+    }
+    if (needDelete)
+    {
+      delete value.generalCustomers;
+    }
+  }
+
+  private updateProductGroupForSubmin(value: any, needDelete: boolean)
+  {
+    let idsName = "discountedProductGroupIds";
+    let codesName = "discountedProductCodes";
+    let formName = "productGroups";
+    const productGroups = this.baseInfoService.productGroups$.getValue();
+
+    this.updateValueForProductGroupsCodeIds(value, idsName, codesName, formName, productGroups, needDelete);
   }
 }
 
