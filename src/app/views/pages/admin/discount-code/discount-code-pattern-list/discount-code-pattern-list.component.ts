@@ -41,9 +41,9 @@ export class DiscountCodePatternListComponent extends BaseSearch implements OnIn
   {
     if (code)
     {
-      this.router.navigate(['/admin/main/discountcode/edit'], { queryParams: { id: code } });
+      this.router.navigate(['/admin/main/discount-code/edit'], { queryParams: { id: code } });
       return;
     }
-    this.router.navigate(['/admin/main/discountcode/edit']);
+    this.router.navigate(['/admin/main/discount-code/edit']);
   }
 }

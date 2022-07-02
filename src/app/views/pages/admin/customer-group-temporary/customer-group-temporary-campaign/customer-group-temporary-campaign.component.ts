@@ -14,34 +14,35 @@ export class CustomerGroupTemporaryCampaignComponent implements OnInit
   selFiles: FileList | null = null;
   formData = new FormData();
 
-  constructor(private router: Router, public campaignService: CampaignService, private route: ActivatedRoute)
+  constructor(private router: Router, public service: CampaignService, private route: ActivatedRoute)
+  {
+
+
+  }
+
+  ngOnInit(): void
   {
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
       if (id)
       {
-        this.campaignService.getCampaignById(id).subscribe((value) =>
+        this.service.getCampaignById(id).subscribe((value) =>
         {
           if (!value) { value = campaignInit; }
-          this.campaignService.createForm(value);
+          this.service.createForm(value);
         });
       } else
       {
-        this.campaignService.createForm(campaignInit);
+        this.service.createForm(campaignInit);
 
       }
     });
-
-  }
-
-  ngOnInit(): void
-  {
   }
 
   backToList()
   {
-    this.router.navigate(['/admin/main/customergrouptemporary']);
+    this.router.navigate(['/admin/main/customer-group-temporary']);
   }
 
   fileSelectionChanged(event: any)
@@ -73,7 +74,7 @@ export class CustomerGroupTemporaryCampaignComponent implements OnInit
           this.selFiles[i].name);
       }
 
-      this.campaignService.fileUpload(this.formData);
+      this.service.fileUpload(this.formData);
     }
   }
 }

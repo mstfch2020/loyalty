@@ -38,10 +38,10 @@ export class CustomerGroupTemporaryListComponent extends BaseSearch implements O
   {
     if (id)
     {
-      this.router.navigate(['/admin/main/customergrouptemporary/edit'], { queryParams: { id: id } });
+      this.router.navigate(['/admin/main/customer-group-temporary/edit'], { queryParams: { id: id } });
       return;
     }
-    this.router.navigate(['/admin/main/customergrouptemporary/edit']);
+    this.router.navigate(['/admin/main/customer-group-temporary/edit']);
   }
 
   deleteItem($event: Event, id: string): void

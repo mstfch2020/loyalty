@@ -14,6 +14,17 @@ export class CustomerGroupEditComponent implements OnInit
 
   constructor(private router: Router, public baseInfoService: BaseInfoService, public customerGroupService: CustomerGroupService, private route: ActivatedRoute)
   {
+
+  }
+
+  loadBaseInfo(value: CustomerGroup)
+  {
+    this.baseInfoService.loadBaseInfo(() => this.customerGroupService.createForm(value));
+    this.baseInfoService.loadCustomerLevel();
+  }
+
+  ngOnInit(): void
+  {
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
@@ -32,22 +43,12 @@ export class CustomerGroupEditComponent implements OnInit
         this.loadBaseInfo(customerGroupInit);
       }
     });
-  }
-
-  loadBaseInfo(value: CustomerGroup)
-  {
-    this.baseInfoService.loadBaseInfo(() => this.customerGroupService.createForm(value));
-    this.baseInfoService.loadCustomerLevel();
-  }
-
-  ngOnInit(): void
-  {
     this.customerGroupService.form.markAllAsTouched();
   }
 
   backToList()
   {
-    this.router.navigate(['/admin/main/customergroup']);
+    this.router.navigate(['/admin/main/customer-group']);
   }
 
 

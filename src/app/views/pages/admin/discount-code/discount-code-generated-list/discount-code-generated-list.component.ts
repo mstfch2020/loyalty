@@ -37,9 +37,9 @@ export class DiscountCodeGeneratedListComponent extends BaseSearch implements On
   {
     if (id)
     {
-      this.router.navigate(['/admin/main/discountcode/edit'], { queryParams: { id: id } });
+      this.router.navigate(['/admin/main/discount-code/edit'], { queryParams: { id: id } });
       return;
     }
-    this.router.navigate(['/admin/main/discountcode/edit']);
+    this.router.navigate(['/admin/main/discount-code/edit']);
   }
 }

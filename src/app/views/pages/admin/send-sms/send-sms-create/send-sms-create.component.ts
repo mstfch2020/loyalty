@@ -14,6 +14,11 @@ export class SendSmsCreateComponent implements OnInit
 
   constructor(public service: SMSService, public baseInfoService: BaseInfoService, private route: ActivatedRoute)
   {
+
+  }
+
+  ngOnInit(): void
+  {
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
@@ -26,10 +31,6 @@ export class SendSmsCreateComponent implements OnInit
       this.updateScenarioFromServer(id);
     });
 
-  }
-
-  ngOnInit(): void
-  {
   }
 
   private updateScenarioFromServer(id: any)

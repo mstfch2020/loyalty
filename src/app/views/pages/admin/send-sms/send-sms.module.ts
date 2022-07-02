@@ -1,18 +1,20 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared.module";
-import { ScenarioComponents, ScenarioRoutingModule } from "./scenario-routing.module";
+import { sendSmsComponents, SendSmsRoutingModule } from "./send-sms-routing.module";
+
 
 @NgModule({
   declarations: [
-    ...ScenarioComponents
+    ...sendSmsComponents
   ],
   imports: [
-    ScenarioRoutingModule,
+    SendSmsRoutingModule,
     SharedModule
   ],
   exports: [
+
   ]
 })
-export class ScenarioModule
+export class SendSmsModule
 {
 }

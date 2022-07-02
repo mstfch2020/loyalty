@@ -46,9 +46,9 @@ export class CustomerGroupListComponent extends BaseSearch implements OnInit
   {
     if (id)
     {
-      this.router.navigate(['/admin/main/customergroup/edit'], { queryParams: { id: id } });
+      this.router.navigate(['/admin/main/customer-group/edit'], { queryParams: { id: id } });
       return;
     }
-    this.router.navigate(['/admin/main/customergroup/edit']);
+    this.router.navigate(['/admin/main/customer-group/edit']);
   }
 }

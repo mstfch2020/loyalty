@@ -76,7 +76,7 @@ export class SMSService extends BaseService<SMS>
     this.form.controls['startDate'].setErrors(null);
     if (!this.form.valid)
     {
-      this.uiService.showSnackBar('لطفاً مقادیر اجباری را وارد نمایید.', '', 3000);
+      this.uiService.alert('لطفاً مقادیر اجباری را وارد نمایید.');
       return;
     }
     console.log(this.form.value);
@@ -102,7 +102,7 @@ export class SMSService extends BaseService<SMS>
       if (!validateDate)
       {
         this.form.controls['startDate'].setErrors({ 'invalid': true });
-        this.uiService.showSnackBar('تاریخ نادرست است', '', 3000);
+        this.uiService.alert('تاریخ نادرست است');
         return;
       }
     }
@@ -110,9 +110,9 @@ export class SMSService extends BaseService<SMS>
     callPostService<SMS>(url, this.http, this.uiService, value).subscribe(value =>
     {
       // this.form.controls['id'].setValue(value?.id);
-      this.uiService.showSnackBar('با موفقیت ثبت شد.', '', 3000);
+      if (value)
+        this.uiService.success('با موفقیت ثبت شد.');
     });
-
   }
 
   // getValue(name: string)

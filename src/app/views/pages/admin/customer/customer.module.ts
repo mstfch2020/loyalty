@@ -1,18 +1,19 @@
 import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared.module";
-import { ScenarioComponents, ScenarioRoutingModule } from "./scenario-routing.module";
+import { customerComponents, CustomerRoutingModule } from "./customer-routing.module";
 
 @NgModule({
   declarations: [
-    ...ScenarioComponents
+    ...customerComponents
   ],
   imports: [
-    ScenarioRoutingModule,
+    CustomerRoutingModule,
     SharedModule
   ],
   exports: [
+
   ]
 })
-export class ScenarioModule
+export class CustomerModule
 {
 }

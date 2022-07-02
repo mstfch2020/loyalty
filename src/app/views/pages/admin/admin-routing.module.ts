@@ -1,25 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CustomerGroupTemporaryCampaignComponent } from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
-import { CustomerGroupTemporaryListComponent } from "./customer-group-temporary/customer-group-temporary-list/customer-group-temporary-list.component";
-import { CustomerGroupTemporaryComponent } from "./customer-group-temporary/customer-group-temporary.component";
-import { CustomerGroupEditComponent } from './customer-group/customer-group-edit/customer-group-edit.component';
-import { CustomerGroupListComponent } from './customer-group/customer-group-list/customer-group-list.component';
-import { CustomerGroupComponent } from "./customer-group/customer-group.component";
-import { CustomerEditComponent } from "./customer/customer-edit/customer-edit.component";
-import { CustomerListComponent } from "./customer/customer-list/customer-list.component";
-import { CustomerComponent } from "./customer/customer.component";
-import { DiscountCodeGeneratedListComponent } from './discount-code/discount-code-generated-list/discount-code-generated-list.component';
-import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern-edit/discount-code-pattern-edit.component';
-import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern-list/discount-code-pattern-list.component';
-import { DiscountCodeComponent } from "./discount-code/discount-code.component";
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from "./profile/profile.component";
 import { ReportsComponent } from "./reports/reports.component";
-import { SendSmsCreateComponent } from "./send-sms/send-sms-create/send-sms-create.component";
-import { SendSmsListComponent } from "./send-sms/send-sms-list/send-sms-list.component";
-import { SendSmsPatternComponent } from "./send-sms/send-sms-pattern/send-sms-pattern.component";
-import { SendSmsComponent } from "./send-sms/send-sms.component";
 import { SystemSettingsBehavioralEditComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-edit/system-settings-behavioral-edit.component';
 import { SystemSettingsBehavioralListComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-list/system-settings-behavioral-list.component';
 import { SystemSettingsBehavioralComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral.component';
@@ -41,84 +24,34 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
+        path: 'scenario',
+        loadChildren: () => import('src/app/views/pages/admin/scenario/scenario.module')
+          .then(m => m.ScenarioModule)//, canLoad: [AuthGuard]
+      },
+      {
         path: 'customer',
-        component: CustomerComponent,
-        children: [
-          {
-            path: '',
-            component: CustomerListComponent
-          },
-          {
-            path: 'list',
-            component: CustomerListComponent
-          }, {
-            path: 'edit',
-            component: CustomerEditComponent
-          }
-
-        ]
+        loadChildren: () => import('src/app/views/pages/admin/customer/customer.module')
+          .then(m => m.CustomerModule)//, canLoad: [AuthGuard]
       },
       {
-        path: 'customergroup',
-        component: CustomerGroupComponent,
-        children: [
-          {
-            path: '',
-            component: CustomerGroupListComponent
-          },
-          {
-            path: 'list',
-            component: CustomerGroupListComponent
-          }, {
-            path: 'edit',
-            component: CustomerGroupEditComponent
-          }
-        ]
+        path: 'customer-group',
+        loadChildren: () => import('src/app/views/pages/admin/customer-group/customer-group.module')
+          .then(m => m.CustomerGroupModule)//, canLoad: [AuthGuard]
       },
       {
-        path: 'customergrouptemporary',
-        component: CustomerGroupTemporaryComponent,
-        children: [
-          {
-            path: '',
-            component: CustomerGroupTemporaryListComponent,
-          },
-          {
-            path: 'list',
-            component: CustomerGroupTemporaryListComponent,
-          },
-          {
-            path: 'edit',
-            component: CustomerGroupTemporaryCampaignComponent,
-          },
-          {
-            path: 'campaign',
-            component: CustomerGroupTemporaryCampaignComponent,
-          }
-        ]
+        path: 'customer-group-temporary',
+        loadChildren: () => import('src/app/views/pages/admin/customer-group-temporary/customer-group-temporary.module')
+          .then(m => m.CustomerGroupTemporaryModule)//, canLoad: [AuthGuard]
       },
       {
         path: 'sms',
-        component: SendSmsComponent,
-        children: [
-          {
-            path: '',
-            redirectTo: 'pattern',
-            pathMatch: 'full'
-          },
-          {
-            path: 'list',
-            component: SendSmsListComponent,
-          },
-          {
-            path: 'pattern',
-            component: SendSmsPatternComponent,
-          },
-          {
-            path: 'create',
-            component: SendSmsCreateComponent,
-          }
-        ]
+        loadChildren: () => import('src/app/views/pages/admin/send-sms/send-sms.module')
+          .then(m => m.SendSmsModule)//, canLoad: [AuthGuard]
+      },
+      {
+        path: 'discount-code',
+        loadChildren: () => import('src/app/views/pages/admin/discount-code/discount-code.module')
+          .then(m => m.DiscountCodeModule)//, canLoad: [AuthGuard]
       },
       {
         path: 'reports',
@@ -211,34 +144,7 @@ const routes: Routes = [
           },
         ]
       },
-      {
-        path: 'scenario',
-        loadChildren: () => import('src/app/views/pages/admin/scenario/scenario.module')
-          .then(m => m.ScenarioModule)//, canLoad: [AuthGuard]
-      },
-      {
-        path: 'discountcode',
-        component: DiscountCodeComponent,
-        children: [
-          {
-            path: '',
-            redirectTo: 'patternlist',
-            pathMatch: 'full'
-          },
-          {
-            path: 'patternlist',
-            component: DiscountCodePatternListComponent,
-          },
-          {
-            path: 'generatedlist',
-            component: DiscountCodeGeneratedListComponent,
-          },
-          {
-            path: 'edit',
-            component: DiscountCodePatternEditComponent
-          }
-        ]
-      },
+
       {
         path: 'profile',
         component: ProfileComponent,

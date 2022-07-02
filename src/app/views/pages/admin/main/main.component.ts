@@ -25,17 +25,17 @@ export class MainComponent implements OnInit
     this.menuItems = [
       {
         title: 'سناریوها',
-        url: '/admin/main/scenario/list',
+        url: '/admin/main/scenario',
         visible: true
       },
       {
         title: 'گروه مشتری',
-        url: '/admin/main/customergroup',
+        url: '/admin/main/customer-group',
         visible: true
       },
       {
         title: 'گروه مشتری موقت',
-        url: '/admin/main/customergrouptemporary',
+        url: '/admin/main/customer-group-temporary',
         visible: true
       },
       {
@@ -60,7 +60,7 @@ export class MainComponent implements OnInit
       },
       {
         title: 'کد تخفیف',
-        url: '/admin/main/discountcode',
+        url: '/admin/main/discount-code',
         visible: true
       },
       {

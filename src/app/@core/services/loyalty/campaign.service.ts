@@ -4,7 +4,6 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
 import { Campaign, CampaignGrid, campaignInit } from "../../data/loyalty/campaign.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
-import { SMS } from "../../data/loyalty/sms.model";
 import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
@@ -20,7 +19,7 @@ export class CampaignService extends BaseService<Campaign>
   constructor(public override formBuilder: FormBuilder,
     public http: HttpClient,
     public settingService: SettingsService,
-    public override uiService: UiService, public fileSrevice: FileSrevice, public override baseInfoService: BaseInfoService)
+    public override uiService: UiService, public fileService: FileSrevice, public override baseInfoService: BaseInfoService)
   {
     super(formBuilder, uiService, baseInfoService, campaignInit);
   }
@@ -42,10 +41,10 @@ export class CampaignService extends BaseService<Campaign>
 
   fileUpload(formData: FormData)
   {
-    this.fileSrevice.fileUpload(formData).subscribe(value =>
+    this.fileService.fileUpload(formData).subscribe(value =>
     {
       this.setValue('fileId', value.fileId.id);
-      this.uiService.showSnackBar('فایل با موفقیت بارگزاری شد.', '', 3000);
+      this.uiService.success('فایل با موفقیت بارگزاری شد.');
     });
   }
 
@@ -75,7 +74,7 @@ export class CampaignService extends BaseService<Campaign>
     const url = this.settingService.settings?.baseUrl + `Campaign/${ option }`;
     if (Utility.isNullOrEmpty(this.getValue('fileId')))
     {
-      this.uiService.showSnackBar('ابتدا فایل را بارگزاری نمایید .', '', 3000);
+      this.uiService.alert('ابتدا فایل را بارگزاری نمایید .');
       return;
     }
 
@@ -84,10 +83,10 @@ export class CampaignService extends BaseService<Campaign>
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
 
 
-    callPostService<SMS>(url, this.http, this.uiService, value).subscribe(value =>
+    callPostService<Campaign>(url, this.http, this.uiService, value).subscribe(value =>
     {
       this.form.controls['id'].setValue(value?.id);
-      this.uiService.showSnackBar('با موفقیت ثبت شد.', '', 3000);
+      this.uiService.success('با موفقیت ثبت شد.');
     });
 
   }

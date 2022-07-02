@@ -6,9 +6,9 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { NgPersianDatepickerModule } from "ng-persian-datepicker";
 import { NgxMaskModule } from "ngx-mask";
 import { FilterPipe } from "src/app/@core/data/pipes/filter.pipe";
+import { PaginationComponent } from "../../components/pagination/pagination.component";
 import { StateStatusViewComponent } from "../../components/scenario-state/state-status-view.component";
 import { FilterComponent } from "./filter/filter.component";
-import { PaginationComponent } from "./pagination/pagination.component";
 import { SwitchComponent } from "./switch/switch.component";
 
 const COMPONENTS = [
@@ -18,23 +18,25 @@ const COMPONENTS = [
   FilterComponent,
   FilterPipe,
 ];
+const CORE_MODULES = [
+  FormsModule,
+  CommonModule,
+  NgbModule,
+  ReactiveFormsModule,
+  NgSelectModule,
+  NgPersianDatepickerModule,
+  NgxMaskModule];
 
 @NgModule({
   declarations: [
     ...COMPONENTS,
   ],
   imports: [
-    FormsModule,
-    CommonModule,
-    NgbModule,
-    ReactiveFormsModule,
-    NgSelectModule,
-    NgPersianDatepickerModule,
-    NgxMaskModule.forRoot(),
+    ...CORE_MODULES
   ],
   providers: [],
   exports: [
-    ...COMPONENTS
+    ...COMPONENTS, ...CORE_MODULES
   ]
 })
 export class SharedModule

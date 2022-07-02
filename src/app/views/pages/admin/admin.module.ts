@@ -7,29 +7,11 @@ import { NgPersianDatepickerModule } from "ng-persian-datepicker";
 import { NgxMaskModule } from 'ngx-mask';
 import { DisplayAlertComponent } from "../../general/display-alert/display-alert.component";
 import { AdminRoutingModule } from "./admin-routing.module";
-import { CustomerGroupTemporaryCampaignComponent } from './customer-group-temporary/customer-group-temporary-campaign/customer-group-temporary-campaign.component';
 import { CustomerGroupTemporaryEditComponent } from './customer-group-temporary/customer-group-temporary-edit/customer-group-temporary-edit.component';
-import { CustomerGroupTemporaryListComponent } from './customer-group-temporary/customer-group-temporary-list/customer-group-temporary-list.component';
-import { CustomerGroupTemporaryRootComponent } from './customer-group-temporary/customer-group-temporary-root/customer-group-temporary-root.component';
-import { CustomerGroupTemporaryComponent } from './customer-group-temporary/customer-group-temporary.component';
-import { CustomerGroupEditComponent } from './customer-group/customer-group-edit/customer-group-edit.component';
-import { CustomerGroupListComponent } from './customer-group/customer-group-list/customer-group-list.component';
-import { CustomerGroupComponent } from './customer-group/customer-group.component';
-import { CustomerEditComponent } from './customer/customer-edit/customer-edit.component';
-import { CustomerListComponent } from './customer/customer-list/customer-list.component';
-import { CustomerComponent } from './customer/customer.component';
-import { DiscountCodeGeneratedListComponent } from './discount-code/discount-code-generated-list/discount-code-generated-list.component';
-import { DiscountCodePatternEditComponent } from './discount-code/discount-code-pattern-edit/discount-code-pattern-edit.component';
-import { DiscountCodePatternListComponent } from './discount-code/discount-code-pattern-list/discount-code-pattern-list.component';
-import { DiscountCodeComponent } from './discount-code/discount-code.component';
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from "./profile/profile.component";
 import { ReportsComponent } from './reports/reports.component';
 import { ScenarioModule } from './scenario/scenario.module';
-import { SendSmsCreateComponent } from './send-sms/send-sms-create/send-sms-create.component';
-import { SendSmsListComponent } from './send-sms/send-sms-list/send-sms-list.component';
-import { SendSmsPatternComponent } from './send-sms/send-sms-pattern/send-sms-pattern.component';
-import { SendSmsComponent } from './send-sms/send-sms.component';
 import { SharedModule } from './shared.module';
 import { SystemSettingsBehavioralEditComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-edit/system-settings-behavioral-edit.component';
 import { SystemSettingsBehavioralListComponent } from './system-settings/system-settings-behavioral/system-settings-behavioral-list/system-settings-behavioral-list.component';
@@ -52,28 +34,13 @@ import { UsersComponent } from "./users/users.component";
     MainComponent,
     ProfileComponent,
     UsersComponent,
-    SendSmsComponent,
     ReportsComponent,
-    CustomerComponent,
-    CustomerListComponent,
-    CustomerEditComponent,
-    CustomerGroupComponent,
-    CustomerGroupListComponent,
-    CustomerGroupEditComponent,
-    CustomerGroupTemporaryComponent,
-    CustomerGroupTemporaryListComponent,
-    CustomerGroupTemporaryRootComponent,
-    CustomerGroupTemporaryCampaignComponent,
     SystemSettingsComponent,
     SystemSettingsDiscountComponent,
     SystemSettingsDiscountListComponent,
     SystemSettingsDiscountEditComponent,
     CustomerGroupTemporaryEditComponent,
-    DiscountCodeComponent,
     DisplayAlertComponent,
-    SendSmsPatternComponent,
-    SendSmsListComponent,
-    SendSmsCreateComponent,
     SystemSettingsBehavioralComponent,
     SystemSettingsBehavioralEditComponent,
     SystemSettingsBehavioralListComponent,
@@ -83,9 +50,6 @@ import { UsersComponent } from "./users/users.component";
     SystemSettingsGroupsComponent,
     SystemSettingsGroupsEditComponent,
     SystemSettingsGroupsListComponent,
-    DiscountCodeGeneratedListComponent,
-    DiscountCodePatternEditComponent,
-    DiscountCodePatternListComponent,
   ],
   imports: [
     FormsModule,
