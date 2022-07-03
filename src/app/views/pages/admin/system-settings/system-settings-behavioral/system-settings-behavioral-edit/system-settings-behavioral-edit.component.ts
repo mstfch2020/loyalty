@@ -14,19 +14,6 @@ export class SystemSettingsBehavioralEditComponent implements OnInit, OnDestroy
 
   constructor(private router: Router, public service: ActivityService, private route: ActivatedRoute, private baseInfoService: BaseInfoService, private elementRef: ElementRef)
   {
-
-    this.route.queryParams.subscribe(params =>
-    {
-      const id = params['id'];
-      this.updateFromServer(id);
-    });
-
-    this.route.params.subscribe(params =>
-    {
-      const id = params['id'];
-      this.updateFromServer(id);
-    });
-
   }
   private updateFromServer(id: any)
   {
@@ -62,6 +49,17 @@ export class SystemSettingsBehavioralEditComponent implements OnInit, OnDestroy
 
   ngOnInit(): void
   {
+    this.route.queryParams.subscribe(params =>
+    {
+      const id = params['id'];
+      this.updateFromServer(id);
+    });
+
+    this.route.params.subscribe(params =>
+    {
+      const id = params['id'];
+      this.updateFromServer(id);
+    });
   }
 
   backToList()

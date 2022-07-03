@@ -19,17 +19,7 @@ export class SystemSettingsGroupsEditComponent implements OnInit
     public service: GroupService,
     public baseInfoService: BaseInfoService)
   {
-    this.route.queryParams.subscribe(params =>
-    {
-      const id = params['id'];
-      this.updateFromServer(id);
-    });
 
-    this.route.params.subscribe(params =>
-    {
-      const id = params['id'];
-      this.updateFromServer(id);
-    });
   }
 
   private updateFromServer(id: any)
@@ -73,6 +63,17 @@ export class SystemSettingsGroupsEditComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.route.queryParams.subscribe(params =>
+    {
+      const id = params['id'];
+      this.updateFromServer(id);
+    });
+
+    this.route.params.subscribe(params =>
+    {
+      const id = params['id'];
+      this.updateFromServer(id);
+    });
     this.service.form.markAllAsTouched();
   }
 
