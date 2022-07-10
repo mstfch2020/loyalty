@@ -1,0 +1,20 @@
+<form action="" dir="rtl" *ngIf="isInListRoute">
+  <ul class="nav justify-content-start mt-3">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/admin/main/contract/active-contract-list']" routerLinkActive="active">
+        قراردادهای فعال
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/admin/main/discount-code/request-contract-list']" routerLinkActive="active">
+        درخواست های وارده
+      </a>
+    </li>
+  </ul>
+  <hr class="nav-line">
+
+</form>
+
+
+
+<router-outlet></router-outlet>

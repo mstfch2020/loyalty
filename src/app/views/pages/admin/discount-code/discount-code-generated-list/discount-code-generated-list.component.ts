@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { DiscountService } from 'src/app/@core/services/loyalty/discount.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
+import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
 
 @Component({
   selector: 'app-discount-code-generated-list',
@@ -13,12 +15,13 @@ export class DiscountCodeGeneratedListComponent extends BaseSearch implements On
 {
 
   theViewList = new Array<any>();
+  headerItems = ['ردیف', FilterNames.DiscountCode, FilterNames.volumeFilter, FilterNames.Brand, FilterNames.Date, 'الگوی تخفیف'];
 
   constructor(private router: Router,
     public service: DiscountService,
-    public override baseInfoService: BaseInfoService)
+    public override baseInfoService: BaseInfoService, public override baseSearchService: BaseSearchService)
   {
-    super(baseInfoService);
+    super(baseInfoService, baseSearchService);
   }
 
   override ngOnInit(): void

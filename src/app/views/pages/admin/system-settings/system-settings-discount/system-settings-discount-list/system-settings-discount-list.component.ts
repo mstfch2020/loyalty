@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
+import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
 
 @Component({
   selector: 'app-system-settings-discount-list',
@@ -14,15 +16,17 @@ export class SystemSettingsDiscountListComponent extends BaseSearch implements O
 {
 
   theViewList = new Array<any>();
+  headerItems = [FilterNames.UserType, FilterNames.Brand, FilterNames.Commission, FilterNames.Percent];
   closeResult: string = '';
+
   constructor(
     private router: Router,
     private modalService: NgbModal,
     public service: PromoterDiscountSettingService,
     public override baseInfoService: BaseInfoService,
-  )
+    public override baseSearchService: BaseSearchService)
   {
-    super(baseInfoService);
+    super(baseInfoService, baseSearchService);
     service.promoterDiscountSettings$.subscribe(value =>
     {
       this.theViewList = value;

@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/@core/services/auth/auth.service';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { PromoterDiscountSettingService } from 'src/app/@core/services/loyalty/promoter-discount-setting.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
+import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
 
 @Component({
   selector: 'app-system-settings-period-list',
@@ -15,38 +16,20 @@ import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
 })
 export class SystemSettingsPeriodListComponent extends BaseSearch implements OnInit
 {
-
-  closeResult: string = '';
-
   theViewList = new Array<any>();
-
-  theFilterActivityList = new Array<FilterTitle>();
-  theFilterActivitySelectedList = new Array<IdTitle>();
-
-  theFilterKeyList = new Array<FilterTitle>();
-  theFilterKeySelectedList = new Array<IdTitle>();
-
-  theFilterScenarioList = new Array<FilterTitle>();
-  theFilterScenarioSelectedList = new Array<IdTitle>();
-
-  theFilterActivitySelectedCondition = 0;
-  theFilterKeySelectedCondition = 0;
-  theFilterScenarioSelectedCondition = 0;
+  headerItems = ['ردیف', FilterNames.Brand, FilterNames.RestPeriodType,];
 
   constructor(
     private router: Router,
-    private modalService: NgbModal,
-    public promoterDiscountSettingService: PromoterDiscountSettingService,
     public override baseInfoService: BaseInfoService,
-    private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/)
+    public override baseSearchService: BaseSearchService)
   {
+    super(baseInfoService, baseSearchService);
 
-    super(baseInfoService);
-
-    promoterDiscountSettingService.promoterDiscountSettings$.subscribe(value =>
-    {
-      this.theViewList = value;
-    });
+    // service.groups$.subscribe(value =>
+    // {
+    //   this.theViewList = value;
+    // });
 
     this.activeFilterName = FilterNames.None;
   }
@@ -54,20 +37,12 @@ export class SystemSettingsPeriodListComponent extends BaseSearch implements OnI
   override ngOnInit(): void
   {
     super.ngOnInit();
+  }
 
-    this.promoterDiscountSettingService.getPromoterDiscountSettingGrid({});
-
-    this.baseInfoService.activity$.subscribe(value =>
-    {
-      value.forEach(p =>
-      {
-        this.theFilterActivityList.push({
-          checked: false,
-          id: p.id,
-          title: p.title, type: 0
-        });
-      });
-    });
+  override search(request: any)
+  {
+    request.pageSize = 10;
+    // this.service.GetGroupsGrid(request);
   }
 
   goToEdit(id: string = '')
@@ -77,6 +52,10 @@ export class SystemSettingsPeriodListComponent extends BaseSearch implements OnI
       this.router.navigate(['/admin/main/settings/period/edit'], { queryParams: { id: id } });
       return;
     }
+    this.router.navigate(['/admin/main/settings/period/edit']);
   }
-
+  getResetPeriodType(restPeriodType: any)
+  {
+    return (this.baseSearchService.theFilterRestPeriodTypeList.find(p => p.id === restPeriodType?.toString())?.title);
+  }
 }

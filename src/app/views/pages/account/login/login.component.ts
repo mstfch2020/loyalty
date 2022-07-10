@@ -52,39 +52,12 @@ export class LoginComponent implements OnInit
    */
   public onSubmit(): void
   {
-
-    console.log(this.loginForm);
-
-    this.alertService.clearAllMessages();
-
-    this.loading = true;
-    this.accountService.login(
-      {
-        username: this.loginForm.get('username')?.value,
-        password: this.loginForm.get('password')?.value
-      }
-    ).subscribe(
-      result =>
-      {
-
-        this.loading = false;
-
-        this.result = result;
-
-        if (!this.result.isSuccess)
-        {
-          this.alertService.alerts(this.result);
-        }
-
-        //this.router.navigate(['/admin/profile']);
-
-      },
-      error =>
-      {
-        this.loading = false;
-        this.alertService.exception(error);
-      }
-    );
+    console.log(this.accountService.userName);
+    console.log(this.accountService.idToken);
+    console.log(this.accountService.accessToken);
+    console.log(this.accountService);
+    console.log('login');
+    this.accountService.refresh();
   }
 
   /**

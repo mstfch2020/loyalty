@@ -64,6 +64,11 @@ export class MainComponent implements OnInit
         visible: true
       },
       {
+        title: 'ترویج دهندگان',
+        url: '/admin/main/contract',
+        visible: true
+      },
+      {
         title: 'تنظیمات سیستمی',
         url: '/admin/main/settings',
         visible: true

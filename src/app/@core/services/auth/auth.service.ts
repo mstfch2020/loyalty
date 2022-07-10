@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { UserManager, UserManagerSettings, WebStorageStateStore } from 'oidc-client';
-import { Observable, of } from 'rxjs';
+import { filter, Observable, of } from 'rxjs';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { UserState } from '../../data/auth/user-state.model';
 import { AuthData, User } from '../../data/auth/user.model';
@@ -41,7 +42,8 @@ export class AuthService extends StoreService<UserState> {
     private http: HttpClient,
     private settingService: SettingsService,
     private uiService: UiService,
-    private logManagerService: LogManagerService)
+    private logManagerService: LogManagerService,
+    private oauthService: OAuthService)
   {
     super();
 
@@ -54,6 +56,35 @@ export class AuthService extends StoreService<UserState> {
     const user: UserState = Object.assign({}, JSON.parse(localStorage['userState']));
     this.subject.next(user);
     this.addUser(user.user);
+
+    this.oauthService.configure(authCodeFlowConfig);
+    this.oauthService.loadDiscoveryDocumentAndLogin();
+    this.oauthService.events
+      .pipe(filter((e) => e.type === 'token_received'))
+      .subscribe((_) => this.oauthService.loadUserProfile());
+
+  }
+
+  get userName(): string
+  {
+    const claims = this.oauthService.getIdentityClaims();
+    if (!claims) return '';
+    return (claims as any).given_name;
+  }
+
+  get idToken(): string
+  {
+    return this.oauthService.getIdToken();
+  }
+
+  get accessToken(): string
+  {
+    return this.oauthService.getAccessToken();
+  }
+
+  refresh()
+  {
+    this.oauthService.refreshToken();
   }
 
   isLoggedIn(): boolean
@@ -322,3 +353,40 @@ export function getClientSettings(): UserManagerSettings
     // filterProtocolClaims: false,
   };
 }
+
+
+export const authCodeFlowConfig: AuthConfig = {
+  // Url of the Identity Provider
+  issuer: 'https://Auth.ketabkesh.ir/',
+
+  // URL of the SPA to redirect the user to after login
+  redirectUri: window.location.origin + '/',
+  tokenEndpoint: 'https://Auth.ketabkesh.ir/',
+  // URL of the SPA to redirect the user after silent refresh
+  // silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
+
+  // defaults to true for implicit flow and false for code flow
+  // as for code code the default is using a refresh_token
+  // Also see docs section 'Token Refresh'
+  // useSilentRefresh: true,
+
+  // The SPA's id. The SPA is registerd with this id at the auth-server
+  // clientId: 'server.code',
+  clientId: 'club_site_js',
+
+  // Just needed if your auth server demands a secret. In general, this
+  // is a sign that the auth server is not configured with SPAs in mind
+  // and it might not enforce further best practices vital for security
+  // such applications.
+  // dummyClientSecret: 'secret',
+
+  responseType: 'code',
+
+  // set the scope for the permissions the client should request
+  // The first four are defined by OIDC.
+  // Important: Request offline_access to get a refresh token
+  // The api scope is a usecase specific one
+  scope: 'openid profile api1 IdentityServerApi offline_access',
+
+  showDebugInformation: true,
+};

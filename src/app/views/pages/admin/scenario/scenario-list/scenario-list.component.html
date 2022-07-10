@@ -13,86 +13,11 @@
           <table cellspacing="1" class="table table-hover border-0 border-spacing-lg">
             <thead>
               <tr>
-                <th class="text-end font-yekan-bold pr-2 col-sm-4 col-md-4 fs-08 align-middle" scope="col">
-                  عنوان
-                </th>
-                <th class="text-end font-yekan-bold fs-08 col-sm-3 col-md-3" scope="col">
-                  <label [ngClass]="{'selected':activeFilterName==1}" (click)="openFilterForm(1)" class="filter-title">
-                    مشتری
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterCustomerSelectedList.length==0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
-                    </svg>
-                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterCustomerSelectedList.length>0"
-                      fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
-                    </svg>
-                  </label>
-                  <app-filter (applyEvent)="applyFilterForm($event,1)" (cancelEvent)="closeFilterForm($event,1)"
-                    [visible]="activeFilterName==1" [isCriteria]="true" [items]="theFilterCustomerList"
-                    [filterType]="5">
-                  </app-filter>
-                </th>
-                <th class="text-end font-yekan-bold fs-08 w-170-px" scope="col">
-                  <label [ngClass]="{'filter-selected':activeFilterName==2}" (click)="openFilterForm(2)"
-                    class="filter-title">
-                    بازه تاریخی
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterDateFromSelected.length===0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
-                    </svg>
-                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterDateFromSelected.length===10"
-                      fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
-                    </svg>
-                  </label>
-                  <app-filter (applyEvent)="applyFilterForm($event,2)" (cancelEvent)="closeFilterForm($event,2)"
-                    [visible]="activeFilterName==2" [isCriteria]="false" [filterType]="3">
-                  </app-filter>
-                </th>
-                <th class="text-end font-yekan-bold fs-08" scope="col">
-                  <label [ngClass]="{'filter-selected':activeFilterName==3}" (click)="openFilterForm(3)"
-                    class="filter-title">
-                    برند
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterBrandsSelectedList.length==0"
-                      height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
-                    </svg>
-                    <svg class="bi bi-funnel-fill color-app-green" *ngIf="theFilterBrandsSelectedList.length>0"
-                      fill="currentColor" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
-                    </svg>
-                  </label>
-                  <app-filter (applyEvent)="applyFilterForm($event,3)" (cancelEvent)="closeFilterForm($event,3)"
-                    [items]="theFilterBrandsList" [visible]="activeFilterName==3" [isCriteria]="true" [filterType]="5">
-                  </app-filter>
-                </th>
-                <th class="text-center font-yekan-bold fs-08 w-120-px" scope="col">
-                  <label [ngClass]="{'filter-selected':activeFilterName==4}" (click)="openFilterForm(4)"
-                    class="filter-title">
-                    وضعیت
-                    <svg class="bi bi-funnel" fill="currentColor" *ngIf="theFilterStatusSelected==0" height="16"
-                      viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
-                    </svg>
-                    <svg class="bi bi-funnel-fill color-app-green"
-                      *ngIf="theFilterStatusSelected==1 || theFilterStatusSelected==2" fill="currentColor" height="16"
-                      viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
-                    </svg>
-                  </label>
-                  <app-filter (applyEvent)="applyFilterForm($event,4)" (cancelEvent)="closeFilterForm($event,4)"
-                    [visible]="activeFilterName==4" [isCriteria]="true" [isRadio]="true" [items]="theFilterStatusList"
-                    [filterType]="5">
-                  </app-filter>
+                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col" *ngFor="let headerItem of headerItems;">
+                  <app-table-header-filter [activeFilterName]="activeFilterName" [filterName]="headerItem"
+                    (onOpenFilterForm)="openFilterForm($event)" (onCloseFilterForm)="closeFilterForm($event)"
+                    (onApplyFilterForm)="applyFilterForm($event)">
+                  </app-table-header-filter>
                 </th>
               </tr>
             </thead>

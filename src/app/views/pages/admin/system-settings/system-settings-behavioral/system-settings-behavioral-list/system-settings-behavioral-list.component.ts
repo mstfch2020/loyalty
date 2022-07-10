@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { ActivityService } from 'src/app/@core/services/loyalty/activity.service';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
+import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
 
 
 @Component({
@@ -13,15 +15,15 @@ import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
 export class SystemSettingsBehavioralListComponent extends BaseSearch implements OnInit
 {
   theViewList = new Array<any>();
+  headerItems = [FilterNames.Activities, FilterNames.ActivitiesKey];
 
   constructor(
     private router: Router,
     public service: ActivityService,
     public override baseInfoService: BaseInfoService,
-    // private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/
-  )
+    public override baseSearchService: BaseSearchService)
   {
-    super(baseInfoService);
+    super(baseInfoService, baseSearchService);
     service.activitys$.subscribe(value =>
     {
       this.theViewList = value;

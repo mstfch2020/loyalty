@@ -20,19 +20,16 @@
                       (شماره پرسنلی ثبت نام شده در پورتال)
                     </label>
                     <input (keypress)="checkDigit($event)" autofocus
-                           class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
-                           formControlName="username"
-                           id="username"
-                           type="text">
+                      class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                      formControlName="username" id="username" type="text">
                     <div *ngIf="!loginForm.get('username')?.valid && loginForm.get('username')?.touched"
-                         class="text-danger font-yekan-regular pr-1 mt-1"
-                         dir="rtl">
-                        <span *ngIf="loginForm.get('username')?.errors?.['required']">
-                          نام کاربری خود را وارد نمایید
-                        </span>
+                      class="text-danger font-yekan-regular pr-1 mt-1" dir="rtl">
+                      <span *ngIf="loginForm.get('username')?.errors?.['required']">
+                        نام کاربری خود را وارد نمایید
+                      </span>
                       <span *ngIf="loginForm.get('username')?.errors?.['nameIsBlocked']">
-                          نام کاربری شما غیرفعال می باشد
-                        </span>
+                        نام کاربری شما غیرفعال می باشد
+                      </span>
                     </div>
                   </div>
                   <div class="mb-3 mt-4">
@@ -43,28 +40,25 @@
                       (رمز ثبت شده در پورتال)
                     </label>
                     <input autocomplete="off"
-                           class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
-                           formControlName="password"
-                           id="password"
-                           type="password">
+                      class="form-control form-control-user rounded-pill p-2 text-center font-yekan-bold mt-1"
+                      formControlName="password" id="password" type="password">
                     <div *ngIf="!loginForm.get('password')?.valid && loginForm.get('password')?.touched"
-                         class="text-danger font-yekan-regular pr-1 mt-1"
-                         dir="rtl">
+                      class="text-danger font-yekan-regular pr-1 mt-1" dir="rtl">
                       کلمه عبور خود را وارد نمایید
                     </div>
                   </div>
                   <div class="mb-2 mt-4">
                     <div class="d-grid gap-2">
-                      <button [disabled]="loading"
-                              class="btn btn-info rounded-pill font-yekan-regular px-4 text-white d-block"
-                              dir="rtl" type="submit">
+                      <button [disabled]="loading" (click)="onSubmit"
+                        class="btn btn-info rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+                        type="submit">
                         <span *ngIf="loading" aria-hidden="true" class="spinner-grow spinner-grow-sm"
-                              role="status"></span>
+                          role="status"></span>
                         <span *ngIf="loading">
                           در حال بررسی...
                         </span>
-                        <span *ngIf="!loading" >
-                            ورود به پنل کاربری
+                        <span *ngIf="!loading">
+                          ورود به پنل کاربری
                         </span>
                       </button>
                     </div>
@@ -72,15 +66,13 @@
                 </form>
                 <ul class="mt-4 lh-lg" dir="rtl">
                   <li>
-                    <a class="text-decoration-none text-black-50 font-yekan-regular"
-                       href="#"
-                       target="_blank">
+                    <a class="text-decoration-none text-black-50 font-yekan-regular" href="#" target="_blank">
                       کلمه عبور خود را فراموش کرده ام !
                     </a>
                   </li>
                   <li>
                     <a class="text-decoration-none text-black-50 font-yekan-regular"
-                       [routerLink]="['/account/register']">
+                      [routerLink]="['/account/register']">
                       من ثبت نام نکرده ام.
                     </a>
                   </li>

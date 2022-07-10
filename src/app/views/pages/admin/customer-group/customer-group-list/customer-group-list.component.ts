@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { CustomerGroupDetail } from "src/app/@core/data/loyalty/customer-group.model";
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { CustomerGroupService } from "src/app/@core/services/loyalty/customer-group.service";
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
+import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
 
 @Component({
   selector: 'app-customer-group-list',
@@ -14,13 +16,13 @@ export class CustomerGroupListComponent extends BaseSearch implements OnInit
 {
 
   theViewList = new Array<CustomerGroupDetail>();
-
+  headerItems = ['ردیف', FilterNames.Level, FilterNames.Brand, FilterNames.Activities, FilterNames.Score, FilterNames.Groups];
   constructor(private router: Router,
     public service: CustomerGroupService,
-    public override baseInfoService: BaseInfoService)
+    public override baseInfoService: BaseInfoService,
+    public override baseSearchService: BaseSearchService)
   {
-
-    super(baseInfoService);
+    super(baseInfoService, baseSearchService);
 
     service.customerGroups$.subscribe(value =>
     {

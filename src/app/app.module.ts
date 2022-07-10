@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { OAuthModule } from 'angular-oauth2-oidc';
 import { NgxMaskModule } from 'ngx-mask';
 import { HttpLoaderFactory } from './@core/infra/factories/http-loader-factory';
 import { HttpConfigInterceptor } from './@core/infra/interceptor/http-config.interceptor';
@@ -21,7 +22,6 @@ import { HeaderComponent } from './views/layout/header/header.component';
 import { AccountModule } from './views/pages/account/account.module';
 import { AdminModule } from './views/pages/admin/admin.module';
 import { HomeComponent } from './views/pages/home/home.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +39,7 @@ import { HomeComponent } from './views/pages/home/home.component';
     AccountModule,
     AppRoutingModule,
     NgxMaskModule.forRoot(),
+    OAuthModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

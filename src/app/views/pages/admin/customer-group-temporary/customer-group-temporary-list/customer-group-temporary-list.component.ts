@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { CampaignService } from "src/app/@core/services/loyalty/campaign.service";
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
+import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
 
 @Component({
   selector: 'app-customer-group-temporary-list',
@@ -12,13 +14,14 @@ import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
 export class CustomerGroupTemporaryListComponent extends BaseSearch implements OnInit
 {
 
-  public theViewList = new Array<any>();
+  theViewList = new Array<any>();
+  headerItems = ['ردیف', FilterNames.Campaign, FilterNames.ExpireDate, 'عملیات'];
 
   constructor(private router: Router,
     public service: CampaignService,
-    public override baseInfoService: BaseInfoService)
+    public override baseInfoService: BaseInfoService, public override baseSearchService: BaseSearchService)
   {
-    super(baseInfoService);
+    super(baseInfoService, baseSearchService);
   }
 
   override ngOnInit(): void

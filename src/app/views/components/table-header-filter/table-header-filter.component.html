@@ -1,0 +1,278 @@
+<ng-container [ngSwitch]="filterName">
+  <!-- 1 -->
+  <ng-container *ngSwitchCase="FilterNames.Customer">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      گروه مشتری
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterCustomerSelectedList.length===0 }">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterCustomerList"
+      [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 2 -->
+  <ng-container *ngSwitchCase="FilterNames.Date">
+    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      بازه تاریخی
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterDateFromSelected.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="activeFilterName==2"
+      [isCriteria]="false" [filterType]="3">
+    </app-filter>
+  </ng-container>
+  <!-- 3 -->
+  <ng-container *ngSwitchCase="FilterNames.Brand">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      برند
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterBrandsSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [items]="service.theFilterBrandsList" [visible]="activeFilterName===filterName" [isCriteria]="true"
+      [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 4 -->
+  <ng-container *ngSwitchCase="FilterNames.Status">
+    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      وضعیت
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: !service.theFilterStatusSelected}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [isCriteria]="true" [isRadio]="true"
+      [items]="service.theFilterUsageStatusList" [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 6 -->
+  <ng-container *ngSwitchCase="FilterNames.UserType">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      نوع کاربری
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterUserTypeSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterUserTypeList"
+      [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 7 -->
+  <ng-container *ngSwitchCase="FilterNames.Commission">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      پایه پورسانت
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterCommissionSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterCommissionList"
+      [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 8 -->
+  <ng-container *ngSwitchCase="FilterNames.Percent">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      بازه تخفیف مشتری تعریف شده
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterPercentSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterPercentList"
+      [filterType]="5">
+    </app-filter>
+  </ng-container>
+
+  <!-- 9 -->
+  <ng-container *ngSwitchCase="FilterNames.Level">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      تغییر سطح
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterLevelsSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===9" [isCriteria]="true" [items]="service.theFilterLevelsList" [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 10 -->
+  <ng-container *ngSwitchCase="FilterNames.Groups">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      قرار گیری در گروه مشتری
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterGroupSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [items]="service.theFilterCustomerList" [visible]="activeFilterName===filterName" [isCriteria]="true"
+      [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 12 -->
+  <ng-container scope="col" *ngSwitchCase="FilterNames.Title">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      تاریخ انقضای گروه مشتری موقت
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theExpireDateSelected.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [filterType]="3">
+    </app-filter>
+  </ng-container>
+  <!-- 14 -->
+
+  <ng-container *ngSwitchCase="FilterNames.RestPeriodType">
+    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      بازه زمانی ریست
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterRestPeriodTypeSelected.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterRestPeriodTypeList"
+      [filterType]="5">
+    </app-filter>
+  </ng-container>
+
+  <!-- 15 -->
+  <ng-container *ngSwitchCase="FilterNames.volumeFilter">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      حجم تخفیف
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: !service.volumeFilterSelected}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [filterType]="1">
+    </app-filter>
+  </ng-container>
+  <!-- 16 -->
+  <ng-container *ngSwitchCase="FilterNames.DiscountCode">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      کد تخفیف
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: !service.discountCodeSelected}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [filterType]="2" [minLengthOrValue]="2" [isCriteria]="true">
+    </app-filter>
+  </ng-container>
+  <!-- 17 -->
+  <ng-container *ngSwitchCase="FilterNames.Phone">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      شماره موبایل
+      <ng-container [ngTemplateOutlet]="filterIcon" [ngTemplateOutletContext]="{ $implicit: service.phoneSelected}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [filterType]="2" [align]="1" [length]="11">
+    </app-filter>
+  </ng-container>
+  <!-- 18 -->
+  <ng-container *ngSwitchCase="FilterNames.CreateAccountDateFilter">
+    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      تاریخ ساخت اکانت
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theCreateAccountDateSelected}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===filterName" [isCriteria]="false" [filterType]="3">
+    </app-filter>
+  </ng-container>
+  <!-- 20 -->
+  <ng-container *ngSwitchCase="FilterNames.Campaign">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      نام گروه مشتری
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theCampaignSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [items]="service.theCampaignList" [visible]="activeFilterName===filterName" [isCriteria]="true" [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 21 -->
+  <ng-container *ngSwitchCase="FilterNames.Score">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      حجم امتیاز
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theScoreSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [items]="service.theScoreList"
+      [visible]="activeFilterName===filterName" [isCriteria]="true" [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 23 -->
+  <ng-container *ngSwitchCase="FilterNames.Activities">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      تعداد فعالیت
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theActivityCountListSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [items]="service.theActivityCountList" [visible]="activeFilterName===filterName" [isCriteria]="true"
+      [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 24 -->
+  <ng-container *ngSwitchCase="FilterNames.ActivitiesKey">
+    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      کلید
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: !service.theActivityKeySelected}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [visible]="activeFilterName===24" [isCriteria]="true" [filterType]="2">
+    </app-filter>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    <label class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      {{filterName}}
+    </label>
+  </ng-container>
+</ng-container>
+
+<ng-template #filterIcon let-active>
+  <svg class="bi bi-funnel" fill="currentColor" *ngIf="active" height="16" viewBox="0 0 16 16" width="16"
+    xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+  </svg>
+  <svg class="bi bi-funnel-fill color-app-green" *ngIf="!active" fill="currentColor" height="16" viewBox="0 0 16 16"
+    width="16" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z" />
+  </svg>
+</ng-template>

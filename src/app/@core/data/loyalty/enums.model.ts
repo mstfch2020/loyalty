@@ -112,7 +112,7 @@ export enum FilterNames
   volumeFilter = 15,
   DiscountCode = 16,
   Phone = 17,
-  CreateAcountDateFilter = 18,
+  CreateAccountDateFilter = 18,
   ActivityCount = 19,
   Campaign = 20,
   Score = 21,

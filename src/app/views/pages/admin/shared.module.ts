@@ -8,14 +8,16 @@ import { NgxMaskModule } from "ngx-mask";
 import { FilterPipe } from "src/app/@core/data/pipes/filter.pipe";
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 import { StateStatusViewComponent } from "../../components/scenario-state/state-status-view.component";
+import { SwitchComponent } from "../../components/switch/switch.component";
+import { TableHeaderFilterComponent } from "../../components/table-header-filter/table-header-filter.component";
 import { FilterComponent } from "./filter/filter.component";
-import { SwitchComponent } from "./switch/switch.component";
 
 const COMPONENTS = [
   SwitchComponent,
   PaginationComponent,
   StateStatusViewComponent,
   FilterComponent,
+  TableHeaderFilterComponent,
   FilterPipe,
 ];
 const CORE_MODULES = [

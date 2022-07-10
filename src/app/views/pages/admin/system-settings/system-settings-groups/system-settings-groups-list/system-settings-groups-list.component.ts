@@ -4,6 +4,7 @@ import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { GroupService } from 'src/app/@core/services/loyalty/group.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
+import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
 
 @Component({
   selector: 'app-system-settings-groups-list',
@@ -14,15 +15,15 @@ export class SystemSettingsGroupsListComponent extends BaseSearch implements OnI
 {
 
   theViewList = new Array<any>();
-
+  headerItems = ['ردیف', FilterNames.Brand, FilterNames.RestPeriodType, 'تعداد گروه مشتری'];
 
   constructor(
     private router: Router,
     public service: GroupService,
-    public override baseInfoService: BaseInfoService)
+    public override baseInfoService: BaseInfoService,
+    public override baseSearchService: BaseSearchService)
   {
-
-    super(baseInfoService);
+    super(baseInfoService, baseSearchService);
 
     service.groups$.subscribe(value =>
     {
@@ -52,8 +53,9 @@ export class SystemSettingsGroupsListComponent extends BaseSearch implements OnI
     }
     this.router.navigate(['/admin/main/settings/groups/edit']);
   }
+
   getResetPeriodType(restPeriodType: any)
   {
-    return (this.theFilterRestPeriodTypeList.find(p => p.id === restPeriodType?.toString())?.title);
+    return (this.baseSearchService.theFilterRestPeriodTypeList.find(p => p.id === restPeriodType?.toString())?.title);
   }
 }

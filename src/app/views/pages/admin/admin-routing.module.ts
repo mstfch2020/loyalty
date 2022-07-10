@@ -41,6 +41,11 @@ const routes: Routes = [
           .then(m => m.DiscountCodeModule)//, canLoad: [AuthGuard]
       },
       {
+        path: 'contract',
+        loadChildren: () => import('src/app/views/pages/admin/contract/contract.module')
+          .then(m => m.ContractModule)//, canLoad: [AuthGuard]
+      },
+      {
         path: 'reports',
         component: ReportsComponent,
       },

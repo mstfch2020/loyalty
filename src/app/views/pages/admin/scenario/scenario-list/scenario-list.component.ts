@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { takeUntil } from 'rxjs';
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { AmountTitle, GetSenarios } from "src/app/@core/data/loyalty/get-senarios-grid.model";
 import { GetAllSenarios } from 'src/app/@core/data/loyalty/scenario/get-all-scenarios.model';
 import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
 import { ScenarioService } from "src/app/@core/services/loyalty/scenario.service";
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
+import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
 
 @Component({
   selector: 'app-scenario-list',
@@ -15,15 +17,15 @@ import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
 export class ScenarioListComponent extends BaseSearch implements OnInit, OnDestroy
 {
   theViewList = new Array<GetSenarios>();
-
+  headerItems = ['عنوان',  FilterNames.Customer, FilterNames.Date, FilterNames.Brand, FilterNames.Status];
   constructor(
     private router: Router,
     public scenarioService: ScenarioService,
     public override baseInfoService: BaseInfoService,
     // private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/
-  )
+   public override baseSearchService: BaseSearchService)
   {
-    super(baseInfoService);
+    super(baseInfoService, baseSearchService);
     scenarioService.scenarios$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
       this.theViewList = value;

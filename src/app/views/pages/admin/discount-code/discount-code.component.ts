@@ -15,7 +15,6 @@ export class DiscountCodeComponent implements OnInit
   {
     router.events.subscribe((val) =>
     {
-      // see also
       this.isInListRoute = document.URL.includes('list');
     });
   }

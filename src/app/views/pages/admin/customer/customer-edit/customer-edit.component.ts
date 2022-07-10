@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { CustomerDetail, CustomerScenario, CustomerSubGrid } from "src/app/@core/data/loyalty/customer.model";
+import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { CustomerService } from "src/app/@core/services/loyalty/customer.service";
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
+import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
 import { Utility } from 'src/app/@core/utils/Utility';
 
 @Component({
@@ -21,15 +23,15 @@ export class CustomerEditComponent extends BaseSearch implements OnInit
   id = '';
   theViewList = new Array<any>();
 
+  headerItems = ['عنوان', FilterNames.Date, FilterNames.Brand, FilterNames.Status];
   constructor(
     private router: Router,
     public service: CustomerService,
     private route: ActivatedRoute,
-    public override baseInfoService: BaseInfoService,
+    public override baseInfoService: BaseInfoService, public override baseSearchService: BaseSearchService
   )
   {
-
-    super(baseInfoService);
+    super(baseInfoService, baseSearchService);
 
     this.showHistory = false;
 
