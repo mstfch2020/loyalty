@@ -1,4 +1,11 @@
 <form action="" dir="rtl" *ngIf="isInListRoute">
+  <div class="row">
+    <div class="col-12">
+      <h5 class="font-yekan-bold fs-20px text-black">
+        مشاهده
+      </h5>
+    </div>
+  </div>
   <ul class="nav justify-content-start mt-3">
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/admin/main/contract/active-contract-list']" routerLinkActive="active">
@@ -6,7 +13,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/admin/main/discount-code/request-contract-list']" routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/admin/main/contract/request-contract-list']" routerLinkActive="active">
         درخواست های وارده
       </a>
     </li>

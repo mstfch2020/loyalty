@@ -1,4 +1,4 @@
-export class User
+export class BackOfficeUser
 {
   Name?: string;
   Token?: string;

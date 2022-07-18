@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/@core/data/auth/user.model';
+import { BackOfficeUser } from 'src/app/@core/data/auth/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +7,11 @@ import { User } from 'src/app/@core/data/auth/user.model';
 export class AdminService
 {
 
-  public currentUser: User;
+  public currentUser: BackOfficeUser;
 
   constructor()
   {
-    this.currentUser = new User();
+    this.currentUser = new BackOfficeUser();
   }
 
 }

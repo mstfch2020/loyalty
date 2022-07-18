@@ -1,3 +1,4 @@
+import { ContractType } from "../enums.model";
 import { Distributor } from "./Distributor";
 import { ShopContract } from "./ShopContract";
 import { Teacher } from "./Teacher";
@@ -14,9 +15,9 @@ export interface Contract
   personnelCode: string;
   postalCode: string;
   address: string;
-  state: number;
-  city: number;
-  type: number;
+  stateId: string;
+  cityId: string;
+  type: ContractType;
   brandId: string;
   teachers: Array<Teacher>;
   distributor: Distributor;

@@ -1,10 +1,10 @@
+import { OwnershipType } from "../enums.model";
 
 export interface ShopContract
 {
-    id: string;
-    shopName: string;
-    postion: string;
-    activitySection: number;
-    officeArea: number;
-    ownershipType: number;
+  shopName: string;
+  postion: string;
+  activitySectionId: string;
+  officeArea: number;
+  ownershipType: OwnershipType;
 }

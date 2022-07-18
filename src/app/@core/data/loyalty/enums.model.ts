@@ -118,8 +118,10 @@ export enum FilterNames
   Score = 21,
   ActivityCountList = 22,
   Activities = 23,
-  ActivitiesKey = 24
-
+  ActivitiesKey = 24,
+  ProductTag = 25,
+  DateFilter = 26,
+  ContractStatus = 27
 }
 
 export enum StatusType
@@ -135,4 +137,35 @@ export enum UsageState
   None = 0,
   Used = 1, // استفاده شده
   Involving = 2// قابل استفاده
+}
+
+export enum ContractType
+{
+  None = 0,
+  Teacher = 1,
+  Distributor = 2,
+  Shop = 3
+}
+
+export enum ContractStatus
+{
+
+  None = 0,
+  Active = 1,
+  Request = 2,
+  Edited = 3,
+  Reject = 4
+}
+
+export enum SchoolType
+{
+  None = 0,
+  Gov = 1,
+  Commercial = 2
+}
+
+export enum OwnershipType
+{
+  Melki = 1,
+  Stijari = 2
 }

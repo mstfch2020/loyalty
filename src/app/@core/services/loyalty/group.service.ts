@@ -37,6 +37,7 @@ export class GroupService extends BaseService<GroupModel>{
       restPeriodType: [group.restPeriodType, [Validators.required]],
       groups: this.formBuilder.array(group.groups.map(a => this.CreateRestPeriodType(a)))
     });
+
     this.editMode = group.groups.some(p => !Utility.isNullOrEmpty(p.id));
   }
 
@@ -102,7 +103,8 @@ export class GroupService extends BaseService<GroupModel>{
     if (value.groups.some((p: IdTitle) => !Utility.isNullOrEmpty(p.id)))
     {
       delete value.restPeriodType;
-    } else if (!value.restPeriodType)
+    }
+    else if (!value.restPeriodType)
     {
       this.uiService.alert('بازه زمانی ریست را مشخص نمایید.');
     }

@@ -74,6 +74,13 @@ export class BaseInfoService
     { id: 3, title: 'قیمت بعد از اعمال سناریو' },
   ];
 
+
+  contractType: Array<EnumTitle> = [
+    { id: 1, title: 'دبیر' },
+    { id: 2, title: 'توضیع کننده' },
+    { id: 3, title: 'فروشگاه' },
+  ];
+
   RestPeriodTypeList: Array<EnumTitle> = [
     {
       id: 1,
@@ -129,9 +136,9 @@ export class BaseInfoService
       requests.freeProducts = this.getFreeProducts(productIds);
     }
 
-    forkJoin(requests).pipe(takeUntil(this.unsubscribe)).subscribe(resutl =>
+    forkJoin(requests).pipe(takeUntil(this.unsubscribe)).subscribe(result =>
     {
-      const resultValue = resutl as any;
+      const resultValue = result as any;
       const defArray = [{ id: 'all', title: 'همه' }];
       const defArrayType = [{ id: 'all', title: 'همه', type: 4 }];
       this.activity$.next(resultValue?.activity === null ? [] : resultValue?.activity);

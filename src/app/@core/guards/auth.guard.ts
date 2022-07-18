@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class AuthGuard implements CanActivate, CanLoad
 {
-  constructor(private userService: AuthService, private router: Router)
+  constructor(private authService: AuthService, private router: Router)
   {
 
   }
@@ -26,18 +26,14 @@ export class AuthGuard implements CanActivate, CanLoad
 
   private checkAuth()
   {
-
-    if (this.userService.isLoggedIn())
+    return true;
+    if (this.authService.isLoggedIn())
     {
       return true;
     }
 
-    this.userService.startAuthentication();
+    this.authService.startAuthentication();
     return false;
   }
-  // return this.userService.getIsAuth().pipe(map(value =>
-  // {
-  //   if (value) return value;
-  //   return this.router.parseUrl('/account/login');
-  // }));
+
 }

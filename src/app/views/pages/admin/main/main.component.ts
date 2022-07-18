@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IMenuItem } from "src/app/@core/data/Interfaces/Interfaces";
+import { AuthService } from 'src/app/@core/services/auth/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -17,8 +18,7 @@ export class MainComponent implements OnInit
   public menuItems: IMenuItem[];
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
+    public authService: AuthService
   )
   {
     this.isToggle = false;
@@ -78,16 +78,27 @@ export class MainComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.paramsSubscription = this.route.params.subscribe(
-      (params: Params) =>
-      {
-        //this.router.navigate(['/admin/profile']);
-      });
+
   }
+
+  singout()
+  {
+    this.authService.signout();
+  }
+
+  singoutpop()
+  {
+    this.authService.signoutpop();
+  }
+
+  singIn()
+  {
+    this.authService.startAuthentication();
+  }
+
 
   OnDestroy()
   {
     this.paramsSubscription?.unsubscribe();
   }
-
 }

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Subject, takeUntil } from "rxjs";
 import { FilterNames } from "../../data/loyalty/enums.model";
 import { FilterTitle, IdTitle, IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
+import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { BrandFilter, CustomersFilter, StatusFilter } from "../../data/loyalty/scenario/get-all-scenarios.model";
 import { Utility } from "../../utils/Utility";
 import { BaseInfoService } from "../loyalty/base-info.service";
@@ -62,8 +63,13 @@ export class BaseSearchService
   theFilterPercentSelectedList = new Array<IdTitle>();
   theFilterPercentSelectedCondition = 0;
 
+  theProductGroupList = new Array<FilterTitle>();
+  theProductGroupListSelectedList = new Array<ProductGroup>();
+  theProductGroupListSelectedCondition = 0;
+
   theFilterDateList = new Array<FilterTitle>();
   theFilterDateFromSelected = "";
+  theDateFilterSelected = "";
   theFilterDateToSelected = "";
   theCreateAccountDateSelected = "";
 
@@ -96,6 +102,35 @@ export class BaseSearchService
       type: 0,
       checked: false,
     },
+  ];
+
+  theContractFilterStatusSelected = 0;
+  theContractFilterStatusSelectedCondition = 0;
+  theContractFilterStatusList: Array<FilterTitle> = [
+    {
+      id: '1',
+      title: 'فعال',
+      type: 0,
+      checked: false,
+    },
+    {
+      id: '2',
+      title: 'جدید',
+      type: 0,
+      checked: false,
+    },
+    {
+      id: '2',
+      title: 'ویرایش شده',
+      type: 0,
+      checked: false,
+    },
+    {
+      id: '2',
+      title: 'رد شده',
+      type: 0,
+      checked: false,
+    }
   ];
 
   theFilterUsageStatusList: Array<FilterTitle> = [
@@ -178,6 +213,20 @@ export class BaseSearchService
           checked: false,
           id: p.toString(),
           title: p.toString(),
+          type: 0,
+        });
+      });
+    });
+
+    this.baseInfoService.productGroups$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
+    {
+      this.theProductGroupList = [];
+      value.forEach(p =>
+      {
+        this.theProductGroupList.push({
+          checked: false,
+          id: p.id,
+          title: p.title,
           type: 0,
         });
       });
@@ -366,6 +415,9 @@ export class BaseSearchService
       case FilterNames.Status:
         this.theFilterStatusSelected = parseInt(event.value[0].id, 0);
         break;
+      case FilterNames.ContractStatus:
+        this.theContractFilterStatusSelected = parseInt(event.value[0].id, 0);
+        break;
       case FilterNames.RestPeriodType:
         this.theFilterRestPeriodTypeSelected = event.value;
         this.theFilterRestPeriodTypeSelectedCondition = parseInt(event.conditionType, 0);
@@ -419,10 +471,32 @@ export class BaseSearchService
         this.theActivityCountListSelectedList = event.value;
         this.theActivityCountListSelectedCondition = parseInt(event.conditionType, 0);
         break;
+      case FilterNames.ProductTag:
+        this.theProductGroupListSelectedList = event.value;
+        this.theProductGroupListSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.DateFilter:
+        this.theDateFilterSelected = event.value;
+        break;
 
     }
 
     const request: any = {};
+
+    if (this.theProductGroupListSelectedList && this.theProductGroupListSelectedList.length > 0)
+    {
+      request.tagFilter = {} as any;
+      request.tagFilter.tagIds = this.theProductGroupListSelectedList.map(p => p.id);
+      if (this.theProductGroupListSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.tagFilter.tagIds = [];
+      }
+      request.tagFilter.filterType = 0;
+      if (this.theProductGroupListSelectedCondition != 0)
+      {
+        request.tagFilter.filterType = this.theProductGroupListSelectedCondition;
+      }
+    }
 
     if (this.theFilterPercentSelectedList && this.theFilterPercentSelectedList.length > 0)
     {
@@ -644,9 +718,20 @@ export class BaseSearchService
       request.statusFilter.status = this.theFilterStatusSelected;
     }
 
+    if (this.theContractFilterStatusSelected !== 0)
+    {
+      request.statusFilter = new StatusFilter();
+      request.statusFilter.status = this.theContractFilterStatusSelected;
+    }
+
     if (this.theFilterDateFromSelected)
     {
       request.periodFilter = { date: Utility.getPeriodOfString(this.theFilterDateFromSelected) };
+    }
+
+    if (this.theDateFilterSelected)
+    {
+      request.dateFilter = { date: Utility.getPeriodOfString(this.theFilterDateFromSelected) };
     }
 
     if (this.theExpireDateSelected)

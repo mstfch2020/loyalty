@@ -18,7 +18,7 @@ export class HttpConfigInterceptor implements HttpInterceptor
   {
     return req.clone({
       setHeaders: {
-        Authorization: 'Bearer ' + this.authenticateService.getTocken()
+        Authorization: this.authenticateService.getAuthorizationHeaderValue()
       }
     });
   }

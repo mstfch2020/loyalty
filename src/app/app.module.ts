@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { OAuthModule } from 'angular-oauth2-oidc';
 import { NgxMaskModule } from 'ngx-mask';
 import { HttpLoaderFactory } from './@core/infra/factories/http-loader-factory';
 import { HttpConfigInterceptor } from './@core/infra/interceptor/http-config.interceptor';
@@ -39,7 +38,6 @@ import { HomeComponent } from './views/pages/home/home.component';
     AccountModule,
     AppRoutingModule,
     NgxMaskModule.forRoot(),
-    OAuthModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -48,40 +46,6 @@ import { HomeComponent } from './views/pages/home/home.component';
       }
     }),
     BrowserAnimationsModule,
-    // StoreModule.forRoot(rootStore),
-    // EffectsModule.forRoot([]),
-    // NgOidcClientModule.forRoot({
-    //   oidc_config: {
-    //     authority: 'https://localhost:5001',
-    //     client_id: 'ng-oidc-client-identity',
-    //     redirect_uri: 'http://localhost:4200/callback.html',
-    //     response_type: 'id_token token',
-    //     scope: 'openid profile offline_access api1',
-    //     post_logout_redirect_uri: 'http://localhost:4200/signout-callback.html',
-    //     silent_redirect_uri: 'http://localhost:4200/renew-callback.html',
-    //     accessTokenExpiringNotificationTime: 10,
-    //     automaticSilentRenew: true,
-    //     userStore: new WebStorageStateStore({ store: window.localStorage })
-    //   },
-    //   log: {
-    //     logger: console,
-    //     level: Log.NONE
-    //   }
-    // }),
-
-    // AuthModule.forRoot({
-    //   config: {
-    //     authority: 'https://Auth.ketabkesh.ir',
-    //     redirectUrl: 'http://localhost:4200/login',
-    //     postLogoutRedirectUri: 'http://localhost:4200/' + 'logout',
-    //     clientId: window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js',
-    //     scope: 'openid profile IdentityServerApi offline_access',
-    //     responseType: 'code',
-    //     silentRenew: true,
-    //     useRefreshToken: true,
-    //     logLevel: LogLevel.Debug,
-    //   },
-    // }),
   ],
   providers: [UserService, RootStoreService, UiService, ScenarioService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },

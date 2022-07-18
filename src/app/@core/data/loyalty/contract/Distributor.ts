@@ -1,11 +1,11 @@
+import { OwnershipType } from "../enums.model";
 
 export interface Distributor
 {
-    id: string;
-    broadcastCenterName: string;
-    positon: string;
-    activityZone: number;
-    activitySection: number;
-    officeArea: number;
-    ownershipType: number;
+  broadcastCenterName: string;
+  positon: string;
+  activityZoneId: string;
+  activitySectionId: string;
+  officeArea: number;
+  ownershipType: OwnershipType;
 }

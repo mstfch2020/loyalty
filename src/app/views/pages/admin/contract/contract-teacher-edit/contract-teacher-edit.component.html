@@ -1,0 +1,107 @@
+<div [formGroup]="teacherFormGroup">
+  <div class="row" (click)="collapse.toggle()" class="mt-2">
+    مدرسه {{index+1}}
+    <img alt="Empty page" src="assets/img/icons/chevron-left.svg"
+      [ngClass]="isCollapsed?'my-collapse':'not-my-collapse'" />
+
+  </div>
+  <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" [animation]="true">
+    <div class="row mt-5">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              ناحیه تدریس :
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="contractBaseInfoService.arias$|async" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="area">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              مقطع :
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="contractBaseInfoService.educationLevel$|async" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="level">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              پایه :
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="gradeList" [multiple]="false" appendTo="body" bindLabel="title" bindValue="id"
+              class="form-control mb-3" formControlName="grade">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              درس :
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="lessonList" [multiple]="false" appendTo="body" bindLabel="title" bindValue="id"
+              class="form-control mb-3" formControlName="lesson">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              نام مدرسه :
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+              <input class="text-center text-black border-0 h-40px w-100" formControlName='school' type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              نوع مدرسه :
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="contractBaseInfoService.schoolTypeList" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="schoolType">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

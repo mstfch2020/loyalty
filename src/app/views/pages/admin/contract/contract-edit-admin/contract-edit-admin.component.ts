@@ -7,11 +7,11 @@ import { ContractBaseInfoService } from 'src/app/@core/services/loyalty/contract
 import { ContractService } from 'src/app/@core/services/loyalty/contract.service';
 
 @Component({
-  selector: 'app-contract-edit',
-  templateUrl: './contract-edit.component.html',
-  styleUrls: ['./contract-edit.component.scss']
+  selector: 'app-contract-edit-admin',
+  templateUrl: './contract-edit-admin.component.html',
+  styleUrls: ['./contract-edit-admin.component.scss']
 })
-export class ContractEditComponent implements OnInit
+export class ContractEditAdminComponent implements OnInit
 {
 
   constructor(private router: Router,

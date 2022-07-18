@@ -5,7 +5,7 @@ import { Observable, of } from "rxjs";
 import { catchError, finalize, map } from "rxjs/operators";
 import { Group, UserGroup } from "../../data/auth/group.model";
 import { UserRole } from "../../data/auth/role.model";
-import { User } from "../../data/auth/user.model";
+import { BackOfficeUser } from "../../data/auth/user.model";
 import { BaseResponse, BaseResult } from "../../data/root/base-response.model";
 import { RootStoreService } from "../root-store.service";
 import { SettingsService } from "../settings-service";
@@ -23,22 +23,22 @@ export class UserService
     private uiService: UiService)
   { }
 
-  loadUsers(): Observable<BaseResponse<Array<User>> | null>
+  loadUsers(): Observable<BaseResponse<Array<BackOfficeUser>> | null>
   {
     this.rootStoreService.addLoadingRequest();
     const url = this.settingService.settings?.baseUrl + 'Account/GetUsers';
-    return this.http.post<BaseResponse<Array<User>>>(url, null).pipe(finalize(() =>
+    return this.http.post<BaseResponse<Array<BackOfficeUser>>>(url, null).pipe(finalize(() =>
     {
       this.rootStoreService.removeLoadingRequest();
     }));
   }
 
-  loadUsersAndCast(pageSize: number, pageIndex: number): Observable<BaseResponse<BaseResult<User>>>
+  loadUsersAndCast(pageSize: number, pageIndex: number): Observable<BaseResponse<BaseResult<BackOfficeUser>>>
   {
     this.rootStoreService.addLoadingRequest();
     const url = this.settingService.settings?.baseUrl + 'Account/GetUsers';
 
-    return this.http.post<BaseResponse<BaseResult<User>>>(url, { take: pageSize, skip: pageSize * pageIndex })
+    return this.http.post<BaseResponse<BaseResult<BackOfficeUser>>>(url, { take: pageSize, skip: pageSize * pageIndex })
       .pipe(map(value =>
       {
         if (!value.isSuccess)
