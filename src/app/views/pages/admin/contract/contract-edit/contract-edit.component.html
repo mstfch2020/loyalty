@@ -212,6 +212,7 @@
               </div>
               <div class="col-12 col-sm-9">
                 <ng-select [items]="contractBaseInfoService.cities$|async" [multiple]="false" appendTo="body"
+                  [disabled]="!service.form.get('stateId')?.value" [readonly]="!service.form.get('stateId')?.value"
                   bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="cityId">
                 </ng-select>
               </div>
@@ -302,8 +303,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="contractBaseInfoService.activitySections$|async" [multiple]="false" appendTo="body"
-                  bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="activitySectionId">
+                <ng-select [items]="contractBaseInfoService.shopActivitySections$|async" [addTag]="addTag"
+                  (change)="comboChanged($event,9)" [multiple]="false" appendTo="body" bindLabel="title" bindValue="id"
+                  class="form-control mb-3" formControlName="activitySectionId">
                 </ng-select>
               </div>
             </div>
@@ -418,7 +420,7 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="contractBaseInfoService.provinces$|async" [multiple]="false" appendTo="body"
+                <ng-select [items]="contractBaseInfoService.allCities$|async" [multiple]="false" appendTo="body"
                   bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="activityZoneId">
                 </ng-select>
               </div>
@@ -433,8 +435,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="contractBaseInfoService.activitySections$|async" [multiple]="false" appendTo="body"
-                  bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="activitySectionId">
+                <ng-select [items]="contractBaseInfoService.distributorActivitySections$|async" [addTag]="addTag"
+                  (change)="comboChanged($event,8)" [multiple]="false" appendTo="body" bindLabel="title" bindValue="id"
+                  class="form-control mb-3" formControlName="activitySectionId">
                 </ng-select>
               </div>
             </div>

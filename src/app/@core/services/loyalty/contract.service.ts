@@ -9,7 +9,7 @@ import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callGetService, callPostPagingService, callPostService, isValidPhonenumber } from "./BaseService";
+import { BaseService, callPostPagingService, callPostService, isValidPhonenumber } from "./BaseService";
 import { ContractBaseInfoService } from "./contract-base-info.service";
 
 @Injectable({ providedIn: 'root' })
@@ -55,6 +55,8 @@ export class ContractService extends BaseService<Contract>
 
     this.form.get('stateId')?.valueChanges.subscribe((value: string) =>
     {
+      this.form.get('cityId')?.setValue(null);
+      this.form.get('distributor.activityZoneId')?.setValue(null);
       this.contractBaseInfoService.loadCities(value);
     });
 
@@ -62,6 +64,12 @@ export class ContractService extends BaseService<Contract>
     {
       this.contractBaseInfoService.loadAreas(value);
     });
+  }
+
+  get contractTypeTitle()
+  {
+    const type = this.getValue('type');
+    return this.baseInfoService.contractType?.find(p => p.id === type)?.title;
   }
 
   get teachers()
@@ -145,7 +153,7 @@ export class ContractService extends BaseService<Contract>
   GetContractById(id: string)
   {
     const url = this.settingService.settings?.baseUrl + 'Contract/GetContractById';
-    return callGetService<Contract>(url, this.http, this.uiService, {
+    return callPostService<any>(url, this.http, this.uiService, {
       id: id
     });
   }
@@ -195,10 +203,10 @@ export class ContractService extends BaseService<Contract>
       delete value.distributor;
       delete value.teachers;
     }
-    callPostService<Contract>(url, this.http, this.uiService, value).subscribe(value =>
+    callPostService<any>(url, this.http, this.uiService, value).subscribe(value =>
     {
-      this.form.controls['contractId'].setValue(value?.contractId);
-      if (value?.contractId) { this.uiService.success('با موفقیت ثبت شد.'); }
+      this.form.controls['contractId'].setValue(value?.id);
+      if (value?.id) { this.uiService.success('با موفقیت ثبت شد.'); }
     });
 
   }

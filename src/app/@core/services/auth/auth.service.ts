@@ -141,10 +141,10 @@ export class AuthService extends StoreService<UserState> {
 
 export function getClientSettings(): oidcClient.UserManagerSettings
 {
-  const baseUrl = window.location.href.includes('localhost') ? 'http://localhost:4200/login' : 'https://loyalty.mysatrapstage.com';
+  const baseUrl = window.location.href.includes('localhost') ? 'http://localhost:3000/login' : 'https://loyalty.mysatrapstage.com';
   return {
     authority: 'https://auth.ketabkesh.ir',
-    client_id: window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js',
+    client_id: window.location.href.includes('localhost') ? 'local_js ' : 'club_site_js',
     redirect_uri: `${ baseUrl }/login`,
     response_type: "code",
     scope: "openid profile api1 IdentityServerApi offline_access",

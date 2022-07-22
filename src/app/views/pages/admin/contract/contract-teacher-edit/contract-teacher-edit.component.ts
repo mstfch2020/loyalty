@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ComboTypes } from 'src/app/@core/data/loyalty/enums.model';
 import { IdTitle } from 'src/app/@core/data/loyalty/get-senarios-grid.model';
 import { ContractBaseInfoService } from 'src/app/@core/services/loyalty/contract-base-info.service';
 import { ContractService } from 'src/app/@core/services/loyalty/contract.service';
@@ -14,8 +15,6 @@ export class ContractTeacherEditComponent implements OnInit
   @Input() index = 0;
   @Input() teacherFormGroup: FormGroup;
 
-  gradeList = Array<IdTitle>();
-  lessonList = Array<IdTitle>();
   isCollapsed = false;
 
   constructor(
@@ -28,44 +27,135 @@ export class ContractTeacherEditComponent implements OnInit
   ngOnInit(): void
   {
 
-    const initLevel = this.teacherFormGroup.get('level')?.value;
-    this.refreshGrades(initLevel);
-
-    this.teacherFormGroup.get('level')?.valueChanges.subscribe(level =>
-    {
-      this.refreshGrades(level);
-    });
-
-    const initLesson = this.teacherFormGroup.get('grade')?.value;
-    this.refreshLessons(initLesson);
-
-    this.teacherFormGroup.get('grade')?.valueChanges.subscribe(grade =>
-    {
-      this.refreshLessons(grade);
-    });
   }
 
-
-  private refreshGrades(level: any)
+  comboChanged($event: IdTitle, type: ComboTypes): void
   {
-    if (level)
+    if (!$event) { return; }
+    if ($event.id) { return; }
+
+    switch (type)
     {
-      this.contractBaseInfoService.GetGradesByLevelId(level).subscribe(result =>
+      case ComboTypes.Area: {
+        this.handleArea($event);
+        break;
+      }
+      case ComboTypes.Education: {
+        this.handleEducation($event);
+        break;
+      }
+      case ComboTypes.Grade: {
+        this.handleGrade($event);
+        break;
+      }
+      case ComboTypes.Lesson: {
+        this.handleLesson($event);
+        break;
+      }
+    }
+  }
+
+  private handleArea($event: IdTitle)
+  {
+    const lst = this.contractBaseInfoService.areas$.getValue();
+    const findValue = lst.find(p => p.title === $event.title);
+    if (findValue && findValue.id)
+    {
+      this.teacherFormGroup.get('area')?.setValue($event.id);
+    }
+    else
+    {
+      this.contractBaseInfoService.CreateArea($event.title).subscribe(id =>
       {
-        this.gradeList = result;
+        if (id)
+        {
+          $event.id = id;
+          lst.push($event);
+          this.contractBaseInfoService.areas$.next(lst);
+          this.teacherFormGroup.get('area')?.setValue($event.id);
+        }
+      });
+    }
+  }
+
+  private handleEducation($event: IdTitle)
+  {
+    const lst = this.contractBaseInfoService.educationLevel$.getValue();
+    const findValue = lst.find(p => p.title === $event.title);
+    if (findValue && findValue.id)
+    {
+      this.teacherFormGroup.get('level')?.setValue($event.id);
+    }
+    else
+    {
+      this.contractBaseInfoService.CreateEducationLevel($event.title).subscribe(id =>
+      {
+        if (id)
+        {
+          $event.id = id;
+          lst.push($event);
+          this.contractBaseInfoService.educationLevel$.next(lst);
+          this.teacherFormGroup.get('level')?.setValue($event.id);
+        }
+      });
+    }
+  }
+
+  private handleGrade($event: IdTitle)
+  {
+    const lst = this.contractBaseInfoService.grades$.getValue();
+    const findValue = lst.find(p => p.title === $event.title);
+    if (findValue && findValue.id)
+    {
+      this.teacherFormGroup.get('grade')?.setValue($event.id);
+    }
+    else
+    {
+      this.contractBaseInfoService.CreateGrade($event.title).subscribe(id =>
+      {
+        if (id)
+        {
+          $event.id = id;
+          lst.push($event);
+          this.contractBaseInfoService.grades$.next(lst);
+          this.teacherFormGroup.get('grade')?.setValue($event.id);
+        }
       });
     }
   }
 
 
-  private refreshLessons(grade: any)
+  private handleLesson($event: IdTitle)
   {
-    if (grade)
+    const lst = this.contractBaseInfoService.lessons$.getValue();
+    const findValue = lst.find(p => p.title === $event.title);
+    if (findValue && findValue.id)
     {
-      this.contractBaseInfoService.GetLessonsByGradeId(grade).subscribe(result =>
+      this.teacherFormGroup.get('lesson')?.setValue($event.id);
+    }
+    else
+    {
+      this.contractBaseInfoService.CreateGrade($event.title).subscribe(id =>
       {
-        this.lessonList = result;
+        if (id)
+        {
+          $event.id = id;
+          lst.push($event);
+          this.contractBaseInfoService.lessons$.next(lst);
+          this.teacherFormGroup.get('lesson')?.setValue($event.id);
+        }
       });
     }
   }
+
+
+  addTag(term: string)
+  {
+    if (term)
+    {
+      return { id: null, title: term };
+    }
+    return null;
+  }
+
 }

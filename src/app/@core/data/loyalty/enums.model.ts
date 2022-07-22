@@ -169,3 +169,17 @@ export enum OwnershipType
   Melki = 1,
   Stijari = 2
 }
+
+export enum ComboTypes
+{
+  None = 0,
+  Province = 1,
+  City = 2,
+  Area = 3,
+  Education = 4,
+  Grade = 5,
+  Lesson = 6,
+  ActivityZone = 7,
+  DistributorActivitySection = 8,
+  ShopActivitySection = 9,
+}

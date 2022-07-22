@@ -3,11 +3,17 @@
     <div class="row">
       <div class="col-12">
         <span class="font-yekan-bold fs-20px text-black">
-          درخواست قرارداد
+          تایید درخواست ترویج دهنده
         </span>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-12">
+        <span class="font-yekan-bold fs-8px text-black">
+          اطلاعات متقاضی | درخواست نوع کاربری: {{service.contractTypeTitle}}
+        </span>
+      </div>
+    </div>
     <div class="row mt-5">
       <div class="col-12 col-sm-6">
         <div class="row">
@@ -24,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-6 mt-3 mt-sm-0" *ngIf="service.getValue('brandId')">
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
         <div class="row">
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
@@ -40,35 +46,44 @@
         </div>
       </div>
     </div>
-
-
-    <div *ngIf="service.getValue('type')">
-      <!-- contract-user-info start -->
-      <div class="contract-user-info">
-
-
-        <!-- mobile start -->
-        <div class="row mt-5">
-          <div class="col-12 col-sm-6">
-            <div class="row">
-              <div class="col-12 col-sm-3">
-                <label class="float-end float-sm-start mt-3">
-                  شماره مبایل :
-                  <span class="text-danger" *ngIf="!service.isDisabled">*</span>
-                </label>
-              </div>
-              <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='mobile' type="text"
-                    [maxLength]="11" [minlength]="11" mask="00000000000">
-                </div>
-              </div>
+    <div class="row mt-5">
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              شماره مبایل :
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+              <input class="text-center text-black border-0 h-40px w-100" formControlName='mobile' type="text"
+                [maxLength]="11" [minlength]="11" mask="00000000000">
             </div>
           </div>
-
         </div>
-        <!-- mobile end -->
+      </div>
+      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
+              برند :
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="baseInfoService.brandsSingle$|async" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="brandId">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
 
+
+    <div>
+      <!-- contract-user-info start -->
+      <div class="contract-user-info">
         <!-- name family firstName lastName start -->
         <div class="row mt-5">
           <div class="col-12 col-sm-6">
@@ -124,24 +139,6 @@
               </div>
             </div>
           </div>
-
-          <div class="col-12 col-sm-6">
-            <div class="row">
-              <div class="col-12 col-sm-3">
-                <label class="float-end float-sm-start mt-3">
-                  کد پرسنلی :
-                  <span class="text-danger" *ngIf="!service.isDisabled">*</span>
-                </label>
-              </div>
-              <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='personnelCode'
-                    type="text" [maxLength]="10" [minlength]="10" mask="9999999999" type="text">
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
         <!-- personnelCode  nationalCode end -->
 
@@ -212,6 +209,7 @@
               </div>
               <div class="col-12 col-sm-9">
                 <ng-select [items]="contractBaseInfoService.cities$|async" [multiple]="false" appendTo="body"
+                  [disabled]="!service.form.get('stateId')?.value" [readonly]="!service.form.get('stateId')?.value"
                   bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="cityId">
                 </ng-select>
               </div>
@@ -302,8 +300,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="contractBaseInfoService.activitySections$|async" [multiple]="false" appendTo="body"
-                  bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="activitySectionId">
+                <ng-select [items]="contractBaseInfoService.shopActivitySections$|async" [addTag]="addTag"
+                  (change)="comboChanged($event,9)" [multiple]="false" appendTo="body" bindLabel="title" bindValue="id"
+                  class="form-control mb-3" formControlName="activitySectionId">
                 </ng-select>
               </div>
             </div>
@@ -418,7 +417,7 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="contractBaseInfoService.provinces$|async" [multiple]="false" appendTo="body"
+                <ng-select [items]="contractBaseInfoService.allCities$|async" [multiple]="false" appendTo="body"
                   bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="activityZoneId">
                 </ng-select>
               </div>
@@ -433,8 +432,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select [items]="contractBaseInfoService.activitySections$|async" [multiple]="false" appendTo="body"
-                  bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="activitySectionId">
+                <ng-select [items]="contractBaseInfoService.distributorActivitySections$|async" [addTag]="addTag"
+                  (change)="comboChanged($event,8)" [multiple]="false" appendTo="body" bindLabel="title" bindValue="id"
+                  class="form-control mb-3" formControlName="activitySectionId">
                 </ng-select>
               </div>
             </div>
@@ -534,17 +534,77 @@
       <app-other-contracts>
 
       </app-other-contracts>
+
+      <div class="row mt-5">
+        <div class="col-12 col-sm-6">
+          <div class="row">
+            <div class="col-12 col-sm-3">
+              <label class="float-end float-sm-start mt-3">
+                تگ کالا
+                <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+              </label>
+            </div>
+            <div class="col-12 col-sm-9">
+              <ng-select (change)="service.brandChanged($event,'productGroupIds')"
+                [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body" bindLabel="title"
+                bindValue="id" class="form-control" formControlName="productGroupIds">
+              </ng-select>
+              <div *ngIf="!service.form.get('productGroupIds')?.valid && service.form.get('productGroupIds')?.touched"
+                class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                تگ کالا را مشخص نمایید
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+          <div class="row">
+            <div class="col-12 col-sm-3">
+              <label class="float-end float-sm-start mt-3">
+                تاریخ قرارداد
+                <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+              </label>
+            </div>
+            <div class="col-12 col-sm-9">
+              <div class="d-flex flex-row gap-3 align-items-center">
+                <span class="text-black fs-09">
+                  از
+                </span>
+                <div class="mt-1">
+                  <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                    [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                    <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+                      class="form-control h-55px rounded-pill text-center text-black" dir="ltr"
+                      formControlName="startDate" mask="0000/M0/d0" type="text" />
+                  </ng-persian-datepicker>
+                </div>
+                <span class="text-black fs-09">
+                  تا
+                </span>
+                <div class="mt-1">
+                  <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                    [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                    <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+                      class="form-control h-55px rounded-pill text-center text-black" dir="ltr"
+                      formControlName="endDate" mask="0000/M0/d0" type="text" />
+                  </ng-persian-datepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row mt-5">
         <div class="col-6 col-sm-3">
           <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
             (click)="service.submit()">
-            ذخیره تغییرات
+            تایید قرارداد
           </button>
         </div>
         <div class="col-6 col-sm-3">
           <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
             dir="rtl" (click)="backToList()">
-            انصراف
+            رد درخواست
           </button>
         </div>
       </div>
