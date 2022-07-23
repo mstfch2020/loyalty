@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Contract } from 'src/app/@core/data/loyalty/contract/Contract';
 import { contractInit } from 'src/app/@core/data/loyalty/contract/contract.model';
@@ -20,7 +20,8 @@ export class ContractEditComponent implements OnInit
     public baseInfoService: BaseInfoService,
     public contractBaseInfoService: ContractBaseInfoService,
     public service: ContractService,
-    public route: ActivatedRoute)
+    public route: ActivatedRoute,
+    private cdref: ChangeDetectorRef)
   {
 
   }
@@ -44,15 +45,18 @@ export class ContractEditComponent implements OnInit
           {
             value = contractInit;
           }
+          this.service.createForm(value);
+          this.cdref.detectChanges();
           this.loadBaseInfo(value);
         });
       } else
       {
-        this.loadBaseInfo();
+        this.baseInfoService.loadBaseInfo(() => { this.service.createForm(contractInit); this.cdref.detectChanges(); });
       }
     });
     this.service.form.markAllAsTouched();
   }
+
 
   backToList()
   {

@@ -5,6 +5,7 @@ import { BehaviorSubject } from "rxjs";
 import { Contract } from "../../data/loyalty/contract/Contract";
 import { ActiveContract, contractInit, createDistributor, createShopContract, createTeacher, PromoterContracts, RequestContract } from "../../data/loyalty/contract/contract.model";
 import { ContractConfirm } from "../../data/loyalty/contract/ContractConfirm";
+import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
@@ -49,9 +50,11 @@ export class ContractService extends BaseService<Contract>
       shopContract: createShopContract(contract.shopContract, this.formBuilder),
       teachers: this.formBuilder.array(contract.teachers.map(teacher => createTeacher(teacher, this.formBuilder))),
 
-      productGroupIds: [contract.productGroupIds.length === 0 && contract.contractId ? ['all'] : contract.productGroupIds, [Validators.required]],
+      productGroupIds: [contract.productGroupIds?.length === 0 && contract.contractId ? ['all'] : contract.productGroupIds, [Validators.required]],
       startDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.periodMin), [Validators.required]],
       endDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.periodMax), [Validators.required]],
+      periodMin: createPeriodFormGroup(contract.periodMin, this.formBuilder),
+      periodMax: createPeriodFormGroup(contract.periodMax, this.formBuilder),
 
     });
 
@@ -221,18 +224,6 @@ export class ContractService extends BaseService<Contract>
 
   public confirm(): void
   {
-    const value = this.form.value;
-    if (!this.form.value.productGroupIds || this.form.value.productGroupIds.length === 0)
-    {
-      this.uiService.alert('تگ کالا را مشخص نمایید.');
-      return;
-    }
-
-    if (value.productGroupIds.some((p: string) => p === 'all'))
-    {
-      value.productGroupIds = [];
-    }
-
     if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
       !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax'))
     {
@@ -240,13 +231,38 @@ export class ContractService extends BaseService<Contract>
       return;
     }
 
+    const value = this.form.value;
+    if (!this.form.value.productGroupIds || this.form.value.productGroupIds?.length === 0)
+    {
+      this.uiService.alert('تگ کالا را مشخص نمایید.');
+      return;
+    }
+
+    if (value.productGroupIds?.some((p: string) => p === 'all'))
+    {
+      value.productGroupIds = [];
+    }
+
     const request: any = {};
     request.tagIds = value.productGroupIds;
     request.from = value.periodMin;
     request.to = value.periodMax;
+    request.contractId = value.contractId;
 
     const url = this.settingService.settings?.baseUrl + `Contract/Confirm`;
-    callPostService<any>(url, this.http, this.uiService, value).subscribe(value =>
+    callPostService<any>(url, this.http, this.uiService, request).subscribe(value =>
+    {
+      if (value) { this.uiService.success('با موفقیت ثبت شد.'); }
+    });
+
+
+  }
+
+  public reject(): void
+  {
+    const value = this.form.value;
+    const url = this.settingService.settings?.baseUrl + `Contract/Reject`;
+    callPostService<any>(url, this.http, this.uiService, { contractId: value.contractId }).subscribe(value =>
     {
       if (value) { this.uiService.success('با موفقیت ثبت شد.'); }
     });

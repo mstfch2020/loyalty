@@ -1,13 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as oidcClient from 'oidc-client';
 import { UserState } from '../../data/auth/user-state.model';
-import { RootStoreService } from '../root-store.service';
 import { SettingsService } from '../settings-service';
 import { StoreService } from '../store.service';
-import { LogManagerService } from '../ui/log-manager.service';
-import { UiService } from "../ui/ui.service";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends StoreService<UserState> {
@@ -16,15 +12,11 @@ export class AuthService extends StoreService<UserState> {
   userManager: oidcClient.UserManager;
 
   constructor(private router: Router,
-    private rootStoreService: RootStoreService,
-    private http: HttpClient,
-    private settingService: SettingsService,
-    private uiService: UiService,
-    private logManagerService: LogManagerService)
+    public settingService: SettingsService)
   {
     super();
 
-    this.userManager = new oidcClient.UserManager(getClientSettings());
+    this.userManager = new oidcClient.UserManager(this.getClientSettings());
 
     this.userManager.getUser().then(user =>
     {
@@ -124,25 +116,26 @@ export class AuthService extends StoreService<UserState> {
     } catch (error) { console.log(error); }
   }
 
+
+  getClientSettings(): oidcClient.UserManagerSettings
+  {
+    return {
+      authority: 'https://auth.ketabkesh.ir',
+      client_id: window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js',
+      redirect_uri: `${ this.settingService.settings?.siteUrl }/login`,
+      response_type: "code",
+      scope: "openid profile api1 IdentityServerApi offline_access",
+      post_logout_redirect_uri: `${ this.settingService.settings?.siteUrl }/logoutredirect`,
+      popup_post_logout_redirect_uri: `${ this.settingService.settings?.siteUrl }/logoutredirect`,
+      userStore: new oidcClient.WebStorageStateStore({ store: localStorage }),
+      response_mode: "query",
+      automaticSilentRenew: false,
+      accessTokenExpiringNotificationTime: 30,
+      filterProtocolClaims: false,
+      // loadUserInfo: true,
+    };
+  }
 }
 
 
-export function getClientSettings(): oidcClient.UserManagerSettings
-{
-  const baseUrl = window.location.href.includes('localhost') ? 'https://localhost:4200/login' : 'https://loyalty.mysatrapstage.com';
-  return {
-    authority: 'https://auth.ketabkesh.ir',
-    client_id: window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js',
-    redirect_uri: `${ baseUrl }/login`,
-    response_type: "code",
-    scope: "openid profile api1 IdentityServerApi offline_access",
-    post_logout_redirect_uri: `${ baseUrl }/register`,
-    popup_post_logout_redirect_uri: `${ baseUrl }/register`,
-    userStore: new oidcClient.WebStorageStateStore({ store: localStorage }),
-    response_mode: "query",
-    automaticSilentRenew: false,
-    accessTokenExpiringNotificationTime: 30,
-    filterProtocolClaims: false,
-    // loadUserInfo: true,
-  };
-}
+

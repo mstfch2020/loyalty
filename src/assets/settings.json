@@ -1,5 +1,6 @@
 {
   "baseUrl": "/api/",
+  "siteUrl": "https://localhost:4200/",
   "userName": "vmon",
   "password": "vmon"
 }

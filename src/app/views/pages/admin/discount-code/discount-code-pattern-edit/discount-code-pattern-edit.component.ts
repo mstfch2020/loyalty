@@ -43,21 +43,17 @@ export class DiscountCodePatternEditComponent implements OnInit
             }
             this.service.createForm(value);
             this.cdref.detectChanges();
-            this.brandIdChangeHandler();
+
           }, value?.brandIds);
         });
       } else
       {
 
-        this.baseInfoService.loadBaseInfo(() => { this.service.createForm(discountInit); this.cdref.detectChanges(); this.brandIdChangeHandler(); });
+        this.baseInfoService.loadBaseInfo(() => { this.service.createForm(discountInit); this.cdref.detectChanges(); });
       }
     });
     this.service.form.markAllAsTouched();
 
-
-  }
-  brandIdChangeHandler()
-  {
 
   }
 

@@ -1,5 +1,6 @@
 {
   "baseUrl" : "${BASE_URL}",
+  "siteUrl" : "${SITE_URL}",
   "userName" : "${USER_NAME}",
   "password" : "${PASSWORD}"
 }

@@ -503,7 +503,7 @@
       <!-- teachers start -->
       <div *ngIf="service.getValue('type')===1">
         <div class="d-flex flex-row justify-content-end">
-          <div (click)="service.addTeacher()">
+          <div (click)="service.addTeacher()" *ngIf="false">
             <div class="font-yekan-regular fs-08 color-info mt-1 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-plus-circle color-app-blue" viewBox="0 0 16 16">
@@ -531,22 +531,78 @@
         </div>
       </div>
       <!-- teachers end -->
-      <app-other-contracts>
 
-      </app-other-contracts>
 
+      <div class="row mt-5">
+        <div class="col-12 col-sm-6">
+          <div class="row">
+            <div class="col-12 col-sm-3">
+              <label class="float-end float-sm-start mt-3">
+                تگ کالا
+                <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+              </label>
+            </div>
+            <div class="col-12 col-sm-9">
+              <ng-select (change)="service.brandChanged($event,'productGroupIds')"
+                [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body" bindLabel="title"
+                bindValue="id" class="form-control" formControlName="productGroupIds">
+              </ng-select>
+              <div *ngIf="!service.form.get('productGroupIds')?.valid && service.form.get('productGroupIds')?.touched"
+                class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                تگ کالا را مشخص نمایید
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+          <div class="row">
+            <div class="col-12 col-sm-3">
+              <label class="float-end float-sm-start mt-3">
+                تاریخ قرارداد
+                <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+              </label>
+            </div>
+            <div class="col-12 col-sm-9">
+              <div class="d-flex flex-row gap-3 align-items-center">
+                <span class="text-black fs-09">
+                  از
+                </span>
+                <div class="mt-1">
+                  <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                    [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                    <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+                      class="form-control h-55px rounded-pill text-center text-black" dir="ltr"
+                      formControlName="startDate" mask="0000/M0/d0" type="text" />
+                  </ng-persian-datepicker>
+                </div>
+                <span class="text-black fs-09">
+                  تا
+                </span>
+                <div class="mt-1">
+                  <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                    [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                    <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+                      class="form-control h-55px rounded-pill text-center text-black" dir="ltr"
+                      formControlName="endDate" mask="0000/M0/d0" type="text" />
+                  </ng-persian-datepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
       <div class="row mt-5">
         <div class="col-6 col-sm-3">
           <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
-            (click)="service.submit()">
+            (click)="service.confirm()">
             تایید قرارداد
           </button>
         </div>
         <div class="col-6 col-sm-3">
           <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block"
-            dir="rtl" (click)="backToList()">
+            dir="rtl" (click)="service.reject()">
             رد درخواست
           </button>
         </div>
