@@ -57,16 +57,9 @@
       <hr class="sidebar-divider my-0">
       <ul class="navbar-nav text-light font-yekan-regular text-black mt-13" dir="ltr">
 
-
         <li [routerLinkActive]="['link-active']" class="nav-item" *ngIf="authService.isLoggedIn()">
           <a [routerLink]="" class="nav-link" (click)="singout()">
             خروج
-          </a>
-        </li>
-
-        <li [routerLinkActive]="['link-active']" class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a [routerLink]="" class="nav-link" (click)="singoutpop()">
-            خروج پاپاپ
           </a>
         </li>
 
@@ -76,18 +69,19 @@
           </a>
         </li>
 
-
-        <li [routerLinkActive]="['link-active']" class="nav-item">
-          <a [routerLink]="['/admin/main/']" class="nav-link">
-            صفحه اصلی
-          </a>
-        </li>
-        <ng-container *ngFor="let item of menuItems">
-          <li [routerLinkActive]="['link-active']" class="nav-item" *ngIf="item.visible">
-            <a [routerLink]="[item.url]" class="nav-link" routerLinkActive="active">
-              {{item.title}}
+        <ng-container *ngIf="true||authService.isLoggedIn()">
+          <li [routerLinkActive]="['link-active']" class="nav-item">
+            <a [routerLink]="['/admin/main/']" class="nav-link">
+              صفحه اصلی
             </a>
           </li>
+          <ng-container *ngFor="let item of menuItems">
+            <li [routerLinkActive]="['link-active']" class="nav-item" *ngIf="item.visible">
+              <a [routerLink]="[item.url]" class="nav-link" routerLinkActive="active">
+                {{item.title}}
+              </a>
+            </li>
+          </ng-container>
         </ng-container>
       </ul>
     </div>

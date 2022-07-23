@@ -47,7 +47,11 @@ export class ContractService extends BaseService<Contract>
       brandId: [contract.brandId, [Validators.required]],
       distributor: createDistributor(contract.distributor, this.formBuilder),
       shopContract: createShopContract(contract.shopContract, this.formBuilder),
-      teachers: this.formBuilder.array(contract.teachers.map(teacher => createTeacher(teacher, this.formBuilder)))
+      teachers: this.formBuilder.array(contract.teachers.map(teacher => createTeacher(teacher, this.formBuilder))),
+
+      productGroupIds: [contract.productGroupIds.length === 0 && contract.contractId ? ['all'] : contract.productGroupIds, [Validators.required]],
+      startDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.periodMin), [Validators.required]],
+      endDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.periodMax), [Validators.required]],
 
     });
 
@@ -175,6 +179,10 @@ export class ContractService extends BaseService<Contract>
 
     const value = this.form.value;
 
+    delete value.productGroupIds;
+    delete value.startDate;
+    delete value.endDate;
+
     if (!isValidPhonenumber(value.mobile))
     {
       this.uiService.alert('شماره مبایل نادرست است.');
@@ -208,6 +216,41 @@ export class ContractService extends BaseService<Contract>
       this.form.controls['contractId'].setValue(value?.id);
       if (value?.id) { this.uiService.success('با موفقیت ثبت شد.'); }
     });
+
+  }
+
+  public confirm(): void
+  {
+    const value = this.form.value;
+    if (!this.form.value.productGroupIds || this.form.value.productGroupIds.length === 0)
+    {
+      this.uiService.alert('تگ کالا را مشخص نمایید.');
+      return;
+    }
+
+    if (value.productGroupIds.some((p: string) => p === 'all'))
+    {
+      value.productGroupIds = [];
+    }
+
+    if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
+      !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax'))
+    {
+      this.uiService.alert('بازه زمانی تاریخ قرارداد را وارد نمایید.');
+      return;
+    }
+
+    const request: any = {};
+    request.tagIds = value.productGroupIds;
+    request.from = value.periodMin;
+    request.to = value.periodMax;
+
+    const url = this.settingService.settings?.baseUrl + `Contract/Confirm`;
+    callPostService<any>(url, this.http, this.uiService, value).subscribe(value =>
+    {
+      if (value) { this.uiService.success('با موفقیت ثبت شد.'); }
+    });
+
 
   }
 }

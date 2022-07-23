@@ -1,6 +1,6 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContractType } from '../enums.model';
-import { Period } from '../period.model';
+import { Period, periodInit } from '../period.model';
 import { Contract } from './Contract';
 import { Distributor } from './Distributor';
 import { ShopContract } from './ShopContract';
@@ -81,6 +81,10 @@ export const contractInit: Contract = {
   teachers: [],
   distributor: distributorInit,
   shopContract: shopContractInit,
+  productGroupIds: [],
+  periodMin: periodInit,
+  periodMax: periodInit
+
 };
 
 

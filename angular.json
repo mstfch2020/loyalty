@@ -85,7 +85,8 @@
             },
             "development": {
               "browserTarget": "loyalty:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "proxyConfig": "proxy.conf.json",
+              "ssl": true
             }
           },
           "defaultConfiguration": "development"

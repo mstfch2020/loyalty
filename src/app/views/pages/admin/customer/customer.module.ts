@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { ContractTeacherEditComponent } from "../contract/contract-teacher-edit/contract-teacher-edit.component";
 import { SharedModule } from "../shared.module";
 import { customerComponents, CustomerRoutingModule } from "./customer-routing.module";
 
@@ -11,8 +12,8 @@ import { customerComponents, CustomerRoutingModule } from "./customer-routing.mo
     SharedModule
   ],
   exports: [
-
-  ]
+    ...customerComponents
+  ], entryComponents: [ContractTeacherEditComponent]
 })
 export class CustomerModule
 {

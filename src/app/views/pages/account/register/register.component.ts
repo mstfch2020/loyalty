@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit
 
   ngOnInit()
   {
+    alert('register');
     this.authService.completeSignout();
   }
 }
