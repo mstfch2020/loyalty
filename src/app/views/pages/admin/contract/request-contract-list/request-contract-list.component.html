@@ -34,7 +34,9 @@
                   {{item.date.full}}
                 </td>
                 <td class="pr-1 text-end fs-08">
-                  {{item.status}}
+
+                  <app-state-status-view [status]="item.status?.toString()??'0'" [statusType]="3">
+                  </app-state-status-view>
                 </td>
               </tr>
             </tbody>

@@ -26,14 +26,17 @@ export class ContractEditComponent implements OnInit
 
   }
 
-  loadBaseInfo(value?: Contract)
+  loadBaseInfo(value: Contract)
   {
+    this.service.createForm(value);
+    this.cdref.detectChanges();
     this.contractBaseInfoService.loadBaseInfoData(value);
     this.baseInfoService.loadBaseInfo();
   }
 
   ngOnInit(): void
   {
+    this.service.form.enable();
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
@@ -45,13 +48,12 @@ export class ContractEditComponent implements OnInit
           {
             value = contractInit;
           }
-          this.service.createForm(value);
-          this.cdref.detectChanges();
+
           this.loadBaseInfo(value);
         });
       } else
       {
-        this.baseInfoService.loadBaseInfo(() => { this.service.createForm(contractInit); this.cdref.detectChanges(); });
+        this.loadBaseInfo(contractInit);
       }
     });
     this.service.form.markAllAsTouched();

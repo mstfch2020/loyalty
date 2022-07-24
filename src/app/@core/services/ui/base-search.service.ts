@@ -12,6 +12,10 @@ import { BaseInfoService } from "../loyalty/base-info.service";
 })
 export class BaseSearchService
 {
+  constructor(public baseInfoService: BaseInfoService)
+  {
+
+  }
   public unsubscribe = new Subject<void>();
   theActivityList = new Array<FilterTitle>();
   theActivitySelectedList = new Array<IdTitleTypeBrandId>();
@@ -104,7 +108,7 @@ export class BaseSearchService
     },
   ];
 
-  theContractFilterStatusSelected = 0;
+  theContractFilterStatusSelected: Array<FilterTitle>;
   theContractFilterStatusSelectedCondition = 0;
   theContractFilterStatusList: Array<FilterTitle> = [
     {
@@ -120,13 +124,13 @@ export class BaseSearchService
       checked: false,
     },
     {
-      id: '2',
+      id: '3',
       title: 'ویرایش شده',
       type: 0,
       checked: false,
     },
     {
-      id: '2',
+      id: '4',
       title: 'رد شده',
       type: 0,
       checked: false,
@@ -183,15 +187,10 @@ export class BaseSearchService
     }
   ];
 
-
-  constructor(public baseInfoService: BaseInfoService)
-  {
-    this.loadData();
-  }
-
   loadData(): void
   {
-    this.baseInfoService.loadBaseInfo(() => { });
+    this.reset();
+    this.baseInfoService.loadBaseInfo();
 
     this.theFilterPercentList = [];
     [10, 20, 30, 40, 50, 60, 70, 80, 90, 100].forEach(p =>
@@ -373,6 +372,45 @@ export class BaseSearchService
 
 
   }
+  reset()
+  {
+    this.theActivitySelectedList = [];
+    this.theActivityKeySelected = '';
+    this.theCampaignSelectedList = [];
+    this.theScoreSelectedList = [];
+    this.theActivityCountListSelectedList = [];
+    this.theFilterCustomerSelectedList = [];
+    this.theFilterTitleFilterSelectedList = [];
+    this.theFilterGroupSelectedList = [];
+    this.theFilterBrandsSelectedList = [];
+    this.theFilterLevelsSelectedList = [];
+    this.theFilterUserTypeSelectedList = [];
+    this.theFilterCommissionSelectedList = [];
+    this.theFilterPercentSelectedList = [];
+    this.theProductGroupListSelectedList = [];
+    this.theFilterDateFromSelected = '';
+    this.theDateFilterSelected = '';
+    this.theFilterDateToSelected = '';
+    this.theCreateAccountDateSelected = '';
+    this.theExpireDateSelected = '';
+    this.volumeFilterSelected = null;
+    this.activityCountFilterSelected = null;
+    this.discountCodeSelected = null;
+    this.phoneSelected = null;
+    this.theFilterStatusSelected = 0;
+    this.theContractFilterStatusSelected = [];
+    this.theFilterRestPeriodTypeSelected = [];
+
+    this.resetChecks(this.theFilterStatusList);
+    this.resetChecks(this.theContractFilterStatusList);
+    this.resetChecks(this.theFilterUsageStatusList);
+    this.resetChecks(this.theFilterRestPeriodTypeList);
+  }
+  resetChecks(theFilterStatusList: FilterTitle[])
+  {
+    theFilterStatusList.forEach(p => p.checked = false);
+  }
+
 
   applyFilterForm(event: any, filterType: FilterNames): any
   {
@@ -416,7 +454,8 @@ export class BaseSearchService
         this.theFilterStatusSelected = parseInt(event.value[0].id, 0);
         break;
       case FilterNames.ContractStatus:
-        this.theContractFilterStatusSelected = parseInt(event.value[0].id, 0);
+        this.theContractFilterStatusSelected = event.value;
+        this.theContractFilterStatusSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case FilterNames.RestPeriodType:
         this.theFilterRestPeriodTypeSelected = event.value;
@@ -718,10 +757,10 @@ export class BaseSearchService
       request.statusFilter.status = this.theFilterStatusSelected;
     }
 
-    if (this.theContractFilterStatusSelected !== 0)
+    if (this.theContractFilterStatusSelected && this.theContractFilterStatusSelected?.length !== 0)
     {
       request.statusFilter = new StatusFilter();
-      request.statusFilter.status = this.theContractFilterStatusSelected;
+      request.statusFilter.status = this.theContractFilterStatusSelected.map(p => parseInt(p.id, 0));
     }
 
     if (this.theFilterDateFromSelected)
@@ -731,7 +770,7 @@ export class BaseSearchService
 
     if (this.theDateFilterSelected)
     {
-      request.dateFilter = { date: Utility.getPeriodOfString(this.theFilterDateFromSelected) };
+      request.dateFilter = { date: Utility.getPeriodOfString(this.theDateFilterSelected) };
     }
 
     if (this.theExpireDateSelected)

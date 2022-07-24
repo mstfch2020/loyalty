@@ -102,7 +102,6 @@ export abstract class BaseService<T>{
   constructor(public formBuilder: FormBuilder, public uiService: UiService, public baseInfoService: BaseInfoService, initObject: T)
   {
     this.form = this.formBuilder.group({});
-    this.createForm(initObject);
   }
 
   abstract createForm(scenario: T): void;

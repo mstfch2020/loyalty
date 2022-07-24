@@ -17,17 +17,17 @@ export interface ActiveContract
   dateTo: Period;
 }
 
-export class RequestContract
+export interface RequestContract
 {
   contractId: string;
   mobile: string;
   userType: string;
   brand: string;
   date: Period;
-  status: string;
+  status: number;
 }
 
-export class PromoterContracts
+export interface PromoterContracts
 {
   contractId: string;
   mobile: string;
@@ -81,9 +81,9 @@ export const contractInit: Contract = {
   teachers: [],
   distributor: distributorInit,
   shopContract: shopContractInit,
-  productGroupIds: [],
-  periodMin: periodInit,
-  periodMax: periodInit
+  tagIds: [],
+  from: periodInit,
+  to: periodInit
 
 };
 

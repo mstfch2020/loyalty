@@ -34,6 +34,7 @@ export class ContractEditAdminComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.service.form.enable();
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
@@ -61,7 +62,7 @@ export class ContractEditAdminComponent implements OnInit
   disableForm()
   {
     this.service.form.disable();
-    this.service.form.get('productGroupIds')?.enable();
+    this.service.form.get('tagIds')?.enable();
     this.service.form.get('startDate')?.enable();
     this.service.form.get('endDate')?.enable();
   }

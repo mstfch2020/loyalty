@@ -15,7 +15,6 @@ export class AuthService extends StoreService<UserState> {
     public settingService: SettingsService)
   {
     super();
-
     this.userManager = new oidcClient.UserManager(this.getClientSettings());
 
     this.userManager.getUser().then(user =>
@@ -119,14 +118,17 @@ export class AuthService extends StoreService<UserState> {
 
   getClientSettings(): oidcClient.UserManagerSettings
   {
+    console.log(this.settingService.settings?.siteUrl);
+    const clientId = window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js';
+    console.log(clientId);
     return {
       authority: 'https://auth.ketabkesh.ir',
-      client_id: window.location.href.includes('localhost') ? 'club_site_local_js' : 'club_site_js',
-      redirect_uri: `${ this.settingService.settings?.siteUrl }/login`,
+      client_id: clientId,
+      redirect_uri: `${ this.settingService.settings?.siteUrl }login`,
       response_type: "code",
       scope: "openid profile api1 IdentityServerApi offline_access",
-      post_logout_redirect_uri: `${ this.settingService.settings?.siteUrl }/logoutredirect`,
-      popup_post_logout_redirect_uri: `${ this.settingService.settings?.siteUrl }/logoutredirect`,
+      post_logout_redirect_uri: `${ this.settingService.settings?.siteUrl }logoutredirect`,
+      popup_post_logout_redirect_uri: `${ this.settingService.settings?.siteUrl }logoutredirect`,
       userStore: new oidcClient.WebStorageStateStore({ store: localStorage }),
       response_mode: "query",
       automaticSilentRenew: false,

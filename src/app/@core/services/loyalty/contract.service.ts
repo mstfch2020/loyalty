@@ -48,13 +48,13 @@ export class ContractService extends BaseService<Contract>
       brandId: [contract.brandId, [Validators.required]],
       distributor: createDistributor(contract.distributor, this.formBuilder),
       shopContract: createShopContract(contract.shopContract, this.formBuilder),
-      teachers: this.formBuilder.array(contract.teachers.map(teacher => createTeacher(teacher, this.formBuilder))),
+      teachers: !contract.teachers ? [] : this.formBuilder.array(contract.teachers?.map(teacher => createTeacher(teacher, this.formBuilder))),
 
-      productGroupIds: [contract.productGroupIds?.length === 0 && contract.contractId ? ['all'] : contract.productGroupIds, [Validators.required]],
-      startDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.periodMin), [Validators.required]],
-      endDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.periodMax), [Validators.required]],
-      periodMin: createPeriodFormGroup(contract.periodMin, this.formBuilder),
-      periodMax: createPeriodFormGroup(contract.periodMax, this.formBuilder),
+      tagIds: [contract.tagIds?.length === 0 && contract.contractId ? ['all'] : contract.tagIds, [Validators.required]],
+      startDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.from), [Validators.required]],
+      endDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.to), [Validators.required]],
+      from: createPeriodFormGroup(contract.from, this.formBuilder),
+      to: createPeriodFormGroup(contract.to, this.formBuilder),
 
     });
 
@@ -182,7 +182,7 @@ export class ContractService extends BaseService<Contract>
 
     const value = this.form.value;
 
-    delete value.productGroupIds;
+    delete value.tagIds;
     delete value.startDate;
     delete value.endDate;
 
@@ -224,30 +224,30 @@ export class ContractService extends BaseService<Contract>
 
   public confirm(): void
   {
-    if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
-      !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax'))
+    if (!this.updatePeriodFormControl(this.getValue('startDate'), 'from') ||
+      !this.updatePeriodFormControl(this.getValue('endDate'), 'to'))
     {
       this.uiService.alert('بازه زمانی تاریخ قرارداد را وارد نمایید.');
       return;
     }
 
-    const value = this.form.value;
-    if (!this.form.value.productGroupIds || this.form.value.productGroupIds?.length === 0)
+    let tagIds = this.getValue('tagIds');
+    if (!tagIds || tagIds?.length === 0)
     {
       this.uiService.alert('تگ کالا را مشخص نمایید.');
       return;
     }
 
-    if (value.productGroupIds?.some((p: string) => p === 'all'))
+    if (tagIds?.some((p: string) => p === 'all'))
     {
-      value.productGroupIds = [];
+      tagIds = [];
     }
 
     const request: any = {};
-    request.tagIds = value.productGroupIds;
-    request.from = value.periodMin;
-    request.to = value.periodMax;
-    request.contractId = value.contractId;
+    request.tagIds = tagIds;
+    request.from = this.getValue('from');
+    request.to = this.getValue('to');
+    request.contractId = this.getValue('contractId');
 
     const url = this.settingService.settings?.baseUrl + `Contract/Confirm`;
     callPostService<any>(url, this.http, this.uiService, request).subscribe(value =>
@@ -260,9 +260,9 @@ export class ContractService extends BaseService<Contract>
 
   public reject(): void
   {
-    const value = this.form.value;
+
     const url = this.settingService.settings?.baseUrl + `Contract/Reject`;
-    callPostService<any>(url, this.http, this.uiService, { contractId: value.contractId }).subscribe(value =>
+    callPostService<any>(url, this.http, this.uiService, { contractId: this.getValue('contractId') }).subscribe(value =>
     {
       if (value) { this.uiService.success('با موفقیت ثبت شد.'); }
     });

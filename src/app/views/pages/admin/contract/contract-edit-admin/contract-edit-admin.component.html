@@ -543,11 +543,11 @@
               </label>
             </div>
             <div class="col-12 col-sm-9">
-              <ng-select (change)="service.brandChanged($event,'productGroupIds')"
-                [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body" bindLabel="title"
-                bindValue="id" class="form-control" formControlName="productGroupIds">
+              <ng-select (change)="service.brandChanged($event,'tagIds')" [items]="baseInfoService.productGroups$|async"
+                [multiple]="true" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+                formControlName="tagIds">
               </ng-select>
-              <div *ngIf="!service.form.get('productGroupIds')?.valid && service.form.get('productGroupIds')?.touched"
+              <div *ngIf="!service.form.get('tagIds')?.valid && service.form.get('tagIds')?.touched"
                 class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                 تگ کالا را مشخص نمایید
               </div>

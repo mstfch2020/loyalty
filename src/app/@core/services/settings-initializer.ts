@@ -4,7 +4,7 @@ import { Settings } from '../data/root/settings';
 import { SettingsService } from './settings-service';
 
 @Injectable({
-  providedIn: 'any',
+  providedIn: 'root',
 })
 export class SettingsInitializerService
 {
@@ -16,20 +16,20 @@ export class SettingsInitializerService
   {
     return new Promise((resolve, reject) =>
     {
-      this.http.get('assets/settings.json').subscribe(
-        (response) =>
+      this.http.get('assets/settings.json').subscribe({
+        next: (response) =>
         {
           this.settings.settings = response as Settings;
           console.log(this.settings.settings);
           // GlobalData.API_URL = this.settings.settings.baseUrl;
           resolve(response);
         },
-        (error) =>
+        error: (error) =>
         {
           reject(error);
           console.log(error);
-        },
-      );
+        }
+      });
     });
   }
 }

@@ -128,8 +128,8 @@ export enum StatusType
 {
   None = 0,
   ScenarioTypeStatus = 1,
-  UsageStateStatus = 2
-
+  UsageStateStatus = 2,
+  ContractStatus = 3
 }
 
 export enum UsageState

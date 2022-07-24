@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
 import { FilterNames } from "../../data/loyalty/enums.model";
 import { BaseInfoService } from "../loyalty/base-info.service";

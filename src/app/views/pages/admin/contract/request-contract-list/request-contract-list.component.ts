@@ -28,6 +28,7 @@ export class RequestContractListComponent extends BaseSearch implements OnInit
   override ngOnInit(): void
   {
     super.ngOnInit();
+
     this.service.requestContracts$.subscribe(value =>
     {
       this.theViewList = value;
@@ -47,6 +48,6 @@ export class RequestContractListComponent extends BaseSearch implements OnInit
       this.router.navigate(['/admin/main/contract/edit-admin'], { queryParams: { id: code } });
       return;
     }
-    this.router.navigate(['/admin/main/contract/edit-admin']);
+    this.router.navigate(['/admin/main/contract/edit']);
   }
 }

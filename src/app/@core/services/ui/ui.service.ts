@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AlertService } from './alert.service';
 
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UiService
 {
   constructor(private snackbar: MatSnackBar, private translateService: TranslateService, public alertService: AlertService)

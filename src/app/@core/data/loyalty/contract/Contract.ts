@@ -23,8 +23,8 @@ export interface Contract
   teachers: Array<Teacher>;
   distributor: Distributor;
   shopContract: ShopContract;
-  productGroupIds: Array<string>;
-  periodMin: Period;
-  periodMax: Period;
+  tagIds: Array<string>;
+  from: Period;
+  to: Period;
 }
 

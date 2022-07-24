@@ -10,6 +10,14 @@ import { callGetService, callPostService } from "./BaseService";
 @Injectable({ providedIn: 'root' })
 export class BaseInfoService
 {
+  constructor(
+    public http: HttpClient,
+    public settingService: SettingsService,
+    public uiService: UiService)
+  {
+    this.applyOnType$.next(this.applyOnType);
+  }
+
   private unsubscribe = new Subject<void>();
   destroy()
   {
@@ -104,13 +112,7 @@ export class BaseInfoService
     }
   ];
 
-  constructor(
-    public http: HttpClient,
-    public settingService: SettingsService,
-    public uiService: UiService)
-  {
-    this.applyOnType$.next(this.applyOnType);
-  }
+
 
   loadBaseInfo(callback?: any, brandIds: Array<string> = [], productIds: Array<string> = []): void
   {
