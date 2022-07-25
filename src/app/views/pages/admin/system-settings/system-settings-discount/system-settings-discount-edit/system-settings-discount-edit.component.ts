@@ -20,7 +20,7 @@ export class SystemSettingsDiscountEditComponent implements OnInit
     private router: Router,
     private route: ActivatedRoute,
     private elementRef: ElementRef,
-    public promoterDiscountSettingService: PromoterDiscountSettingService,
+    public service: PromoterDiscountSettingService,
     public baseInfoService: BaseInfoService)
   {
 
@@ -33,7 +33,7 @@ export class SystemSettingsDiscountEditComponent implements OnInit
   {
     if (id)
     {
-      this.promoterDiscountSettingService.getPromoterDiscountSettingById(id).subscribe((value) =>
+      this.service.getPromoterDiscountSettingById(id).subscribe((value) =>
       {
         this.baseInfoService.loadBaseInfo(() =>
         {
@@ -41,13 +41,13 @@ export class SystemSettingsDiscountEditComponent implements OnInit
           {
             value = promoterDiscountSettingInit;
           }
-          this.promoterDiscountSettingService.createForm(value);
+          this.service.createForm(value);
         });
       });
     }
     else
     {
-      this.baseInfoService.loadBaseInfo(() => { this.promoterDiscountSettingService.createForm(promoterDiscountSettingInit); });
+      this.baseInfoService.loadBaseInfo(() => { this.service.createForm(promoterDiscountSettingInit); });
     }
   }
 
@@ -58,6 +58,7 @@ export class SystemSettingsDiscountEditComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.service.createForm(promoterDiscountSettingInit);
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
@@ -69,12 +70,12 @@ export class SystemSettingsDiscountEditComponent implements OnInit
       const id = params['id'];
       this.updateSystemSettingsDiscountFromServer(id);
     });
-    this.promoterDiscountSettingService.form.markAllAsTouched();
+    this.service.form.markAllAsTouched();
   }
 
   get isDisabled(): boolean
   {
-    return this.promoterDiscountSettingService.isDisabled;
+    return this.service.isDisabled;
   };
 
   backToList()

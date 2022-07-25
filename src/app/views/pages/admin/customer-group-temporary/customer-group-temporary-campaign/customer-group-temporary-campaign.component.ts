@@ -22,6 +22,7 @@ export class CustomerGroupTemporaryCampaignComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.service.createForm(campaignInit);
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];

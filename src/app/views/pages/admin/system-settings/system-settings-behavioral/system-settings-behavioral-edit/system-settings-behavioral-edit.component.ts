@@ -49,6 +49,7 @@ export class SystemSettingsBehavioralEditComponent implements OnInit, OnDestroy
 
   ngOnInit(): void
   {
+    this.service.createForm(activityInit);
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];

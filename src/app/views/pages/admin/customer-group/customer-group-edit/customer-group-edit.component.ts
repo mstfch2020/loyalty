@@ -12,25 +12,26 @@ import { CustomerGroupService } from "src/app/@core/services/loyalty/customer-gr
 export class CustomerGroupEditComponent implements OnInit
 {
 
-  constructor(private router: Router, public baseInfoService: BaseInfoService, public customerGroupService: CustomerGroupService, private route: ActivatedRoute)
+  constructor(private router: Router, public baseInfoService: BaseInfoService, public service: CustomerGroupService, private route: ActivatedRoute)
   {
 
   }
 
   loadBaseInfo(value: CustomerGroup)
   {
-    this.baseInfoService.loadBaseInfo(() => this.customerGroupService.createForm(value));
+    this.baseInfoService.loadBaseInfo(() => this.service.createForm(value));
     this.baseInfoService.loadCustomerLevel();
   }
 
   ngOnInit(): void
   {
+    this.service.createForm(customerGroupInit);
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
       if (id)
       {
-        this.customerGroupService.getCustomerGroupById(id).subscribe((value) =>
+        this.service.getCustomerGroupById(id).subscribe((value) =>
         {
           if (!value)
           {
@@ -43,7 +44,7 @@ export class CustomerGroupEditComponent implements OnInit
         this.loadBaseInfo(customerGroupInit);
       }
     });
-    this.customerGroupService.form.markAllAsTouched();
+    this.service.form.markAllAsTouched();
   }
 
   backToList()

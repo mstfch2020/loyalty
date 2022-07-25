@@ -27,6 +27,7 @@ export class DiscountCodePatternEditComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.service.createForm(discountInit);
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];

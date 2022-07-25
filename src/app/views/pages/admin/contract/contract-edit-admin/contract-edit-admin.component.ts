@@ -34,6 +34,7 @@ export class ContractEditAdminComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.service.createForm(contractInit);
     this.service.form.enable();
     this.route.queryParams.subscribe(params =>
     {

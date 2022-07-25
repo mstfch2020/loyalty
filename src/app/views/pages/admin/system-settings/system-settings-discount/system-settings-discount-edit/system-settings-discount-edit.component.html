@@ -1,4 +1,4 @@
-<form [formGroup]="promoterDiscountSettingService.form" action="" dir="rtl">
+<form [formGroup]="service.form" action="" dir="rtl">
   <div class="container-fluid">
     <div class="row mt-2">
       <div class="col-6">
@@ -10,12 +10,12 @@
             </label>
           </div>
           <div class="col-9">
-            <ng-select (change)="promoterDiscountSettingService.brandChanged($event,'brandId')"
+            <ng-select (change)="service.brandChanged($event,'brandId')"
               [items]="baseInfoService.brands$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
               bindLabel="title" bindValue="id" class="form-control" formControlName="brandId">
             </ng-select>
             <div
-              *ngIf="!promoterDiscountSettingService.form.get('brandId')?.valid && promoterDiscountSettingService.form.get('brandId')?.touched && !isDisabled"
+              *ngIf="!service.form.get('brandId')?.valid && service.form.get('brandId')?.touched && !isDisabled"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               برند را مشخص نمایید
             </div>
@@ -31,12 +31,12 @@
             </label>
           </div>
           <div class="col-9">
-            <ng-select (change)="promoterDiscountSettingService.brandChanged($event,'userTypeId')"
+            <ng-select (change)="service.brandChanged($event,'userTypeId')"
               [items]="baseInfoService.userTypes$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
               bindLabel="title" bindValue="id" class="form-control" formControlName="userTypeId">
             </ng-select>
             <div
-              *ngIf="!promoterDiscountSettingService.form.get('userTypeId')?.valid && promoterDiscountSettingService.form.get('userTypeId')?.touched && !isDisabled"
+              *ngIf="!service.form.get('userTypeId')?.valid && service.form.get('userTypeId')?.touched && !isDisabled"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               نوع کاربری را مشخص نمایید
             </div>
@@ -119,7 +119,7 @@
     </div>
     <div class="row mt-5">
       <div class="col-2">
-        <button (click)="promoterDiscountSettingService.submit()"
+        <button (click)="service.submit()"
           class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl" dir="rtl"
           type="submit">
           ذخیره

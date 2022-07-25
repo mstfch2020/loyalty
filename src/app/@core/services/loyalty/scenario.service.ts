@@ -61,8 +61,8 @@ export class ScenarioService extends BaseService<Scenario>
       purchaseRound2: [scenario.purchaseRoundType === 2 ? scenario.purchaseRound : 0, [Validators.required]],
 
       activityId: [scenario.activityId, [Validators.required]],
-      generalCustomers: [[scenario.id && (scenario?.customerGroupIds?.length === 0 && scenario?.campaignIds?.length === 0 && scenario?.phones?.length === 0) ? ['all'] : []], [Validators.required]],
-      productGroups: [[scenario.id && (scenario?.discountedProductGroupIds?.length === 0 && scenario?.discountedProductCodes?.length === 0) ? ['all'] : []], []],
+      generalCustomers: [scenario.id && (scenario?.customerGroupIds?.length === 0 && scenario?.campaignIds?.length === 0 && scenario?.phones?.length === 0) ? ['all'] : [], [Validators.required]],
+      productGroups: [scenario.id && (scenario?.discountedProductGroupIds?.length === 0 && scenario?.discountedProductCodes?.length === 0) ? ['all'] : [], []],
 
 
     });
@@ -107,6 +107,7 @@ export class ScenarioService extends BaseService<Scenario>
     const generalCustomers = this.getCustomerByBrandId(scenario.brandIds);
     this.updateGeneralCustomer(scenario, generalCustomers);
     this.updateDiscountCode(scenario.brandIds);
+    this.updateProductGroupsIdByBrandId(this.baseInfoService.productGroups$.getValue());
     this.form.controls['brandIds'].valueChanges.subscribe((value: Array<string>) =>
     {
       const generalCustomers = this.getCustomerByBrandId(value);
@@ -210,7 +211,14 @@ export class ScenarioService extends BaseService<Scenario>
     const productGroupIds = this.form.get('productGroupIds');
     if (productGroupIds)
     {
-      productGroupIds.setValue(productGroupIds.value.filter((a: any) => productGroups?.some(b => b.id === a)));
+      const result = productGroupIds.value.filter((a: any) => productGroups?.some(b => b.id === a));
+      if (result && result.length > 0)
+      {
+        productGroupIds.setValue(result);
+      } else
+      {
+        
+      }
     }
   }
 
