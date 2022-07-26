@@ -107,7 +107,7 @@ export class ScenarioService extends BaseService<Scenario>
     const generalCustomers = this.getCustomerByBrandId(scenario.brandIds);
     this.updateGeneralCustomer(scenario, generalCustomers);
     this.updateDiscountCode(scenario.brandIds);
-    this.updateProductGroupsIdByBrandId(this.baseInfoService.productGroups$.getValue());
+    
     this.form.controls['brandIds'].valueChanges.subscribe((value: Array<string>) =>
     {
       const generalCustomers = this.getCustomerByBrandId(value);
@@ -217,7 +217,7 @@ export class ScenarioService extends BaseService<Scenario>
         productGroupIds.setValue(result);
       } else
       {
-        
+
       }
     }
   }

@@ -127,7 +127,7 @@ export class BaseInfoService
       userTypes: this.getUserTypes(),
       customerGroups: this.getCustomerGroups(),
       products: this.getProducts(),
-      generalCustomers: this.getGeneralCustomer({ text: '', brandIds: brandIds })
+      generalCustomers: this.getGeneralCustomer({ text: '', brandIds: [] })
     };
 
     requests.productGroups = this.getProductGroupsByBrandIds(brandIds);
@@ -299,7 +299,7 @@ export class BaseInfoService
     return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 
-  getGeneralCustomer(request: { text: string, brandIds: Array<string>; })
+  getGeneralCustomer(request: { text: string, brandIds: Array<string> })
   {
     if (!request.brandIds || request.brandIds.length === 0 || request.brandIds.some(p => p === 'all'))
     {
