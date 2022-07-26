@@ -259,7 +259,7 @@
             </div>
             <div class="col-12 col-sm-7">
               <div [ngClass]="{'disabled':isDisabled}" class="d-flex flex-row align-items-center gap-2">
-                <ng-select [items]="baseInfoService.senarioDiscountCodePatterns$|async" [multiple]="false"
+                <ng-select [items]="baseInfoService.scenarioDiscountCodePatterns$|async" [multiple]="false"
                   [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
                   formControlName="discountCodePattern">
                 </ng-select>

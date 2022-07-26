@@ -107,7 +107,7 @@ export class ScenarioService extends BaseService<Scenario>
     const generalCustomers = this.getCustomerByBrandId(scenario.brandIds);
     this.updateGeneralCustomer(scenario, generalCustomers);
     this.updateDiscountCode(scenario.brandIds);
-    
+
     this.form.controls['brandIds'].valueChanges.subscribe((value: Array<string>) =>
     {
       const generalCustomers = this.getCustomerByBrandId(value);
@@ -224,12 +224,27 @@ export class ScenarioService extends BaseService<Scenario>
 
   private updateDiscountCode(value: string[])
   {
-    this.baseInfoService?.GetSenarioDiscountCodePatternsByBrandIds(value)?.subscribe(codePattern =>
+    this.baseInfoService?.GetScenarioDiscountCodePatternsByBrandIds(value)?.subscribe(codePattern =>
     {
-      if (!codePattern) { codePattern = []; }
-      this.baseInfoService.senarioDiscountCodePatterns$.next(codePattern);
-      this.form.get('purchaseReward.discountCodePattern')?.setValue(null);
-      this.form.get('behavioralReward.discountCodePattern')?.setValue(null);
+      let discountCodePattern = this.form.get('purchaseReward.discountCodePattern')?.value;
+      if (Utility.isNullOrEmpty(discountCodePattern))
+      {
+        discountCodePattern = this.form.get('behavioralReward.discountCodePattern')?.value;
+      }
+      if (!codePattern)
+      {
+        codePattern = [];
+        this.form.get('purchaseReward.discountCodePattern')?.reset(null);
+        this.form.get('behavioralReward.discountCodePattern')?.reset(null);
+      }
+
+      if (Utility.isNullOrEmpty(discountCodePattern) || codePattern.findIndex(p => p.id === discountCodePattern) === -1)
+      {
+        this.form.get('purchaseReward.discountCodePattern')?.reset(null);
+        this.form.get('behavioralReward.discountCodePattern')?.reset(null);
+      }
+
+      this.baseInfoService.scenarioDiscountCodePatterns$.next(codePattern);
     });
   }
 
@@ -506,10 +521,11 @@ export class ScenarioService extends BaseService<Scenario>
         this.uiService.alert('الگوی کد تخفیف را انتخاب نمایید.');
         return;
       }
-    } else
-    {
-      delete value?.purchaseReward?.discountCodePattern;
     }
+    // else
+    // {
+    //   delete value?.purchaseReward?.discountCodePattern;
+    // }
 
     if (value?.behavioralReward?.discountCodeReward)
     {
@@ -518,10 +534,11 @@ export class ScenarioService extends BaseService<Scenario>
         this.uiService.alert('الگوی کد تخفیف را انتخاب نمایید.');
         return;
       }
-    } else
-    {
-      delete value?.behavioralReward?.discountCodePattern;
     }
+    // else
+    // {
+    //   delete value?.behavioralReward?.discountCodePattern;
+    // }
 
     if (this.getValue('senarioType') === SenarioType.Purchase)
     {

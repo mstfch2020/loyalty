@@ -53,7 +53,7 @@ export class BaseInfoService
 
   }
 
-  senarioDiscountCodePatterns$ = new BehaviorSubject<Array<any>>([]);
+  scenarioDiscountCodePatterns$ = new BehaviorSubject<Array<any>>([]);
   commissionsBasis$ = new BehaviorSubject<Array<number>>([]);
   scoresVolumes$ = new BehaviorSubject<Array<number>>([]);
   activitiesCount$ = new BehaviorSubject<Array<number>>([]);
@@ -131,7 +131,7 @@ export class BaseInfoService
     };
 
     requests.productGroups = this.getProductGroupsByBrandIds(brandIds);
-    requests.senarioDiscountCodePatterns = this.GetSenarioDiscountCodePatternsByBrandIds(brandIds);
+    requests.scenarioDiscountCodePatterns = this.GetScenarioDiscountCodePatternsByBrandIds(brandIds);
 
     if (productIds?.length > 0)
     {
@@ -158,7 +158,7 @@ export class BaseInfoService
       const productGroups = resultValue?.productGroups === null ? defArray : resultValue?.productGroups.concat(defArray);
       this.productGroups$.next(productGroups);
       this.productGroupsSingle$.next(resultValue?.productGroups === null ? [] : resultValue?.productGroups);
-      this.senarioDiscountCodePatterns$.next(resultValue?.senarioDiscountCodePatterns === null ? [] : resultValue?.senarioDiscountCodePatterns);
+      this.scenarioDiscountCodePatterns$.next(resultValue?.scenarioDiscountCodePatterns === null ? [] : resultValue?.scenarioDiscountCodePatterns);
 
       if (productIds?.length > 0)
       {
@@ -299,7 +299,7 @@ export class BaseInfoService
     return callGetService<Array<IdTitle> | null>(url, this.http, this.uiService);
   }
 
-  getGeneralCustomer(request: { text: string, brandIds: Array<string> })
+  getGeneralCustomer(request: { text: string, brandIds: Array<string>; })
   {
     if (!request.brandIds || request.brandIds.length === 0 || request.brandIds.some(p => p === 'all'))
     {
@@ -334,7 +334,7 @@ export class BaseInfoService
     return callGetService<any>(url, this.http, this.uiService);
   }
 
-  GetSenarioDiscountCodePatternsByBrandIds(brandIds: Array<string>)
+  GetScenarioDiscountCodePatternsByBrandIds(brandIds: Array<string>): Observable<Array<IdTitle>>
   {
     const url = this.settingService.settings?.baseUrl + 'DiscountCode/GetSenarioDiscountCodePatterns';
     if (!brandIds || brandIds.length === 0 || brandIds.some(p => p === 'all'))
