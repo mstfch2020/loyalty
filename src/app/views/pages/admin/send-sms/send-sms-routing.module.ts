@@ -12,19 +12,19 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'pattern',
+        redirectTo: 'def-list',
         pathMatch: 'full'
       },
       {
-        path: 'list',
+        path: 'send-list',
         component: SendSmsListComponent,
       },
       {
-        path: 'pattern',
+        path: 'def-list',
         component: SendSmsPatternComponent,
       },
       {
-        path: 'create',
+        path: 'edit',
         component: SendSmsCreateComponent,
       }
     ]

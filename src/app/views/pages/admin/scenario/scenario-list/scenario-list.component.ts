@@ -17,30 +17,24 @@ import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service
 export class ScenarioListComponent extends BaseSearch implements OnInit, OnDestroy
 {
   theViewList = new Array<GetSenarios>();
-  headerItems = ['عنوان',  FilterNames.Customer, FilterNames.Date, FilterNames.Brand, FilterNames.Status];
+  headerItems = ['عنوان', FilterNames.Customer, FilterNames.Date, FilterNames.Brand, FilterNames.Status];
   constructor(
     private router: Router,
     public scenarioService: ScenarioService,
     public override baseInfoService: BaseInfoService,
-    // private authService: AuthService, /*private oidcSecurityService: OidcSecurityService*/
-   public override baseSearchService: BaseSearchService)
+    public override baseSearchService: BaseSearchService)
   {
     super(baseInfoService, baseSearchService);
-    scenarioService.scenarios$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
-    {
-      this.theViewList = value;
-    });
-  }
-  override ngOnDestroy(): void
-  {
-    super.ngOnDestroy();
   }
 
   override ngOnInit(): void
   {
     super.ngOnInit();
+    this.scenarioService.scenarios$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
+    {
+      this.theViewList = value;
+    });
   }
-
 
   override search(request: GetAllSenarios)
   {
@@ -163,15 +157,9 @@ export class ScenarioListComponent extends BaseSearch implements OnInit, OnDestr
     return rewardsTitle;
   }
 
-  login()
+  override ngOnDestroy(): void
   {
-    // this.authService.retrieveToken();
-
-    // const token = this.oidcSecurityService.authorize();
-    // this.oidcSecurityService.revokeAccessToken().subscribe(console.log);
-
+    super.ngOnDestroy();
   }
-
-
 
 }

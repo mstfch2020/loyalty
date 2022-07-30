@@ -4,17 +4,18 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
 import { SMSSendingType } from "../../data/loyalty/enums.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
-import { SMS, smsInit, SmsPatternGrid } from "../../data/loyalty/sms.model";
+import { SendedSMSGrid, SMS, SMSDefinitionsGrid, smsInit } from "../../data/loyalty/sms.model";
 import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callGetService, callPostService } from "./BaseService";
+import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class SMSService extends BaseService<SMS>
 {
-  smsPattern$ = new BehaviorSubject<Array<SmsPatternGrid>>([]);
+  sendedSMSGrid$ = new BehaviorSubject<Array<SendedSMSGrid>>([]);
+  sMSDefinitionsGrid$ = new BehaviorSubject<Array<SMSDefinitionsGrid>>([]);
 
   constructor(public override formBuilder: FormBuilder,
     public override baseInfoService: BaseInfoService,
@@ -35,41 +36,17 @@ export class SMSService extends BaseService<SMS>
       text: [scenario.text, [Validators.required]],
       startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.date), [Validators.required]],
       date: createPeriodFormGroup(scenario.date, this.formBuilder),
-      brandId: [scenario.brandId, [Validators.required]],
-      userTypeIds: [scenario.userTypeIds.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
-      customerGroupId: [scenario.customerGroupId, [Validators.required]],
-      sernarioIds: [scenario.sernarioIds, [Validators.required]],
+      brandIds: [scenario.brandIds?.length === 0 && scenario.id ? ['all'] : scenario.brandIds, [Validators.required]],
+      // brandIds: [scenario.brandIds?.length === 0 && scenario.id ? [] : scenario.brandIds, [Validators.required]],
+      userTypeIds: [scenario.userTypeIds?.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
+      // groupIds: [scenario.groupIds?.length === 0 && scenario.id ? ['all'] : scenario.groupIds, [Validators.required]],
+      groupIds: [scenario.groupIds?.length === 0 && scenario.id ? [] : scenario.groupIds, [Validators.required]],
+      // sernarioIds: [scenario.sernarioIds?.length === 0 && scenario.id ? ['all'] : scenario.sernarioIds, [Validators.required]],
+      sernarioIds: [scenario.sernarioIds?.length === 0 && scenario.id ? [] : scenario.sernarioIds, [Validators.required]],
       hour: ['', [Validators.pattern(Utility.numberRegEx)]],
       minute: ['', [Validators.pattern(Utility.numberRegEx)]],
     });
   }
-
-  // updatePeriodFormControl(shamsiDate: string, formControlName: string): boolean
-  // {
-  //   const date = shamsiDate.substring(0, 10)?.split('/');
-
-  //   const m = moment.from('1367/04/11', 'fa', 'YYYY/MM/DD');
-  //   if (!m.isValid())
-  //   {
-  //     return false;
-  //   }
-
-  //   const time = shamsiDate.substring(11, shamsiDate.length)?.split(':');
-  //   if (date && date.length === 3)
-  //   {
-  //     this.form.get(`${ formControlName }.year`)?.setValue(parseInt(date[0], 0));
-  //     this.form.get(`${ formControlName }.month`)?.setValue(parseInt(date[1], 0));
-  //     this.form.get(`${ formControlName }.day`)?.setValue(parseInt(date[2], 0));
-  //   }
-
-  //   if (time && time.length === 3)
-  //   {
-  //     this.form.get(`${ formControlName }.hours`)?.setValue(parseInt(time[0], 0));
-  //     this.form.get(`${ formControlName }.minutes`)?.setValue(parseInt(time[1], 0));
-  //     this.form.get(`${ formControlName }.seconds`)?.setValue(parseInt(time[2], 0));
-  //   }
-  //   return true;
-  // }
 
   submit(): void
   {
@@ -90,6 +67,11 @@ export class SMSService extends BaseService<SMS>
     if (value.userTypeIds.some((p: string) => p === 'all'))
     {
       value.userTypeIds = [];
+    }
+
+    if (value.brandIds.some((p: string) => p === 'all'))
+    {
+      value.brandIds = [];
     }
 
     if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
@@ -115,42 +97,32 @@ export class SMSService extends BaseService<SMS>
     });
   }
 
-  // getValue(name: string)
-  // {
-  //   return this.form.get(name)?.value;
-  // }
-
-  // getFormGroup(fgName: string): FormGroup
-  // {
-  //   return (this.form.controls[fgName] as any);
-  // }
-
-  // getSmsPattern(data: any)
-  // {
-  //   const url = this.settingService.settings?.baseUrl + 'sms/GetSMSDEfinitionsGrid';
-  //   return callPostPagingService<Array<SmsPatternGrid>>(url, this.http, this.uiService, data).subscribe(value =>
-  //   {
-  //     this.smsPattern$.next([]);
-  //     this.total = 0;
-  //     if (value?.data)
-  //     {
-  //       this.smsPattern$.next(value.data);
-  //       this.total = value.pagination.total;
-  //     }
-  //   });
-  // }
-
-  getSmsPattern(data: any)
+  GetSendedSMSGrid(request: any)
   {
-    const url = this.settingService.settings?.baseUrl + 'Sms/GetSMSDEfinitionsGrid';
-    return callGetService<Array<SmsPatternGrid>>(url, this.http, this.uiService, data).subscribe(value =>
+    const url = this.settingService.settings?.baseUrl + 'Sms/GetSendedSMSGrid';
+    return callPostPagingService<Array<SendedSMSGrid>>(url, this.http, this.uiService, request).subscribe(value =>
     {
-      this.smsPattern$.next([]);
+      this.sendedSMSGrid$.next([]);
       this.totalPages = 0;
-      if (value)
+      if (value?.data)
       {
-        this.smsPattern$.next(value);
-        this.totalPages = 9999;
+        this.sendedSMSGrid$.next(value?.data);
+        this.totalPages = Math.ceil(value.pagination.total / request.pageSize);
+      }
+    });
+  }
+
+  GetSMSDefinitionsGrid(request: any)
+  {
+    const url = this.settingService.settings?.baseUrl + 'Sms/GetSMSDefinitionsGrid';
+    return callPostPagingService<Array<SMSDefinitionsGrid>>(url, this.http, this.uiService, request).subscribe(value =>
+    {
+      this.sMSDefinitionsGrid$.next([]);
+      this.totalPages = 0;
+      if (value?.data)
+      {
+        this.sMSDefinitionsGrid$.next(value?.data);
+        this.totalPages = Math.ceil(value.pagination.total / request.pageSize);
       }
     });
   }

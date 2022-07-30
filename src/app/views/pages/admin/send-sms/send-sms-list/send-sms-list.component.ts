@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs';
 import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
+import { SendedSMSGrid } from 'src/app/@core/data/loyalty/sms.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { SMSService } from 'src/app/@core/services/loyalty/SMS.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
@@ -13,10 +16,11 @@ import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service
 export class SendSmsListComponent extends BaseSearch implements OnInit
 {
 
-  public theViewList = new Array<any>();
+  public theViewList = new Array<SendedSMSGrid>();
   headerItems = ['ردیف', 'گیرنده', 'متن پیام', FilterNames.Date, 'وضعیت', 'الگوی پیامک'];
 
   constructor(public service: SMSService,
+    private router: Router,
     public override baseInfoService: BaseInfoService,
     public override baseSearchService: BaseSearchService)
   {
@@ -26,14 +30,28 @@ export class SendSmsListComponent extends BaseSearch implements OnInit
   override ngOnInit(): void
   {
     super.ngOnInit();
-    this.service.smsPattern$.subscribe(value => this.theViewList = value);
+    this.service.sendedSMSGrid$.pipe(takeUntil(this.unsubscribe)).subscribe(value => this.theViewList = value);
   }
 
   override search(request: any)
   {
-    request.pageSize = 20;
-    this.service.getSmsPattern(request);
+    request.pageSize = 10;
+    this.service.GetSendedSMSGrid(request);
   }
 
+  goToEdit(id: string = '')
+  {
+    if (id)
+    {
+      this.router.navigate(['/admin/main/sms/edit'], { queryParams: { id: id } });
+      return;
+    }
+    this.router.navigate(['/admin/main/sms/edit']);
+  }
+
+  override ngOnDestroy(): void
+  {
+    super.ngOnDestroy();
+  }
 
 }

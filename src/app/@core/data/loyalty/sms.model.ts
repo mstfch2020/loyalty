@@ -8,21 +8,40 @@ export interface SMS
   text: string,
   smsSendingType: SMSSendingType,
   date: Period,
-  brandId: string,
+  brandIds: Array<string>;
   userTypeIds: Array<string>,
-  customerGroupId: string,
+  groupIds: Array<string>,
   sernarioIds: Array<IdTitle>;
 }
 
-export interface SmsPatternGrid { }
 
 export const smsInit: SMS = {
   id: '',
   text: '',
   smsSendingType: SMSSendingType.Instant,
   date: periodInit,
-  brandId: '',
+  brandIds: [],
   userTypeIds: [],
-  customerGroupId: '',
+  groupIds: [],
   sernarioIds: [],
 };
+
+export interface SendedSMSGrid
+{
+  id: string;
+  brands: Array<string>;
+  userTypes: Array<string>;
+  groups: Array<string>;
+  senario: Array<string>;
+  sendingDate: Period;
+}
+
+export interface SMSDefinitionsGrid
+{
+  id: string;
+  brands: Array<string>;
+  userTypes: Array<string>;
+  groups: Array<string>;
+  senario: Array<string>;
+  sendingDate: Period;
+}

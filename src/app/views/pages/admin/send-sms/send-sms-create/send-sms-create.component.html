@@ -38,10 +38,12 @@
             </label>
           </div>
           <div class="col-12 col-sm-9 mb-3">
-            <ng-select [items]="baseInfoService.brandsSingle$|async" [multiple]="false" appendTo="body"
-              bindLabel="title" bindValue="id" class="form-control" formControlName="brandId">
+            <ng-select (change)="service.brandChanged($event,'brandIds')" [items]="baseInfoService.brands$|async"
+              [multiple]="true" [readonly]="service.isDisabled" appendTo="body" bindLabel="title" bindValue="id"
+              class="form-control" formControlName="brandIds">
             </ng-select>
-            <div *ngIf="!service.form.get('brandId')?.valid && service.form.get('brandId')?.touched"
+            <div
+              *ngIf="!service.form.get('brandIds')?.valid && service.form.get('brandIds')?.touched && !service.isDisabled"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               برند را مشخص نمایید
             </div>
@@ -56,10 +58,11 @@
           </div>
           <div class="col-12 col-sm-9 mb-3">
             <ng-select (change)="service.brandChanged($event,'userTypeIds')" [items]="baseInfoService.userTypes$|async"
-              [multiple]="true" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
-              formControlName="userTypeIds">
+              [multiple]="true" [readonly]="service.isDisabled" appendTo="body" bindLabel="title" bindValue="id"
+              class="form-control" formControlName="userTypeIds">
             </ng-select>
-            <div *ngIf="!service.form.get('userTypeIds')?.valid && service.form.get('userTypeIds')?.touched"
+            <div
+              *ngIf="!service.form.get('userTypeIds')?.valid && service.form.get('userTypeIds')?.touched && !service.isDisabled"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               نوع کاربری را مشخص نمایید
             </div>
@@ -73,10 +76,12 @@
             </label>
           </div>
           <div class="col-12 col-sm-9 mb-3">
-            <ng-select [items]="baseInfoService.customerGroups$|async" [multiple]="false" appendTo="body"
-              bindLabel="title" bindValue="id" class="form-control" formControlName="customerGroupId">
+            <ng-select (change)="service.brandChanged($event,'groupIds')"
+              [items]="baseInfoService.customerGroups$|async" [multiple]="true" [readonly]="service.isDisabled"
+              appendTo="body" bindLabel="title" bindValue="id" class="form-control" formControlName="groupIds">
             </ng-select>
-            <div *ngIf="!service.form.get('customerGroupId')?.valid && service.form.get('customerGroupId')?.touched"
+            <div
+              *ngIf="!service.form.get('groupIds')?.valid && service.form.get('groupIds')?.touched && !service.isDisabled"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               گروه مشتری را مشخص نمایید
             </div>

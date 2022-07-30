@@ -6,7 +6,8 @@
           <table cellspacing="1" class="table table-hover border-0 border-spacing-xs">
             <thead>
               <tr>
-                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col" *ngFor="let headerItem of headerItems;">
+                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
+                  *ngFor="let headerItem of headerItems;">
                   <app-table-header-filter [activeFilterName]="activeFilterName" [filterName]="headerItem"
                     (onOpenFilterForm)="openFilterForm($event)" (onCloseFilterForm)="closeFilterForm($event)"
                     (onApplyFilterForm)="applyFilterForm($event)">
@@ -15,21 +16,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="text-center" scope="row">1</td>
-                <td class="text-center">
+              <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList;let i=index">
+                <td class="pr-1 text-end padding-05 pr-1" scope="row">
+                  {{((pageIndex-1)*pageSize)+(i+1)}}
+                </td>
+                <td class="text-end padding-1 fs-08">
                   09192935850
                 </td>
-                <td class="text-center">
+                <td class="text-end padding-1 fs-08">
                   چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است و برای شرایط
                 </td>
-                <td class="text-center">
+                <td class="text-end padding-1 fs-08">
                   1401/02/12
                 </td>
-                <td class="text-center">
+                <td class="text-end padding-1 fs-08">
                   در صف ارسال
                 </td>
-                <td class="text-center">
+                <td class="text-end padding-1 fs-08">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                     class="bi bi-link-45deg" viewBox="0 0 16 16">
                     <path
@@ -39,60 +42,6 @@
                   </svg>
                 </td>
               </tr>
-              <tr>
-                <td class="text-center" scope="row">2</td>
-                <td class="text-center">
-                  09192935850
-                </td>
-                <td class="text-center">
-                  چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است و برای شرایط
-                </td>
-                <td class="text-center">
-                  1401/02/12
-                </td>
-                <td class="text-center">
-                  نرسیده
-                </td>
-                <td class="text-center">
-
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center" scope="row">2</td>
-                <td class="text-center">
-                  09192935850
-                </td>
-                <td class="text-center">
-                  چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است و برای شرایط
-                </td>
-                <td class="text-center">
-                  1401/02/12
-                </td>
-                <td class="text-center">
-                  ارسال شده
-                </td>
-                <td class="text-center">
-
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center" scope="row">2</td>
-                <td class="text-center">
-                  09192935850
-                </td>
-                <td class="text-center">
-                  چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است و برای شرایط
-                </td>
-                <td class="text-center">
-                  1401/02/12
-                </td>
-                <td class="text-center">
-                  دریافت شده
-                </td>
-                <td class="text-center">
-
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -100,7 +49,7 @@
       <div class="row mt-5">
         <div class="col-6 col-sm-3">
           <a class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl"
-            [routerLink]="['/admin/main/sms/create']">
+            [routerLink]="['/admin/main/sms/edit']">
             پیامک جدید
           </a>
         </div>

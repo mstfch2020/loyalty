@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { smsInit } from 'src/app/@core/data/loyalty/sms.model';
 import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
@@ -12,48 +12,44 @@ import { SMSService } from "src/app/@core/services/loyalty/SMS.service";
 export class SendSmsCreateComponent implements OnInit
 {
 
-  constructor(public service: SMSService, public baseInfoService: BaseInfoService, private route: ActivatedRoute)
+  constructor(
+    private route: ActivatedRoute,
+    public service: SMSService,
+    public baseInfoService: BaseInfoService,
+    private cdref: ChangeDetectorRef)
   {
-
   }
-
   ngOnInit(): void
   {
+    this.baseInfoService.loadScenario();
     this.service.createForm(smsInit);
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
-      this.updateScenarioFromServer(id);
-    });
+      if (id)
+      {
+        this.service.getSmsById(id).subscribe((value) =>
+        {
 
-    this.route.params.subscribe(params =>
-    {
-      const id = params['id'];
-      this.updateScenarioFromServer(id);
-    });
-
-  }
-
-  private updateScenarioFromServer(id: any)
-  {
-    if (id)
-    {
-      this.service.getSmsById(id).subscribe((value) =>
+          this.baseInfoService.loadBaseInfo(() =>
+          {
+            if (!value)
+            {
+              value = smsInit;
+            }
+            this.service.createForm(value);
+            this.cdref.detectChanges();
+          }, value?.brandIds);
+        });
+      } else
       {
         this.baseInfoService.loadBaseInfo(() =>
         {
-          if (!value)
-          {
-            value = smsInit;
-          }
-          this.service.createForm(value);
+          this.service.createForm(smsInit);
+          this.cdref.detectChanges();
         });
-      });
-    }
-    else
-    {
-      this.baseInfoService.loadBaseInfo(() => { this.service.createForm(smsInit); });
-    }
+      }
+    });
+    this.service.form.markAllAsTouched();
   }
-
 }

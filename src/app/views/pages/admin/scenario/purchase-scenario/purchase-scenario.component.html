@@ -1,4 +1,4 @@
-<form [formGroup]="scenarioService.form" action="" dir="rtl">
+<form [formGroup]="service.form" action="" dir="rtl">
   <div class="container-fluid">
     <div class="row mt-4">
       <div class="col-12 col-sm-6">
@@ -14,8 +14,7 @@
               <div class="col-12 col-sm-9">
                 <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
                   class="form-control rounded-pill text-end text-black h-55px" formControlName='title' type="text">
-                <div
-                  *ngIf="!scenarioService.form.get('title')?.valid && scenarioService.form.get('title')?.touched && !isDisabled"
+                <div *ngIf="!service.form.get('title')?.valid && service.form.get('title')?.touched && !isDisabled"
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   نام سناریو را وارد نمایید
                 </div>
@@ -70,12 +69,12 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select (change)="scenarioService.brandChanged($event,'brandIds')"
-                  [items]="baseInfoService.brands$|async" [multiple]="true" [readonly]="isDisabled" appendTo="body"
-                  bindLabel="title" bindValue="id" class="form-control" formControlName="brandIds">
+                <ng-select (change)="service.brandChanged($event,'brandIds')" [items]="baseInfoService.brands$|async"
+                  [multiple]="true" [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id"
+                  class="form-control" formControlName="brandIds">
                 </ng-select>
                 <div
-                  *ngIf="!scenarioService.form.get('brandIds')?.valid && scenarioService.form.get('brandIds')?.touched && !isDisabled"
+                  *ngIf="!service.form.get('brandIds')?.valid && service.form.get('brandIds')?.touched && !isDisabled"
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   برند را مشخص نمایید
                 </div>
@@ -93,13 +92,13 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select (change)="scenarioService.brandChanged($event,'generalCustomers')"
-                  [addTag]="scenarioService.addCustomer" [items]="baseInfoService.generalCustomersByBrandId$|async"
-                  [multiple]="true" [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id"
-                  class="form-control" formControlName="generalCustomers">
+                <ng-select (change)="service.brandChanged($event,'generalCustomers')" [addTag]="service.addCustomer"
+                  [items]="baseInfoService.generalCustomersByBrandId$|async" [multiple]="true" [readonly]="isDisabled"
+                  appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+                  formControlName="generalCustomers">
                 </ng-select>
                 <div
-                  *ngIf="!scenarioService.form.get('generalCustomers')?.valid && scenarioService.form.get('generalCustomers')?.touched && !isDisabled"
+                  *ngIf="!service.form.get('generalCustomers')?.valid && service.form.get('generalCustomers')?.touched && !isDisabled"
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   مشتری را مشخص نمایید
                 </div>
@@ -227,13 +226,13 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select (change)="scenarioService.brandChanged($event,'productGroupIds')"
+                <ng-select (change)="service.brandChanged($event,'productGroupIds')"
                   [items]="baseInfoService.productGroups$|async" [multiple]="true" [readonly]="isDisabled"
                   appendTo="body" bindLabel="title" bindValue="id" class="form-control"
                   formControlName="productGroupIds">
                 </ng-select>
                 <div
-                  *ngIf="!scenarioService.form.get('productGroupIds')?.valid && scenarioService.form.get('productGroupIds')?.touched && !isDisabled"
+                  *ngIf="!service.form.get('productGroupIds')?.valid && service.form.get('productGroupIds')?.touched && !isDisabled"
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   تگ کالا را مشخص نمایید
                 </div>
@@ -247,12 +246,12 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <ng-select (change)="scenarioService.brandChanged($event,'userTypeIds')"
+                <ng-select (change)="service.brandChanged($event,'userTypeIds')"
                   [items]="baseInfoService.userTypes$|async" [multiple]="true" [readonly]="isDisabled" appendTo="body"
                   bindLabel="title" bindValue="id" class="form-control" formControlName="userTypeIds">
                 </ng-select>
                 <div
-                  *ngIf="!scenarioService.form.get('userTypeIds')?.valid && scenarioService.form.get('userTypeIds')?.touched && !isDisabled"
+                  *ngIf="!service.form.get('userTypeIds')?.valid && service.form.get('userTypeIds')?.touched && !isDisabled"
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   نوع کاربری را مشخص نمایید
                 </div>
@@ -375,11 +374,10 @@
                 </label>
               </div>
             </div>
-            <div [formGroup]="scenarioService.form" class="col-4 col-sm-5">
-              <ng-select (change)="scenarioService.brandChanged($event,'productGroups')"
-                [addTag]="scenarioService.addProductGroups" [items]="baseInfoService.productGroups$|async"
-                [multiple]="true" [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id"
-                class="form-control" formControlName="productGroups">
+            <div [formGroup]="service.form" class="col-4 col-sm-5">
+              <ng-select (change)="service.brandChanged($event,'productGroups')" [addTag]="service.addProductGroups"
+                [items]="baseInfoService.productGroups$|async" [multiple]="true" [readonly]="isDisabled" appendTo="body"
+                bindLabel="title" bindValue="id" class="form-control" formControlName="productGroups">
               </ng-select>
             </div>
           </div>
@@ -398,8 +396,8 @@
                 </label>
               </div>
             </div>
-            <div [formGroup]="scenarioService.form" class="col-12 col-sm-4">
-              <ng-select [addTag]="scenarioService.addFreeProduct" [items]="baseInfoService.productCodes$|async"
+            <div [formGroup]="service.form" class="col-12 col-sm-4">
+              <ng-select [addTag]="service.addFreeProduct" [items]="baseInfoService.productCodes$|async"
                 [multiple]="true" [readonly]="isDisabled" appendTo="body" class="form-control"
                 formControlName="freeProductCodes">
               </ng-select>
@@ -513,7 +511,7 @@
                   formControlName="discountCodePattern">
                 </ng-select>
                 <div
-                  *ngIf="!scenarioService.form.get('discountCodePattern')?.valid && scenarioService.form.get('discountCodePattern')?.touched && !isDisabled"
+                  *ngIf="!service.form.get('discountCodePattern')?.valid && service.form.get('discountCodePattern')?.touched && !isDisabled"
                   class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
                   کد تخفیف را مشخص نمایید
                 </div>

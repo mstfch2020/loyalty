@@ -1,21 +1,16 @@
-<form action="" dir="rtl">
+<form action="" dir="rtl" *ngIf="isInListRoute">
   <ul class="nav justify-content-start mt-3">
     <li class="nav-item">
-      <a class="nav-link"
-         [routerLink]="['/admin/main/sms/pattern']"
-         routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/admin/main/sms/def-list']" routerLinkActive="active">
         الگوی پیامکی
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link"
-         [routerLink]="['/admin/main/sms/list']"
-         routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/admin/main/sms/send-list']" routerLinkActive="active">
         پیامک های ارسال شده
       </a>
     </li>
   </ul>
   <hr class="nav-line">
-  <router-outlet></router-outlet>
 </form>
-
+<router-outlet></router-outlet>

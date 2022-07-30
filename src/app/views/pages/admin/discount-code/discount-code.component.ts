@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class DiscountCodeComponent implements OnInit
 {
 
-  public isInListRoute = true;
+  isInListRoute = true;
 
   constructor(private router: Router)
   {

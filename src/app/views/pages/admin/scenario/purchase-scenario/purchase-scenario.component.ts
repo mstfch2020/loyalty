@@ -13,7 +13,7 @@ export class PurchaseScenarioComponent implements OnInit, OnDestroy
   percent: number;
 
   constructor(
-    public scenarioService: ScenarioService,
+    public service: ScenarioService,
     public baseInfoService: BaseInfoService)
   {
     this.percent = 0;
@@ -26,12 +26,12 @@ export class PurchaseScenarioComponent implements OnInit, OnDestroy
 
   get isDisabled(): boolean
   {
-    return this.scenarioService.isDisabled;
+    return this.service.isDisabled;
   };
 
   ngOnInit(): void
   {
-    this.scenarioService.form.markAllAsTouched();
+    this.service.form.markAllAsTouched();
   }
 
 }

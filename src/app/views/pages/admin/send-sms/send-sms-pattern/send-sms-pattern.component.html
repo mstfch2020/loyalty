@@ -1,12 +1,13 @@
 <div dir="rtl">
   <div class="container-fluid">
-    <div class="row mt-4">
+    <div *ngIf="theViewList.length>0||activeFilterName!==0" class="row mt-4">
       <div class="col-12">
         <div class="table-responsive">
-          <table cellspacing="1" class="table table-hover border-0 border-spacing-xs">
+          <table cellspacing="1" class="table table-hover border-0 border-spacing-lg">
             <thead>
               <tr>
-                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col" *ngFor="let headerItem of headerItems;">
+                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
+                  *ngFor="let headerItem of headerItems;">
                   <app-table-header-filter [activeFilterName]="activeFilterName" [filterName]="headerItem"
                     (onOpenFilterForm)="openFilterForm($event)" (onCloseFilterForm)="closeFilterForm($event)"
                     (onApplyFilterForm)="applyFilterForm($event)">
@@ -15,58 +16,24 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="text-center" scope="row">1</td>
-                <td class="text-end">
-                  همه
+              <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList;let i=index">
+                <td class="pr-1 text-end padding-05 pr-1" scope="row">
+                  {{((pageIndex-1)*pageSize)+(i+1)}}
                 </td>
-                <td class="text-center">
-                  همه
+                <td class="text-end padding-1 fs-08">
+                  {{item.brands.join('، ')}}
                 </td>
-                <td class="text-center">
-                  طالبی
+                <td class="text-end padding-1 fs-08">
+                  {{item.userTypes.join('، ')}}
                 </td>
-                <td class="text-center">
-                  روز جوان
+                <td class="text-end padding-1 fs-08">
+                  {{item.groups.join('، ')}}
                 </td>
-                <td class="text-center">
-                  1401/02/12
+                <td class="text-end padding-1 fs-08">
+                  {{item.senario.join('، ')}}
                 </td>
-              </tr>
-              <tr>
-                <td class="text-center" scope="row">2</td>
-                <td class="text-end">
-                  زینجا
-                </td>
-                <td class="text-center">
-                  همه
-                </td>
-                <td class="text-center">
-                  09128258765
-                </td>
-                <td class="text-center">
-                  روز جوان
-                </td>
-                <td class="text-center">
-                  1401/02/25
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center" scope="row">3</td>
-                <td class="text-end">
-                  همه
-                </td>
-                <td class="text-center">
-                  همه
-                </td>
-                <td class="text-center">
-                  طالبی
-                </td>
-                <td class="text-center">
-                  روز جوان
-                </td>
-                <td class="text-center">
-                  1401/02/12
+                <td class="text-end padding-1 fs-08">
+                  {{item.sendingDate.full}}
                 </td>
               </tr>
             </tbody>
@@ -79,7 +46,7 @@
       <div class="row mt-5">
         <div class="col-6 col-sm-3">
           <a class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl"
-            [routerLink]="['/admin/main/sms/create']">
+            [routerLink]="['/admin/main/sms/edit']">
             پیامک جدید
           </a>
         </div>

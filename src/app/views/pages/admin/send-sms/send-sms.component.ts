@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
-import { SMSService } from 'src/app/@core/services/loyalty/SMS.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-send-sms',
@@ -10,29 +8,17 @@ import { SMSService } from 'src/app/@core/services/loyalty/SMS.service';
 })
 export class SendSmsComponent implements OnInit
 {
+  isInListRoute = true;
 
-  constructor(public smsService: SMSService, public baseInfoService: BaseInfoService, private route: ActivatedRoute)
+  constructor(private router: Router)
   {
-
+    router.events.subscribe((val) =>
+    {
+      this.isInListRoute = document.URL.includes('list');
+    });
   }
-
   ngOnInit(): void
   {
-    this.baseInfoService.loadBaseInfo(() => { });
-    this.baseInfoService.loadScenario();
-    this.route.queryParams.subscribe(params =>
-    {
-      const id = params['id'];
-      if (id)
-      {
-        // this.scenarioService.getScenarioById(id).subscribe((value) =>
-        // {
-        //   this.scenarioService.createForm(value);
-        //   this.baseInfoService.loadBaseInfo(value.brandIds);
-        // });
-      }
-    });
 
-    this.smsService.form.markAllAsTouched();
   }
 }
