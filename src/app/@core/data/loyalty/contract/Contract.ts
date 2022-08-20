@@ -7,6 +7,7 @@ import { Teacher } from "./Teacher";
 
 export interface Contract
 {
+  customerId: string;
   contractId: string;
   mobile: string;
   phone: string;

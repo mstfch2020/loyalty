@@ -114,13 +114,8 @@ export class ScenarioService extends BaseService<Scenario>
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
       this.updateCustomerGroupsForSubmit(this.form.value, false);
       this.updateGeneralCustomer(this.form.value, generalCustomers);
-      this.baseInfoService?.getProductGroupsByBrandIds(value)?.subscribe(productGroups =>
+      this.baseInfoService?.loadProductGroupsByBrandIds(value)?.subscribe(productGroups =>
       {
-        const defArray: Array<ProductGroup> = [{ id: 'all', title: 'همه', brandId: '' }];
-        if (!productGroups) { productGroups = []; }
-        this.baseInfoService.productGroupsSingle$.next(productGroups);
-        productGroups = productGroups.concat(defArray);
-        this.baseInfoService.productGroups$.next(productGroups);
         this.updateProductGroupForSubmin(this.form.value, false);
         this.productGroupUpdate(this.form.value, productGroups);
         this.updateProductGroupsIdByBrandId(productGroups);

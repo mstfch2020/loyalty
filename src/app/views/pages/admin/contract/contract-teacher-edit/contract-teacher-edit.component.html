@@ -100,8 +100,9 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <ng-select [items]="contractBaseInfoService.schoolTypeList" [multiple]="false" appendTo="body"
-              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="schoolType">
+            <ng-select [items]="contractBaseInfoService.schoolType$|async" [addTag]="addTag"
+              (change)="comboChanged($event,10)" [multiple]="false" appendTo="body" bindLabel="title" bindValue="id"
+              class="form-control mb-3" formControlName="schoolType">
             </ng-select>
           </div>
         </div>

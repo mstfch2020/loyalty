@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { Contract } from "../../data/loyalty/contract/Contract";
 import { ActiveContract, contractInit, createDistributor, createShopContract, createTeacher, PromoterContracts, RequestContract } from "../../data/loyalty/contract/contract.model";
 import { ContractConfirm } from "../../data/loyalty/contract/ContractConfirm";
@@ -19,6 +19,7 @@ export class ContractService extends BaseService<Contract>
   activeContracts$ = new BehaviorSubject<Array<ActiveContract>>([]);
   requestContracts$ = new BehaviorSubject<Array<RequestContract>>([]);
   promoterContracts$ = new BehaviorSubject<Array<PromoterContracts>>([]);
+  refreshGetPromoterContractsGrid = new Subject();
 
   constructor(public override formBuilder: FormBuilder,
     public override  baseInfoService: BaseInfoService,
@@ -34,6 +35,7 @@ export class ContractService extends BaseService<Contract>
   {
     this.form = this.formBuilder.group({
       contractId: [contract.contractId, [Validators.required]],
+      customerId: [contract.customerId, [Validators.required]],
       mobile: [contract.mobile, [Validators.required]],
       phone: [contract.phone, [Validators.required]],
       firstName: [contract.firstName, [Validators.required]],
@@ -49,7 +51,6 @@ export class ContractService extends BaseService<Contract>
       distributor: createDistributor(contract.distributor, this.formBuilder),
       shopContract: createShopContract(contract.shopContract, this.formBuilder),
       teachers: !contract.teachers ? [] : this.formBuilder.array(contract.teachers?.map(teacher => createTeacher(teacher, this.formBuilder))),
-
       tagIds: [contract.tagIds?.length === 0 && contract.contractId ? ['all'] : contract.tagIds, [Validators.required]],
       startDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.from), [Validators.required]],
       endDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.to), [Validators.required]],
@@ -59,6 +60,10 @@ export class ContractService extends BaseService<Contract>
     });
 
     // this.editMode = group.groups.some(p => !Utility.isNullOrEmpty(p.id));
+    this.form.get('mobile')?.valueChanges.subscribe((value: string) =>
+    {
+      if (isValidPhonenumber(value)) { this.refreshGetPromoterContractsGrid.next(value); }
+    });
 
     this.form.get('stateId')?.valueChanges.subscribe((value: string) =>
     {
@@ -248,7 +253,7 @@ export class ContractService extends BaseService<Contract>
     request.from = this.getValue('from');
     request.to = this.getValue('to');
     request.contractId = this.getValue('contractId');
-
+    request.customerId = this.getValue('customerId');
     const url = this.settingService.settings?.baseUrl + `Contract/Confirm`;
     callPostService<any>(url, this.http, this.uiService, request).subscribe(value =>
     {

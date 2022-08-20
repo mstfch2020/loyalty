@@ -112,12 +112,6 @@ export class BaseSearchService
   theContractFilterStatusSelectedCondition = 0;
   theContractFilterStatusList: Array<FilterTitle> = [
     {
-      id: '1',
-      title: 'فعال',
-      type: 0,
-      checked: false,
-    },
-    {
       id: '2',
       title: 'جدید',
       type: 0,

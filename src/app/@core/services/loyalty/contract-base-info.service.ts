@@ -30,11 +30,7 @@ export class ContractBaseInfoService
   distributorActivitySections$ = new BehaviorSubject<Array<IdTitle>>([]);
   shopActivitySections$ = new BehaviorSubject<Array<IdTitle>>([]);
   allCities$ = new BehaviorSubject<Array<IdTitle>>([]);
-  schoolTypeList = [
-    { id: 1, title: 'دولتی' },
-    { id: 2, title: 'پولی' },
-
-  ];
+  schoolType$ = new BehaviorSubject<Array<IdTitle>>([]);
 
   loadBaseInfoData(request?: Contract)
   {
@@ -48,7 +44,8 @@ export class ContractBaseInfoService
       shopActivitySections: this.GetShopActivitySections(),
       grades: this.GetGradesByLevelId(null),
       lessons: this.GetLessonsByGradeId(null),
-      allCities: this.GetAllCities()
+      allCities: this.GetAllCities(),
+      schoolType: this.GetSchoolTypes()
     };
 
     forkJoin(requests).pipe(takeUntil(this.unsubscribe)).subscribe(result =>
@@ -64,9 +61,11 @@ export class ContractBaseInfoService
       this.distributorActivitySections$.next(resultValue?.distributorActivitySections === null ? [] : resultValue?.distributorActivitySections);
       this.shopActivitySections$.next(resultValue?.shopActivitySections === null ? [] : resultValue?.shopActivitySections);
       this.allCities$.next(resultValue?.allCities === null ? [] : resultValue?.allCities);
+      this.schoolType$.next(resultValue?.schoolType === null ? [] : resultValue?.schoolType);
     });
 
   }
+
 
   loadAreas(value: string)
   {
@@ -164,6 +163,12 @@ export class ContractBaseInfoService
   GetAllCities()
   {
     const url = this.settingService.settings?.baseUrl + 'ContractBasciData/GetAllCities';
+    return callGetService<any>(url, this.http, this.uiService);
+  }
+
+  GetSchoolTypes()
+  {
+    const url = this.settingService.settings?.baseUrl + 'ContractBasciData/GetSchoolTypes';
     return callGetService<any>(url, this.http, this.uiService);
   }
 
@@ -279,6 +284,19 @@ export class ContractBaseInfoService
       if (value?.id)
       {
         return (value.id);
+      }
+      return (null);
+    })));
+  }
+
+  CreateSchoolType(name: string): Observable<string>
+  {
+    const url = this.settingService.settings?.baseUrl + 'ContractBasciData/CreateSchoolType';
+    return callPostService<any>(url, this.http, this.uiService, { name: name }).pipe(map((value =>
+    {
+      if (value?.schoolTypeId)
+      {
+        return (value.schoolTypeId);
       }
       return (null);
     })));

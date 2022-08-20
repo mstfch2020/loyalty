@@ -182,4 +182,5 @@ export enum ComboTypes
   ActivityZone = 7,
   DistributorActivitySection = 8,
   ShopActivitySection = 9,
+  SchoolType = 10,
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, forkJoin, Observable, Subject, takeUntil } from "rxjs";
+import { BehaviorSubject, forkJoin, map, Observable, Subject, takeUntil } from "rxjs";
 import { EnumTitle, IdTitle, IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
 import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { SettingsService } from "../settings-service";
@@ -169,6 +169,19 @@ export class BaseInfoService
         callback();
       }
     });
+  }
+
+  loadProductGroupsByBrandIds(brandIds: Array<string>): Observable<Array<ProductGroup>>
+  {
+    return this.getProductGroupsByBrandIds(brandIds)?.pipe(map(productGroups =>
+    {
+      const defArray: Array<ProductGroup> = [{ id: 'all', title: 'همه', brandId: '' }];
+      if (!productGroups) { productGroups = []; }
+      this.productGroupsSingle$.next(productGroups);
+      productGroups = productGroups.concat(defArray);
+      this.productGroups$.next(productGroups);
+      return productGroups;
+    }));
   }
 
   loadScenario()

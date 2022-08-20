@@ -29,7 +29,7 @@ export class ContractEditAdminComponent implements OnInit
   loadBaseInfo(value?: Contract)
   {
     this.contractBaseInfoService.loadBaseInfoData(value);
-    this.baseInfoService.loadBaseInfo();
+    this.baseInfoService.loadBaseInfo(null, value?.brandId ? [value?.brandId] : []);
   }
 
   ngOnInit(): void

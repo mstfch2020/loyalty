@@ -32,6 +32,11 @@ export class OtherContractsComponent extends BaseSearch implements OnInit
     {
       this.theViewList = value;
     });
+
+    this.service.refreshGetPromoterContractsGrid.subscribe(a =>
+    {
+      this.applyFilterForm({ event: { value: a, conditionType: 2 }, filterType: FilterNames.Phone });
+    });
   }
 
   override search(request: any)

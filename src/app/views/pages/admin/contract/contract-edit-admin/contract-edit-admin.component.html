@@ -19,38 +19,6 @@
         <div class="row">
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
-              برند :
-              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
-            </label>
-          </div>
-          <div class="col-12 col-sm-9">
-            <ng-select [items]="baseInfoService.brandsSingle$|async" [multiple]="false" appendTo="body"
-              bindLabel="title" bindValue="id" class="form-control mb-3" formControlName="brandId">
-            </ng-select>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <label class="float-end float-sm-start mt-3">
-              نوع کاربری :
-              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
-            </label>
-          </div>
-          <div class="col-12 col-sm-9">
-            <ng-select [items]="baseInfoService.contractType" [multiple]="false" appendTo="body" bindLabel="title"
-              bindValue="id" class="form-control mb-3" formControlName="type">
-            </ng-select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-12 col-sm-6">
-        <div class="row">
-          <div class="col-12 col-sm-3">
-            <label class="float-end float-sm-start mt-3">
               شماره مبایل :
               <span class="text-danger" *ngIf="!service.isDisabled">*</span>
             </label>
@@ -135,6 +103,23 @@
                 <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
                   <input class="text-center text-black border-0 h-40px w-100" formControlName='nationalCode' type="text"
                     [maxLength]="10" [minlength]="10" mask="0000000000">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6" *ngIf="service.getValue('type')===1">
+            <div class="row">
+              <div class="col-12 col-sm-3">
+                <label class="float-end float-sm-start mt-3">
+                  کد پرسنلی :
+                  <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+                </label>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="text-center text-black border-0 h-40px w-100" formControlName='personnelCode'
+                    type="text" [maxLength]="10" [minlength]="10" mask="9999999999" type="text">
                 </div>
               </div>
             </div>
@@ -531,7 +516,14 @@
         </div>
       </div>
       <!-- teachers end -->
-
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <span class="font-yekan-bold fs-20px text-black">
+            ثبت قرارداد (تخصیص ترویج دهنده)
+          </span>
+        </div>
+      </div>
 
       <div class="row mt-5">
         <div class="col-12 col-sm-6">
