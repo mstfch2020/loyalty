@@ -121,7 +121,7 @@ export enum FilterNames
   ActivitiesKey = 24,
   ProductTag = 25,
   DateFilter = 26,
-  ContractStatus = 27
+  ContractStatus = 27,
 }
 
 export enum StatusType
@@ -183,4 +183,11 @@ export enum ComboTypes
   DistributorActivitySection = 8,
   ShopActivitySection = 9,
   SchoolType = 10,
+}
+
+export enum PromoterDiscountCodeStatus
+{
+  None = 0,
+  Active = 1,
+  InActive = 2
 }

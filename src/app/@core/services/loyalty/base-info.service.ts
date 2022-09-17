@@ -10,6 +10,8 @@ import { callGetService, callPostService } from "./BaseService";
 @Injectable({ providedIn: 'root' })
 export class BaseInfoService
 {
+
+
   constructor(
     public http: HttpClient,
     public settingService: SettingsService,
@@ -85,7 +87,7 @@ export class BaseInfoService
 
   contractType: Array<EnumTitle> = [
     { id: 1, title: 'دبیر' },
-    { id: 2, title: 'توضیع کننده' },
+    { id: 2, title: 'توزیع کننده' },
     { id: 3, title: 'فروشگاه' },
   ];
 
@@ -237,7 +239,7 @@ export class BaseInfoService
     });
   }
 
-  loadComissions()
+  loadCommissions()
   {
     this.GetAllCommissionsBasis().pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
@@ -355,6 +357,19 @@ export class BaseInfoService
       return callPostService<any>(url, this.http, this.uiService, {});
     }
     return callPostService<any>(url, this.http, this.uiService, { brandIds: brandIds });
+  }
+
+  GetAllPromoterContractedBrands(customerId: string)
+  {
+    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountCode/GetAllPromoterContractedBrands?customerId=' + customerId;
+    return callGetService<any>(url, this.http, this.uiService);
+  }
+
+  GetAllPromoterContractedTagsByBrand(promoterId: any, brandId: any)
+  {
+    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountCode/GetAllPromoterContractedTagsByBrand';
+
+    return callPostService<any>(url, this.http, this.uiService, { brandId: brandId, customerId: promoterId });
   }
 }
 

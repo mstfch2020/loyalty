@@ -27,7 +27,7 @@ export const periodInit: Period = {
   full: ''
 };
 
-export const createPeriodFormGroup = (periodMin: Period, formBuilder: FormBuilder): FormGroup =>
+export const createPeriodFormGroup = (periodMin: Period | null, formBuilder: FormBuilder): FormGroup =>
 {
   if (!periodMin)
   {

@@ -1,0 +1,160 @@
+<div class="d-flex flex-column px-3 py-3" [formGroup]="service.form" dir="rtl">
+
+  <div class=" d-flex flex-row align-items-center mt-3">
+    <label class="float-end float-sm-start w-90-px">
+      برند:
+      <span class="text-danger">*</span>
+    </label>
+
+    <div class="d-flex flex-column w-50">
+      <ng-select [items]="service.brands$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
+        bindLabel="title" bindValue="id" class="form-control" formControlName="brandId">
+      </ng-select>
+      <div *ngIf="!service.form.get('brandId')?.valid && service.form.get('brandId')?.touched && !isDisabled"
+        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+        برند را مشخص نمایید
+      </div>
+    </div>
+
+    <label class="float-end float-sm-start w-140-px mx-2 ">
+      درصد پورسانت:
+      <span class="text-danger">*</span>
+    </label>
+
+
+    <div class="d-flex flex-column w-120-px">
+      <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px disabled">
+        <input [readOnly]="true" class="text-center text-black border-0 h-30px w-100 mr-8-px"
+          formControlName='commissionBasis' [dropSpecialCharacters]="false" mask="percent.3" type="text">
+        <div class="fs-08 text-gray-500">
+          %
+        </div>
+      </div>
+      <div
+        *ngIf="!service.form.get('commissionBasis')?.valid && service.form.get('commissionBasis')?.touched && !isDisabled"
+        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+        نام سناریو را وارد نمایید
+      </div>
+
+    </div>
+  </div>
+
+  <div class=" d-flex flex-row align-items-center  mt-2">
+    <label class="float-end float-sm-start w-90-px">
+      تگ کالا:
+      <span class="text-danger">*</span>
+    </label>
+
+    <div class="d-flex flex-column w-50">
+      <ng-select (change)="service.brandChanged($event,'tagIds')" [items]="service.tags$|async" [multiple]="true"
+        [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+        formControlName="tagIds">
+      </ng-select>
+      <div *ngIf="!service.form.get('tagIds')?.valid && service.form.get('tagIds')?.touched && !isDisabled"
+        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+        تگ کالا را مشخص نمایید
+      </div>
+    </div>
+
+    <label class="float-end float-sm-start w-140-px mx-2 ">
+      تخفیف مصرف کننده:
+      <span class="text-danger">*</span>
+    </label>
+
+
+    <div class="d-flex flex-column w-120-px">
+      <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px ">
+        <input [readOnly]="false" class="text-center text-black border-0 h-30px w-100 mr-8-px"
+          formControlName='consumerDiscount' [dropSpecialCharacters]="false" mask="percent" type="text">
+        <div class="fs-08 text-gray-500">
+          %
+        </div>
+      </div>
+      <div
+        *ngIf="!service.form.get('consumerDiscount')?.valid && service.form.get('consumerDiscount')?.touched && !isDisabled"
+        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+        تخفیف مصرف کننده را وارد نمایید
+      </div>
+
+    </div>
+  </div>
+
+  <div class=" d-flex flex-row align-items-center  mt-2">
+    <label class="float-end float-sm-start w-90-px ">
+      کد تخفیف:
+      <span class="text-danger">*</span>
+    </label>
+
+    <div class="d-flex flex-column w-50">
+      <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px ">
+        <input [readOnly]="false" class="text-end text-black border-0 h-30px w-100 mr-8-px" formControlName='code'
+          type="text">
+        <div class="fs-08 text-gray-500">
+
+        </div>
+      </div>
+      <div *ngIf="!service.form.get('code')?.valid && service.form.get('code')?.touched && !isDisabled"
+        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+        کد تخفیف را وارد نمایید
+      </div>
+
+    </div>
+
+    <label class="float-end float-sm-start w-140-px mx-2 ">
+      تعداد کد تخفیف:
+      <span class="text-danger">*</span>
+    </label>
+
+
+    <div class="d-flex flex-column w-120-px">
+      <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px ">
+        <input [readOnly]="false" class="text-center text-black border-0 h-30px w-100 mr-8-px"
+          formControlName='useCount' mask="separator" thousandSeparator="," type="text">
+        <div class="fs-08 text-gray-500">
+
+        </div>
+      </div>
+      <div *ngIf="!service.form.get('useCount')?.valid && service.form.get('useCount')?.touched && !isDisabled"
+        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+        تعداد کد تخفیف را وارد نمایید
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class=" d-flex flex-row align-items-center mt-2">
+    <label class=" ">
+      بازه زمانی :
+    </label>
+    <label class="  mx-2">
+      از
+    </label>
+    <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true"
+      [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+      <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true" style="width: 130px;padding:10px"
+        class="time-picker-input h-30px form-control rounded-pill text-center text-black" dir="ltr"
+        formControlName="startDate" mask="0000/M0/d0" type="text" />
+    </ng-persian-datepicker>
+    <label class="  mx-2">
+      تا
+    </label>
+    <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true"
+      [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+      <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+        class=" time-picker-input h-30px form-control  rounded-pill text-center text-black" dir="ltr"
+        formControlName="endDate" mask="0000/M0/d0" type="text" />
+    </ng-persian-datepicker>
+  </div>
+
+  <div class="d-flex flex-row mt-5">
+    <button class="btn btn-warning  rounded-pill font-yekan-regular px-4 text-white d-block mx-2" dir="rtl"
+      (click)="service.submit()">
+      اعمال
+    </button>
+    <button class="btn btn-outline-warning  rounded-pill font-yekan-regular px-4 text-white d-block  mx-2" dir="rtl"
+      (click)="modal.close()">
+      انصراف
+    </button>
+  </div>
+</div>

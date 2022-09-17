@@ -13,6 +13,7 @@ export class TableHeaderFilterComponent implements OnInit
   @ViewChildren(TemplateRef) template: TemplateRef<any>;
   @Input()
   filterName: any;
+  @Input() title = '';
   @Input()
   activeFilterName: FilterNames = FilterNames.None;
 

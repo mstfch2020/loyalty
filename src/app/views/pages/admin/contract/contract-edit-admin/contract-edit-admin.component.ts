@@ -28,8 +28,9 @@ export class ContractEditAdminComponent implements OnInit
 
   loadBaseInfo(value?: Contract)
   {
-    this.contractBaseInfoService.loadBaseInfoData(value);
     this.baseInfoService.loadBaseInfo(null, value?.brandId ? [value?.brandId] : []);
+    this.contractBaseInfoService.loadBaseInfoData(value, () => { this.disableForm(); });
+
   }
 
   ngOnInit(): void
@@ -49,7 +50,6 @@ export class ContractEditAdminComponent implements OnInit
           }
           this.service.createForm(value);
           this.cdref.detectChanges();
-          this.disableForm();
           this.loadBaseInfo(value);
         });
       } else

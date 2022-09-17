@@ -37,7 +37,7 @@ export class SystemSettingsDiscountListComponent extends BaseSearch implements O
   override ngOnInit(): void
   {
     super.ngOnInit();
-    this.baseInfoService.loadComissions();
+    this.baseInfoService.loadCommissions();
     this.service.promoterDiscountSettings$.subscribe(value => this.theViewList = value);
   }
 

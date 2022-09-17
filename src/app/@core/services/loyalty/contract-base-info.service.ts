@@ -32,7 +32,7 @@ export class ContractBaseInfoService
   allCities$ = new BehaviorSubject<Array<IdTitle>>([]);
   schoolType$ = new BehaviorSubject<Array<IdTitle>>([]);
 
-  loadBaseInfoData(request?: Contract)
+  loadBaseInfoData(request?: Contract, callback?: any)
   {
     const requests: any = {
       provinces: this.GetStats(),
@@ -62,6 +62,10 @@ export class ContractBaseInfoService
       this.shopActivitySections$.next(resultValue?.shopActivitySections === null ? [] : resultValue?.shopActivitySections);
       this.allCities$.next(resultValue?.allCities === null ? [] : resultValue?.allCities);
       this.schoolType$.next(resultValue?.schoolType === null ? [] : resultValue?.schoolType);
+      if (callback)
+      {
+        callback();
+      }
     });
 
   }

@@ -1,0 +1,58 @@
+<div dir="rtl">
+  <div class="container-fluid">
+    <div class="row mt-4">
+      <h5 class="font-yekan-bold fs-20px text-black">
+
+      </h5>
+      <div class="col-12">
+        <div class="table-responsive">
+          <table cellspacing="1" class="table table-hover border-spacing-xs border-0">
+            <thead>
+              <tr>
+                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
+                  *ngFor="let headerItem of headerItems;">
+                  <app-table-header-filter [activeFilterName]="activeFilterName"
+                    [filterName]="headerItem.getFilterName()" [title]="headerItem.title"
+                    (onOpenFilterForm)="openFilterForm($event)" (onCloseFilterForm)="closeFilterForm($event)"
+                    (onApplyFilterForm)="applyFilterForm($event)">
+                  </app-table-header-filter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of theViewList;let i=index">
+                <td class="pr-1 text-end fs-08">
+                  {{item.code}}
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  {{item.tags.join('، ')}}
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  {{item.consumerDiscount}}%
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  {{item.expireDate.full}}
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  {{item.useCountInCeiling}}
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  {{item.status===1?'فعال':'غیرفعال'}}
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  <div (click)="activeInActive(item)">
+                    {{item.status===1?'غیرفعال کردن':'فعال کردن'}}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <app-pagination [pageSize]="pageSize" [totalPages]="totalPages" [pageIndex]="pageIndex"
+        (notifyPageIndex)="selectedPageIndex($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>

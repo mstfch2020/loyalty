@@ -225,6 +225,10 @@ body.register {
   color: #006187;
 }
 
+.color-app-orange {
+  color: #ffa100;
+}
+
 .rounded-4 {
   border-radius: 0.8rem;
 }
@@ -532,7 +536,7 @@ select.ng-invalid.ng-touched {
 }
 
 .ng-select {
-  padding: 10px;
+  padding: 1px;
 }
 
 .ng-select.custom {
@@ -617,6 +621,10 @@ select.ng-invalid.ng-touched {
 .ng-dropdown-panel .scroll-host {
   text-align: right !important;
   margin: 2px;
+}
+
+.ng-dropdown-panel {
+  z-index: 9999999999999999999 !important;
 }
 
 .datepicker-outer-container {
@@ -731,4 +739,19 @@ select.disabled,
 
 .th-app-table {
   min-height: 120px;
+}
+
+
+.table-zero {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: inset 0px 0px 0px 0 rgb(0 0 0 / 0%);
+  border-spacing: 0;
+}
+
+.time-picker-input {
+  width: 130px;
+  padding: 10px;
 }

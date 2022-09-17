@@ -1,4 +1,4 @@
-import { SenarioStatusType } from './enums.model';
+import { PromoterDiscountCodeStatus, SenarioStatusType } from './enums.model';
 import { Period } from './period.model';
 
 export interface CustomerMainGrid
@@ -57,4 +57,48 @@ export interface CustomerSubGrid
   operationType: 1;
   score: 20;
   desctiption: CustomerDescription;
+}
+
+export interface CustomerInfo
+{
+  activeCodeCount: number;
+  brandName: string;
+  brandId: string;
+  commission: number;
+  showDiscountHistory: boolean;
+  showCommissionHistory: boolean;
+}
+
+export interface GetPromoterDiscountCodesGridResult
+{
+  id: string;
+  code: string;
+  tags: Array<string>;
+  consumerDiscount: number;
+  expireDate: Period;
+  useCountInCeiling: string;
+  status: PromoterDiscountCodeStatus;
+  isActionable: boolean;
+}
+export interface GetPromoterCommissionsGridResult
+{
+  promoterDiscountCodeId: string;
+  date: Period;
+  code: string;
+  tags: Array<string>;
+  count: number;
+  totalOrders: number;
+  promoterCommission: number;
+  commission: number;
+  isOpen: boolean;
+  details: Array<GetPromoterCommissionsGridResultDetail>;
+}
+
+export interface GetPromoterCommissionsGridResultDetail
+{
+  productName: string;
+  count: number;
+  totalOrders: number;
+  promoterCommission: number;
+  commission: number;
 }

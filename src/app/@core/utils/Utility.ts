@@ -39,7 +39,7 @@ export class Utility
     return period;
   }
 
-  static getFullDateTimeFromPeriodInPersion(period: Period): any
+  static getFullDateTimeFromPeriodInPersion(period?: Period): any
   {
     //if (!period || period.year < 1300) { return new Date().valueOf(); }
 

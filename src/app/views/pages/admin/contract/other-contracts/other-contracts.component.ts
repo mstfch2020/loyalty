@@ -17,6 +17,7 @@ export class OtherContractsComponent extends BaseSearch implements OnInit
 
   theViewList = new Array<PromoterContracts>();
   headerItems = ['ردیف', FilterNames.Phone, FilterNames.UserType, FilterNames.Brand, FilterNames.ProductTag, FilterNames.DateFilter];
+  mobile = '';
   constructor(private router: Router,
     public service: ContractService,
     public override baseInfoService: BaseInfoService,
@@ -27,22 +28,35 @@ export class OtherContractsComponent extends BaseSearch implements OnInit
 
   override ngOnInit(): void
   {
-    super.ngOnInit();
     this.service.promoterContracts$.subscribe(value =>
     {
       this.theViewList = value;
     });
 
-    this.service.refreshGetPromoterContractsGrid.subscribe(a =>
+    this.service.refreshGetPromoterContractsGrid.subscribe(mobile =>
     {
-      this.applyFilterForm({ event: { value: a, conditionType: 2 }, filterType: FilterNames.Phone });
+      this.mobile = mobile;
+      if (this.mobile)
+      {
+        this.applyFilterForm({ event: { value: mobile, conditionType: 2 }, filterType: FilterNames.Phone });
+      }
     });
+
+    this.mobile = this.service.form.get('mobile')?.value;
+    if (this.mobile)
+    {
+      this.applyFilterForm({ event: { value: this.mobile, conditionType: 2 }, filterType: FilterNames.Phone });
+    }
+
   }
 
   override search(request: any)
   {
     request.pageSize = 20;
-    this.service.GetPromoterContractsGrid(request);
+    if (this.mobile && request.mobileFilter)
+    {
+      this.service.GetPromoterContractsGrid(request);
+    }
   }
 
   goToEdit(code: string = '')

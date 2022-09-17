@@ -1,0 +1,125 @@
+<div class="d-flex flex-row justify-content-between mt-3" [formGroup]="form">
+  <div class=" d-flex flex-row">
+    <label class=" mt-3">
+      بازه زمانی :
+    </label>
+    <label class=" mt-3 mx-2">
+      از
+    </label>
+    <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true"
+      [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+      <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+        class="form-control h-55px rounded-pill text-center text-black" dir="ltr" formControlName="startDate"
+        mask="0000/M0/d0" type="text" />
+    </ng-persian-datepicker>
+    <label class=" mt-3 mx-2">
+      تا
+    </label>
+    <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true" [uiTodayBtnEnable]="true"
+      [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+      <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+        class="form-control h-55px rounded-pill text-center text-black" dir="ltr" formControlName="endDate"
+        mask="0000/M0/d0" type="text" />
+    </ng-persian-datepicker>
+  </div>
+
+  <div class="d-flex flex-row align-items-center">
+    <div class="text-black fs-09">
+      مجموع پورسانت:
+      <span class="mr-1">
+        {{25000 | mask: 'separator':','}} تومان
+      </span>
+    </div>
+  </div>
+</div>
+<div dir="rtl">
+  <div class="container-fluid">
+    <div class="row mt-4">
+      <h5 class="font-yekan-bold fs-20px text-black">
+
+      </h5>
+      <div class="col-12">
+        <div class="table-responsive">
+          <table cellspacing="1" class="table table-hover border-spacing-xs border-0">
+            <thead>
+              <tr>
+                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
+                  *ngFor="let headerItem of headerItems;">
+                  <app-table-header-filter [activeFilterName]="activeFilterName"
+                    [filterName]="headerItem.getFilterName()" [title]="headerItem.title"
+                    (onOpenFilterForm)="openFilterForm($event)" (onCloseFilterForm)="closeFilterForm($event)"
+                    (onApplyFilterForm)="applyFilterForm($event)">
+                  </app-table-header-filter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let item of theViewList;let i=index">
+                <tr (click)="loadDetails(item) ">
+                  <td class="pr-1 text-end fs-08">
+                    {{item.date.full}}
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    {{item.code}}
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    {{item.tags.join('، ')}}
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    {{item.count}}
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    {{item.totalOrders}} تومان
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    {{item.commission}}%
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    {{item.promoterCommission}} تومان
+                  </td>
+                </tr>
+
+                <tr *ngIf="item.isOpen">
+                  <td class="pr-1 text-end fs-08">
+
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    <div *ngFor="let detailItem of item.details;" class="my-1">
+                      {{detailItem.productName}}
+                    </div>
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    <div *ngFor="let detailItem of item.details;" class="my-1">
+                      {{detailItem.count}}
+                    </div>
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    <div *ngFor="let detailItem of item.details;" class="my-1">
+                      {{detailItem.totalOrders}} تومان
+                    </div>
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    <div *ngFor="let detailItem of item.details;" class="my-1">
+                      {{detailItem.totalOrders}}
+                    </div>
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    <div *ngFor="let detailItem of item.details;" class="my-1">
+                      {{detailItem.promoterCommission}} تومان
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <app-pagination [pageSize]="pageSize" [totalPages]="totalPages" [pageIndex]="pageIndex"
+        (notifyPageIndex)="selectedPageIndex($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>

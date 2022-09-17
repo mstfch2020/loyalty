@@ -19,7 +19,7 @@ export class ContractService extends BaseService<Contract>
   activeContracts$ = new BehaviorSubject<Array<ActiveContract>>([]);
   requestContracts$ = new BehaviorSubject<Array<RequestContract>>([]);
   promoterContracts$ = new BehaviorSubject<Array<PromoterContracts>>([]);
-  refreshGetPromoterContractsGrid = new Subject();
+  refreshGetPromoterContractsGrid = new Subject<string>();
 
   constructor(public override formBuilder: FormBuilder,
     public override  baseInfoService: BaseInfoService,
@@ -65,8 +65,23 @@ export class ContractService extends BaseService<Contract>
       if (isValidPhonenumber(value)) { this.refreshGetPromoterContractsGrid.next(value); }
     });
 
+    if (this.form.get('mobile')?.value)
+    {
+      this.refreshGetPromoterContractsGrid.next(this.form.get('mobile')?.value);
+    }
+
+
+    if (!Utility.isNullOrEmpty(this.form.get('contractId')?.value))
+    {
+      this.form.get('mobile')?.disable();
+    }
+
     this.form.get('stateId')?.valueChanges.subscribe((value: string) =>
     {
+      if (this.form.get('stateId')?.disabled)
+      {
+        return;
+      }
       this.form.get('cityId')?.setValue(null);
       this.form.get('distributor.activityZoneId')?.setValue(null);
       this.contractBaseInfoService.loadCities(value);
@@ -74,6 +89,10 @@ export class ContractService extends BaseService<Contract>
 
     this.form.get('cityId')?.valueChanges.subscribe((value: string) =>
     {
+      if (this.form.get('stateId')?.disabled)
+      {
+        return;
+      }
       this.contractBaseInfoService.loadAreas(value);
     });
   }
@@ -191,9 +210,10 @@ export class ContractService extends BaseService<Contract>
     delete value.startDate;
     delete value.endDate;
 
+    value.mobile = this.form.get('mobile')?.value;
     if (!isValidPhonenumber(value.mobile))
     {
-      this.uiService.alert('شماره مبایل نادرست است.');
+      this.uiService.alert('شماره موبایل نادرست است.');
     }
 
     /////////////////////////////////////

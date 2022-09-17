@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import moment from "jalali-moment";
 import { Subject } from "rxjs";
 import { FilterNames } from "../../data/loyalty/enums.model";
 import { BaseInfoService } from "../loyalty/base-info.service";
@@ -62,6 +64,38 @@ export class BaseSearch implements OnInit, OnDestroy
     this.pageIndex = event;
     this.applyFilterForm({ event: null, filterType: FilterNames.Paging });
   }
+
+  updatePeriodFormControl(shamsiDate: string, formControlName: string, form: FormGroup): boolean
+  {
+    if (!shamsiDate)
+    {
+      return false;
+    }
+    const m = moment.from(shamsiDate.substring(0, 10), 'fa', 'YYYY/MM/DD');
+    if (!m.isValid())
+    {
+      return false;
+    }
+
+    const date = shamsiDate.substring(0, 10)?.split('/');
+
+    if (date && date.length === 3)
+    {
+      form.get(`${ formControlName }.year`)?.setValue(parseInt(date[0], 0));
+      form.get(`${ formControlName }.month`)?.setValue(parseInt(date[1], 0));
+      form.get(`${ formControlName }.day`)?.setValue(parseInt(date[2], 0));
+    }
+
+    const time = shamsiDate.substring(11, shamsiDate.length)?.split(':');
+    if (time && time.length === 3)
+    {
+      form.get(`${ formControlName }.hours`)?.setValue(parseInt(time[0], 0));
+      form.get(`${ formControlName }.minutes`)?.setValue(parseInt(time[1], 0));
+      form.get(`${ formControlName }.seconds`)?.setValue(parseInt(time[2], 0));
+    }
+    return true;
+  }
+
 
   ngOnDestroy(): void
   {
