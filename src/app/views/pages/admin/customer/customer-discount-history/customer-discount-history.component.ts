@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { finalize } from "rxjs/operators";
 import { GetPromoterDiscountCodesGridResult } from 'src/app/@core/data/loyalty/customer.model';
 import { FilterNames, PromoterDiscountCodeStatus } from 'src/app/@core/data/loyalty/enums.model';
 import { HeaderFilter } from 'src/app/@core/data/loyalty/header-filter.model';
-import { periodInit } from 'src/app/@core/data/loyalty/period.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { CustomerService } from 'src/app/@core/services/loyalty/customer.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
@@ -47,7 +45,7 @@ export class CustomerDiscountHistoryComponent extends BaseSearch implements OnIn
 
   override ngOnInit(): void
   {
-    this.search({});
+    super.ngOnInit();
   }
 
   override search(request: any)
@@ -56,11 +54,7 @@ export class CustomerDiscountHistoryComponent extends BaseSearch implements OnIn
     request.customerId = this.customerId;
     request.brandId = this.customerInfo.brandId;
 
-    this.service.GetPromoterDiscountCodesGrid(request).pipe(finalize(() =>
-    {
-      this.theViewList = this.getMockData();
-      this.totalPages = 10;
-    })).subscribe(value =>
+    this.service.GetPromoterDiscountCodesGrid(request).subscribe(value =>
     {
       this.totalPages = 0;
       if (value?.data)
@@ -78,24 +72,5 @@ export class CustomerDiscountHistoryComponent extends BaseSearch implements OnIn
     {
       item.status = status;
     });
-  }
-
-  getMockData(): GetPromoterDiscountCodesGridResult[]
-  {
-    return [
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: false, status: PromoterDiscountCodeStatus.Active, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: true, status: PromoterDiscountCodeStatus.InActive, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: false, status: PromoterDiscountCodeStatus.Active, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: true, status: PromoterDiscountCodeStatus.InActive, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: false, status: PromoterDiscountCodeStatus.Active, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: true, status: PromoterDiscountCodeStatus.InActive, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: false, status: PromoterDiscountCodeStatus.Active, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: true, status: PromoterDiscountCodeStatus.InActive, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: false, status: PromoterDiscountCodeStatus.Active, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: true, status: PromoterDiscountCodeStatus.InActive, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: false, status: PromoterDiscountCodeStatus.Active, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-      { code: 'asdf', consumerDiscount: 1234, expireDate: periodInit, id: 'sdfsf', isActionable: true, status: PromoterDiscountCodeStatus.InActive, tags: ['sdf', 'sadf'], useCountInCeiling: 'sdfsf' },
-
-    ];
   }
 }

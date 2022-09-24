@@ -23,7 +23,7 @@ export const newDiscountDialogModelInit: NewDiscountDialogModel = {
   commissionBasis: 0,
   consumerDiscount: 0,
   status: 0,
-  useCount: 0,
+  useCount: 200,
   code: '',
   periodMin: periodInit,
   periodMax: periodInit,

@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { finalize } from "rxjs/operators";
-import { GetPromoterCommissionsGridResult, GetPromoterCommissionsGridResultDetail } from 'src/app/@core/data/loyalty/customer.model';
+import { GetPromoterCommissionsGridResult } from 'src/app/@core/data/loyalty/customer.model';
 import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
 import { HeaderFilter } from 'src/app/@core/data/loyalty/header-filter.model';
-import { createPeriodFormGroup, periodInit } from 'src/app/@core/data/loyalty/period.model';
+import { createPeriodFormGroup } from 'src/app/@core/data/loyalty/period.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { CustomerService } from 'src/app/@core/services/loyalty/customer.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
@@ -54,7 +53,17 @@ export class CustomerCommissionHistoryComponent extends BaseSearch implements On
       periodMax: createPeriodFormGroup(null, this.formBuilder),
     });
 
-    this.search({});
+    this.form.get('startDate')?.valueChanges.subscribe(value =>
+    {
+      this.refresh();
+    });
+
+    this.form.get('endDate')?.valueChanges.subscribe(value =>
+    {
+      this.refresh();
+    });
+
+    super.ngOnInit();
   }
 
   override search(request: any)
@@ -72,11 +81,7 @@ export class CustomerCommissionHistoryComponent extends BaseSearch implements On
     request.minDate = value.periodMin;
     request.maxDate = value.periodMax;
 
-    this.service.GetPromoterCommissionsGrid(request).pipe(finalize(() =>
-    {
-      this.theViewList = this.getMockData();
-      this.totalPages = 10;
-    })).subscribe(value =>
+    this.service.GetPromoterCommissionsGrid(request).subscribe(value =>
     {
       this.totalPages = 0;
       if (value?.data)
@@ -89,52 +94,16 @@ export class CustomerCommissionHistoryComponent extends BaseSearch implements On
 
   loadDetails(item: GetPromoterCommissionsGridResult)
   {
-    this.service.GetPromoterCommissionsDetails(item.date, item.promoterDiscountCodeId).pipe(finalize(() =>
-    {
-      item.isOpen = !item.isOpen;
-      item.details = this.getDetailMock();
-    })).subscribe(result =>
+    if (item.isOpen) { item.isOpen = false; return; }
+    this.service.GetPromoterCommissionsDetails(item.date, item.promoterDiscountCodeId).subscribe(result =>
     {
       item.details = result ?? [];
+      if (item?.details?.length !== 0)
+      {
+        item.isOpen = true;
+        return;
+      }
+      item.isOpen = false;
     });
   }
-
-  getMockData(): GetPromoterCommissionsGridResult[]
-  {
-    return [
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-      { code: '123', commission: 1234, count: 2134, date: periodInit, promoterCommission: 345, tags: ['تک 1', 'تگ 2'], promoterDiscountCodeId: 'sdfsfsf', totalOrders: 123234, isOpen: false, details: this.getDetailMock() },
-    ];
-  }
-
-  getDetailMock(): Array<GetPromoterCommissionsGridResultDetail>
-  {
-    return [
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-      { commission: 456, count: 12345, productName: 'محصول 123', promoterCommission: 5469, totalOrders: 951 },
-    ];
-  }
-
 }

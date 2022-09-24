@@ -5,6 +5,7 @@ import { BehaviorSubject } from "rxjs";
 import { NewDiscountDialogModel, newDiscountDialogModelInit } from "../../data/loyalty/discount-code-dialog.model";
 import { IdTitle } from "../../data/loyalty/get-senarios-grid.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
+import { PromoterDiscountSetting, promoterDiscountSettingInit } from "../../data/loyalty/promoter-discount-setting.model";
 import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
@@ -16,6 +17,7 @@ export class NewDiscountDialogService extends BaseService<NewDiscountDialogModel
 {
   brands$ = new BehaviorSubject<Array<IdTitle>>([]);
   tags$ = new BehaviorSubject<Array<IdTitle>>([]);
+  commissionSetting$ = new BehaviorSubject<PromoterDiscountSetting>(promoterDiscountSettingInit);
 
   constructor(public override formBuilder: FormBuilder,
     public override baseInfoService: BaseInfoService,
@@ -33,7 +35,7 @@ export class NewDiscountDialogService extends BaseService<NewDiscountDialogModel
       promoterId: [scenario.promoterId, [Validators.required]],
       brandId: [scenario.brandId, [Validators.required]],
       tagIds: [scenario.tagIds, [Validators.required]],
-      commissionBasis: [scenario.commissionBasis ?? 200, [Validators.required]],
+      commissionBasis: [scenario.commissionBasis, [Validators.required]],
       consumerDiscount: [scenario.consumerDiscount, [Validators.required]],
       status: [scenario.status, [Validators.required]],
       useCount: [scenario.useCount ?? 200, [Validators.required]],
@@ -46,10 +48,21 @@ export class NewDiscountDialogService extends BaseService<NewDiscountDialogModel
 
     this.form.get('brandId')?.valueChanges.subscribe(value =>
     {
+      this.tags$.next([]);
+      this.commissionSetting$.next(promoterDiscountSettingInit);
+
       if (value)
       {
         this.baseInfoService.GetAllPromoterContractedTagsByBrand(this.form.get('promoterId')?.value, value).subscribe(
           result => this.tags$.next(result)
+        );
+
+        this.baseInfoService.GetCommissionSettingByBrand(this.form.get('promoterId')?.value, value).subscribe(
+          (result: PromoterDiscountSetting) =>
+          {
+            this.commissionSetting$.next(result);
+            this.form.get('commissionBasis')?.setValue(result.commissionBasis);
+          }
         );
       }
     });
@@ -61,16 +74,49 @@ export class NewDiscountDialogService extends BaseService<NewDiscountDialogModel
     this.uiService.alertService.clearAllMessages();
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'Create' : 'Edit';
     const url = this.settingService.settings?.baseUrl + `PromoterDiscountCode/${ option }`;
+    let errorMessage = '';
 
     if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
       !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax'))
     {
-      this.uiService.alert('بازه زمانی را وارد نمایید.');
+      errorMessage += ('بازه زمانی را وارد نمایید.\n');
+    }
+    const value: NewDiscountDialogModel = this.form.value as NewDiscountDialogModel;
+    value.commissionBasis = this.form.get('commissionBasis')?.value;
+    const commissionSetting = this.commissionSetting$.getValue();
+
+    if (!value.brandId)
+    {
+      errorMessage += (`لطفا برند را انتخاب کنید.`);
+    }
+
+    else if (!value.tagIds || value.tagIds.length === 0)
+    {
+      errorMessage += (`لطفا تگ کالا را انتخاب کنید.`);
+    }
+
+    else if (!value.code)
+    {
+      errorMessage += (`لطفا کد تخفیف را وارد نمایید.`);
+    }
+
+    else if (value.consumerDiscount > commissionSetting.customerDiscountMax ||
+      value.consumerDiscount < commissionSetting.customerDiscountMin)
+    {
+      errorMessage += (`تخفیف مصرف کننده باید بین ${ commissionSetting.customerDiscountMin } تا ${ commissionSetting.customerDiscountMax } باشد.`);
+    }
+
+    else if (!value.useCount)
+    {
+      errorMessage += (`لطفا تعداد کد تخفیف را وارد نمایید.`);
+    }
+
+    if (errorMessage)
+    {
+      this.uiService.alert(errorMessage);
       return;
     }
 
-    const value = this.form.value;
-    if (Utility.isNullOrEmpty(value.id)) { delete value.id; }
     console.log(value);
 
     callPostService<NewDiscountDialogModel>(url, this.http, this.uiService, value).subscribe(value =>

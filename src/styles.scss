@@ -755,3 +755,7 @@ select.disabled,
   width: 130px;
   padding: 10px;
 }
+
+.modal-backdrop {
+  z-index: 8 !important;
+}

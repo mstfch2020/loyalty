@@ -70,7 +70,7 @@ export class CustomerEditComponent extends BaseSearch implements OnInit
         this.service.getCustomerScenarioGrid({ id: this.id });
         this.service.GetPromoterDiscountCodesGeneralInfo(this.id).subscribe(result =>
         {
-          this.customerInfoList = !result || result.length === 0 ? this.getCustomreInfoMock() : result;
+          this.customerInfoList = result ?? [];
         });
         return;
       }
@@ -79,16 +79,6 @@ export class CustomerEditComponent extends BaseSearch implements OnInit
 
 
 
-  }
-  getCustomreInfoMock(): CustomerInfo[]
-  {
-    return [
-      { brandId: '123', brandName: 'خیلی سبز', commission: 100, activeCodeCount: 200, showCommissionHistory: false, showDiscountHistory: false },
-      { brandId: '123', brandName: 'خیلی سبز', commission: 100, activeCodeCount: 200, showCommissionHistory: false, showDiscountHistory: false },
-      { brandId: '123', brandName: 'خیلی سبز', commission: 100, activeCodeCount: 200, showCommissionHistory: false, showDiscountHistory: false },
-      { brandId: '123', brandName: 'خیلی سبز', commission: 100, activeCodeCount: 200, showCommissionHistory: false, showDiscountHistory: false },
-
-    ];
   }
 
   showHistoryToggle()
@@ -107,7 +97,7 @@ export class CustomerEditComponent extends BaseSearch implements OnInit
       return;
     }
 
-    const modalRef = this.modalService.open(CreateDiscountCodeDialogComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(CreateDiscountCodeDialogComponent, { size: 'lg', centered: true });
     modalRef.componentInstance.customerId = this.id;
   }
 }

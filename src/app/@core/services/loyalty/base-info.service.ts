@@ -371,6 +371,12 @@ export class BaseInfoService
 
     return callPostService<any>(url, this.http, this.uiService, { brandId: brandId, customerId: promoterId });
   }
+
+  GetCommissionSettingByBrand(promoterId: any, brandId: any)
+  {
+    const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetCommissionSettingByBrand';
+    return callPostService<any>(url, this.http, this.uiService, { brandId: brandId, customerId: promoterId });
+  }
 }
 
 

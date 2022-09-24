@@ -17,7 +17,7 @@
       </ng-container>
       <ng-container *ngIf="filterType==2">
         <input class="filter-text-input" [ngClass]="{'text-center':align==1,'text-start':align==2,'text-end':align==3}"
-          formControlName="searchValue" type="text" maxlength="{{length}}">
+          formControlName="searchValue" type="text">
       </ng-container>
       <ng-container *ngIf="filterType==3">
         <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"

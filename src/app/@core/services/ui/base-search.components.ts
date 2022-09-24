@@ -35,6 +35,11 @@ export class BaseSearch implements OnInit, OnDestroy
 
   }
 
+  refresh()
+  {
+    this.applyFilterForm({ filterType: FilterNames.Paging, event: null });
+  }
+
   applyFilterForm(item: { event: any, filterType: FilterNames; })
   {
     if (item.filterType !== FilterNames.Paging)
