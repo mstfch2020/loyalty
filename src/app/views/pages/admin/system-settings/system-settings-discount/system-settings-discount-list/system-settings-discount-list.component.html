@@ -5,7 +5,8 @@
         <table cellspacing="0" class="table table-hover border-0">
           <thead>
             <tr>
-              <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col" *ngFor="let headerItem of headerItems;">
+              <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
+                *ngFor="let headerItem of headerItems;">
                 <app-table-header-filter [activeFilterName]="activeFilterName" [filterName]="headerItem"
                   (onOpenFilterForm)="openFilterForm($event)" (onCloseFilterForm)="closeFilterForm($event)"
                   (onApplyFilterForm)="applyFilterForm($event)">

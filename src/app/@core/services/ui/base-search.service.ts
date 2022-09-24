@@ -6,6 +6,7 @@ import { ProductGroup } from "../../data/loyalty/product-group.model";
 import { BrandFilter, CustomersFilter, StatusFilter } from "../../data/loyalty/scenario/get-all-scenarios.model";
 import { Utility } from "../../utils/Utility";
 import { BaseInfoService } from "../loyalty/base-info.service";
+import { FilterOption } from "./filter-option.model";
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,14 @@ export class BaseSearchService
   theFilterBrandsList = new Array<FilterTitle>();
   theFilterBrandsSelectedList = new Array<IdTitle>();
   theFilterBrandsSelectedCondition = 0;
+
+  theFilterExporterBrandsList = new Array<FilterTitle>();
+  theFilterExporterBrandsSelectedList = new Array<IdTitle>();
+  theFilterExporterBrandsSelectedCondition = 0;
+
+  theFilterProviderBrandsList = new Array<FilterTitle>();
+  theFilterProviderBrandsSelectedList = new Array<IdTitle>();
+  theFilterProviderBrandsSelectedCondition = 0;
 
   theFilterLevelsList = new Array<FilterTitle>();
   theFilterLevelsSelectedList = new Array<IdTitle>();
@@ -315,13 +324,18 @@ export class BaseSearchService
     this.baseInfoService.brands$.pipe(takeUntil(this.unsubscribe)).subscribe(value =>
     {
       this.theFilterBrandsList = [];
+      this.theFilterExporterBrandsList = [];
+      this.theFilterProviderBrandsList = [];
       value.forEach(p =>
       {
-        this.theFilterBrandsList.push({
+        const data = {
           checked: false,
           id: p.id,
           title: p.title, type: 0
-        });
+        };
+        this.theFilterBrandsList.push({ ...data });
+        this.theFilterExporterBrandsList.push({ ...data });
+        this.theFilterProviderBrandsList.push({ ...data });
       });
     });
 
@@ -377,6 +391,8 @@ export class BaseSearchService
     this.theFilterTitleFilterSelectedList = [];
     this.theFilterGroupSelectedList = [];
     this.theFilterBrandsSelectedList = [];
+    this.theFilterExporterBrandsSelectedList = [];
+    this.theFilterProviderBrandsSelectedList = [];
     this.theFilterLevelsSelectedList = [];
     this.theFilterUserTypeSelectedList = [];
     this.theFilterCommissionSelectedList = [];
@@ -400,13 +416,13 @@ export class BaseSearchService
     this.resetChecks(this.theFilterUsageStatusList);
     this.resetChecks(this.theFilterRestPeriodTypeList);
   }
+
   resetChecks(theFilterStatusList: FilterTitle[])
   {
     theFilterStatusList.forEach(p => p.checked = false);
   }
 
-
-  applyFilterForm(event: any, filterType: FilterNames): any
+  applyFilterForm(event: any, filterType: FilterNames, expression: string): any
   {
     switch (filterType)
     {
@@ -443,6 +459,14 @@ export class BaseSearchService
       case FilterNames.Brand:
         this.theFilterBrandsSelectedList = event.value;
         this.theFilterBrandsSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.ProviderBrandFilter:
+        this.theFilterProviderBrandsSelectedList = event.value;
+        this.theFilterProviderBrandsSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.ExporterBrandFilter:
+        this.theFilterExporterBrandsSelectedList = event.value;
+        this.theFilterExporterBrandsSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case FilterNames.Status:
         this.theFilterStatusSelected = parseInt(event.value[0].id, 0);
@@ -603,6 +627,36 @@ export class BaseSearchService
       if (this.theFilterBrandsSelectedCondition != 0)
       {
         request.brandFilter.filterType = this.theFilterBrandsSelectedCondition;
+      }
+    }
+
+    if (this.theFilterProviderBrandsSelectedList && this.theFilterProviderBrandsSelectedList.length > 0)
+    {
+      request.providerBrandFilter = {};
+      request.providerBrandFilter.brandIds = this.theFilterProviderBrandsSelectedList.map(p => p.id);
+      if (this.theFilterProviderBrandsSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.providerBrandFilter.brandIds = [];
+      }
+      request.providerBrandFilter.filterType = 0;
+      if (this.theFilterProviderBrandsSelectedCondition != 0)
+      {
+        request.providerBrandFilter.filterType = this.theFilterProviderBrandsSelectedCondition;
+      }
+    }
+
+    if (this.theFilterExporterBrandsSelectedList && this.theFilterExporterBrandsSelectedList.length > 0)
+    {
+      request.exporterBrandFilter = {};
+      request.exporterBrandFilter.brandIds = this.theFilterExporterBrandsSelectedList.map(p => p.id);
+      if (this.theFilterExporterBrandsSelectedList.findIndex(p => p.id === 'all') !== -1)
+      {
+        request.exporterBrandFilter.brandIds = [];
+      }
+      request.exporterBrandFilter.filterType = 0;
+      if (this.theFilterExporterBrandsSelectedCondition != 0)
+      {
+        request.exporterBrandFilter.filterType = this.theFilterExporterBrandsSelectedCondition;
       }
     }
 
@@ -802,6 +856,11 @@ export class BaseSearchService
     if (this.phoneSelected)
     {
       request.mobileFilter = this.phoneSelected;
+    }
+
+    if (expression)
+    {
+      request[expression] = { event: event, filterType: filterType, expression: expression } as FilterOption;
     }
 
     return request;

@@ -35,10 +35,12 @@ export class SwitchComponent implements OnInit
 
   @Input() labelOne = 'عنوان اول';
   @Input() labelTwo = 'عنوان دوم';
+  @Input() labelThree = '';
   @Input() isDisabled = false;
-  @Output() notifySelectionSwitch: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() notifySelectionSwitch: EventEmitter<number> = new EventEmitter<number>();
 
   @Input() isOneSelected = true;
+  index = 1;
 
   constructor(private cdref: ChangeDetectorRef)
   {
@@ -50,14 +52,15 @@ export class SwitchComponent implements OnInit
     this.cdref.detectChanges();
   }
 
-  selection(item: boolean)
+  selection(item: number)
   {
+    this.index = item;
     if (this.isDisabled)
     {
       return;
     }
     this.notifySelectionSwitch.emit(item);
-    this.isOneSelected = item;
+    this.isOneSelected = item === 1;
     this.cdref.detectChanges();
 
   }

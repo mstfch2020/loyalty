@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
 import { FilterNames } from "../../data/loyalty/enums.model";
 import { BaseInfoService } from "../loyalty/base-info.service";
 import { BaseSearchService } from "./base-search.service";
+import { FilterOption } from "./filter-option.model";
 
 @Component({
   selector: 'base-search',
@@ -37,16 +38,16 @@ export class BaseSearch implements OnInit, OnDestroy
 
   refresh()
   {
-    this.applyFilterForm({ filterType: FilterNames.Paging, event: null });
+    this.applyFilterForm({ filterType: FilterNames.Paging } as FilterOption);
   }
 
-  applyFilterForm(item: { event: any, filterType: FilterNames; })
+  applyFilterForm(item: FilterOption)
   {
     if (item.filterType !== FilterNames.Paging)
     {
       this.pageIndex = 1;
     }
-    const request = this.baseSearchService.applyFilterForm(item.event, item.filterType);
+    const request = this.baseSearchService.applyFilterForm(item.event, item.filterType, item.expression);
     request.pageIndex = this.pageIndex;
     request.pageSize = this.pageSize;
     this.search(request);
@@ -67,7 +68,7 @@ export class BaseSearch implements OnInit, OnDestroy
   selectedPageIndex(event: number)
   {
     this.pageIndex = event;
-    this.applyFilterForm({ event: null, filterType: FilterNames.Paging });
+    this.applyFilterForm({ event: null, filterType: FilterNames.Paging } as FilterOption);
   }
 
   updatePeriodFormControl(shamsiDate: string, formControlName: string, form: FormGroup): boolean

@@ -1,8 +1,12 @@
 <div class="switch-container p-0 d-flex flex-row justify-content-around">
-  <div (click)="selection(true)"  [class.switch-selected]="isOneSelected!==false" class="switch">
+  <div (click)="selection(1)" [class.switch-selected]="index===1" class="switch">
     {{labelOne}}
   </div>
-  <div (click)="selection(false)" [class.switch-selected]="isOneSelected!==true" class="switch">
+  <div (click)="selection(0)" [class.switch-selected]="index===0" class="switch">
     {{labelTwo}}
+  </div>
+
+  <div *ngIf="labelThree" (click)="selection(2)" [class.switch-selected]="index===2" class="switch">
+    {{labelThree}}
   </div>
 </div>

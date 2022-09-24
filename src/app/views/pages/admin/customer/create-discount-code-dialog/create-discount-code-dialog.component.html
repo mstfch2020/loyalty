@@ -10,9 +10,10 @@
       <ng-select [items]="service.brands$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
         bindLabel="title" bindValue="id" class="form-control" formControlName="brandId">
       </ng-select>
-      <div *ngIf="!service.form.get('brandId')?.valid && service.form.get('brandId')?.touched && !isDisabled"
-        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-        برند را مشخص نمایید
+      <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+        <span *ngIf="!service.form.get('brandId')?.valid && service.form.get('brandId')?.touched && !isDisabled">
+          برند را مشخص نمایید
+        </span>
       </div>
     </div>
 
@@ -30,10 +31,11 @@
           %
         </div>
       </div>
-      <div
-        *ngIf="!service.form.get('commissionBasis')?.valid && service.form.get('commissionBasis')?.touched && !isDisabled"
-        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-        نام سناریو را وارد نمایید
+      <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+        <span
+          *ngIf="!service.form.get('commissionBasis')?.valid && service.form.get('commissionBasis')?.touched && !isDisabled">
+          درصد پورسانت را وارد نمایید
+        </span>
       </div>
 
     </div>
@@ -50,9 +52,10 @@
         [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
         formControlName="tagIds">
       </ng-select>
-      <div *ngIf="!service.form.get('tagIds')?.valid && service.form.get('tagIds')?.touched && !isDisabled"
-        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-        تگ کالا را مشخص نمایید
+      <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+        <span *ngIf="!service.form.get('tagIds')?.valid && service.form.get('tagIds')?.touched && !isDisabled">
+          تگ کالا را مشخص نمایید
+        </span>
       </div>
     </div>
 
@@ -70,10 +73,11 @@
           %
         </div>
       </div>
-      <div
-        *ngIf="!service.form.get('consumerDiscount')?.valid && service.form.get('consumerDiscount')?.touched && !isDisabled"
-        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-        تخفیف مصرف کننده را وارد نمایید
+      <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+        <span
+          *ngIf="!service.form.get('consumerDiscount')?.valid && service.form.get('consumerDiscount')?.touched && !isDisabled">
+          تخفیف مصرف کننده را وارد نمایید
+        </span>
       </div>
 
     </div>
@@ -93,9 +97,10 @@
 
         </div>
       </div>
-      <div *ngIf="!service.form.get('code')?.valid && service.form.get('code')?.touched && !isDisabled"
-        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-        کد تخفیف را وارد نمایید
+      <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+        <span *ngIf="!service.form.get('code')?.valid && service.form.get('code')?.touched && !isDisabled">
+          کد تخفیف را وارد نمایید
+        </span>
       </div>
 
     </div>
@@ -114,9 +119,10 @@
 
         </div>
       </div>
-      <div *ngIf="!service.form.get('useCount')?.valid && service.form.get('useCount')?.touched && !isDisabled"
-        class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-        تعداد کد تخفیف را وارد نمایید
+      <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+        <span *ngIf="!service.form.get('useCount')?.valid && service.form.get('useCount')?.touched && !isDisabled">
+          تعداد کد تخفیف را وارد نمایید
+        </span>
       </div>
 
     </div>

@@ -6,6 +6,7 @@ import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.servic
 import { ContractService } from 'src/app/@core/services/loyalty/contract.service';
 import { BaseSearch } from 'src/app/@core/services/ui/base-search.components';
 import { BaseSearchService } from 'src/app/@core/services/ui/base-search.service';
+import { FilterOption } from 'src/app/@core/services/ui/filter-option.model';
 
 @Component({
   selector: 'app-other-contracts',
@@ -38,14 +39,14 @@ export class OtherContractsComponent extends BaseSearch implements OnInit
       this.mobile = mobile;
       if (this.mobile)
       {
-        this.applyFilterForm({ event: { value: mobile, conditionType: 2 }, filterType: FilterNames.Phone });
+        this.applyFilterForm({ event: { value: mobile, conditionType: 2 }, filterType: FilterNames.Phone } as FilterOption);
       }
     });
 
     this.mobile = this.service.form.get('mobile')?.value;
     if (this.mobile)
     {
-      this.applyFilterForm({ event: { value: this.mobile, conditionType: 2 }, filterType: FilterNames.Phone });
+      this.applyFilterForm({ event: { value: this.mobile, conditionType: 2 }, filterType: FilterNames.Phone } as FilterOption);
     }
 
   }

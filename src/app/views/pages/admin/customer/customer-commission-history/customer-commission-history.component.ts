@@ -18,6 +18,7 @@ import { Utility } from 'src/app/@core/utils/Utility';
 })
 export class CustomerCommissionHistoryComponent extends BaseSearch implements OnInit
 {
+  totalCommissions = 0;
   theViewList = new Array<GetPromoterCommissionsGridResult>();
   headerItems: Array<HeaderFilter> =
     [new HeaderFilter(FilterNames.None, 'تاریخ'),
@@ -47,8 +48,8 @@ export class CustomerCommissionHistoryComponent extends BaseSearch implements On
   override ngOnInit(): void
   {
     this.form = this.formBuilder.group({
-      startDate: [Utility.getFullDateTimeFromPeriodInPersion(), []],
-      endDate: [Utility.getFullDateTimeFromPeriodInPersion(), []],
+      startDate: [Utility.getFullDateTimeFromPeriodInPersian(), []],
+      endDate: [Utility.getFullDateTimeFromPeriodInPersian(), []],
       periodMin: createPeriodFormGroup(null, this.formBuilder),
       periodMax: createPeriodFormGroup(null, this.formBuilder),
     });
@@ -86,7 +87,8 @@ export class CustomerCommissionHistoryComponent extends BaseSearch implements On
       this.totalPages = 0;
       if (value?.data)
       {
-        this.theViewList = value.data;
+        this.totalCommissions = value.data.totalCommissions;
+        this.theViewList = value.data.items;
         this.totalPages = Math.ceil(value.pagination.total / request.pageSize);
       }
     });

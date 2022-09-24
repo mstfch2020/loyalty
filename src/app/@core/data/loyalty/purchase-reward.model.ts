@@ -82,6 +82,6 @@ export const createPurchaseRewardFormGroup = (purchaseReward: PurchaseReward, fo
     discountCodeReward: [purchaseReward.discountCodeReward, [Validators.required]],
     discountCodePattern: [purchaseReward.discountCodePattern, []],
     discountCodeDate: createPeriodFormGroup(purchaseReward.discountCodeDate, formBuilder),
-    expierDate: [Utility.getFullDateTimeFromPeriodInPersion(purchaseReward.discountCodeDate), [Validators.required]]
+    expierDate: [Utility.getFullDateTimeFromPeriodInPersian(purchaseReward.discountCodeDate), [Validators.required]]
   });
 };

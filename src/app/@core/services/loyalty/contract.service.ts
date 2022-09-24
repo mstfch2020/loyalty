@@ -52,8 +52,8 @@ export class ContractService extends BaseService<Contract>
       shopContract: createShopContract(contract.shopContract, this.formBuilder),
       teachers: !contract.teachers ? [] : this.formBuilder.array(contract.teachers?.map(teacher => createTeacher(teacher, this.formBuilder))),
       tagIds: [contract.tagIds?.length === 0 && contract.contractId ? ['all'] : contract.tagIds, [Validators.required]],
-      startDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.from), [Validators.required]],
-      endDate: [Utility.getFullDateTimeFromPeriodInPersion(contract.to), [Validators.required]],
+      startDate: [Utility.getFullDateTimeFromPeriodInPersian(contract.from), [Validators.required]],
+      endDate: [Utility.getFullDateTimeFromPeriodInPersian(contract.to), [Validators.required]],
       from: createPeriodFormGroup(contract.from, this.formBuilder),
       to: createPeriodFormGroup(contract.to, this.formBuilder),
 

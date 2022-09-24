@@ -160,7 +160,7 @@
               </label>
             </div>
             <div class="col-6">
-              <app-switch (notifySelectionSwitch)="scenarioService.behavioralRewardTypeChange($event)"
+              <app-switch (notifySelectionSwitch)="scenarioService.behavioralRewardTypeChange($event===1)"
                 [isDisabled]="isDisabled" [labelOne]="'خودکاربر'" [labelTwo]="'شخص ثالث'"></app-switch>
             </div>
           </div>

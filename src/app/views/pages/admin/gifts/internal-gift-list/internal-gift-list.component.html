@@ -1,0 +1,55 @@
+<div dir="rtl">
+  <div class="container-fluid">
+
+    <div *ngIf="theViewList.length>0||activeFilterName!==0" class="row mt-4">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table cellspacing="1" class="table table-hover border-spacing-xs border-0">
+            <thead>
+              <tr>
+                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
+                  *ngFor="let headerItem of headerItems;">
+                  <app-table-header-filter [activeFilterName]="activeFilterName"
+                    [filterName]="headerItem.getFilterName()" [expression]="headerItem.expression"
+                    [title]="headerItem.title" (onOpenFilterForm)="openFilterForm($event)"
+                    (onCloseFilterForm)="closeFilterForm($event)" (onApplyFilterForm)="applyFilterForm($event)">
+                  </app-table-header-filter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="goToEdit(item.id)" *ngFor="let item of theViewList;let i=index">
+                <td class="pr-1 text-end padding-05 pr-1" scope="row">
+                  {{item.title}}
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  {{item.exporterBrand}}
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  {{item.group}}
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  {{item.providerBrand}}
+                </td>
+                <td class="pr-1 text-end fs-08">
+                  {{item.point}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages" [pageIndex]="pageIndex"
+        (notifyPageIndex)="selectedPageIndex($event)">
+      </app-pagination>
+    </div>
+    <div class="row mt-5">
+      <div class="col-6 col-sm-3">
+        <button (click)="goToEdit('')"
+          class="btn btn-warning w-100 rounded-pill font-yekan-bold px-4 text-white d-block" dir="rtl" type="submit">
+          درخواست جدید
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

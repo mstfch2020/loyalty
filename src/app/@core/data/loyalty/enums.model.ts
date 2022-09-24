@@ -122,6 +122,8 @@ export enum FilterNames
   ProductTag = 25,
   DateFilter = 26,
   ContractStatus = 27,
+  ExporterBrandFilter = 28,
+  ProviderBrandFilter = 29,
 }
 
 export enum StatusType
@@ -190,4 +192,11 @@ export enum PromoterDiscountCodeStatus
   None = 0,
   Active = 1,
   InActive = 2
+}
+
+export enum DiscountValidationDateType
+{
+  None = 0,
+  Date = 1,
+  DaysAfterIssuedCode = 2
 }

@@ -6,7 +6,7 @@ import { UiService } from "../ui/ui.service";
 import { callPostService } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
-export class FileSrevice
+export class FileService
 {
   constructor(
     public http: HttpClient,

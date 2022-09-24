@@ -1,34 +1,33 @@
 <ng-container [ngSwitch]="filterName">
   <!-- 1 -->
   <ng-container *ngSwitchCase="FilterNames.Customer">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'گروه مشتری'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theFilterCustomerSelectedList.length===0 }">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterCustomerList"
-      [filterType]="5">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [items]="service.theFilterCustomerList" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 2 -->
   <ng-container *ngSwitchCase="FilterNames.Date">
-    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'filter-selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'بازه تاریخی'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theFilterDateFromSelected.length===0}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="false" [filterType]="3">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="false" [filterType]="3">
     </app-filter>
   </ng-container>
   <!-- 3 -->
   <ng-container *ngSwitchCase="FilterNames.Brand">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'برند'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
@@ -36,83 +35,77 @@
       </ng-container>
     </label>
     <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [items]="service.theFilterBrandsList" [visible]="activeFilterName===filterName" [isCriteria]="true"
-      [filterType]="5">
+      [items]="service.theFilterBrandsList" [visible]="isVisible()" [isCriteria]="true" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 4 -->
   <ng-container *ngSwitchCase="FilterNames.Status">
-    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'filter-selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'وضعیت'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: !service.theFilterStatusSelected}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="true" [isRadio]="true"
-      [items]="service.theFilterStatusList" [filterType]="5">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [isRadio]="true" [items]="service.theFilterStatusList" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 6 -->
   <ng-container *ngSwitchCase="FilterNames.UserType">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'نوع کاربری'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theFilterUserTypeSelectedList.length===0}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterUserTypeList"
-      [filterType]="5">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [items]="service.theFilterUserTypeList" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 7 -->
   <ng-container *ngSwitchCase="FilterNames.Commission">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'پایه پورسانت'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theFilterCommissionSelectedList.length===0}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterCommissionList"
-      [filterType]="5">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [items]="service.theFilterCommissionList" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 8 -->
   <ng-container *ngSwitchCase="FilterNames.Percent">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'بازه تخفیف مشتری تعریف شده'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theFilterPercentSelectedList.length===0}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterPercentList"
-      [filterType]="5">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [items]="service.theFilterPercentList" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 9 -->
   <ng-container *ngSwitchCase="FilterNames.Level">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'تغییر سطح'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theFilterLevelsSelectedList.length===0}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterLevelsList"
-      [filterType]="5">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [items]="service.theFilterLevelsList" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 10 -->
   <ng-container *ngSwitchCase="FilterNames.Groups">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'قرار گیری در گروه مشتری'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
@@ -120,93 +113,91 @@
       </ng-container>
     </label>
     <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [items]="service.theFilterCustomerList" [visible]="activeFilterName===filterName" [isCriteria]="true"
-      [filterType]="5">
+      [items]="service.theFilterCustomerList" [visible]="isVisible()" [isCriteria]="true" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 12 -->
   <ng-container scope="col" *ngSwitchCase="FilterNames.Title">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'تاریخ انقضای گروه مشتری موقت'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theExpireDateSelected.length===0}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [filterType]="3">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [filterType]="3">
     </app-filter>
   </ng-container>
   <!-- 14 -->
 
   <ng-container *ngSwitchCase="FilterNames.RestPeriodType">
-    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'filter-selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'بازه زمانی ریست'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theFilterRestPeriodTypeSelected.length===0}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="true" [items]="service.theFilterRestPeriodTypeList"
-      [filterType]="5">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [items]="service.theFilterRestPeriodTypeList" [filterType]="5">
     </app-filter>
   </ng-container>
 
   <!-- 15 -->
   <ng-container *ngSwitchCase="FilterNames.volumeFilter">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'حجم تخفیف'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: !service.volumeFilterSelected}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [filterType]="1">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [filterType]="1">
     </app-filter>
   </ng-container>
   <!-- 16 -->
   <ng-container *ngSwitchCase="FilterNames.DiscountCode">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'کد تخفیف'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: !service.discountCodeSelected}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [filterType]="2" [minLengthOrValue]="2" [isCriteria]="true">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [filterType]="2" [minLengthOrValue]="2" [isCriteria]="true">
     </app-filter>
   </ng-container>
   <!-- 17 -->
   <ng-container *ngSwitchCase="FilterNames.Phone">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'شماره موبایل'}}
       <ng-container [ngTemplateOutlet]="filterIcon" [ngTemplateOutletContext]="{ $implicit: !service.phoneSelected}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [filterType]="2" [align]="1" [length]="11">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [filterType]="2" [align]="1" [length]="11">
     </app-filter>
   </ng-container>
   <!-- 18 -->
   <ng-container *ngSwitchCase="FilterNames.CreateAccountDateFilter">
-    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'filter-selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'تاریخ ساخت اکانت'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theCreateAccountDateSelected}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="false" [filterType]="3">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="false" [filterType]="3">
     </app-filter>
   </ng-container>
   <!-- 20 -->
   <ng-container *ngSwitchCase="FilterNames.Campaign">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'نام گروه مشتری'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
@@ -214,12 +205,12 @@
       </ng-container>
     </label>
     <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [items]="service.theCampaignList" [visible]="activeFilterName===filterName" [isCriteria]="true" [filterType]="5">
+      [items]="service.theCampaignList" [visible]="isVisible()" [isCriteria]="true" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 21 -->
   <ng-container *ngSwitchCase="FilterNames.Score">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'حجم امتیاز'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
@@ -227,12 +218,12 @@
       </ng-container>
     </label>
     <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [items]="service.theScoreList"
-      [visible]="activeFilterName===filterName" [isCriteria]="true" [filterType]="5">
+      [visible]="isVisible()" [isCriteria]="true" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 23 -->
   <ng-container *ngSwitchCase="FilterNames.Activities">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'تعداد فعالیت'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
@@ -240,21 +231,20 @@
       </ng-container>
     </label>
     <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [items]="service.theActivityCountList" [visible]="activeFilterName===filterName" [isCriteria]="true"
-      [filterType]="5">
+      [items]="service.theActivityCountList" [visible]="isVisible()" [isCriteria]="true" [filterType]="5">
     </app-filter>
   </ng-container>
   <!-- 24 -->
   <ng-container *ngSwitchCase="FilterNames.ActivitiesKey">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'کلید'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: !service.theActivityKeySelected}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="true" [filterType]="2">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [filterType]="2">
     </app-filter>
   </ng-container>
   <ng-container *ngSwitchDefault>
@@ -265,7 +255,7 @@
 
   <!-- 25 -->
   <ng-container *ngSwitchCase="FilterNames.ProductTag">
-    <label [ngClass]="{'selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'تگ کالا'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
@@ -273,37 +263,63 @@
       </ng-container>
     </label>
     <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [items]="service.theProductGroupList" [visible]="activeFilterName===filterName" [isCriteria]="true"
-      [filterType]="5">
+      [items]="service.theProductGroupList" [visible]="isVisible()" [isCriteria]="true" [filterType]="5">
     </app-filter>
   </ng-container>
 
   <!-- 26 -->
   <ng-container *ngSwitchCase="FilterNames.DateFilter">
-    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'filter-selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'تاریخ قرارداد'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: service.theDateFilterSelected.length===0}">
       </ng-container>
     </label>
-    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="false" [filterType]="3">
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="false" [filterType]="3">
     </app-filter>
   </ng-container>
 
   <!-- 27 -->
   <ng-container *ngSwitchCase="FilterNames.ContractStatus">
-    <label [ngClass]="{'filter-selected':activeFilterName===filterName}" (click)="openFilterForm()"
+    <label [ngClass]="{'filter-selected':isVisible()}" (click)="openFilterForm()"
       class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
       {{title ? title : 'وضعیت'}}
       <ng-container [ngTemplateOutlet]="filterIcon"
         [ngTemplateOutletContext]="{ $implicit: !(service.theContractFilterStatusSelected?.length)}">
       </ng-container>
     </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="false" [isRadio]="false" [items]="service.theContractFilterStatusList" [filterType]="5">
+    </app-filter>
+  </ng-container>
+
+  <!-- 28 -->
+  <ng-container *ngSwitchCase="FilterNames.ExporterBrandFilter">
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      {{title ? title : 'برند نمایش دهنده'}}
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterExporterBrandsSelectedList.length===0}">
+      </ng-container>
+    </label>
     <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
-      [visible]="activeFilterName===filterName" [isCriteria]="false" [isRadio]="false"
-      [items]="service.theContractFilterStatusList" [filterType]="5">
+      [items]="service.theFilterExporterBrandsList" [visible]="isVisible()" [isCriteria]="true" [filterType]="5">
+    </app-filter>
+  </ng-container>
+
+  <!-- 29 -->
+  <ng-container *ngSwitchCase="FilterNames.ProviderBrandFilter">
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      {{title ? title : 'برند صادر کننده'}}
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterProviderBrandsSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()"
+      [items]="service.theFilterProviderBrandsList" [visible]="isVisible()" [isCriteria]="true" [filterType]="5">
     </app-filter>
   </ng-container>
 

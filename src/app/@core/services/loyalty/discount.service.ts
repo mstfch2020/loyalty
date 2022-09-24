@@ -75,8 +75,8 @@ export class DiscountService extends BaseService<Discount>
     this.form = this.formBuilder.group({
       id: [scenario.id, []],
       patternName: [scenario.patternName, [Validators.required]],
-      startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMin), [Validators.required]],
-      endDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMax), [Validators.required]],
+      startDate: [Utility.getFullDateTimeFromPeriodInPersian(scenario.periodMin), [Validators.required]],
+      endDate: [Utility.getFullDateTimeFromPeriodInPersian(scenario.periodMax), [Validators.required]],
       periodMin: createPeriodFormGroup(scenario.periodMin, this.formBuilder),
       periodMax: createPeriodFormGroup(scenario.periodMax, this.formBuilder),
       brandIds: [scenario.brandIds.length === 0 && scenario.id ? ['all'] : scenario.brandIds, [Validators.required]],

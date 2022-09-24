@@ -34,7 +34,7 @@ export class SMSService extends BaseService<SMS>
       id: [scenario.id],
       smsSendingType: [scenario.smsSendingType, [Validators.required]],
       text: [scenario.text, [Validators.required]],
-      startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.date), [Validators.required]],
+      startDate: [Utility.getFullDateTimeFromPeriodInPersian(scenario.date), [Validators.required]],
       date: createPeriodFormGroup(scenario.date, this.formBuilder),
       brandIds: [scenario.brandIds?.length === 0 && scenario.id ? ['all'] : scenario.brandIds, [Validators.required]],
       // brandIds: [scenario.brandIds?.length === 0 && scenario.id ? [] : scenario.brandIds, [Validators.required]],

@@ -1,0 +1,51 @@
+<form action="" dir="rtl" *ngIf="isInListRoute">
+  <ul class="nav justify-content-start mt-3">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/admin/main/gifts/internal-list']" routerLinkActive="active">
+        خرید قطعی داخلی
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/admin/main/gifts/external-list']" routerLinkActive="active">
+        خرید قطعی خارجی
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/admin/main/gifts/lottery-list']" routerLinkActive="active">
+        قرعه کشی
+      </a>
+    </li>
+  </ul>
+  <hr class="nav-line">
+
+</form>
+
+<div dir="rtl" *ngIf="!isInListRoute">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h5 class="font-yekan-bold fs-20px text-black">
+          تعریف جایزه
+        </h5>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column">
+      <div class="d-flex flex-row mt-3 d-flex flex-row mt-3 align-items-center w-100">
+        <label class="ml-1">
+          نوع جایزه :
+        </label>
+        <div class="flex-shrink-1">
+          <app-switch (notifySelectionSwitch)="selectedSwitch($event)" [isOneSelected]="giftType===1"
+            [labelOne]="'خرید قطعی داخلی'" [labelTwo]="'خرید قطعی خارجی'" [labelThree]="'قرعه کشی'">
+          </app-switch>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<router-outlet></router-outlet>

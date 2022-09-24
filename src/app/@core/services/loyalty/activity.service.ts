@@ -8,7 +8,7 @@ import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
 import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
-import { FileSrevice } from "./file.service";
+import { FileService } from "./file.service";
 
 @Injectable({ providedIn: 'root' })
 export class ActivityService extends BaseService<ActivityEditable>
@@ -18,7 +18,7 @@ export class ActivityService extends BaseService<ActivityEditable>
   constructor(public override formBuilder: FormBuilder,
     public http: HttpClient,
     public settingService: SettingsService,
-    public override uiService: UiService, public fileSrevice: FileSrevice, public override baseInfoService: BaseInfoService)
+    public override uiService: UiService, public fileSrevice: FileService, public override baseInfoService: BaseInfoService)
   {
     super(formBuilder, uiService, baseInfoService, activityInit);
   }

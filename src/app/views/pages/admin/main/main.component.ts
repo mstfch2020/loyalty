@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { IMenuItem } from "src/app/@core/data/Interfaces/Interfaces";
 import { AuthService } from 'src/app/@core/services/auth/auth.service';
@@ -66,6 +65,16 @@ export class MainComponent implements OnInit
       {
         title: 'ترویج دهندگان',
         url: '/admin/main/contract',
+        visible: true
+      },
+      {
+        title: 'جوایز',
+        url: '/admin/main/gifts',
+        visible: true
+      },
+      {
+        title: 'اخبار و رویدادها',
+        url: '/admin/main/news',
         visible: true
       },
       {

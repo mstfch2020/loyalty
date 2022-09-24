@@ -1,0 +1,283 @@
+<div class="container-fluid mt-3" [formGroup]="service.form" dir="rtl">
+  <div class="row">
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start">
+          دسته بندی جایزه :
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+          <ng-select [items]="baseInfoService.categories$|async" [multiple]="false" [readonly]="isDisabled"
+            appendTo="body" bindLabel="title" bindValue="id" class="form-control" formControlName="categoryId">
+          </ng-select>
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span
+              *ngIf="!service.form.get('categoryId')?.valid && service.form.get('categoryId')?.touched && !isDisabled">
+              دسته بندی جایزه را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start">
+          نمابش در برند:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+          <ng-select [items]="baseInfoService.brands$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
+            bindLabel="title" bindValue="id" class="form-control" formControlName="exporterBrandId">
+          </ng-select>
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span
+              *ngIf="!service.form.get('exporterBrandId')?.valid && service.form.get('exporterBrandId')?.touched && !isDisabled">
+              نمایش در برند را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start">
+          نوع کاربری:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+          <ng-select [items]="baseInfoService.userTypes$|async" [multiple]="false" [readonly]="isDisabled"
+            appendTo="body" bindLabel="title" bindValue="id" class="form-control" formControlName="userTypeId">
+          </ng-select>
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span
+              *ngIf="!service.form.get('userTypeId')?.valid && service.form.get('userTypeId')?.touched && !isDisabled">
+              نوع کاربری را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start">
+          مشتری:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+
+          <ng-select [items]="baseInfoService.generalCustomersByBrandId$|async" [multiple]="false"
+            [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+            formControlName="groupId">
+          </ng-select>
+
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span *ngIf="!service.form.get('groupId')?.valid && service.form.get('groupId')?.touched && !isDisabled">
+              مشتری را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start">
+          برند صادر کننده:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+          <ng-select [items]="baseInfoService.brands$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
+            bindLabel="title" bindValue="id" class="form-control" formControlName="providerBrandId">
+          </ng-select>
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span
+              *ngIf="!service.form.get('providerBrandId')?.valid && service.form.get('providerBrandId')?.touched && !isDisabled">
+              برند صادر کننده را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start">
+          لوگوی برند:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+
+          <input #uploader class="form-control" type="file" dir="ltr" id="formFile" title="یک عکس انتخاب نمایید."
+            (change)="service.fileSelectionChanged($event)" hidden>
+
+          <div [ngClass]="{'disabled':isDisabled}"
+            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px h-55px justify-content-end">
+            <span class="mx-1">
+              {{uploader.files?uploader.files[0]?.name:''}}
+            </span>
+            <div class="btn btn-warning rounded-pill font-yekan-bold px-4 text-white d-block fileUploaderButton"
+              dir="rtl" (click)="uploader.click()">
+
+            </div>
+          </div>
+
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span
+              *ngIf="!service.form.get('exporterBrandLogoId')?.valid && service.form.get('exporterBrandLogoId')?.touched && !isDisabled">
+              لوگوی برند را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start">
+          کد رنگ:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-shrink-1 mt-3 mx-2">
+          <div [ngClass]="{'disabled':isDisabled}"
+            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+            <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100 mr-8-px"
+              formControlName='exporterBrandHexaCode' type="text">
+            <div class="fs-08 text-gray-500">
+              #
+            </div>
+          </div>
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span
+              *ngIf="!service.form.get('exporterBrandHexaCode')?.valid && service.form.get('exporterBrandHexaCode')?.touched && !isDisabled">
+              کد رنگ را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start">
+          امتیاز لازم:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-shrink-1 mt-3 mx-2">
+          <div [ngClass]="{'disabled':isDisabled}"
+            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+            <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100 mr-8-px"
+              formControlName='pointAmount' mask="separator" thousandSeparator="," type="text">
+            <div class="fs-08 text-gray-500">
+              امتیاز
+            </div>
+          </div>
+
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span
+              *ngIf="!service.form.get('pointAmount')?.valid && service.form.get('pointAmount')?.touched && !isDisabled">
+              امتیاز لازم را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start">
+          الگوی کد تخفیف:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+          <ng-select [items]="service.awareDiscountCodePatterns$|async" [multiple]="false" [readonly]="isDisabled"
+            appendTo="body" bindLabel="title" bindValue="id" class="form-control" formControlName="patternId">
+          </ng-select>
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span
+              *ngIf="!service.form.get('patternId')?.valid && service.form.get('patternId')?.touched && !isDisabled">
+              الگوی کد تخفیف را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+
+      <div class="d-flex flex-row gap-3 align-items-center">
+        <div class="fs-09 text-black">
+          معتبر تا
+        </div>
+        <div>
+          <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="1" checked
+            class="form-check-input" formControlName="discountValidationDateType" name="discountValidationDateType"
+            type="radio">
+        </div>
+        <div>
+          <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+            [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+            <input #datepickerInput3 [dropSpecialCharacters]="false" [dropSpecialCharacters]="false"
+              [leadZeroDateTime]="true" class="form-control rounded-pill text-center text-black h-55px" dir="ltr"
+              formControlName="expireDate" mask="0000/M0/d0" type="text" />
+          </ng-persian-datepicker>
+        </div>
+      </div>
+      <div class="d-flex flex-row gap-3 align-items-center mt-3">
+        <div class="mr-4">
+          <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="2" checked
+            class="form-check-input" formControlName="discountValidationDateType" name="discountValidationDateType"
+            type="radio">
+        </div>
+        <div>
+          <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled"
+            class="form-control rounded-pill w-80-px h-55px text-center text-black"
+            formControlName="discountCodeDaysAfterIssuedCode" mask="separator" thousandSeparator="," type="text">
+        </div>
+        <div class="fs-09 text-black">
+          روز پس از صدور کد
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <label class="mr-auto">
+    عنوان جایزه: {{service.getTitle()}}
+
+  </label>
+
+  <div class="row mt-5">
+    <div class="col-6 col-sm-3">
+      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+        (click)="service.submit()">
+        ذخیره
+      </button>
+    </div>
+    <div class="col-6 col-sm-3">
+      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+        (click)="backToList()">
+        انصراف
+      </button>
+    </div>
+  </div>
+
+</div>

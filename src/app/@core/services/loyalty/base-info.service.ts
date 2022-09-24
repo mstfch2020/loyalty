@@ -11,7 +11,6 @@ import { callGetService, callPostService } from "./BaseService";
 export class BaseInfoService
 {
 
-
   constructor(
     public http: HttpClient,
     public settingService: SettingsService,
@@ -77,6 +76,7 @@ export class BaseInfoService
   generalCustomersSingle$ = new BehaviorSubject<Array<IdTitleTypeBrandId>>([]);
   productCodes$ = new BehaviorSubject<Array<string>>([]);
   allCampaigns$ = new BehaviorSubject<Array<IdTitle>>([]);
+  categories$ = new BehaviorSubject<Array<IdTitle>>([]);
 
   applyOnType: Array<EnumTitle> = [
     { id: 1, title: 'قیمت قبل از تخفیف کالا' },
@@ -114,10 +114,9 @@ export class BaseInfoService
     }
   ];
 
-
-
   loadBaseInfo(callback?: any, brandIds: Array<string> = [], productIds: Array<string> = []): void
   {
+    this.categories$.next([{ id: 'sdfdsf', title: 'آموزشی و فرهنگی' }]);
     if (!brandIds || brandIds.length === 0 || brandIds.some(p => p === 'all'))
     {
       brandIds = [];
@@ -365,17 +364,23 @@ export class BaseInfoService
     return callGetService<any>(url, this.http, this.uiService);
   }
 
-  GetAllPromoterContractedTagsByBrand(promoterId: any, brandId: any)
+  GetAllPromoterContractedTagsByBrand(promoterId: string, brandId: string)
   {
     const url = this.settingService.settings?.baseUrl + 'PromoterDiscountCode/GetAllPromoterContractedTagsByBrand';
 
     return callPostService<any>(url, this.http, this.uiService, { brandId: brandId, customerId: promoterId });
   }
 
-  GetCommissionSettingByBrand(promoterId: any, brandId: any)
+  GetCommissionSettingByBrand(promoterId: string, brandId: string)
   {
     const url = this.settingService.settings?.baseUrl + 'PromoterDiscountSetting/GetCommissionSettingByBrand';
     return callPostService<any>(url, this.http, this.uiService, { brandId: brandId, customerId: promoterId });
+  }
+
+  GetDiscountCodePatterns(brandId: string)
+  {
+    const url = this.settingService.settings?.baseUrl + 'PointsAward/GetDiscountCodePatterns?brnadId=' + brandId;
+    return callGetService<any>(url, this.http, this.uiService);
   }
 }
 

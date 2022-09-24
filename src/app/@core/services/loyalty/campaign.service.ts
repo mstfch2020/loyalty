@@ -9,7 +9,7 @@ import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
 import { BaseService, callGetService, callPostPagingService, callPostService } from "./BaseService";
-import { FileSrevice } from "./file.service";
+import { FileService } from "./file.service";
 
 @Injectable({ providedIn: 'root' })
 export class CampaignService extends BaseService<Campaign>
@@ -19,7 +19,7 @@ export class CampaignService extends BaseService<Campaign>
   constructor(public override formBuilder: FormBuilder,
     public http: HttpClient,
     public settingService: SettingsService,
-    public override uiService: UiService, public fileService: FileSrevice, public override baseInfoService: BaseInfoService)
+    public override uiService: UiService, public fileService: FileService, public override baseInfoService: BaseInfoService)
   {
     super(formBuilder, uiService, baseInfoService, campaignInit);
   }
@@ -54,7 +54,7 @@ export class CampaignService extends BaseService<Campaign>
       id: [campaign.id, [Validators.required]],
       title: [campaign.title, [Validators.required]],
       fileId: [campaign.fileId, [Validators.required]],
-      expireDateControl: [Utility.getFullDateTimeFromPeriodInPersion(campaign.expireDate), [Validators.required]],
+      expireDateControl: [Utility.getFullDateTimeFromPeriodInPersian(campaign.expireDate), [Validators.required]],
       expireDate: createPeriodFormGroup(campaign.expireDate, this.formBuilder),
     });
   }

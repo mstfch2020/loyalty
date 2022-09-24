@@ -56,6 +56,16 @@ const routes: Routes = [
           .then(m => m.SystemSettingModule)
       },
       {
+        path: 'gifts',
+        loadChildren: () => import('src/app/views/pages/admin/gifts/gifts.module')
+          .then(m => m.GiftsModule)
+      },
+      {
+        path: 'news',
+        loadChildren: () => import('src/app/views/pages/admin/gifts/gifts.module')
+          .then(m => m.GiftsModule)
+      },
+      {
         path: 'profile',
         component: ProfileComponent,
       },

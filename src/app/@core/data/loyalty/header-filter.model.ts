@@ -2,7 +2,7 @@ import { FilterNames } from "./enums.model";
 
 export class HeaderFilter
 {
-  constructor(public filterName: FilterNames, public title: string = '') { }
+  constructor(public filterName: FilterNames, public title: string = '', public expression: string = '', public showExpression: FilterNames = FilterNames.None) { }
 
   getFilterName(): any
   {

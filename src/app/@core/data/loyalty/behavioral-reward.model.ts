@@ -56,7 +56,7 @@ export const createBehavioralRewardFormGroup = (behavioralReward: BehavioralRewa
     discountCodeThreshold: [behavioralReward.discountCodeThreshold, [Validators.required]],
     discountCodeValidationType: [behavioralReward.discountCodeValidationType, [Validators.required]],
     discountCodeDate: createPeriodFormGroup(behavioralReward.discountCodeDate, formBuilder),
-    expierDate: [Utility.getFullDateTimeFromPeriodInPersion(behavioralReward.discountCodeDate), [Validators.required]],
+    expierDate: [Utility.getFullDateTimeFromPeriodInPersian(behavioralReward.discountCodeDate), [Validators.required]],
     discountCodeDaysAfterIssuedCode: [behavioralReward.discountCodeDaysAfterIssuedCode, [Validators.required]],
     refundReward: [behavioralReward.refundReward, [Validators.required]],
     increasScoreReward: [behavioralReward.increasScoreReward, [Validators.required]],

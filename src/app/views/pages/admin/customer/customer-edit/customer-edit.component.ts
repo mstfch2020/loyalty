@@ -37,16 +37,7 @@ export class CustomerEditComponent extends BaseSearch implements OnInit
   )
   {
     super(baseInfoService, baseSearchService);
-    this.showHistory = false;
 
-    service.customer$.subscribe(value =>
-    {
-      this.customer = value;
-    });
-
-    this.service.customerSubGrid$.subscribe(value => this.subCustomerDetailList = value);
-    this.service.scenarioCustomer$.subscribe(value => this.customerScenarioList = value);
-    this.baseInfoService.loadCommissions();
   }
 
   override search(request: any)
@@ -58,6 +49,17 @@ export class CustomerEditComponent extends BaseSearch implements OnInit
 
   override ngOnInit(): void
   {
+
+    this.showHistory = false;
+
+    this.service.customer$.subscribe(value =>
+    {
+      this.customer = value;
+    });
+
+    this.service.customerSubGrid$.subscribe(value => this.subCustomerDetailList = value);
+    this.service.scenarioCustomer$.subscribe(value => this.customerScenarioList = value);
+    this.baseInfoService.loadCommissions();
 
     super.ngOnInit();
 

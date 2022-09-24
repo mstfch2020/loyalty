@@ -40,8 +40,8 @@ export class NewDiscountDialogService extends BaseService<NewDiscountDialogModel
       status: [scenario.status, [Validators.required]],
       useCount: [scenario.useCount ?? 200, [Validators.required]],
       code: [scenario.code, [Validators.required]],
-      startDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMin), [Validators.required]],
-      endDate: [Utility.getFullDateTimeFromPeriodInPersion(scenario.periodMax), [Validators.required]],
+      startDate: [Utility.getFullDateTimeFromPeriodInPersian(scenario.periodMin), [Validators.required]],
+      endDate: [Utility.getFullDateTimeFromPeriodInPersian(scenario.periodMax), [Validators.required]],
       periodMin: createPeriodFormGroup(scenario.periodMin, this.formBuilder),
       periodMax: createPeriodFormGroup(scenario.periodMax, this.formBuilder),
     });
