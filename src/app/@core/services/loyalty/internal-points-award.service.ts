@@ -152,6 +152,12 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
       return;
     }
 
+    if (!RegExp(Utility.hexColorPattern).test(value.exporterBrandHexaCode))
+    {
+      this.uiService.alert('کد رنگ را نادرست است.');
+      return;
+    }
+
     if (!value.pointAmount)
     {
       this.uiService.alert('امتیاز لازم را مشخص نمایید.');

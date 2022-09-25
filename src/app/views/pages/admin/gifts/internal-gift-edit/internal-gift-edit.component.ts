@@ -10,7 +10,8 @@ import { InternalPointAwardService } from 'src/app/@core/services/loyalty/intern
   styleUrls: ['./internal-gift-edit.component.scss']
 })
 export class InternalGiftEditComponent implements OnInit
-{
+{//^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$
+  public customPatterns = { '0': { pattern: new RegExp('\[0-9a-fA-F\]') } };
   giftType = 1;
   id = '';
   isDisabled = false;
@@ -48,7 +49,7 @@ export class InternalGiftEditComponent implements OnInit
   {
     this.service.createForm(value);
     this.cdref.detectChanges();
-    this.baseInfoService.loadBaseInfo(null, [value.providerBrandId]);
+    this.baseInfoService.loadBaseInfo(null, value.providerBrandId ? [value.providerBrandId] : []);
 
     this.service.form.get('providerBrandId')?.valueChanges.subscribe(brandId =>
     {

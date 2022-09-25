@@ -7,7 +7,7 @@ export class Utility
   static numberRegEx = /\-?\d*\.?\d{1,2}/;
   static dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
   static mobileRegEx = /09[0-3][0-9]-?[0-9]{3}-?[0-9]{4}/;
-
+  static hexColorPattern = /[0-9a-fA-F]{6}/;
   public static getPeriodOfString(shamsiDate: string): Period | null
   {
     if (!shamsiDate)

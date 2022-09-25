@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
-        <label class="float-end float-sm-start">
+        <label class="float-end float-sm-start label-min-width">
           دسته بندی جایزه :
           <span class="text-danger">*</span>
         </label>
@@ -23,7 +23,7 @@
 
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
-        <label class="float-end float-sm-start">
+        <label class="float-end float-sm-start label-min-width">
           نمابش در برند:
           <span class="text-danger">*</span>
         </label>
@@ -46,7 +46,7 @@
   <div class="row">
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
-        <label class="float-end float-sm-start">
+        <label class="float-end float-sm-start label-min-width">
           نوع کاربری:
           <span class="text-danger">*</span>
         </label>
@@ -67,7 +67,7 @@
 
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
-        <label class="float-end float-sm-start">
+        <label class="float-end float-sm-start label-min-width">
           مشتری:
           <span class="text-danger">*</span>
         </label>
@@ -92,7 +92,7 @@
   <div class="row">
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
-        <label class="float-end float-sm-start">
+        <label class="float-end float-sm-start label-min-width">
           برند صادر کننده:
           <span class="text-danger">*</span>
         </label>
@@ -113,7 +113,7 @@
 
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
-        <label class="float-end float-sm-start">
+        <label class="float-end float-sm-start label-min-width">
           لوگوی برند:
           <span class="text-danger">*</span>
         </label>
@@ -148,18 +148,20 @@
   <div class="row">
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
-        <label class="float-end float-sm-start">
+        <label class="float-end float-sm-start label-min-width">
           کد رنگ:
           <span class="text-danger">*</span>
         </label>
         <div class="d-flex flex-column flex-shrink-1 mt-3 mx-2">
           <div [ngClass]="{'disabled':isDisabled}"
-            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
-            <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100 mr-8-px"
-              formControlName='exporterBrandHexaCode' type="text">
+            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px" dir="ltr">
             <div class="fs-08 text-gray-500">
               #
             </div>
+            <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100 mr-8-px"
+              formControlName='exporterBrandHexaCode' type="text" [specialCharacters]="['#']"
+              [patterns]="customPatterns" mask="#000000">
+
           </div>
           <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
             <span
@@ -174,7 +176,7 @@
 
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
-        <label class="float-end float-sm-start">
+        <label class="float-end float-sm-start label-min-width">
           امتیاز لازم:
           <span class="text-danger">*</span>
         </label>
@@ -203,7 +205,7 @@
   <div class="row">
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
-        <label class="float-end float-sm-start">
+        <label class="float-end float-sm-start label-min-width">
           الگوی کد تخفیف:
           <span class="text-danger">*</span>
         </label>
@@ -224,9 +226,9 @@
     <div class="col-6">
 
       <div class="d-flex flex-row gap-3 align-items-center">
-        <div class="fs-09 text-black">
+        <label class="float-end float-sm-start label-min-width">
           معتبر تا
-        </div>
+        </label>
         <div>
           <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="1" checked
             class="form-check-input" formControlName="discountValidationDateType" name="discountValidationDateType"
@@ -242,7 +244,10 @@
         </div>
       </div>
       <div class="d-flex flex-row gap-3 align-items-center mt-3">
-        <div class="mr-4">
+        <label class="float-end float-sm-start label-min-width">
+
+        </label>
+        <div>
           <input [ngClass]="{'disabled':isDisabled}" [readOnly]="isDisabled" [value]="2" checked
             class="form-check-input" formControlName="discountValidationDateType" name="discountValidationDateType"
             type="radio">
@@ -260,7 +265,7 @@
     </div>
   </div>
 
-  <label class="mr-auto">
+  <label class="mr-auto label-min-width">
     عنوان جایزه: {{service.getTitle()}}
 
   </label>
