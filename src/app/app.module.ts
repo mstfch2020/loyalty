@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { NgxMaskModule } from 'ngx-mask';
 import { HttpLoaderFactory } from './@core/infra/factories/http-loader-factory';
 import { HttpConfigInterceptor } from './@core/infra/interceptor/http-config.interceptor';
@@ -46,8 +47,11 @@ import { HomeComponent } from './views/pages/home/home.component';
       }
     }),
     BrowserAnimationsModule,
+    EditorModule
   ],
-  providers: [UserService, RootStoreService, UiService, ScenarioService,
+  providers: [
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
+    UserService, RootStoreService, UiService, ScenarioService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     {
       provide: APP_INITIALIZER,

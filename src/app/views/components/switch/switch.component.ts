@@ -38,9 +38,7 @@ export class SwitchComponent implements OnInit
   @Input() labelThree = '';
   @Input() isDisabled = false;
   @Output() notifySelectionSwitch: EventEmitter<number> = new EventEmitter<number>();
-
-  @Input() isOneSelected = true;
-  index = 1;
+  @Input() index = 1;
 
   constructor(private cdref: ChangeDetectorRef)
   {
@@ -60,9 +58,7 @@ export class SwitchComponent implements OnInit
       return;
     }
     this.notifySelectionSwitch.emit(item);
-    this.isOneSelected = item === 1;
     this.cdref.detectChanges();
-
   }
 
   isOpen = true;

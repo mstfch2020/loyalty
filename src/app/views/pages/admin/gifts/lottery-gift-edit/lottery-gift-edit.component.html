@@ -1,1 +1,219 @@
-<p>lottery-gift-edit works!</p>
+<div class="container-fluid mt-3" [formGroup]="service.form" dir="rtl">
+  <div class="row">
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start label-min-width">
+          نمابش در برند:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+          <ng-select [items]="baseInfoService.brands$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
+            bindLabel="title" bindValue="id" class="form-control" formControlName="providerBrandId">
+          </ng-select>
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span
+              *ngIf="!service.form.get('providerBrandId')?.valid && service.form.get('providerBrandId')?.touched && !isDisabled">
+              نمایش در برند را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start label-min-width">
+          عنوان جایزه:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+          <input [readOnly]="isDisabled"
+            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px text-center text-black border-0 h-55 px w-100 mr-8-px"
+            formControlName='title' type="text">
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span *ngIf="!service.form.get('title')?.valid && service.form.get('title')?.touched && !isDisabled">
+              عنوان جایزه را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start label-min-width">
+          لوگوی برند:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+
+          <input #uploader class="form-control" type="file" dir="ltr" id="formFile" title="یک عکس انتخاب نمایید."
+            (change)="service.fileSelectionChanged($event,'imageId')" hidden>
+
+          <div [ngClass]="{'disabled':isDisabled}"
+            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px h-55px justify-content-end">
+            <span class="mx-1">
+              {{uploader.files?uploader.files[0]?.name:''}}
+            </span>
+            <div class="btn btn-warning rounded-pill font-yekan-bold px-4 text-white d-block fileUploaderButton"
+              dir="rtl" (click)="uploader.click()">
+
+            </div>
+          </div>
+
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span *ngIf="!service.form.get('imageId')?.valid && service.form.get('imageId')?.touched && !isDisabled">
+              تصویر را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-6  d-flex align-items-center">
+      <div class="d-flex flex-row align-items-center">
+        <label class=" ">
+          بازه زمانی :
+        </label>
+        <label class="  mx-2">
+          از
+        </label>
+        <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+          [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+          <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true" style="width: 130px;padding:10px"
+            class="time-picker-input h-30px form-control rounded-pill text-center text-black" dir="ltr"
+            formControlName="startDate" mask="0000/M0/d0" type="text" />
+        </ng-persian-datepicker>
+        <label class="  mx-2">
+          تا
+        </label>
+        <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+          [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+          <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+            class=" time-picker-input h-30px form-control  rounded-pill text-center text-black" dir="ltr"
+            formControlName="endDate" mask="0000/M0/d0" type="text" />
+        </ng-persian-datepicker>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start label-min-width">
+          متن :
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2 " style="min-height: 300px;">
+
+          <editor [init]="{base_url:'/tinymce',suffix: '.min'}" [formControlName]="'text'"></editor>
+
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span *ngIf="!service.form.get('text')?.valid && service.form.get('text')?.touched && !isDisabled">
+              برند صادر کننده را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div formArrayName="groups" class="row">
+    <div *ngFor="let group  of service.groups.controls; let groupIndex=index; " [formGroupName]="groupIndex"
+      class="col-6 my-3">
+      <div class="d-flex flex-row flex-grow-1 justify-content-between">
+        <div>
+          مشتری: {{group.get('groupName')?.value}}
+        </div>
+        <div (click)="service.addTicket(groupIndex)">
+          <div class="font-yekan-regular fs-08 color-info mt-1 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-plus-circle color-app-blue" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+            <span class="color-app-blue mr-3-px">
+              بلیط بیشتر
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div formArrayName="tickets" class="row mt-3 my-3 pl-2">
+        <ng-container *ngFor="let ticket  of service.groupTickets(groupIndex).controls; let ticketIndex=index; "
+          [formGroupName]="ticketIndex">
+
+          <div class="col-6">
+            <div class="d-flex flex-row align-items-center">
+              <label class="float-end float-sm-start label-min-width">
+                تعداد بلیط:
+                <span class="text-danger">*</span>
+              </label>
+              <div class="d-flex flex-column flex-grow-1 flex-shrink-1 ">
+                <input [readOnly]="isDisabled"
+                  class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px text-center text-black border-0 h-55 px w-100 mr-8-px"
+                  formControlName='ticketCount' type="text">
+                <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+                  <span
+                    *ngIf="!service.form.get('ticketCount')?.valid && service.form.get('ticketCount')?.touched && !isDisabled">
+                    تعداد بلیط را مشخص نمایید
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-6">
+            <div class="d-flex flex-row align-items-center">
+              <label class="float-end float-sm-start label-min-width">
+                مقدار امتیاز:
+                <span class="text-danger">*</span>
+              </label>
+              <div class="d-flex flex-column flex-grow-1 flex-shrink-1 ">
+                <input [readOnly]="isDisabled"
+                  class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px text-center text-black border-0 h-55 px w-100 mr-8-px"
+                  formControlName='pointAmount' type="text">
+                <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+                  <span
+                    *ngIf="!service.form.get('pointAmount')?.valid && service.form.get('pointAmount')?.touched && !isDisabled">
+                    مقدار امتیاز را مشخص نمایید
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </ng-container>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-6 col-sm-3">
+      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+        (click)="service.submit()">
+        ذخیره
+      </button>
+    </div>
+    <div class="col-6 col-sm-3">
+      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+        (click)="backToList()">
+        انصراف
+      </button>
+    </div>
+  </div>
+
+</div>

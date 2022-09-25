@@ -91,6 +91,12 @@ export class BaseSearchService
   volumeFilterSelected?: number | null = null;
   volumeFilterSelectedCondition = 0;
 
+  minimumVolumeFilterSelected?: number | null = null;
+  minimumVolumeFilterSelectedCondition = 0;
+
+  maximumVolumeFilterSelected?: number | null = null;
+  maximumVolumeFilterSelectedCondition = 0;
+
   activityCountFilterSelected?: number | null = null;
   activityCountFilterSelectedCondition = 0;
 
@@ -404,6 +410,8 @@ export class BaseSearchService
     this.theCreateAccountDateSelected = '';
     this.theExpireDateSelected = '';
     this.volumeFilterSelected = null;
+    this.minimumVolumeFilterSelected = null;
+    this.maximumVolumeFilterSelected = null;
     this.activityCountFilterSelected = null;
     this.discountCodeSelected = null;
     this.phoneSelected = null;
@@ -443,6 +451,14 @@ export class BaseSearchService
       case FilterNames.volumeFilter:
         this.volumeFilterSelected = event.value;
         this.volumeFilterSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.MinimumVolumeFilter:
+        this.minimumVolumeFilterSelected = event.value;
+        this.minimumVolumeFilterSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.MaximumVolumeFilter:
+        this.maximumVolumeFilterSelected = event.value;
+        this.maximumVolumeFilterSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case FilterNames.ActivityCount:
         this.activityCountFilterSelected = event.value;
@@ -679,10 +695,10 @@ export class BaseSearchService
     if (this.theFilterGroupSelectedList && this.theFilterGroupSelectedList.length > 0)
     {
       request.groupFilter = {} as any;
-      request.groupFilter.groups = this.theFilterGroupSelectedList.map(p => p.id);
+      request.groupFilter.groupIds = this.theFilterGroupSelectedList.map(p => p.id);
       if (this.theFilterGroupSelectedList.findIndex(p => p.id === 'all') !== -1)
       {
-        request.groupFilter.groups = [];
+        request.groupFilter.groupIds = [];
       }
       request.groupFilter.filterType = 0;
       if (this.theFilterGroupSelectedCondition != 0)
@@ -834,6 +850,16 @@ export class BaseSearchService
     if (this.volumeFilterSelected)
     {
       request.volumeFilter = parseInt(this.volumeFilterSelected?.toString(), 0);
+    }
+
+    if (this.minimumVolumeFilterSelected)
+    {
+      request.minimumVolumeFilter = parseInt(this.minimumVolumeFilterSelected?.toString(), 0);
+    }
+
+    if (this.maximumVolumeFilterSelected)
+    {
+      request.maximumVolumeFilter = parseInt(this.maximumVolumeFilterSelected?.toString(), 0);
     }
 
     //todo need to fix later

@@ -124,6 +124,8 @@ export enum FilterNames
   ContractStatus = 27,
   ExporterBrandFilter = 28,
   ProviderBrandFilter = 29,
+  MinimumVolumeFilter = 30,
+  MaximumVolumeFilter = 31,
 }
 
 export enum StatusType

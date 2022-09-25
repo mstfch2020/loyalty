@@ -3,10 +3,8 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
 import { Utility } from 'src/app/@core/utils/Utility';
-import { DiscountValidationDateType } from "../../data/loyalty/enums.model";
+import { ExternalPointAward, ExternalPointAwardGrid, externalPointAwardInit } from "../../data/loyalty/external-point-award.model";
 import { IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
-import { AwareDiscountCodePattern, InternalPointAward, InternalPointAwardGrid, InternalPointAwardInit } from "../../data/loyalty/internal-point-award.model";
-import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
@@ -16,11 +14,10 @@ import { FileService } from "./file.service";
 @Injectable({
   providedIn: 'root'
 })
-export class InternalPointAwardService extends BaseService<InternalPointAward>{
+export class ExternalPointAwardService extends BaseService<ExternalPointAward>{
 
   editMode = false;
-  theListView$ = new BehaviorSubject<Array<InternalPointAwardGrid>>([]);
-  awareDiscountCodePatterns$ = new BehaviorSubject<Array<AwareDiscountCodePattern>>([]);
+  theListView$ = new BehaviorSubject<Array<ExternalPointAwardGrid>>([]);
   selectedFiles = new Array();
   selFiles: FileList | null = null;
   formData = new FormData();
@@ -33,44 +30,40 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
     public fileService: FileService,
     public override uiService: UiService)
   {
-    super(formBuilder, uiService, baseInfoService, InternalPointAwardInit);
+    super(formBuilder, uiService, baseInfoService, externalPointAwardInit);
   }
 
-  createForm(internalAward: InternalPointAward)
+  createForm(externalAward: ExternalPointAward)
   {
     this.editMode = false;
     this.form = this.formBuilder.group({
-      title: [internalAward.title, [Validators.required]],
-      providerBrandId: [internalAward.providerBrandId, [Validators.required]],
-      userTypeId: [internalAward.userTypeId, [Validators.required]],
-      groupId: [internalAward.groupId, [Validators.required]],
-      exporterBrandId: [internalAward.exporterBrandId, [Validators.required]],
-      exporterBrandLogoId: [internalAward.exporterBrandLogoId, [Validators.required]],
-      exporterBrandHexaCode: [internalAward.exporterBrandHexaCode, [Validators.required]],
-      pointAmount: [internalAward.pointAmount, [Validators.required]],
-      patternId: [internalAward.patternId, [Validators.required]],
-      discountValidationDateType: [internalAward.discountValidationDateType, [Validators.required]],
-      discountCodeDaysAfterIssuedCode: [internalAward.discountCodeDaysAfterIssuedCode, [Validators.required]],
-      id: [internalAward.id, [Validators.required]],
-      categoryId: [internalAward.categoryId ?? '', [Validators.required]],
-      discountCodeDate: createPeriodFormGroup(internalAward.discountCodeDate, this.formBuilder),
-      expireDate: [Utility.getFullDateTimeFromPeriodInPersian(internalAward.discountCodeDate), [Validators.required]]
+      title: [externalAward.title, [Validators.required]],
+      providerBrandId: [externalAward.providerBrandId, [Validators.required]],
+      userTypeId: [externalAward.userTypeId, [Validators.required]],
+      groupId: [externalAward.groupId, [Validators.required]],
+      exporterBrand: [externalAward.exporterBrand, [Validators.required]],
+      exporterBrandLogoId: [externalAward.exporterBrandLogoId, [Validators.required]],
+      exporterBrandHexaCode: [externalAward.exporterBrandHexaCode, [Validators.required]],
+      pointAmount: [externalAward.pointAmount, [Validators.required]],
+      id: [externalAward.id, [Validators.required]],
+      categoryId: [externalAward.categoryId ?? '', [Validators.required]],
+      awardFileId: [externalAward.awardFileId ?? '', [Validators.required]],
     });
   }
 
-  GetLocalPointsAwardById(id: string)
+  GetExternalPointsAwardById(id: string)
   {
-    const url = this.settingService.settings?.baseUrl + 'PointsAward/GetLocalPointsAwardById';
-    return callGetService<InternalPointAward>(url, this.http, this.uiService, {
+    const url = this.settingService.settings?.baseUrl + 'PointsAward/GetExternalPointsAwardById';
+    return callGetService<ExternalPointAward>(url, this.http, this.uiService, {
       id: id
     });
   }
 
-  GetLocalPointsAwardsGrid(request: any)
+  GetExternalPointsAwardsGrid(request: any)
   {
-    const url = this.settingService.settings?.baseUrl + 'PointsAward/GetLocalPointsAwardsGrid';
+    const url = this.settingService.settings?.baseUrl + 'PointsAward/GetExternalPointsAwardsGrid';
 
-    return callPostPagingService<Array<InternalPointAwardGrid>>(url, this.http, this.uiService, request).subscribe(value =>
+    return callPostPagingService<Array<ExternalPointAwardGrid>>(url, this.http, this.uiService, request).subscribe(value =>
     {
       this.theListView$.next([]);
       this.totalPages = 0;
@@ -86,23 +79,10 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
   {
     console.log(this.form.value);
     this.uiService.alertService.clearAllMessages();
-    const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'CreateLocal' : 'EditLocal';
+    const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'CreateExternal' : 'EditExternal';
     const url = this.settingService.settings?.baseUrl + `PointsAward/${ option }`;
 
-    if (this.form.get('discountValidationDateType')?.value === DiscountValidationDateType.Date)
-    {
-      if (!this.updatePeriodFormControl(this.getValue('expireDate'), 'discountCodeDate'))
-      {
-        this.uiService.alert('تاریخ اعتبار الگوی کد تخفیف را مشخص نمایید.');
-        return;
-      }
-    } else if (!this.form.get('discountCodeDaysAfterIssuedCode')?.value)
-    {
-      this.uiService.alert('تعداد روز پس از صدور کد را وارد نمایید.');
-      return;
-    }
-
-    const value: InternalPointAward = this.form.value;
+    const value: ExternalPointAward = this.form.value;
 
     if (!value.categoryId)
     {
@@ -110,7 +90,7 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
       return;
     }
 
-    if (!value.exporterBrandId)
+    if (!value.exporterBrand)
     {
       this.uiService.alert('برند نمایش دهنده را مشخص نمایید.');
       return;
@@ -164,18 +144,13 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
       return;
     }
 
-    if (!value.patternId)
-    {
-      this.uiService.alert('الگوی کد تخفیف را مشخص نمایید.');
-      return;
-    }
 
     if (this.uiService.alertService.getErrorMessages().length !== 0)
     {
       return;
     }
     value.title = this.getTitle();
-    callPostService<InternalPointAward>(url, this.http, this.uiService, value).subscribe(value =>
+    callPostService<ExternalPointAward>(url, this.http, this.uiService, value).subscribe(value =>
     {
       this.uiService.success('با موفقیت ثبت شد.');
       setTimeout(() => { this.uiService.alertService.clearAllMessages(); }, 1500);
@@ -184,16 +159,16 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
 
   }
 
-  fileUpload(formData: FormData)
+  fileUpload(formData: FormData, formControlName: string)
   {
     this.fileService.fileUpload(formData).subscribe(value =>
     {
-      this.setValue('exporterBrandLogoId', value.fileId.id);
+      this.setValue(formControlName, value.fileId.id);
       this.uiService.success('فایل با موفقیت بارگزاری شد.');
     });
   }
 
-  fileSelectionChanged(event: any)
+  fileSelectionChanged(event: any, formControlName: string)
   {
     this.selectedFiles = new Array();
 
@@ -222,7 +197,7 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
           this.selFiles[i].name);
       }
 
-      this.fileUpload(this.formData);
+      this.fileUpload(this.formData, formControlName);
     }
   }
 
@@ -230,25 +205,11 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
 
   getBrandName(): string
   {
-    const brandId = this.form.get('exporterBrandId')?.value;
-    if (brandId)
-    {
-      const brands = this.baseInfoService.brands$.getValue().filter(a => a.id === brandId);
-      if (brands.length === 0) { return ''; }
-      return brands[0].title;
-    }
-    return '';
+    return this.form.get('exporterBrand')?.value;
   }
 
   getDiscountTypeTitle()
   {
-    const patternId = this.form.get('patternId')?.value;
-    if (patternId)
-    {
-      const codeItem = this.awareDiscountCodePatterns$.getValue().filter(a => a.id === patternId)[0];
-      if (!codeItem) { return ''; }
-      return `${ codeItem.discountCeiling } درصد تخفیف تا سقف ${ codeItem.discountVolume } تومان`;
-    }
     return '';
   }
 
@@ -256,10 +217,6 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
   {
     const generalCustomers = this.getCustomerByBrandId(brandId);
     this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
-    this.baseInfoService.GetDiscountCodePatterns(brandId[0]).subscribe(value =>
-    {
-      this.awareDiscountCodePatterns$.next(value ?? []);
-    });
   }
 
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>

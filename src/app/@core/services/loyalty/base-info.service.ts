@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, forkJoin, map, Observable, Subject, takeUntil } from "rxjs";
 import { EnumTitle, IdTitle, IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
@@ -381,6 +381,17 @@ export class BaseInfoService
   {
     const url = this.settingService.settings?.baseUrl + 'PointsAward/GetDiscountCodePatterns?brnadId=' + brandId;
     return callGetService<any>(url, this.http, this.uiService);
+  }
+
+  GetGroupsByBrandIds(brandIds: Array<string>)
+  {
+    let params = new HttpParams();
+    for (let brandId of brandIds)
+    {
+      params = params.append('brandIds', brandId);
+    }
+    const url = this.settingService.settings?.baseUrl + 'Group/GetGroupsByBrandIds';
+    return callGetService<any>(url, this.http, this.uiService, params);
   }
 }
 

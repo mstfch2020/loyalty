@@ -36,8 +36,8 @@
           نوع جایزه :
         </label>
         <div class="flex-shrink-1">
-          <app-switch (notifySelectionSwitch)="selectedSwitch($event)" [isOneSelected]="giftType===1"
-            [labelOne]="'خرید قطعی داخلی'" [labelTwo]="'خرید قطعی خارجی'" [labelThree]="'قرعه کشی'">
+          <app-switch (notifySelectionSwitch)="selectedSwitch($event)" [index]="giftType" [labelOne]="'خرید قطعی داخلی'"
+            [labelTwo]="'خرید قطعی خارجی'" [labelThree]="'قرعه کشی'">
           </app-switch>
         </div>
       </div>

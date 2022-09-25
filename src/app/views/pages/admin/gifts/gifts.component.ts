@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,28 +12,47 @@ export class GiftsComponent implements OnInit
   id = '';
   isInListRoute = true;
 
-  constructor(private router: Router)
+  constructor(private router: Router, private cdref: ChangeDetectorRef)
   {
-    router.events.subscribe((val) =>
-    {
-      this.isInListRoute = document.URL.includes('list');
-    });
+
   }
 
   ngOnInit(): void
   {
+    this.checkRoutOption();
+    this.router.events.subscribe((val) =>
+    {
+      this.checkRoutOption();
+    });
+  }
 
+  private checkRoutOption()
+  {
+    this.isInListRoute = document.URL.includes('list');
+    if (document.URL.includes('internal'))
+    {
+      this.giftType = 0;
+    }
+    else if (document.URL.includes('external'))
+    {
+      this.giftType = 1;
+    }
+    else
+    {
+      this.giftType = 2;
+    }
+    this.cdref.detectChanges();
   }
 
   public selectedSwitch(event: number)
   {
     switch (event)
     {
-      case 1: {
+      case 0: {
         this.router.navigate(['/admin/main/gifts/internal-edit'], { queryParams: { id: this.id } });
         return;
       }
-      case 0: {
+      case 1: {
         this.router.navigate(['/admin/main/gifts/external-edit'], { queryParams: { id: this.id } });
         return;
       }

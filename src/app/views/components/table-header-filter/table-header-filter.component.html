@@ -323,6 +323,34 @@
     </app-filter>
   </ng-container>
 
+  <!-- 30 -->
+  <ng-container *ngSwitchCase="FilterNames.MinimumVolumeFilter">
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      {{title ? title : 'حداقل امتیاز بلیط در گروه مشتری'}}
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: !service.minimumVolumeFilterSelected}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [filterType]="1">
+    </app-filter>
+  </ng-container>
+
+  <!-- 31 -->
+  <ng-container *ngSwitchCase="FilterNames.MaximumVolumeFilter">
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      {{title ? title : 'حداکثر امتیاز بلیط در گروه مشتری'}}
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: !service.maximumVolumeFilterSelected}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [filterType]="1">
+    </app-filter>
+  </ng-container>
+
 </ng-container>
 
 <ng-template #filterIcon let-active>

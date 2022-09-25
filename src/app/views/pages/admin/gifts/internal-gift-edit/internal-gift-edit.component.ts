@@ -51,7 +51,7 @@ export class InternalGiftEditComponent implements OnInit
     this.cdref.detectChanges();
     this.baseInfoService.loadBaseInfo(null, value.providerBrandId ? [value.providerBrandId] : []);
 
-    this.service.form.get('providerBrandId')?.valueChanges.subscribe(brandId =>
+    this.service.form.get('exporterBrandId')?.valueChanges.subscribe(brandId =>
     {
       this.service.form.get('groupId')?.setValue(null);
       this.service.form.get('patternId')?.setValue(null);
