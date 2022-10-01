@@ -1,0 +1,70 @@
+<router-outlet></router-outlet>
+<div class="container-fluid col mt-3" dir="rtl">
+
+  <div class="d-flex flex-row align-items-center" [formGroup]="service.form">
+    <label class="float-end float-sm-start label-min-width">
+      برند صادر کننده:
+      <span class="text-danger">*</span>
+    </label>
+    <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-3">
+      <input [readOnly]="isDisabled"
+        class="form-control rounded-pill mx-3  p-10px text-end text-black border-0 h-55-px w-50 " dir="ltr"
+        formControlName='title' type="text">
+      <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+        <span *ngIf="!service.form.get('title')?.valid && service.form.get('title')?.touched && !isDisabled">
+          نوع دسته بندی را وارد نمایید.
+        </span>
+      </div>
+    </div>
+    <button class="btn btn-warning rounded-pill font-yekan-regular px-4 text-white d-block flex-shrink-1" dir="rtl"
+      (click)="service.submit()">
+      ثبت
+    </button>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table cellspacing="1" class="table table-hover border-spacing-xs border-0">
+          <thead>
+            <tr>
+              <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
+                *ngFor="let headerItem of headerItems;">
+                <app-table-header-filter [filterName]="headerItem.getFilterName()" [expression]="headerItem.expression"
+                  [title]="headerItem.title">
+                </app-table-header-filter>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of theViewList;let i=index">
+              <td class="px-1 text-end padding-05 pr-1" scope="row">
+                {{i}}
+              </td>
+              <td class="pr-1 text-end fs-08">
+                <span *ngIf="!item.isEdit"> {{item.title}}</span>
+                <input *ngIf="item.isEdit"
+                  class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px text-end text-black border-0 h-55 px w-100 mr-8-px"
+                  dir="ltr" type="text" [(ngModel)]="item.title">
+              </td>
+              <td class="pr-1 text-end fs-08">
+                <span *ngIf="!item.isEdit" (click)="update(item)"><i class="fa fa-pencil-square-o"
+                    style="font-size:20px"></i></span>
+                <span *ngIf="item.isEdit" (click)="update(item)">
+                  <i class="mx-2 fa fa-check-circle" style="color: orange;font-size:20px"></i>
+
+                  <i class="fa fa-times" (click)="item.isEdit=!item.isEdit" style="font-size:20px"></i>
+                </span>
+              </td>
+              <td class="pr-1 text-end fs-08 ">
+                <i *ngIf="item.isActive" class="mx-2 fa fa-check-circle" (click)="active(item)"
+                  style="color: orange;font-size:20px"></i>
+                <i *ngIf="!item.isActive" class="mx-2 fa fa-times" (click)="active(item)" style="font-size:20px"></i>
+                {{item.isActive ?'فعال':'غیر فعال' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

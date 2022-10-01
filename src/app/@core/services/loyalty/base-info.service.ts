@@ -393,6 +393,12 @@ export class BaseInfoService
     const url = this.settingService.settings?.baseUrl + 'Group/GetGroupsByBrandIds';
     return callGetService<any>(url, this.http, this.uiService, params);
   }
+
+  GetCategoryPointsAwardList()
+  {
+    const url = this.settingService.settings?.baseUrl + 'CategoryPointsAward/GetCategoryPointsAwardList';
+    return callGetService<any>(url, this.http, this.uiService);
+  }
 }
 
 

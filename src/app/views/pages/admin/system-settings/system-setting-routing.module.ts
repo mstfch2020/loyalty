@@ -29,6 +29,10 @@ const routes: Routes = [
         path: 'period',
         loadChildren: () => import('src/app/views/pages/admin/system-settings/system-settings-period/system-setting-period.module')
           .then(m => m.SystemSettingPeriodModule)//, canLoad: [AuthGuard]
+      }, {
+        path: 'categories',
+        loadChildren: () => import('src/app/views/pages/admin/system-settings/category/category.module')
+          .then(m => m.CategoryModule)//, canLoad: [AuthGuard]
       }
     ]
   }

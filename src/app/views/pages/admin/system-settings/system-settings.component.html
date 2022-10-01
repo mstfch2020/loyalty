@@ -1,35 +1,31 @@
 <form action="" dir="rtl">
   <ul class="nav justify-content-start mt-3">
     <li class="nav-item">
-      <a class="nav-link"
-         [routerLink]="['/admin/main/settings/discount']"
-         routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/admin/main/settings/discount']" routerLinkActive="active">
         تنظیمات کد تخفیف
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link"
-         [routerLink]="['/admin/main/settings/behavioral']"
-         routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/admin/main/settings/behavioral']" routerLinkActive="active">
         فعالیت های سناریو رفتاری
       </a>
     </li>
     <li class="nav-item" *ngIf="false">
-      <a class="nav-link"
-         [routerLink]="['/admin/main/settings/period']"
-         routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/admin/main/settings/period']" routerLinkActive="active">
         بازه زمانی ریست سطوح مشتری
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link"
-         [routerLink]="['/admin/main/settings/groups']"
-         routerLinkActive="active">
+      <a class="nav-link" [routerLink]="['/admin/main/settings/groups']" routerLinkActive="active">
         تنظیمات گروه مشتری
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/admin/main/settings/categories']" routerLinkActive="active">
+        دسته بندی جوایز
       </a>
     </li>
   </ul>
   <hr class="nav-line">
   <router-outlet></router-outlet>
 </form>
-
