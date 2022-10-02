@@ -210,8 +210,8 @@
           </label>
           <div class="mr-1">
             <app-switch [labelOne]="'تومان'" [labelTwo]="'درصد'" [isDisabled]="service.isDisabled"
-              [index]="service.getValue('discountVolumeType')===1?0:1"
-              (notifySelectionSwitch)="service.discountVolumeTypeChange($event===1);">
+              (notifySelectionSwitch)="service.discountVolumeTypeChange($event===0)"
+              [index]="service.getValue('discountVolumeType')===1?0:1">
             </app-switch>
           </div>
         </div>
@@ -310,7 +310,7 @@
           <div class="mr-1 flex-grow-1">
             <app-switch [labelOne]="'تگ کالا'" [labelTwo]="'سبد خرید'" [isDisabled]="service.isDisabled"
               [index]="service.getValue('discountType')===2?0:1"
-              (notifySelectionSwitch)="service.discountTypeChange($event===1)"></app-switch>
+              (notifySelectionSwitch)="service.discountTypeChange($event===0)"></app-switch>
           </div>
         </div>
       </div>

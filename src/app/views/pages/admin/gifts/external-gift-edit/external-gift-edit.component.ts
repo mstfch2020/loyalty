@@ -50,6 +50,7 @@ export class ExternalGiftEditComponent implements OnInit
     this.service.createForm(value);
     this.cdref.detectChanges();
     this.baseInfoService.loadBaseInfo();
+    this.baseInfoService.loadCategory();
   }
 
   backToList()

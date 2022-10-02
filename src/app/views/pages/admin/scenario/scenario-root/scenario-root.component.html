@@ -15,9 +15,9 @@
           </label>
         </div>
         <div class="col-12 col-sm-7">
-          <app-switch (notifySelectionSwitch)="selectedSwitch($event===1)" [isDisabled]="isDisabled"
-            [index]="this.service.getValue('senarioType')===1?0:1" [labelOne]="'سناریوی خرید'"
-            [labelTwo]="'سناریوی رفتاری'">
+          <app-switch [labelTwo]="'سناریوی رفتاری'" [labelOne]="'سناریوی خرید'"
+            (notifySelectionSwitch)="selectedSwitch($event===0)" [isDisabled]="isDisabled"
+            [index]="this.service.getValue('senarioType')===1?0:1">
           </app-switch>
         </div>
       </div>

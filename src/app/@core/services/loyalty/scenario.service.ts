@@ -14,7 +14,7 @@ import { Utility } from '../../utils/Utility';
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
-import { BaseService, callGetService, callPostPagingService, callPostService, isValidProductCode } from "./BaseService";
+import { BaseService, callGetService, callPostPagingService, callPostService, isValidPhonenumber, isValidProductCode } from "./BaseService";
 
 @Injectable({ providedIn: 'root' })
 export class ScenarioService extends BaseService<Scenario>
@@ -105,6 +105,7 @@ export class ScenarioService extends BaseService<Scenario>
     });
 
     const generalCustomers = this.getCustomerByBrandId(scenario.brandIds);
+    this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
     this.updateGeneralCustomer(scenario, generalCustomers);
     this.updateDiscountCode(scenario.brandIds);
 
@@ -268,17 +269,17 @@ export class ScenarioService extends BaseService<Scenario>
   private updateCustomerGroupInLocal(scenario: Scenario, generalCustomers: IdTitleTypeBrandId[])
   {
     const scenarioGeneralCustomers = new Array<IdTitleTypeBrandId>();
-    [...scenario.customerGroupIds, ...scenario.campaignIds, ...scenario.phones].forEach((p: string) =>
+    const allData = [...scenario.customerGroupIds, ...scenario.campaignIds, ...scenario.phones];
+    allData.forEach((p: string) =>
     {
       if (Utility.isNullOrEmpty(p)) { return; }
       const generalCustomer = generalCustomers.find(customer => customer.id === p);
       if (generalCustomer)
       {
         scenarioGeneralCustomers.push(generalCustomer);
-      } else if (isValidProductCode(p))
+      } else if (isValidPhonenumber(p))
       {
         scenarioGeneralCustomers.push({ id: p, title: p, type: 3, brandId: '' });
-        return;
       }
     });
 
@@ -286,15 +287,14 @@ export class ScenarioService extends BaseService<Scenario>
 
     if (scenarioGeneralCustomers.length > 0)
     {
-      const data = this.baseInfoService?.generalCustomers$?.getValue()?.concat(scenarioGeneralCustomers.filter(p => p.type === 3));
-      this.baseInfoService?.generalCustomers$?.next(data);
+      const data = generalCustomers.concat(scenarioGeneralCustomers.filter(p => p.type === 3));
       this.baseInfoService?.generalCustomersByBrandId$?.next(data);
     }
   }
 
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
   {
-    return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
+    return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || !p.brandId || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
   }
 
   percentValidation(valueStr: string): boolean

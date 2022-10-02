@@ -189,6 +189,14 @@ export class ContractService extends BaseService<Contract>
     });
   }
 
+  GetContractRequestById(id: string)
+  {
+    const url = this.settingService.settings?.baseUrl + 'Contract/GetContractRequestById';
+    return callPostService<any>(url, this.http, this.uiService, {
+      id: id
+    });
+  }
+
   RejectContractById(id: string)
   {
     const url = this.settingService.settings?.baseUrl + 'Contract/Reject';

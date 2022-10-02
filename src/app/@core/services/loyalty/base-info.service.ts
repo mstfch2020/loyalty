@@ -11,6 +11,7 @@ import { callGetService, callPostService } from "./BaseService";
 export class BaseInfoService
 {
 
+
   constructor(
     public http: HttpClient,
     public settingService: SettingsService,
@@ -116,7 +117,6 @@ export class BaseInfoService
 
   loadBaseInfo(callback?: any, brandIds: Array<string> = [], productIds: Array<string> = []): void
   {
-    this.categories$.next([{ id: 'sdfdsf', title: 'آموزشی و فرهنگی' }]);
     if (!brandIds || brandIds.length === 0 || brandIds.some(p => p === 'all'))
     {
       brandIds = [];
@@ -249,6 +249,15 @@ export class BaseInfoService
       }
       this.commissionsBasis$.next(value.commissionsBasis);
 
+    });
+  }
+
+  loadCategory()
+  {
+    this.GetCategoryPointsAwardList().subscribe(value =>
+    {
+      if (!value) { value = []; }
+      this.categories$.next(value);
     });
   }
 

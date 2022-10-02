@@ -40,9 +40,11 @@ export class ContractEditAdminComponent implements OnInit
     this.route.queryParams.subscribe(params =>
     {
       const id = params['id'];
+      const isRequest = params['isRequest'];
       if (id)
       {
-        this.service.GetContractById(id).subscribe((value) =>
+        const api = isRequest ? this.service.GetContractRequestById(id) : this.service.GetContractById(id);
+        api.subscribe((value) =>
         {
           if (!value)
           {

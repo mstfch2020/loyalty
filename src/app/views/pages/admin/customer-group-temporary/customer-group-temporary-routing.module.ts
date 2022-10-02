@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CustomerGroupTemporaryCampaignComponent } from "./customer-group-temporary-campaign/customer-group-temporary-campaign.component";
 import { CustomerGroupTemporaryListComponent } from "./customer-group-temporary-list/customer-group-temporary-list.component";
+import { CustomerGroupTemporaryRootComponent } from "./customer-group-temporary-root/customer-group-temporary-root.component";
 import { CustomerGroupTemporaryComponent } from "./customer-group-temporary.component";
 
 const routes: Routes = [
@@ -24,7 +25,7 @@ const routes: Routes = [
       }
     ]
   }];
-export const customerGroupTemporaryComponents = [CustomerGroupTemporaryComponent, CustomerGroupTemporaryListComponent, CustomerGroupTemporaryCampaignComponent];
+export const customerGroupTemporaryComponents = [CustomerGroupTemporaryRootComponent, CustomerGroupTemporaryComponent, CustomerGroupTemporaryListComponent, CustomerGroupTemporaryCampaignComponent];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

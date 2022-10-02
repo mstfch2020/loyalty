@@ -52,11 +52,12 @@ export class SwitchComponent implements OnInit
 
   selection(item: number)
   {
-    this.index = item;
     if (this.isDisabled)
     {
       return;
     }
+
+    this.index = item;
     this.notifySelectionSwitch.emit(item);
     this.cdref.detectChanges();
   }
