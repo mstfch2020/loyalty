@@ -190,77 +190,78 @@
       </div>
     </div>
     <hr>
-
-    <div class="d-flex flex-row justify-content-between mt-4">
-      <div class="font-yekan-bold h6 text-black ml-auto">
-        کدهای تخفیف :
-      </div>
-      <div class="mr-auto font-yekan-bold h6 text-black  cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-          class="bi bi-plus-circle color-app-blue" viewBox="0 0 16 16">
-          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-          <path
-            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-        </svg>
-        <span class="color-app-orange mr-3-px" (click)="createNewDiscountCode()">
-          ایجاد کد تخفیف
-        </span>
-      </div>
-    </div>
-    <div class="d-flex flex-column" *ngFor="let customerInfo of customerInfoList">
+    <ng-container *ngIf="customer.isPromoter">
       <div class="d-flex flex-row justify-content-between mt-4">
-        <div class="d-flex flex-row align-items-center">
-          <div class="text-black fs-09">
-            کد های تخفیف فعال در برند {{customerInfo.brandName}}:
-            <span>
-              {{customerInfo.activeCodeCount | mask: 'separator':','}}
-            </span>
-          </div>
+        <div class="font-yekan-bold h6 text-black ml-auto">
+          کدهای تخفیف :
         </div>
-
-
-        <div class="d-flex flex-row align-items-center">
-          <div class="text-black fs-09">
-            درصد پورسانت در برند:
-            <span>
-              {{customerInfo.commission | mask: 'separator':','}}%
-            </span>
-          </div>
-        </div>
-
-
-        <div class="d-flex flex-column text-start">
-          <div (click)="customerInfo.showDiscountHistory=!customerInfo.showDiscountHistory"
-            class="color-app-blue fs-09 cursor-pointer">
-            مشاهده کدهای تخفیف
-            <span class="mr-1">
-              <i class="fa fa-chevron-left" *ngIf="!customerInfo.showDiscountHistory"></i>
-              <i class="fa fa-chevron-down" *ngIf="customerInfo.showDiscountHistory"></i>
-            </span>
-          </div>
-        </div>
-
-
-        <div class="d-flex flex-column text-start">
-          <div (click)="customerInfo.showCommissionHistory=!customerInfo.showCommissionHistory"
-            class="fs-09 cursor-pointer color-app-blue">
-            مشاهده تاریخچه پورسانت
-            <span class="mr-1">
-              <i class="fa fa-chevron-left" *ngIf="!customerInfo.showCommissionHistory"></i>
-              <i class="fa fa-chevron-down" *ngIf="customerInfo.showCommissionHistory"></i>
-            </span>
-          </div>
+        <div class="mr-auto font-yekan-bold h6 text-black  cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-plus-circle color-app-blue" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+          </svg>
+          <span class="color-app-orange mr-3-px" (click)="createNewDiscountCode()">
+            ایجاد کد تخفیف
+          </span>
         </div>
       </div>
-      <app-customer-discount-history [customerInfo]="customerInfo" [customerId]="id"
-        *ngIf="customerInfo.showDiscountHistory">
-      </app-customer-discount-history>
-      <app-customer-commission-history [customerInfo]="customerInfo" [customerId]="id"
-        *ngIf="customerInfo.showCommissionHistory">
-      </app-customer-commission-history>
-    </div>
+      <div class="d-flex flex-column" *ngFor="let customerInfo of customerInfoList">
+        <div class="d-flex flex-row justify-content-between mt-4">
+          <div class="d-flex flex-row align-items-center">
+            <div class="text-black fs-09">
+              کد های تخفیف فعال در برند {{customerInfo.brandName}}:
+              <span>
+                {{customerInfo.activeCodeCount | mask: 'separator':','}}
+              </span>
+            </div>
+          </div>
 
-    <hr class="mt-4">
+
+          <div class="d-flex flex-row align-items-center">
+            <div class="text-black fs-09">
+              درصد پورسانت در برند:
+              <span>
+                {{customerInfo.commission | mask: 'separator':','}}%
+              </span>
+            </div>
+          </div>
+
+
+          <div class="d-flex flex-column text-start">
+            <div (click)="customerInfo.showDiscountHistory=!customerInfo.showDiscountHistory"
+              class="color-app-blue fs-09 cursor-pointer">
+              مشاهده کدهای تخفیف
+              <span class="mr-1">
+                <i class="fa fa-chevron-left" *ngIf="!customerInfo.showDiscountHistory"></i>
+                <i class="fa fa-chevron-down" *ngIf="customerInfo.showDiscountHistory"></i>
+              </span>
+            </div>
+          </div>
+
+
+          <div class="d-flex flex-column text-start">
+            <div (click)="customerInfo.showCommissionHistory=!customerInfo.showCommissionHistory"
+              class="fs-09 cursor-pointer color-app-blue">
+              مشاهده تاریخچه پورسانت
+              <span class="mr-1">
+                <i class="fa fa-chevron-left" *ngIf="!customerInfo.showCommissionHistory"></i>
+                <i class="fa fa-chevron-down" *ngIf="customerInfo.showCommissionHistory"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <app-customer-discount-history [customerInfo]="customerInfo" [customerId]="id"
+          *ngIf="customerInfo.showDiscountHistory">
+        </app-customer-discount-history>
+        <app-customer-commission-history [customerInfo]="customerInfo" [customerId]="id"
+          *ngIf="customerInfo.showCommissionHistory">
+        </app-customer-commission-history>
+      </div>
+
+      <hr class="mt-4">
+    </ng-container>
     <div class="row mt-4">
       <div class="col-12">
         <span class="font-yekan-bold h6 text-black">

@@ -3,7 +3,7 @@
 
   <div class="d-flex flex-row align-items-center" [formGroup]="service.form">
     <label class="float-end float-sm-start label-min-width">
-      برند صادر کننده:
+      نوع دسته بندی را مشخص کنید:
       <span class="text-danger">*</span>
     </label>
     <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-3">
@@ -58,7 +58,7 @@
               </td>
               <td class="pr-1 text-end fs-08 d-flex flex-row align-items-center ">
                 <div class="switch">
-                  <div class="toggle">
+                  <div class="toggle" [ngClass]="{'active':item.isActive,'inactive':!item.isActive}">
                     <input type="checkbox" id="temp{{i}}" [checked]="item.isActive" (change)="active(item)">
                     <label for="temp{{i}}"></label>
                   </div>

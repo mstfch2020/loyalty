@@ -72,10 +72,10 @@
                     {{item.totalOrders}} تومان
                   </td>
                   <td class="pr-1 text-end fs-08">
-                    {{item.commission}}%
+                    {{item.promoterCommission}}%
                   </td>
                   <td class="pr-1 text-end fs-08">
-                    {{item.promoterCommission}} تومان
+                    {{item.commission}} تومان
                   </td>
                 </tr>
 
@@ -103,12 +103,12 @@
                   </td>
                   <td class="pr-1 text-end fs-08">
                     <div *ngFor="let detailItem of item.details;" class="my-1">
-                      {{detailItem.totalOrders}}
+                      {{detailItem.promoterCommission}}%
                     </div>
                   </td>
                   <td class="pr-1 text-end fs-08">
                     <div *ngFor="let detailItem of item.details;" class="my-1">
-                      {{detailItem.promoterCommission}} تومان
+                      {{detailItem.commission}} تومان
                     </div>
                   </td>
                 </tr>

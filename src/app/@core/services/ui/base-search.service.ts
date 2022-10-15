@@ -72,9 +72,15 @@ export class BaseSearchService
   theFilterCommissionSelectedList = new Array<IdTitle>();
   theFilterCommissionSelectedCondition = 0;
 
+  theFilterCommissionRadioSelectedList = new Array<IdTitle>();
+  theFilterCommissionRadioSelectedCondition = 0;
+
   theFilterPercentList: Array<FilterTitle> = [];
   theFilterPercentSelectedList = new Array<IdTitle>();
   theFilterPercentSelectedCondition = 0;
+
+  theFilterPercentRadioSelectedList = new Array<IdTitle>();
+  theFilterPercentRadioSelectedCondition = 0;
 
   theProductGroupList = new Array<FilterTitle>();
   theProductGroupListSelectedList = new Array<ProductGroup>();
@@ -127,20 +133,26 @@ export class BaseSearchService
   theContractFilterStatusSelectedCondition = 0;
   theContractFilterStatusList: Array<FilterTitle> = [
     {
-      id: '2',
+      id: '1',
       title: 'جدید',
       type: 0,
       checked: false,
     },
     {
+      id: '2',
+      title: 'بسته شده',
+      type: 0,
+      checked: false,
+    },
+    {
       id: '3',
-      title: 'ویرایش شده',
+      title: 'رد شده',
       type: 0,
       checked: false,
     },
     {
       id: '4',
-      title: 'رد شده',
+      title: 'ویرایش شده',
       type: 0,
       checked: false,
     }
@@ -402,7 +414,9 @@ export class BaseSearchService
     this.theFilterLevelsSelectedList = [];
     this.theFilterUserTypeSelectedList = [];
     this.theFilterCommissionSelectedList = [];
+    this.theFilterCommissionRadioSelectedList = [];
     this.theFilterPercentSelectedList = [];
+    this.theFilterPercentRadioSelectedList = [];
     this.theProductGroupListSelectedList = [];
     this.theFilterDateFromSelected = '';
     this.theDateFilterSelected = '';
@@ -503,9 +517,17 @@ export class BaseSearchService
         this.theFilterCommissionSelectedList = event.value;
         this.theFilterCommissionSelectedCondition = parseInt(event.conditionType, 0);
         break;
+      case FilterNames.Commission:
+        this.theFilterCommissionRadioSelectedList = event.value;
+        this.theFilterCommissionRadioSelectedCondition = parseInt(event.conditionType, 0);
+        break;
       case FilterNames.Percent:
         this.theFilterPercentSelectedList = event.value;
         this.theFilterPercentSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.PercentRadioBox:
+        this.theFilterPercentRadioSelectedList = event.value;
+        this.theFilterPercentRadioSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case FilterNames.Level:
         this.theFilterLevelsSelectedList = event.value;
@@ -586,6 +608,11 @@ export class BaseSearchService
       }
     }
 
+    if (this.theFilterPercentRadioSelectedList && this.theFilterPercentRadioSelectedList.length > 0)
+    {
+      request.consumerDiscountFilter = this.theFilterPercentRadioSelectedList.map(p => parseInt(p.id, 0))[0];
+    }
+
     if (this.theFilterCommissionSelectedList && this.theFilterCommissionSelectedList.length > 0)
     {
       request.CommissionFilter = {} as any;
@@ -599,6 +626,11 @@ export class BaseSearchService
       {
         request.CommissionFilter.filterType = this.theFilterCommissionSelectedCondition;
       }
+    }
+
+    if (this.theFilterCommissionRadioSelectedList && this.theFilterCommissionRadioSelectedList.length > 0)
+    {
+      request.promoterCommissionFilter = this.theFilterCommissionRadioSelectedList.map(p => p.id)[0];
     }
 
     if (this.theFilterUserTypeSelectedList && this.theFilterUserTypeSelectedList.length > 0)

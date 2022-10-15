@@ -45,7 +45,7 @@ export class RequestContractListComponent extends BaseSearch implements OnInit
   {
     if (code)
     {
-      this.router.navigate(['/admin/main/contract/edit-admin'], { queryParams: { id: code, isRequest: true } });
+      this.router.navigate(['/admin/main/contract/edit'], { queryParams: { id: code, isRequest: true } });
       return;
     }
     this.router.navigate(['/admin/main/contract/edit']);

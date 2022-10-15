@@ -50,7 +50,12 @@ export class ExternalGiftEditComponent implements OnInit
     this.service.createForm(value);
     this.cdref.detectChanges();
     this.baseInfoService.loadBaseInfo();
-    this.baseInfoService.loadCategory();
+    this.service.form.get('providerBrandId')?.valueChanges.subscribe(brandId =>
+    {
+      this.service.form.get('groupId')?.setValue(null);
+      this.service.form.get('patternId')?.setValue(null);
+      this.service.loadBrandDependency([brandId]);
+    });
   }
 
   backToList()

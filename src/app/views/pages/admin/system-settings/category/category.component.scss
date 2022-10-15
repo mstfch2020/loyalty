@@ -7,23 +7,45 @@ $toggle-bg-color: #efce97;
 $toggle-nub-color: #ffa100;
 $font-color: #4FBCA1;
 
+
+$toggle-bg-color-in-active: #c8c8c863;
+$toggle-nub-color-in-active: #6c6c6c;
+
+
 .switch {
   height: 45px;
   width: 90px;
 
-  .toggle {
-
-    overflow: visible;
-
-    input[type="checkbox"] {
-      display: none;
+  .inactive {
+    input[type="checkbox"]+label::before {
+      content: ' ';
+      display: block;
+      height: 18px;
+      width: 45px;
+      border: 1px solid $toggle-bg-color-in-active;
+      border-radius: 9px;
+      position: absolute;
+      top: 0px;
+      left: -65px;
+      background: $toggle-bg-color-in-active;
     }
 
-    label {
-      color: $font-color;
-      position: relative;
+    input[type="checkbox"]+label::after {
+      content: ' ';
+      display: block;
+      height: 30px;
+      width: 30px;
+      border: 1px solid $toggle-nub-color-in-active;
+      border-radius: 50%;
+      position: absolute;
+      top: -6px;
+      left: -75px;
+      background: $toggle-nub-color-in-active;
+      transition: all 0.3s ease-in;
     }
+  }
 
+  .active {
     input[type="checkbox"]+label::before {
       content: ' ';
       display: block;
@@ -50,6 +72,22 @@ $font-color: #4FBCA1;
       background: $toggle-nub-color;
       transition: all 0.3s ease-in;
     }
+  }
+
+  .toggle {
+
+    overflow: visible;
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    label {
+      color: $font-color;
+      position: relative;
+    }
+
+
 
     input[type="checkbox"]:checked+label::after {
       left: -40px;

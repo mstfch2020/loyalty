@@ -44,6 +44,8 @@ export class ExternalPointAwardService extends BaseService<ExternalPointAward>{
       exporterBrand: [externalAward.exporterBrand, [Validators.required]],
       exporterBrandLogoId: [externalAward.exporterBrandLogoId, [Validators.required]],
       exporterBrandHexaCode: [externalAward.exporterBrandHexaCode, [Validators.required]],
+      exporterBrandLogoName: [externalAward.exporterBrandLogoName, [Validators.required]],
+      awardFileName: [externalAward.awardFileName, [Validators.required]],
       pointAmount: [externalAward.pointAmount, [Validators.required]],
       id: [externalAward.id, [Validators.required]],
       categoryId: [externalAward.categoryId ?? '', [Validators.required]],

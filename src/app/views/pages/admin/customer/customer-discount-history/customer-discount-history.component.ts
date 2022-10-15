@@ -21,7 +21,7 @@ export class CustomerDiscountHistoryComponent extends BaseSearch implements OnIn
     [
       new HeaderFilter(FilterNames.DiscountCode),
       new HeaderFilter(FilterNames.ProductTag),
-      new HeaderFilter(FilterNames.Percent, 'تخفیف مصرف کننده'),
+      new HeaderFilter(FilterNames.PercentRadioBox, 'تخفیف مصرف کننده'),
       new HeaderFilter(FilterNames.None, 'تاریخ اعتبار'),
       new HeaderFilter(FilterNames.None, 'تعداد استفاده/سقف'),
       new HeaderFilter(FilterNames.Status, 'وضعیت'),

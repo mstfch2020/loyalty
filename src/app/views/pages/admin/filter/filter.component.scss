@@ -8,6 +8,7 @@
   position: absolute;
   margin-top: 5px;
   border-bottom: 2px solid #eff3f3;
+  z-index: 1;
 }
 
 .form-filter .select {
@@ -34,16 +35,16 @@
   margin-bottom: 10px;
 }
 
-.filter-text-input ,
+.filter-text-input,
 .filter-int-input,
 .filter-date-input {
-    border: 1px solid #b2e8e9;
-    border-radius: 8px;
-    padding: 4px;
-    float: right;
-    width: 100%;
-    margin-top: 8px;
-    margin-bottom: 8px;
+  border: 1px solid #b2e8e9;
+  border-radius: 8px;
+  padding: 4px;
+  float: right;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .form-filter .body .search {

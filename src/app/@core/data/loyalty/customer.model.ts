@@ -40,7 +40,7 @@ export interface CustomerDetail
   earningScore: number;
   expendingScore: number;
   senarios: Array<CustomerScenario>;
-
+  isPromoter:boolean;
 }
 
 

@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
 import { Utility } from 'src/app/@core/utils/Utility';
 import { IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
-import { createLotteryGroups, createLotteryGroupTicket, LotteryPointAward, LotteryPointAwardGrid, lotteryPointAwardInit } from "../../data/loyalty/lottery-point-award.model";
+import { createLotteryGroups, createLotteryGroupTicket, LotteryGroup, LotteryGroupTicket, LotteryPointAward, LotteryPointAwardGrid, lotteryPointAwardInit } from "../../data/loyalty/lottery-point-award.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
@@ -36,7 +36,7 @@ export class LotteryPointAwardService extends BaseService<LotteryPointAward>{
 
   getFormGroupOfArray(formGroup: any): FormGroup { return (formGroup as FormGroup); }
 
-  addTeacher()
+  addGroup()
   {
     this.groups.push(createLotteryGroups(null, this.formBuilder));
   }
@@ -58,6 +58,7 @@ export class LotteryPointAwardService extends BaseService<LotteryPointAward>{
     this.form = this.formBuilder.group({
       id: [lotteryAward.id, [Validators.required]],
       title: [lotteryAward.title, [Validators.required]],
+      imageIdName: [lotteryAward.imageIdName, [Validators.required]],
       text: [lotteryAward.text, [Validators.required]],
       providerBrandId: [lotteryAward.providerBrandId, [Validators.required]],
       imageId: [lotteryAward.imageId, [Validators.required]],
@@ -76,15 +77,6 @@ export class LotteryPointAwardService extends BaseService<LotteryPointAward>{
       }
     });
 
-
-    this.groupsByBrand$.subscribe(value =>
-    {
-      this.groups.clear();
-      for (let item of value)
-      {
-        this.groups.push(createLotteryGroups({ groupId: item.id, groupName: item.title, lotteryGroupId: '', tickets: [{ pointAmount: 0, ticketCount: 0, ticketId: '' }] }, this.formBuilder));
-      }
-    });
   }
 
   addTicket(groupIndex: number)
@@ -103,6 +95,12 @@ export class LotteryPointAwardService extends BaseService<LotteryPointAward>{
       value =>
       {
         this.groupsByBrand$.next(value);
+        this.groups.clear();
+        // const lotteryGroupId = this.form.get('id')?.value ?? '';
+        for (let item of value)
+        {
+          this.groups.push(createLotteryGroups({ groupId: item.id, groupName: item.title, lotteryGroupId: '', tickets: [{ pointAmount: 0, ticketCount: 1, ticketId: '' }] }, this.formBuilder));
+        }
       }
     );
   }
@@ -171,10 +169,24 @@ export class LotteryPointAwardService extends BaseService<LotteryPointAward>{
       return;
     }
 
+
+    value.groups.forEach((group: LotteryGroup) =>
+    {
+      if (!group.lotteryGroupId) { delete group?.lotteryGroupId; }
+      group.tickets.forEach((ticket: LotteryGroupTicket) =>
+      {
+        if (!ticket.ticketId) { delete ticket.ticketId; }
+      });
+    });
+
+
     callPostService<LotteryPointAward>(url, this.http, this.uiService, value).subscribe(value =>
     {
-      this.uiService.success('با موفقیت ثبت شد.');
-      setTimeout(() => { this.uiService.alertService.clearAllMessages(); }, 1500);
+      if (value)
+      {
+        this.uiService.success('با موفقیت ثبت شد.');
+      }
+      setTimeout(() => { this.uiService.alertService.clearAllMessages(); }, 3000);
 
     });
 

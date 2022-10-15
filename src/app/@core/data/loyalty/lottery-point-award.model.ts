@@ -20,11 +20,12 @@ export interface LotteryPointAward
   groups: Array<LotteryGroup>;
   periodMin: Period;
   periodMax: Period;
+  imageIdName: string;
 }
 
 export interface LotteryGroup
 {
-  lotteryGroupId: string;
+  lotteryGroupId?: string;
   groupId: string;
   groupName: string;
   tickets: Array<LotteryGroupTicket>;
@@ -40,7 +41,7 @@ export const lotteryGroupInit: LotteryGroup =
 
 export interface LotteryGroupTicket
 {
-  ticketId: string;
+  ticketId?: string;
   ticketCount: number;
   pointAmount: number;
 }
@@ -61,7 +62,8 @@ export const lotteryPointAwardInit: LotteryPointAward =
   imageId: '',
   periodMax: periodInit,
   periodMin: periodInit,
-  text: ''
+  text: '',
+  imageIdName: '',
 };
 
 export const createLotteryGroups = (group: LotteryGroup | null, formBuilder: FormBuilder): FormGroup =>

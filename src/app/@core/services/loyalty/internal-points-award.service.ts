@@ -47,6 +47,7 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
       exporterBrandId: [internalAward.exporterBrandId, [Validators.required]],
       exporterBrandLogoId: [internalAward.exporterBrandLogoId, [Validators.required]],
       exporterBrandHexaCode: [internalAward.exporterBrandHexaCode, [Validators.required]],
+      exporterBrandLogoName: [internalAward.exporterBrandLogoName, [Validators.required]],
       pointAmount: [internalAward.pointAmount, [Validators.required]],
       patternId: [internalAward.patternId, [Validators.required]],
       discountValidationDateType: [internalAward.discountValidationDateType, [Validators.required]],
@@ -247,19 +248,15 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
     {
       const codeItem = this.awareDiscountCodePatterns$.getValue().filter(a => a.id === patternId)[0];
       if (!codeItem) { return ''; }
-      return `${ codeItem.discountCeiling } درصد تخفیف تا سقف ${ codeItem.discountVolume } تومان`;
+
+      if (codeItem.discountType === 1)
+      {
+        return `${ codeItem.discountVolume } تومان`;
+      }
+
+      return `${ codeItem.discountVolume } درصد تخفیف تا سقف ${ codeItem.discountCeiling } تومان`;
     }
     return '';
-  }
-
-  loadBrandDependency(brandId: Array<string>)
-  {
-    const generalCustomers = this.getCustomerByBrandId(brandId);
-    this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
-    this.baseInfoService.GetDiscountCodePatterns(brandId[0]).subscribe(value =>
-    {
-      this.awareDiscountCodePatterns$.next(value ?? []);
-    });
   }
 
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>

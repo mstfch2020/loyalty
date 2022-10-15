@@ -247,6 +247,7 @@ export class BaseInfoService
         this.commissionsBasis$.next([]);
         return;
       }
+      value.commissionsBasis.sort((a: number, b: number) => a - b);
       this.commissionsBasis$.next(value.commissionsBasis);
 
     });

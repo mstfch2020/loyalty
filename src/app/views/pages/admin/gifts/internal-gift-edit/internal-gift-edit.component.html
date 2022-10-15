@@ -124,8 +124,12 @@
 
           <div [ngClass]="{'disabled':isDisabled}"
             class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px h-55px justify-content-end">
-            <span class="mx-1">
-              {{uploader.files?uploader.files[0]?.name:''}}
+            <span class="mx-1" *ngIf="uploader.files&&uploader.files[0]?.name">
+              {{uploader.files[0]?.name}}
+            </span>
+
+            <span class="mx-1" *ngIf="!(uploader.files&&uploader.files[0]?.name)">
+              {{service.getValue('exporterBrandLogoName')}}
             </span>
             <div class="btn btn-warning rounded-pill font-yekan-bold px-4 text-white d-block fileUploaderButton"
               dir="rtl" (click)="uploader.click()">

@@ -27,6 +27,7 @@ export interface InternalPointAward
   discountCodeDaysAfterIssuedCode: number;
   id: string;
   categoryId: string;
+  exporterBrandLogoName: string;
 }
 
 export const InternalPointAwardInit: InternalPointAward =
@@ -44,7 +45,8 @@ export const InternalPointAwardInit: InternalPointAward =
   discountCodeDate: periodInit,
   discountCodeDaysAfterIssuedCode: 0,
   id: '',
-  categoryId: ''
+  categoryId: '',
+  exporterBrandLogoName: '',
 };
 export interface AwareDiscountCodePattern
 {

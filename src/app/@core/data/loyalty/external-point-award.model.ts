@@ -22,6 +22,8 @@ export interface ExternalPointAward
   awardFileId: string;
   id: string;
   categoryId: string;
+  exporterBrandLogoName: string;
+  awardFileName: string;
 }
 
 export const externalPointAwardInit: ExternalPointAward =
@@ -37,4 +39,6 @@ export const externalPointAwardInit: ExternalPointAward =
   id: '',
   categoryId: '',
   awardFileId: '',
+  exporterBrandLogoName: '',
+  awardFileName: '',
 };

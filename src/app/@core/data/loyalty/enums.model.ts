@@ -126,6 +126,8 @@ export enum FilterNames
   ProviderBrandFilter = 29,
   MinimumVolumeFilter = 30,
   MaximumVolumeFilter = 31,
+  PercentRadioBox = 32,
+  CommissionRadioBox = 33,
 }
 
 export enum StatusType
@@ -155,10 +157,10 @@ export enum ContractStatus
 {
 
   None = 0,
-  Active = 1,
-  Request = 2,
-  Edited = 3,
-  Reject = 4
+  New = 1,
+  Closed = 2,
+  Rejected = 3,
+  Edited = 4
 }
 
 export enum SchoolType

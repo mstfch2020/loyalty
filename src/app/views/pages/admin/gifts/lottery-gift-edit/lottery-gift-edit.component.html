@@ -56,8 +56,12 @@
 
           <div [ngClass]="{'disabled':isDisabled}"
             class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px h-55px justify-content-end">
-            <span class="mx-1">
-              {{uploader.files?uploader.files[0]?.name:''}}
+            <span class="mx-1" *ngIf="uploader.files&&uploader.files[0]?.name">
+              {{uploader.files[0]?.name}}
+            </span>
+
+            <span class="mx-1" *ngIf="!(uploader.files&&uploader.files[0]?.name)">
+              {{service.getValue('imageIdName')}}
             </span>
             <div class="btn btn-warning rounded-pill font-yekan-bold px-4 text-white d-block fileUploaderButton"
               dir="rtl" (click)="uploader.click()">
@@ -108,7 +112,7 @@
       <div class="d-flex flex-row align-items-center">
         <label class="float-end float-sm-start label-min-width">
           متن :
-          <span class="text-danger">*</span>
+          <span class="text-danger"></span>
         </label>
         <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2 " style="min-height: 300px;">
 
@@ -116,7 +120,7 @@
 
           <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
             <span *ngIf="!service.form.get('text')?.valid && service.form.get('text')?.touched && !isDisabled">
-              برند صادر کننده را مشخص نمایید
+
             </span>
           </div>
         </div>
@@ -158,7 +162,7 @@
                 <span class="text-danger">*</span>
               </label>
               <div class="d-flex flex-column flex-grow-1 flex-shrink-1 ">
-                <input [readOnly]="isDisabled"
+                <input [readOnly]="ticketIndex===0"
                   class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px text-center text-black border-0 h-55 px w-100 mr-8-px"
                   formControlName='ticketCount' type="text">
                 <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">

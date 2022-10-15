@@ -34,7 +34,7 @@ export class NewDiscountDialogService extends BaseService<NewDiscountDialogModel
       id: [scenario.id, [Validators.required]],
       promoterId: [scenario.promoterId, [Validators.required]],
       brandId: [scenario.brandId, [Validators.required]],
-      tagIds: [scenario.tagIds, [Validators.required]],
+      tagIds: [scenario.tagIds.length === 0 && scenario.id ? ['all'] : scenario.tagIds, [Validators.required]],
       commissionBasis: [scenario.commissionBasis, [Validators.required]],
       consumerDiscount: [scenario.consumerDiscount, [Validators.required]],
       status: [scenario.status, [Validators.required]],
@@ -48,13 +48,18 @@ export class NewDiscountDialogService extends BaseService<NewDiscountDialogModel
 
     this.form.get('brandId')?.valueChanges.subscribe(value =>
     {
+      this.form.get('tagIds')?.setValue(null);
       this.tags$.next([]);
       this.commissionSetting$.next(promoterDiscountSettingInit);
 
       if (value)
       {
         this.baseInfoService.GetAllPromoterContractedTagsByBrand(this.form.get('promoterId')?.value, value).subscribe(
-          result => this.tags$.next(result)
+          result =>
+          {
+            result.push({ id: 'all', title: 'همه' });
+            this.tags$.next(result);
+          }
         );
 
         this.baseInfoService.GetCommissionSettingByBrand(this.form.get('promoterId')?.value, value).subscribe(
@@ -94,7 +99,6 @@ export class NewDiscountDialogService extends BaseService<NewDiscountDialogModel
     {
       errorMessage += (`لطفا تگ کالا را انتخاب کنید.`);
     }
-
     else if (!value.code)
     {
       errorMessage += (`لطفا کد تخفیف را وارد نمایید.`);
@@ -116,7 +120,10 @@ export class NewDiscountDialogService extends BaseService<NewDiscountDialogModel
       this.uiService.alert(errorMessage);
       return;
     }
-
+    if (value.tagIds.some((p: string) => p === 'all'))
+    {
+      value.tagIds = [];
+    }
     console.log(value);
 
     callPostService<NewDiscountDialogModel>(url, this.http, this.uiService, value).subscribe(value =>
