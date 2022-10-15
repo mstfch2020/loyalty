@@ -1,0 +1,108 @@
+<div class="container-fluid mt-3" [formGroup]="service.form" dir="rtl">
+  <div class="row">
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start label-min-width">
+          عنوان:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+          <input [readOnly]="isDisabled"
+            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px text-center text-black border-0 h-55 px w-100 mr-8-px"
+            formControlName='title' type="text">
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span *ngIf="!service.form.get('title')?.valid && service.form.get('title')?.touched && !isDisabled">
+              عنوان جایزه را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-6">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start label-min-width">
+          تصویر:
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
+
+          <input #uploader class="form-control" type="file" dir="ltr" id="formFile" title="یک عکس انتخاب نمایید."
+            (change)="service.fileSelectionChanged($event,'imageId')" hidden>
+
+          <div [ngClass]="{'disabled':isDisabled}"
+            class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px h-55px justify-content-end">
+            <span class="mx-1" *ngIf="uploader.files&&uploader.files[0]?.name">
+              {{uploader.files[0]?.name}}
+            </span>
+
+            <span class="mx-1" *ngIf="!(uploader.files&&uploader.files[0]?.name)">
+              {{service.getValue('imageName')}}
+            </span>
+            <div class="btn btn-warning rounded-pill font-yekan-bold px-4 text-white d-block fileUploaderButton"
+              dir="rtl" (click)="uploader.click()">
+
+            </div>
+          </div>
+
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span *ngIf="!service.form.get('imageId')?.valid && service.form.get('imageId')?.touched && !isDisabled">
+              تصویر را مشخص نمایید
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start label-min-width">
+          متن :
+          <span class="text-danger"></span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2 " style="min-height: 300px;">
+
+          <editor [init]="{base_url:'/tinymce',suffix: '.min'}" [formControlName]="'text'"></editor>
+
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span *ngIf="!service.form.get('text')?.valid && service.form.get('text')?.touched && !isDisabled">
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row pr-1 text-end fs-08 d-flex flex-row align-items-center ">
+    <div class="switch">
+      <div class="toggle" [ngClass]="{'active':commentable.checked,'inactive':!commentable.checked}">
+        <input type="checkbox" formControlName='commentable' id='commentable' #commentable>
+        <label for="commentable"></label>
+      </div>
+    </div>
+
+    <div style="min-width:55px;">
+      دارای قابلیت نظردهی
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-6 col-sm-3">
+      <button class="btn btn-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+        (click)="service.submit()">
+        انتشار
+      </button>
+    </div>
+    <div class="col-6 col-sm-3">
+      <button class="btn btn-outline-warning w-100 rounded-pill font-yekan-regular px-4 text-white d-block" dir="rtl"
+        (click)="backToList()">
+        پیش نویس
+      </button>
+    </div>
+  </div>
+
+</div>

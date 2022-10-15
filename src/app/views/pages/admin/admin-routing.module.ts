@@ -62,8 +62,8 @@ const routes: Routes = [
       },
       {
         path: 'news',
-        loadChildren: () => import('src/app/views/pages/admin/gifts/gifts.module')
-          .then(m => m.GiftsModule)
+        loadChildren: () => import('src/app/views/pages/admin/news/news.module')
+          .then(m => m.NewsModule)
       },
       {
         path: 'profile',

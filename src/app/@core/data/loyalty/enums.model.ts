@@ -128,6 +128,7 @@ export enum FilterNames
   MaximumVolumeFilter = 31,
   PercentRadioBox = 32,
   CommissionRadioBox = 33,
+  NewsStatus = 34,
 }
 
 export enum StatusType

@@ -1,0 +1,112 @@
+<div dir="rtl">
+  <div class="container-fluid">
+
+    <div *ngIf="theViewList.length>0||activeFilterName!==0" class="row mt-4">
+      <div class="col-12">
+        <div class="d-flex flex-row justify-content-start">
+          <span class="text-success px-2"> تایید </span>
+          <span class="text-danger px-2"> عدم تایید </span>
+          <span class="text-warning px-2"> پاسخ دادن</span>
+          <span class="text-dark px-2"> حذف</span>
+          <span class="text-dark px-2"> هرزنامه </span>
+
+        </div>
+        <div class="table-responsive">
+          <table cellspacing="1" class="table table-hover border-spacing-xs border-0  table-striped w-auto">
+            <thead>
+              <tr>
+                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col">
+                  <label class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+                    <div class="d-flex flex-row align-items-center mt-3">
+                      <input checked class="form-check-input" id="selectAll" type="checkbox" #selectAll>
+                      <label class="form-check-label mr-1 cursor-pointer" for="selectAll">
+
+                      </label>
+                    </div>
+                  </label>
+                </th>
+
+                <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
+                  *ngFor="let headerItem of headerItems;">
+                  <app-table-header-filter [activeFilterName]="activeFilterName" [filterName]="headerItem"
+                    (onOpenFilterForm)="openFilterForm($event)" (onCloseFilterForm)="closeFilterForm($event)"
+                    (onApplyFilterForm)="applyFilterForm($event)">
+                  </app-table-header-filter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let item of theViewList;let i=index">
+                <tr (click)="goToEdit(item.id)">
+                  <td class="pr-1 text-end padding-05 pr-1" scope="row">
+                    <label class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+                      <div class="d-flex flex-row align-items-center mt-3">
+                        <input checked class="form-check-input" id="selectAll" type="checkbox" #selectAll>
+                        <label class="form-check-label mr-1 cursor-pointer" for="selectAll">
+
+                        </label>
+                      </div>
+                    </label>
+                  </td>
+                  <td class="pr-1 text-end padding-05 pr-1" scope="row">
+                    <div class="pr-1 text-end fs-08 d-flex flex-column">
+                      <span class="fs-09">
+                        {{item.name}}
+                      </span>
+                      <span class="text-secondary">
+                        {{item.userType}}
+                      </span>
+                    </div>
+                  </td>
+                  <td class="w-50 pr-1 text-end fs-08 text-wrap text-break">
+                    <div class="d-flex flex-column justify-content-center">
+
+                      <span class="wm-50">
+                        {{item.comment}}
+                      </span>
+                      <div class="d-flex flex-row justify-content-center">
+                        <span class="text-success px-2"> تایید </span>
+                        <span class="text-danger px-2"> عدم تایید </span>
+                        <span class="text-warning px-2"> پاسخ دادن</span>
+                        <span class="text-dark px-2"> حذف</span>
+                        <span class="text-dark px-2"> هرزنامه </span>
+
+                      </div>
+                    </div>
+                  </td>
+                  <td class="pr-1 text-end fs-08">
+                    {{item.date}}
+                  </td>
+
+                </tr>
+                <tr (click)="goToEdit(item.id)">
+                  <td colspan="4">
+                    <div class="d-flex flex-column">
+
+                      <div class="d-flex flex-row">
+                        در حال پاسخ دادن
+                      </div>
+
+                      <div class="d-flex flex-row">
+                        <div class="border-1 flex-grow-1">
+                          <input
+                            class="form-control rounded-pill d-flex flex-row align-items-end gap-2 p-10px text-end text-black border-0 h-55 px w-100 mr-8-px"
+                            formControlName='title' type="text">
+                        </div>
+                        <div class="px-2 flex-shrink-1">ok</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <app-pagination [pageSize]="pageSize" [totalPages]="service.totalPages" [pageIndex]="pageIndex"
+        (notifyPageIndex)="selectedPageIndex($event)">
+      </app-pagination>
+    </div>
+
+  </div>
+</div>

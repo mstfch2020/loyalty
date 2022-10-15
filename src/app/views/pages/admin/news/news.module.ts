@@ -1,13 +1,17 @@
 import { NgModule } from "@angular/core";
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { SharedModule } from "../shared.module";
-import { giftsComponents, GiftsRoutingModule } from "./gifts-routing.module";
+import { newsComponents, NewsRoutingModule } from "./news-routing.module";
+import { NewsEditComponent } from './news-edit/news-edit.component';
+import { CommentComponent } from './comment/comment.component';
 @NgModule({
   declarations: [
-    ...giftsComponents
+    ...newsComponents,
+    NewsEditComponent,
+    CommentComponent
   ],
   imports: [
-    GiftsRoutingModule,
+    NewsRoutingModule,
     SharedModule,
     EditorModule
   ], providers: [{ provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }],
@@ -15,6 +19,6 @@ import { giftsComponents, GiftsRoutingModule } from "./gifts-routing.module";
 
   ]
 })
-export class GiftsModule
+export class NewsModule
 {
 }

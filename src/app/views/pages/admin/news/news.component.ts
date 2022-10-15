@@ -1,67 +1,26 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 
 @Component({
-  selector: 'app-gifts-code',
-  templateUrl: './gifts.component.html',
-  styleUrls: ['./gifts.component.scss']
+  selector: 'app-news-code',
+  templateUrl: './news.component.html',
+  styleUrls: ['./news.component.scss']
 })
-export class GiftsComponent implements OnInit
+export class NewsComponent implements OnInit
 {
-  giftType = 1;
-  id = '';
-  isInListRoute = true;
+  isInListRoute = false;
 
-  constructor(private router: Router, private cdref: ChangeDetectorRef, public baseInfoService: BaseInfoService)
+  constructor(private router: Router)
   {
 
   }
 
   ngOnInit(): void
   {
-    this.baseInfoService.loadCategory();
-    this.checkRoutOption();
+    this.isInListRoute = document.URL.includes('comment');
     this.router.events.subscribe((val) =>
     {
-      this.checkRoutOption();
+      this.isInListRoute = document.URL.includes('comment');
     });
-  }
-
-  private checkRoutOption()
-  {
-    this.isInListRoute = document.URL.includes('list');
-    if (document.URL.includes('internal'))
-    {
-      this.giftType = 0;
-    }
-    else if (document.URL.includes('external'))
-    {
-      this.giftType = 1;
-    }
-    else
-    {
-      this.giftType = 2;
-    }
-    this.cdref.detectChanges();
-  }
-
-  public selectedSwitch(event: number)
-  {
-    switch (event)
-    {
-      case 0: {
-        this.router.navigate(['/admin/main/gifts/internal-edit'], { queryParams: { id: this.id } });
-        return;
-      }
-      case 1: {
-        this.router.navigate(['/admin/main/gifts/external-edit'], { queryParams: { id: this.id } });
-        return;
-      }
-      case 2: {
-        this.router.navigate(['/admin/main/gifts/lottery-edit'], { queryParams: { id: this.id } });
-        return;
-      }
-    }
   }
 }

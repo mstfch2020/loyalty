@@ -19,6 +19,6 @@ export class SendSmsComponent implements OnInit
   }
   ngOnInit(): void
   {
-
+    this.isInListRoute = document.URL.includes('list');
   }
 }

@@ -1,62 +1,63 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { ExternalGiftEditComponent } from "./external-gift-edit/external-gift-edit.component";
-import { ExternalGiftListComponent } from "./external-gift-list/external-gift-list.component";
-import { GiftsComponent } from "./gifts.component";
-import { InternalGiftEditComponent } from "./internal-gift-edit/internal-gift-edit.component";
-import { InternalGiftListComponent } from "./internal-gift-list/internal-gift-list.component";
-import { LotteryGiftEditComponent } from "./lottery-gift-edit/lottery-gift-edit.component";
-import { LotteryGiftListComponent } from "./lottery-gift-list/lottery-gift-list.component";
+import { CommentComponent } from "./comment/comment.component";
+import { NewsEditComponent } from "./news-edit/news-edit.component";
+import { NewsListComponent } from "./news-list/news-list.component";
+import { NewsComponent } from "./news.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: GiftsComponent,
+    component: NewsComponent,
     children: [
       {
         path: '',
-        redirectTo: 'internal-list',
+        redirectTo: 'news-list',
         pathMatch: 'full'
       },
       {
-        path: 'internal-list',
-        component: InternalGiftListComponent,
+        path: 'news-list',
+        component: NewsListComponent,
       },
       {
-        path: 'external-list',
-        component: ExternalGiftListComponent,
+        path: 'edit',
+        component: NewsEditComponent,
       },
       {
-        path: 'lottery-list',
-        component: LotteryGiftListComponent,
+        path: 'all-comments',
+        component: CommentComponent,
       },
       {
-        path: 'internal-edit',
-        component: InternalGiftEditComponent
+        path: 'confirmed-comments',
+        component: CommentComponent,
       },
       {
-        path: 'external-edit',
-        component: ExternalGiftEditComponent
+        path: 'awaiting-confirmation-comments',
+        component: CommentComponent,
       },
       {
-        path: 'lottery-edit',
-        component: LotteryGiftEditComponent
+        path: 'spam-comments',
+        component: CommentComponent,
+      },
+      {
+        path: 'garbage-comments',
+        component: CommentComponent,
       }
     ]
   }
 ];
 
-export const giftsComponents = [
-  GiftsComponent,
-  InternalGiftListComponent, ExternalGiftListComponent, LotteryGiftListComponent,
-  InternalGiftEditComponent, ExternalGiftEditComponent, LotteryGiftEditComponent
-
+export const newsComponents = [
+  NewsComponent,
+  NewsListComponent,
+  NewsEditComponent,
+  CommentComponent
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class GiftsRoutingModule
+export class NewsRoutingModule
 {
 }
