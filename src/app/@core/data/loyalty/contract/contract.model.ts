@@ -84,8 +84,8 @@ export const contractInit: Contract = {
   shopContract: shopContractInit,
   tagIds: [],
   from: periodInit,
-  to: periodInit
-
+  to: periodInit,
+  employmentType: 1
 };
 
 

@@ -10,12 +10,11 @@
             </label>
           </div>
           <div class="col-9">
-            <ng-select (change)="service.brandChanged($event,'brandId')"
-              [items]="baseInfoService.brands$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
-              bindLabel="title" bindValue="id" class="form-control" formControlName="brandId">
+            <ng-select (change)="service.brandChanged($event,'brandId')" [items]="baseInfoService.brands$|async"
+              [multiple]="false" [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id"
+              class="form-control" formControlName="brandId">
             </ng-select>
-            <div
-              *ngIf="!service.form.get('brandId')?.valid && service.form.get('brandId')?.touched && !isDisabled"
+            <div *ngIf="!service.form.get('brandId')?.valid && service.form.get('brandId')?.touched && !isDisabled"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
               برند را مشخص نمایید
             </div>
@@ -31,9 +30,9 @@
             </label>
           </div>
           <div class="col-9">
-            <ng-select (change)="service.brandChanged($event,'userTypeId')"
-              [items]="baseInfoService.userTypes$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
-              bindLabel="title" bindValue="id" class="form-control" formControlName="userTypeId">
+            <ng-select (change)="service.brandChanged($event,'userTypeId')" [items]="baseInfoService.userTypes$|async"
+              [multiple]="false" [readonly]="isDisabled" appendTo="body" bindLabel="title" bindValue="id"
+              class="form-control" formControlName="userTypeId">
             </ng-select>
             <div
               *ngIf="!service.form.get('userTypeId')?.valid && service.form.get('userTypeId')?.touched && !isDisabled"
@@ -104,6 +103,78 @@
                 <input [(ngModel)]="percentTo" [readOnly]="isDisabled"
                   class="text-center text-black border-0 h-40px w-100 mr-8-px" formControlName='customerDiscountMax'
                   thousandSeparator="," type="text">
+                <div class="fs-08 text-gray-500">
+                  %
+                </div>
+              </div>
+              <div *ngIf="percentTo>100 && !isDisabled" class="text-danger font-yekan-regular fs-08 pr-1 mt-1"
+                dir="rtl">
+                مقدار نامعتبر
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3">
+            <label class="float-start mt-3">
+              پایه پورسانت تایید شده:
+              <span class="text-danger">*</span>
+            </label>
+          </div>
+          <div class="col-4">
+            <div [ngClass]="{'disabled':isDisabled,'border-red':percent>100}"
+              class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+              <input [readOnly]="isDisabled" class="text-center text-black border-0 h-40px w-100 mr-8-px"
+                formControlName='acceptedCommissionBasis' thousandSeparator="," type="text">
+              <div class="fs-08 text-gray-500">
+                %
+              </div>
+            </div>
+            <div *ngIf="percent>100 && !isDisabled" class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+              مقدار نامعتبر
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3">
+            <label class="float-start mt-3">
+              تخفیف برای مشتریان تایید شده:
+            </label>
+          </div>
+          <div class="col-9 d-flex flex-row gap-3 align-items-center">
+            <span class="text-black">
+              از
+            </span>
+            <div>
+              <div [ngClass]="{'disabled':isDisabled,'border-red':percentFrom>100}"
+                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input [(ngModel)]="percentFrom" [readOnly]="isDisabled"
+                  class="text-center text-black border-0 h-40px w-100 mr-8-px"
+                  formControlName='acceptedCustomerDiscountMin' thousandSeparator="," type="text">
+                <div class="fs-08 text-gray-500">
+                  %
+                </div>
+              </div>
+              <div *ngIf="percentFrom>100 && !isDisabled" class="text-danger font-yekan-regular fs-08 pr-1 mt-1"
+                dir="rtl">
+                مقدار نامعتبر
+              </div>
+            </div>
+            <span class="text-black">
+              تا
+            </span>
+            <div>
+              <div [ngClass]="{'disabled':isDisabled,'border-red':percentTo>100}"
+                class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px">
+                <input [(ngModel)]="percentTo" [readOnly]="isDisabled"
+                  class="text-center text-black border-0 h-40px w-100 mr-8-px"
+                  formControlName='acceptedCustomerDiscountMax' thousandSeparator="," type="text">
                 <div class="fs-08 text-gray-500">
                   %
                 </div>

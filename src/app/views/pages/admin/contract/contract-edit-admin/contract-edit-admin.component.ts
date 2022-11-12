@@ -64,6 +64,7 @@ export class ContractEditAdminComponent implements OnInit
 
   disableForm()
   {
+    this.service.isDisabled = true;
     this.service.form.disable();
     this.service.form.get('tagIds')?.enable();
     this.service.form.get('startDate')?.enable();

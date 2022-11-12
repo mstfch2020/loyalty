@@ -129,6 +129,8 @@ export enum FilterNames
   PercentRadioBox = 32,
   CommissionRadioBox = 33,
   NewsStatus = 34,
+  CommissionProposedFilter = 35,
+  CustomerDiscountProposedFilter = 36
 }
 
 export enum StatusType
@@ -169,6 +171,14 @@ export enum SchoolType
   None = 0,
   Gov = 1,
   Commercial = 2
+}
+
+
+export enum EmploymentType
+{
+  None = 0,
+  Gov = 1,
+  NoneGov = 2
 }
 
 export enum OwnershipType

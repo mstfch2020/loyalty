@@ -5,6 +5,7 @@ import { BehaviorSubject, Subject } from "rxjs";
 import { Contract } from "../../data/loyalty/contract/Contract";
 import { ActiveContract, contractInit, createDistributor, createShopContract, createTeacher, PromoterContracts, RequestContract } from "../../data/loyalty/contract/contract.model";
 import { ContractConfirm } from "../../data/loyalty/contract/ContractConfirm";
+import { EmploymentType } from "../../data/loyalty/enums.model";
 import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { Utility } from "../../utils/Utility";
 import { SettingsService } from "../settings-service";
@@ -47,6 +48,7 @@ export class ContractService extends BaseService<Contract>
       stateId: [contract.stateId, [Validators.required]],
       cityId: [contract.cityId, [Validators.required]],
       type: [contract.type, [Validators.required]],
+      employmentType: [contract.employmentType, [Validators.required]],
       brandId: [contract.brandId, [Validators.required]],
       distributor: createDistributor(contract.distributor, this.formBuilder),
       shopContract: createShopContract(contract.shopContract, this.formBuilder),
@@ -217,6 +219,14 @@ export class ContractService extends BaseService<Contract>
     delete value.tagIds;
     delete value.startDate;
     delete value.endDate;
+
+    if (value.employmentType === EmploymentType.Gov)
+    {
+      if (!value.personnelCode)
+      {
+        this.uiService.alert('کد پرسنلی نادرست است.');
+      }
+    }
 
     value.mobile = this.form.get('mobile')?.value;
     if (!isValidPhonenumber(value.mobile))

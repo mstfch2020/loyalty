@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <span class="font-yekan-bold fs-20px text-black">
-          تایید درخواست ترویج دهنده
+          قرارداد فعال
         </span>
       </div>
     </div>
@@ -24,9 +24,9 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-              <input class="text-center text-black border-0 h-40px w-100" formControlName='mobile' type="text"
-                [maxLength]="11" [minlength]="11" mask="00000000000">
+            <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+              <input class="text-center text-black border-0 h-40px w-100 form-control" formControlName='mobile'
+                type="text" [maxLength]="11" [minlength]="11" mask="00000000000">
             </div>
           </div>
         </div>
@@ -63,8 +63,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='firstName' type="text">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='firstName'
+                    type="text">
                 </div>
               </div>
             </div>
@@ -79,8 +80,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='lastName' type="text">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='lastName'
+                    type="text">
                 </div>
               </div>
             </div>
@@ -100,10 +102,29 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='nationalCode' type="text"
-                    [maxLength]="10" [minlength]="10" mask="0000000000">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class=" form-control text-center text-black border-0 h-40px w-100"
+                    formControlName='nationalCode' type="text" [maxLength]="10" [minlength]="10" mask="0000000000">
                 </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+            <div class="row">
+              <div class="col-12 col-sm-3">
+                <label class="float-end float-sm-start mt-3">
+                  نوع استخدام :
+                  <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+                </label>
+              </div>
+              <div class="col-12 col-sm-9">
+                <ng-select [items]="baseInfoService.employmentType" [multiple]="false" appendTo="body" bindLabel="title"
+                  bindValue="id" class="form-control mb-3" formControlName="employmentType">
+                </ng-select>
               </div>
             </div>
           </div>
@@ -117,9 +138,10 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='personnelCode'
-                    type="text" [maxLength]="10" [minlength]="10" mask="9999999999" type="text">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100"
+                    formControlName='personnelCode' type="text" [maxLength]="10" [minlength]="10" mask="9999999999"
+                    type="text">
                 </div>
               </div>
             </div>
@@ -139,9 +161,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='phone' type="text"
-                    mask="99999999999999" type="text">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='phone'
+                    type="text" mask="99999999999999" type="text">
                 </div>
               </div>
             </div>
@@ -156,9 +178,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='postalCode' type="text"
-                    [maxLength]="10" [minlength]="10" mask="0000000000">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='postalCode'
+                    type="text" [maxLength]="10" [minlength]="10" mask="0000000000">
                 </div>
               </div>
             </div>
@@ -214,8 +236,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-10">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='address' type="text">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='address'
+                    type="text">
                 </div>
               </div>
             </div>
@@ -248,8 +271,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='shopName' type="text">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='shopName'
+                    type="text">
                 </div>
               </div>
             </div>
@@ -264,8 +288,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='postion' type="text">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='postion'
+                    type="text">
                 </div>
               </div>
             </div>
@@ -301,9 +326,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='officeArea' type="text"
-                    mask="999999999">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='officeArea'
+                    type="text" mask="999999999">
                 </div>
               </div>
             </div>
@@ -364,9 +389,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='broadcastCenterName'
-                    type="text">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100"
+                    formControlName='broadcastCenterName' type="text">
                 </div>
               </div>
             </div>
@@ -381,8 +406,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='positon' type="text">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='positon'
+                    type="text">
                 </div>
               </div>
             </div>
@@ -438,9 +464,9 @@
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-                  <input class="text-center text-black border-0 h-40px w-100" formControlName='officeArea' type="text"
-                    mask="999999999">
+                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                  <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='officeArea'
+                    type="text" mask="999999999">
                 </div>
               </div>
             </div>
@@ -517,6 +543,10 @@
       </div>
       <!-- teachers end -->
       <hr>
+      <!-- teachers end -->
+      <app-other-contracts>
+
+      </app-other-contracts>
       <div class="row">
         <div class="col-12">
           <span class="font-yekan-bold fs-20px text-black">

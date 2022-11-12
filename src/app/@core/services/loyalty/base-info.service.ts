@@ -92,6 +92,11 @@ export class BaseInfoService
     { id: 3, title: 'فروشگاه' },
   ];
 
+  employmentType: Array<EnumTitle> = [
+    { id: 1, title: 'رسمی' },
+    { id: 2, title: 'غیر رسمی' },
+  ];
+
   RestPeriodTypeList: Array<EnumTitle> = [
     {
       id: 1,

@@ -32,8 +32,11 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     this.form = this.formBuilder.group({
       brandId: [promoterDiscountSetting.brandId, [Validators.required]],
       commissionBasis: [promoterDiscountSetting.commissionBasis, [Validators.required]],
+      acceptedCommissionBasis: [promoterDiscountSetting.acceptedCommissionBasis, [Validators.required]],
       customerDiscountMin: [promoterDiscountSetting.customerDiscountMin, [Validators.required]],
+      acceptedCustomerDiscountMin: [promoterDiscountSetting.acceptedCustomerDiscountMin, [Validators.required]],
       customerDiscountMax: [promoterDiscountSetting.customerDiscountMax, [Validators.required]],
+      acceptedCustomerDiscountMax: [promoterDiscountSetting.acceptedCustomerDiscountMax, [Validators.required]],
       id: [promoterDiscountSetting.id, [Validators.required]],
       userTypeId: [promoterDiscountSetting.userTypeId, [Validators.required]],
     });

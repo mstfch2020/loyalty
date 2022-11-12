@@ -390,6 +390,33 @@
       [isCriteria]="false" [isRadio]="false" [items]="service.theContractFilterStatusList" [filterType]="5">
     </app-filter>
   </ng-container>
+  <!-- 35 -->
+  <ng-container *ngSwitchCase="FilterNames.CommissionProposedFilter">
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      {{title ? title : 'پایه پورسانت پیشنهادی'}}
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterCommissionProposedSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [items]="service.theFilterCommissionList" [filterType]="5">
+    </app-filter>
+  </ng-container>
+  <!-- 36 -->
+  <ng-container *ngSwitchCase="FilterNames.CustomerDiscountProposedFilter">
+    <label [ngClass]="{'selected':isVisible()}" (click)="openFilterForm()"
+      class="filter-title d-flex flex-row align-items-center flex-nowrap justify-content-start">
+      {{title ? title : 'بازه تخفیف پیشنهادی مشتریان'}}
+      <ng-container [ngTemplateOutlet]="filterIcon"
+        [ngTemplateOutletContext]="{ $implicit: service.theFilterPercentProposedSelectedList.length===0}">
+      </ng-container>
+    </label>
+    <app-filter (applyEvent)="applyFilterForm($event)" (cancelEvent)="closeFilterForm()" [visible]="isVisible()"
+      [isCriteria]="true" [items]="service.theFilterPercentList" [filterType]="5">
+    </app-filter>
+  </ng-container>
+
 </ng-container>
 
 

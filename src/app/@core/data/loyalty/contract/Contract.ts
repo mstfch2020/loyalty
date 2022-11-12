@@ -1,4 +1,4 @@
-import { ContractType } from "../enums.model";
+import { ContractType, EmploymentType } from "../enums.model";
 import { Period } from "../period.model";
 import { Distributor } from "./Distributor";
 import { ShopContract } from "./ShopContract";
@@ -27,5 +27,6 @@ export interface Contract
   tagIds: Array<string>;
   from: Period;
   to: Period;
+  employmentType: EmploymentType;
 }
 

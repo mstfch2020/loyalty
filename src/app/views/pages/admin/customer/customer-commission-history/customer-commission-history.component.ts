@@ -25,7 +25,7 @@ export class CustomerCommissionHistoryComponent extends BaseSearch implements On
     new HeaderFilter(FilterNames.DiscountCode),
     new HeaderFilter(FilterNames.ProductTag),
     new HeaderFilter(FilterNames.None, 'تعداد'),
-    new HeaderFilter(FilterNames.None, 'مجموع سفارش'),
+    new HeaderFilter(FilterNames.None, 'قیمت مصرف کننده'),
     new HeaderFilter(FilterNames.CommissionRadioBox, 'درصد'),
     new HeaderFilter(FilterNames.None, 'پورسانت'),
     ];
