@@ -16,7 +16,8 @@ export class SystemSettingsDiscountListComponent extends BaseSearch implements O
 {
 
   theViewList = new Array<any>();
-  headerItems = [FilterNames.UserType, FilterNames.Brand, FilterNames.Commission, FilterNames.CommissionProposedFilter, FilterNames.Percent, FilterNames.CustomerDiscountProposedFilter, 'وضعیت'];
+  headerItems = [FilterNames.UserType, FilterNames.Brand, FilterNames.Commission,
+  FilterNames.CommissionProposedFilter, FilterNames.Percent, FilterNames.CustomerDiscountProposedFilter, 'وضعیت'];
   closeResult: string = '';
 
   constructor(

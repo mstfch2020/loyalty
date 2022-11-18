@@ -88,7 +88,35 @@
 
     </div>
   </div>
+  <div class="row my-3">
+    <div class="col-6  d-flex align-items-center">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start label-min-width">
+          بازه زمانی:
+          <span class="text-danger">*</span>
+        </label>
+        <label class="  mx-2">
+          از
+        </label>
+        <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+          [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+          <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true" style="width: 130px;padding:10px"
+            class="time-picker-input h-30px form-control rounded-pill text-center text-black" dir="ltr"
+            formControlName="startDate" mask="0000/M0/d0" type="text" />
+        </ng-persian-datepicker>
+        <label class="  mx-2">
+          تا
+        </label>
+        <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+          [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+          <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+            class=" time-picker-input h-30px form-control  rounded-pill text-center text-black" dir="ltr"
+            formControlName="endDate" mask="0000/M0/d0" type="text" />
+        </ng-persian-datepicker>
+      </div>
 
+    </div>
+  </div>
   <div class="row">
     <div class="col-6">
       <div class="d-flex flex-row align-items-center">
@@ -252,6 +280,28 @@
     عنوان جایزه: {{service.getTitle()}}
 
   </label>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex flex-row align-items-center">
+        <label class="float-end float-sm-start label-min-width">
+          متن :
+          <span class="text-danger">*</span>
+        </label>
+        <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2 " style="min-height: 300px;">
+
+          <editor [init]="{base_url:'/tinymce',suffix: '.min'}" [formControlName]="'text'"></editor>
+
+          <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
+            <span *ngIf="!service.form.get('text')?.valid && service.form.get('text')?.touched && !isDisabled">
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div class="row mt-5">
     <div class="col-6 col-sm-3">

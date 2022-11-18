@@ -1,3 +1,4 @@
+import { Period, periodInit } from "./period.model";
 
 export interface ExternalPointAwardGrid
 {
@@ -12,6 +13,9 @@ export interface ExternalPointAwardGrid
 export interface ExternalPointAward
 {
   title: string;
+  periodMin: Period;
+  periodMax: Period;
+  text: string;
   providerBrandId: string;
   userTypeId: string;
   groupId: string;
@@ -29,6 +33,9 @@ export interface ExternalPointAward
 export const externalPointAwardInit: ExternalPointAward =
 {
   title: '',
+  periodMax: periodInit,
+  periodMin: periodInit,
+  text: '',
   providerBrandId: '',
   userTypeId: '',
   groupId: '',

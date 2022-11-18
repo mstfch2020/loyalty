@@ -150,10 +150,10 @@ export class BaseInfoService
       const defArray = [{ id: 'all', title: 'همه' }];
       const defArrayType = [{ id: 'all', title: 'همه', type: 4 }];
       this.activity$.next(resultValue?.activity === null ? [] : resultValue?.activity);
-      this.brands$.next(resultValue?.brands === null ? defArray : resultValue?.brands.concat(defArray));
       this.brandsSingle$.next(resultValue?.brands === null ? [] : resultValue?.brands);
-      this.userTypes$.next(resultValue?.userTypes === null ? defArray : resultValue?.userTypes.concat(defArray));
+      this.brands$.next(resultValue?.brands === null ? defArray : resultValue?.brands.concat(defArray));
       this.userTypesSinle$.next(resultValue?.userTypes === null ? [] : resultValue?.userTypes);
+      this.userTypes$.next(resultValue?.userTypes === null ? defArray : resultValue?.userTypes.concat(defArray));
       this.customerGroups$.next(resultValue?.customerGroups === null ? [] : resultValue?.customerGroups);
       this.products$.next(resultValue?.products === null ? [] : resultValue?.products);
       const generalCustomers = resultValue?.generalCustomers === null ? defArrayType : resultValue?.generalCustomers.concat(defArrayType);

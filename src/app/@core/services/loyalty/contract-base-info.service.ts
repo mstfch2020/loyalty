@@ -31,6 +31,7 @@ export class ContractBaseInfoService
   shopActivitySections$ = new BehaviorSubject<Array<IdTitle>>([]);
   allCities$ = new BehaviorSubject<Array<IdTitle>>([]);
   schoolType$ = new BehaviorSubject<Array<IdTitle>>([]);
+  filed$ = new BehaviorSubject<Array<IdTitle>>([]);
 
   loadBaseInfoData(request?: Contract, callback?: any)
   {
@@ -45,7 +46,8 @@ export class ContractBaseInfoService
       grades: this.GetGradesByLevelId(null),
       lessons: this.GetLessonsByGradeId(null),
       allCities: this.GetAllCities(),
-      schoolType: this.GetSchoolTypes()
+      schoolType: this.GetSchoolTypes(),
+      fields: this.GetFieldTypes()
     };
 
     forkJoin(requests).pipe(takeUntil(this.unsubscribe)).subscribe(result =>
@@ -62,6 +64,7 @@ export class ContractBaseInfoService
       this.shopActivitySections$.next(resultValue?.shopActivitySections === null ? [] : resultValue?.shopActivitySections);
       this.allCities$.next(resultValue?.allCities === null ? [] : resultValue?.allCities);
       this.schoolType$.next(resultValue?.schoolType === null ? [] : resultValue?.schoolType);
+      this.filed$.next(resultValue?.fields === null ? [] : resultValue?.fields);
       if (callback)
       {
         callback();
@@ -173,6 +176,12 @@ export class ContractBaseInfoService
   GetSchoolTypes()
   {
     const url = this.settingService.settings?.baseUrl + 'ContractBasciData/GetSchoolTypes';
+    return callGetService<any>(url, this.http, this.uiService);
+  }
+
+  GetFieldTypes()
+  {
+    const url = this.settingService.settings?.baseUrl + 'ContractBasciData/GetEducationField';
     return callGetService<any>(url, this.http, this.uiService);
   }
 
@@ -301,6 +310,19 @@ export class ContractBaseInfoService
       if (value?.schoolTypeId)
       {
         return (value.schoolTypeId);
+      }
+      return (null);
+    })));
+  }
+
+  CreateFiled(name: string): Observable<string>
+  {
+    const url = this.settingService.settings?.baseUrl + 'ContractBasciData/CreateEducationField';
+    return callPostService<any>(url, this.http, this.uiService, { name: name }).pipe(map((value =>
+    {
+      if (value?.filedId)
+      {
+        return (value.filedId);
       }
       return (null);
     })));

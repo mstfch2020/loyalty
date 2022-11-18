@@ -54,7 +54,7 @@ export class InternalGiftEditComponent implements OnInit
     this.service.form.get('providerBrandId')?.valueChanges.subscribe(brandId =>
     {
       this.service.form.get('groupId')?.setValue(null);
-      const generalCustomers = this.service.getCustomerByBrandId(brandId);
+      const generalCustomers = this.service.getCustomerByBrandId([brandId]);
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
     });
 

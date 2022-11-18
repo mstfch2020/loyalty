@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { smsInit } from 'src/app/@core/data/loyalty/sms.model';
+import { SMS, smsInit } from 'src/app/@core/data/loyalty/sms.model';
 import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
 import { SMSService } from "src/app/@core/services/loyalty/SMS.service";
 
@@ -30,26 +30,41 @@ export class SendSmsCreateComponent implements OnInit
       {
         this.service.getSmsById(id).subscribe((value) =>
         {
-
-          this.baseInfoService.loadBaseInfo(() =>
+          if (value !== null)
           {
-            if (!value)
-            {
-              value = smsInit;
-            }
-            this.service.createForm(value);
-            this.cdref.detectChanges();
-          }, value?.brandIds);
+            value.id = id;
+          }
+          this.loadBaseInfo(value);
         });
       } else
       {
-        this.baseInfoService.loadBaseInfo(() =>
-        {
-          this.service.createForm(smsInit);
-          this.cdref.detectChanges();
-        });
+        this.loadBaseInfo(null);
       }
     });
     this.service.form.markAllAsTouched();
+  }
+
+  private loadBaseInfo(value: SMS | null)
+  {
+    this.baseInfoService.loadBaseInfo(() =>
+    {
+      if (!value)
+      {
+        value = smsInit;
+      } else
+      {
+
+      }
+      this.service.createForm(value);
+
+      this.service.form.get('providerBrandId')?.valueChanges.subscribe(brandId =>
+      {
+        this.service.form.get('brandIds')?.setValue(null);
+        const generalCustomers = this.service.getCustomerByBrandId([brandId]);
+        this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
+      });
+      this.cdref.detectChanges();
+    }, value?.brandIds);
+    return value;
   }
 }

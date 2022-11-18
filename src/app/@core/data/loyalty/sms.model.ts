@@ -11,6 +11,8 @@ export interface SMS
   brandIds: Array<string>;
   userTypeIds: Array<string>,
   groupIds: Array<string>,
+  campaignIds: Array<string>,
+  phones: Array<string>;
   sernarioIds: Array<IdTitle>;
 }
 
@@ -23,6 +25,8 @@ export const smsInit: SMS = {
   brandIds: [],
   userTypeIds: [],
   groupIds: [],
+  campaignIds: [],
+  phones: [],
   sernarioIds: [],
 };
 

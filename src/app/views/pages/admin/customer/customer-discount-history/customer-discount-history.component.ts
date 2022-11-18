@@ -65,8 +65,17 @@ export class CustomerDiscountHistoryComponent extends BaseSearch implements OnIn
     });
   }
 
-  activeInActive(item: GetPromoterDiscountCodesGridResult)
+  activeInActive
+
+    (item: GetPromoterDiscountCodesGridResult)
   {
+    if (!item.isActionable)
+    {
+      this.uiService.alert('این اقدام مقدور نیست');
+      setTimeout(() => { this.uiService.alertService.clearAllMessages(); }, 3000);
+
+      return;
+    }
     const status = item.status === PromoterDiscountCodeStatus.Active ? PromoterDiscountCodeStatus.InActive : PromoterDiscountCodeStatus.Active;
     this.service.PromoterDiscountCodeSetStatus(status, item.id).subscribe(result =>
     {

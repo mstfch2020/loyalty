@@ -99,7 +99,10 @@ export class LotteryPointAwardService extends BaseService<LotteryPointAward>{
         // const lotteryGroupId = this.form.get('id')?.value ?? '';
         for (let item of value)
         {
-          this.groups.push(createLotteryGroups({ groupId: item.id, groupName: item.title, lotteryGroupId: '', tickets: [{ pointAmount: 0, ticketCount: 1, ticketId: '' }] }, this.formBuilder));
+          this.groups.push(createLotteryGroups({
+            groupId: item.id, groupName: item.title, lotteryGroupId: '',
+            tickets: [{ pointAmount: null, ticketCount: 1, ticketId: '' }]
+          }, this.formBuilder));
         }
       }
     );
@@ -152,6 +155,12 @@ export class LotteryPointAwardService extends BaseService<LotteryPointAward>{
       return;
     }
 
+    if (!value.text)
+    {
+      this.uiService.alert('متن را مشخص نمایید.');
+      return;
+    }
+
     if (!value.providerBrandId)
     {
       this.uiService.alert('برند را مشخص نمایید.');
@@ -161,6 +170,13 @@ export class LotteryPointAwardService extends BaseService<LotteryPointAward>{
     if (!value.imageId)
     {
       this.uiService.alert('تصویر را مشخص نمایید.');
+      return;
+    }
+
+
+    if (value.groups.some(group => group.tickets.some(ticket => ticket.pointAmount !== 0 && !ticket.pointAmount)))
+    {
+      this.uiService.alert('ثبت همه امتیاز ها الزامی می باشد.');
       return;
     }
 
@@ -242,6 +258,8 @@ export class LotteryPointAwardService extends BaseService<LotteryPointAward>{
 
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
   {
+
+    if (brandIds.includes('all')) { return this.baseInfoService?.generalCustomers$?.getValue(); }
     return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
   }
 }

@@ -112,7 +112,7 @@
 
         </div>
 
-        <div class="row mt-5">
+        <div class="row mt-5" *ngIf="service.getValue('type')===1">
           <div class="col-12 col-sm-6 mt-3 mt-sm-0">
             <div class="row">
               <div class="col-12 col-sm-3">
@@ -129,16 +129,16 @@
             </div>
           </div>
 
-          <div class="col-12 col-sm-6" *ngIf="service.getValue('type')===1">
+          <div class="col-12 col-sm-6">
             <div class="row">
               <div class="col-12 col-sm-3">
                 <label class="float-end float-sm-start mt-3">
                   کد پرسنلی :
-                  <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+                  <span class="text-danger" *ngIf="!service.isDisabled&&service.getValue('employmentType')===1">*</span>
                 </label>
               </div>
               <div class="col-12 col-sm-9">
-                <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+                <div class="rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
                   <input class="form-control text-center text-black border-0 h-40px w-100"
                     formControlName='personnelCode' type="text" [maxLength]="10" [minlength]="10" mask="9999999999"
                     type="text">

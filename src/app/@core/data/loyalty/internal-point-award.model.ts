@@ -14,6 +14,9 @@ export interface InternalPointAwardGrid
 export interface InternalPointAward
 {
   title: string;
+  periodMin: Period;
+  periodMax: Period;
+  text: string;
   providerBrandId: string;
   userTypeId: string;
   groupId: string;
@@ -33,6 +36,9 @@ export interface InternalPointAward
 export const InternalPointAwardInit: InternalPointAward =
 {
   title: '',
+  periodMax: periodInit,
+  periodMin: periodInit,
+  text: '',
   providerBrandId: '',
   userTypeId: '',
   groupId: '',

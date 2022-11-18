@@ -44,12 +44,12 @@
         </div>
       </div>
       <div class="list">
-        <div *ngIf="items.length==0" class="text-center">
+        <div *ngIf="_items.length==0" class="text-center">
           <div class="spinner-border text-secondary" role="status">
           </div>
         </div>
-        <ng-container *ngIf="items.length>0">
-          <ng-container *ngFor="let item of items | filter:filterForm.get('searchValue')?.value;index as i">
+        <ng-container *ngIf="_items.length>0">
+          <ng-container *ngFor="let item of _items | filter:filterForm.get('searchValue')?.value;index as i">
             <div class="d-flex flex-row align-items-center mt-2" [ngClass]="{'mt-2':i!=0}">
               <input (change)="changed(item)" [checked]="item.checked" class="form-check-input w-15-px h-15-px"
                 id="{{item.id}}" [type]="isRadio?'radio':'checkbox'" [value]="item.id"

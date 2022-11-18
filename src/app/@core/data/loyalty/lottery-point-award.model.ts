@@ -43,7 +43,7 @@ export interface LotteryGroupTicket
 {
   ticketId?: string;
   ticketCount: number;
-  pointAmount: number;
+  pointAmount: number | null;
 }
 
 export const lotteryGroupTicketInit: LotteryGroupTicket =

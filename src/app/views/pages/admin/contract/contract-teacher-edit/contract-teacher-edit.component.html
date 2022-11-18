@@ -46,6 +46,23 @@
         <div class="row">
           <div class="col-12 col-sm-3">
             <label class="float-end float-sm-start mt-3">
+              رشته :
+              <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-sm-9">
+            <ng-select [items]="contractBaseInfoService.filed$|async" [multiple]="false" appendTo="body"
+              bindLabel="title" bindValue="id" [addTag]="addTag" (change)="comboChanged($event,11)"
+              class="form-control mb-3" formControlName="filed">
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-3">
+            <label class="float-end float-sm-start mt-3">
               پایه :
               <span class="text-danger" *ngIf="!service.isDisabled">*</span>
             </label>
@@ -58,6 +75,8 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="row mt-5">
       <div class="col-12 col-sm-6">
         <div class="row">
           <div class="col-12 col-sm-3">
@@ -74,8 +93,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row mt-5">
       <div class="col-12 col-sm-6">
         <div class="row">
           <div class="col-12 col-sm-3">
@@ -85,12 +102,15 @@
             </label>
           </div>
           <div class="col-12 col-sm-9">
-            <div class="form-control rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
-              <input class="text-center text-black border-0 h-40px w-100" formControlName='school' type="text">
+            <div class=" rounded-pill d-flex flex-row align-items-center gap-2 p-10px pr-1">
+              <input class="form-control text-center text-black border-0 h-40px w-100" formControlName='school'
+                type="text">
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="row mt-5">
       <div class="col-12 col-sm-6">
         <div class="row">
           <div class="col-12 col-sm-3">

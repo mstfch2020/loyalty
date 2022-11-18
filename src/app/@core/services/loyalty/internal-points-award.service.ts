@@ -41,6 +41,7 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
     this.editMode = false;
     this.form = this.formBuilder.group({
       title: [internalAward.title, [Validators.required]],
+      text: [internalAward.text, [Validators.required]],
       providerBrandId: [internalAward.providerBrandId, [Validators.required]],
       userTypeId: [internalAward.userTypeId, [Validators.required]],
       groupId: [internalAward.groupId, [Validators.required]],
@@ -55,7 +56,13 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
       id: [internalAward.id, [Validators.required]],
       categoryId: [internalAward.categoryId ?? '', [Validators.required]],
       discountCodeDate: createPeriodFormGroup(internalAward.discountCodeDate, this.formBuilder),
-      expireDate: [Utility.getFullDateTimeFromPeriodInPersian(internalAward.discountCodeDate), [Validators.required]]
+      expireDate: [Utility.getFullDateTimeFromPeriodInPersian(internalAward.discountCodeDate), [Validators.required]],
+
+      startDate: [Utility.getFullDateTimeFromPeriodInPersian(internalAward.periodMin), [Validators.required]],
+      endDate: [Utility.getFullDateTimeFromPeriodInPersian(internalAward.periodMax), [Validators.required]],
+      periodMin: createPeriodFormGroup(internalAward.periodMin, this.formBuilder),
+      periodMax: createPeriodFormGroup(internalAward.periodMax, this.formBuilder),
+
     });
   }
 
@@ -89,6 +96,14 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
     this.uiService.alertService.clearAllMessages();
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'CreateLocal' : 'EditLocal';
     const url = this.settingService.settings?.baseUrl + `PointsAward/${ option }`;
+
+    if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
+      !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax'))
+    {
+      this.uiService.alert('بازه زمانی را وارد نمایید.');
+      return;
+    }
+
 
     if (this.form.get('discountValidationDateType')?.value === DiscountValidationDateType.Date)
     {
@@ -168,6 +183,12 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
     if (!value.patternId)
     {
       this.uiService.alert('الگوی کد تخفیف را مشخص نمایید.');
+      return;
+    }
+
+    if (!value.text)
+    {
+      this.uiService.alert('متن را مشخص نمایید.');
       return;
     }
 
@@ -261,6 +282,8 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
 
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
   {
+
+    if (brandIds.includes('all')) { return this.baseInfoService?.generalCustomers$?.getValue(); }
     return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
   }
 }

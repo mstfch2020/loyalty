@@ -4,11 +4,11 @@ export interface PromoterDiscountSetting
 {
   brandId: string;
   commissionBasis: number;
-  acceptedCommissionBasis: number;
+  commissionBasisProposed?: number | null;
   customerDiscountMin: number;
-  acceptedCustomerDiscountMin: number;
+  customerDiscountMinProposed?: number | null;
   customerDiscountMax: number;
-  acceptedCustomerDiscountMax: number;
+  customerDiscountMaxProposed?: number | null;
   id: string | null;
   userTypeId: string;
 }
@@ -17,12 +17,12 @@ export const promoterDiscountSettingInit: PromoterDiscountSetting = {
   brandId: '',
   commissionBasis: 0,
   customerDiscountMin: 0,
-  customerDiscountMax: 100,
+  customerDiscountMax: 0,
   id: '',
   userTypeId: '',
-  acceptedCommissionBasis: 0,
-  acceptedCustomerDiscountMax: 0,
-  acceptedCustomerDiscountMin: 0
+  commissionBasisProposed: null,
+  customerDiscountMinProposed: null,
+  customerDiscountMaxProposed: null,
 };
 
 

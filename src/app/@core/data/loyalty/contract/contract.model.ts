@@ -62,6 +62,7 @@ export const teacherInit: Teacher = {
   lesson: '',
   school: '',
   schoolType: 0,
+  filed: ''
 };
 
 export const contractInit: Contract = {
@@ -134,6 +135,7 @@ export const createTeacher = (teacher: Teacher | null, formBuilder: FormBuilder)
     lesson: [teacher.lesson, [Validators.required]],
     school: [teacher.school, [Validators.required]],
     schoolType: [teacher.schoolType, [Validators.required]],
+    filed: [teacher.filed, [Validators.required]],
   });
 };
 

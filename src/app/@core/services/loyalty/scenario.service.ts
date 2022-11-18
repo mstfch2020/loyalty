@@ -294,6 +294,8 @@ export class ScenarioService extends BaseService<Scenario>
 
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
   {
+
+    if (brandIds.includes('all')) { return this.baseInfoService?.generalCustomers$?.getValue(); }
     return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || !p.brandId || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
   }
 

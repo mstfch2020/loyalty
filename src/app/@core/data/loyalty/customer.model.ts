@@ -40,7 +40,7 @@ export interface CustomerDetail
   earningScore: number;
   expendingScore: number;
   senarios: Array<CustomerScenario>;
-  isPromoter:boolean;
+  isPromoter: boolean;
 }
 
 
@@ -91,6 +91,7 @@ export interface GetPromoterCommissionsGridResult
   promoterCommission: number;
   commission: number;
   isOpen: boolean;
+  isActionable: boolean;
   details: Array<GetPromoterCommissionsGridResultDetail>;
 }
 

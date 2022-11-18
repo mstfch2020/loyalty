@@ -254,6 +254,8 @@ export class DiscountService extends BaseService<Discount>
 
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
   {
+
+    if (brandIds.includes('all')) { return this.baseInfoService?.generalCustomers$?.getValue(); }
     return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
   }
 

@@ -200,6 +200,7 @@ export enum ComboTypes
   DistributorActivitySection = 8,
   ShopActivitySection = 9,
   SchoolType = 10,
+  Filed = 11,
 }
 
 export enum PromoterDiscountCodeStatus

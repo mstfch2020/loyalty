@@ -230,8 +230,7 @@
 
 
           <div class="d-flex flex-column text-start">
-            <div (click)="customerInfo.showDiscountHistory=!customerInfo.showDiscountHistory"
-              class="color-app-blue fs-09 cursor-pointer">
+            <div (click)="handleDiscountShowHistory(customerInfo)" class="color-app-blue fs-09 cursor-pointer">
               مشاهده کدهای تخفیف
               <span class="mr-1">
                 <i class="fa fa-chevron-left" *ngIf="!customerInfo.showDiscountHistory"></i>
@@ -242,8 +241,7 @@
 
 
           <div class="d-flex flex-column text-start">
-            <div (click)="customerInfo.showCommissionHistory=!customerInfo.showCommissionHistory"
-              class="fs-09 cursor-pointer color-app-blue">
+            <div (click)="handleCommissionShowHistory(customerInfo)" class="fs-09 cursor-pointer color-app-blue">
               مشاهده تاریخچه پورسانت
               <span class="mr-1">
                 <i class="fa fa-chevron-left" *ngIf="!customerInfo.showCommissionHistory"></i>

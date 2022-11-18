@@ -56,6 +56,10 @@ export class ContractTeacherEditComponent implements OnInit
         this.handleSchoolType($event);
         break;
       }
+      case ComboTypes.Filed: {
+        this.handleFiled($event);
+        break;
+      }
     }
   }
 
@@ -170,6 +174,29 @@ export class ContractTeacherEditComponent implements OnInit
           lst.push($event);
           this.contractBaseInfoService.lessons$.next(lst);
           this.teacherFormGroup.get('schoolType')?.setValue($event.id);
+        }
+      });
+    }
+  }
+
+  private handleFiled($event: IdTitle)
+  {
+    const lst = this.contractBaseInfoService.filed$.getValue();
+    const findValue = lst.find(p => p.title === $event.title);
+    if (findValue && findValue.id)
+    {
+      this.teacherFormGroup.get('filed')?.setValue($event.id);
+    }
+    else
+    {
+      this.contractBaseInfoService.CreateFiled($event.title).subscribe(id =>
+      {
+        if (id)
+        {
+          $event.id = id;
+          lst.push($event);
+          this.contractBaseInfoService.filed$.next(lst);
+          this.teacherFormGroup.get('filed')?.setValue($event.id);
         }
       });
     }

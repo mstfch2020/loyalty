@@ -5,6 +5,7 @@ import { BehaviorSubject } from "rxjs";
 import { Utility } from 'src/app/@core/utils/Utility';
 import { ExternalPointAward, ExternalPointAwardGrid, externalPointAwardInit } from "../../data/loyalty/external-point-award.model";
 import { IdTitleTypeBrandId } from "../../data/loyalty/get-senarios-grid.model";
+import { createPeriodFormGroup } from "../../data/loyalty/period.model";
 import { SettingsService } from "../settings-service";
 import { UiService } from "../ui/ui.service";
 import { BaseInfoService } from "./base-info.service";
@@ -38,6 +39,7 @@ export class ExternalPointAwardService extends BaseService<ExternalPointAward>{
     this.editMode = false;
     this.form = this.formBuilder.group({
       title: [externalAward.title, [Validators.required]],
+      text: [externalAward.text, [Validators.required]],
       providerBrandId: [externalAward.providerBrandId, [Validators.required]],
       userTypeId: [externalAward.userTypeId, [Validators.required]],
       groupId: [externalAward.groupId, [Validators.required]],
@@ -50,6 +52,12 @@ export class ExternalPointAwardService extends BaseService<ExternalPointAward>{
       id: [externalAward.id, [Validators.required]],
       categoryId: [externalAward.categoryId ?? '', [Validators.required]],
       awardFileId: [externalAward.awardFileId ?? '', [Validators.required]],
+
+      startDate: [Utility.getFullDateTimeFromPeriodInPersian(externalAward.periodMin), [Validators.required]],
+      endDate: [Utility.getFullDateTimeFromPeriodInPersian(externalAward.periodMax), [Validators.required]],
+      periodMin: createPeriodFormGroup(externalAward.periodMin, this.formBuilder),
+      periodMax: createPeriodFormGroup(externalAward.periodMax, this.formBuilder),
+
     });
   }
 
@@ -83,6 +91,12 @@ export class ExternalPointAwardService extends BaseService<ExternalPointAward>{
     this.uiService.alertService.clearAllMessages();
     const option = Utility.isNullOrEmpty(this.getValue('id')) ? 'CreateExternal' : 'EditExternal';
     const url = this.settingService.settings?.baseUrl + `PointsAward/${ option }`;
+    if (!this.updatePeriodFormControl(this.getValue('startDate'), 'periodMin') ||
+      !this.updatePeriodFormControl(this.getValue('endDate'), 'periodMax'))
+    {
+      this.uiService.alert('بازه زمانی را وارد نمایید.');
+      return;
+    }
 
     const value: ExternalPointAward = this.form.value;
 
@@ -146,6 +160,11 @@ export class ExternalPointAwardService extends BaseService<ExternalPointAward>{
       return;
     }
 
+    if (!value.text)
+    {
+      this.uiService.alert('متن را مشخص نمایید.');
+      return;
+    }
 
     if (this.uiService.alertService.getErrorMessages().length !== 0)
     {
@@ -223,6 +242,8 @@ export class ExternalPointAwardService extends BaseService<ExternalPointAward>{
 
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
   {
+
+    if (brandIds.includes('all')) { return this.baseInfoService?.generalCustomers$?.getValue(); }
     return this.baseInfoService?.generalCustomers$?.getValue()?.filter(p => p.id === 'all' || brandIds.length === 0 || brandIds.findIndex(a => a === p.brandId) !== -1 || p.type !== 1);
   }
 }

@@ -8,4 +8,5 @@ export interface Teacher
   lesson: string;
   school: string,
   schoolType: SchoolType;
+  filed: string;
 }

@@ -161,7 +161,9 @@
             </div>
             <div class="col-6">
               <app-switch (notifySelectionSwitch)="scenarioService.behavioralRewardTypeChange($event===0)"
-                [isDisabled]="isDisabled" [labelOne]="'خودکاربر'" [labelTwo]="'شخص ثالث'"></app-switch>
+                [isDisabled]="isDisabled" [labelOne]="'خودکاربر'" [labelTwo]="'شخص ثالث'"
+                [index]="scenarioService.getValue('behavioralReward.behavioralRewardType')===1?0:1">
+              </app-switch>
             </div>
           </div>
         </div>

@@ -75,15 +75,16 @@
               <span class="text-danger">*</span>
             </label>
           </div>
-          <div class="col-12 col-sm-9 mb-3">
-            <ng-select (change)="service.brandChanged($event,'groupIds')"
-              [items]="baseInfoService.customerGroups$|async" [multiple]="true" [readonly]="service.isDisabled"
-              appendTo="body" bindLabel="title" bindValue="id" class="form-control" formControlName="groupIds">
+          <div class="col-12 col-sm-9">
+            <ng-select (change)="service.brandChanged($event,'generalCustomers')" [addTag]="service.addCustomer"
+              [items]="baseInfoService.generalCustomersByBrandId$|async" [multiple]="true"
+              [readonly]="service.isDisabled" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
+              formControlName="generalCustomers">
             </ng-select>
             <div
-              *ngIf="!service.form.get('groupIds')?.valid && service.form.get('groupIds')?.touched && !service.isDisabled"
+              *ngIf="!service.form.get('generalCustomers')?.valid && service.form.get('generalCustomers')?.touched && !service.isDisabled"
               class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-              گروه مشتری را مشخص نمایید
+              مشتری را مشخص نمایید
             </div>
           </div>
         </div>
