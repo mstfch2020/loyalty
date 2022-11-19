@@ -55,10 +55,13 @@ export class SMSService extends BaseService<SMS>
 
     this.form.controls['brandIds'].valueChanges.subscribe((value: Array<string>) =>
     {
+      this.form.controls['generalCustomers'].setValue([]);
+      this.form.controls['groupIds'].setValue([]);
+      this.form.controls['userTypeIds'].setValue([]);
       const generalCustomers = this.getCustomerByBrandId(value);
       this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
+
       this.updateCustomerGroupsForSubmit(this.form.value, false);
-      this.updateGeneralCustomer(this.form.value, generalCustomers);
 
 
     });

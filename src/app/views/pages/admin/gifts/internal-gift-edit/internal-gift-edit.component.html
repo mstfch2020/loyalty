@@ -28,8 +28,8 @@
           <span class="text-danger">*</span>
         </label>
         <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
-          <ng-select [items]="baseInfoService.brands$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
-            bindLabel="title" bindValue="id" class="form-control" formControlName="providerBrandId">
+          <ng-select [items]="baseInfoService.brandsSingle$|async" [multiple]="false" [readonly]="isDisabled"
+            appendTo="body" bindLabel="title" bindValue="id" class="form-control" formControlName="providerBrandId">
           </ng-select>
           <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
             <span
@@ -125,8 +125,8 @@
           <span class="text-danger">*</span>
         </label>
         <div class="d-flex flex-column flex-grow-1 flex-shrink-1 mt-3 mx-2">
-          <ng-select [items]="baseInfoService.brands$|async" [multiple]="false" [readonly]="isDisabled" appendTo="body"
-            bindLabel="title" bindValue="id" class="form-control" formControlName="exporterBrandId">
+          <ng-select [items]="baseInfoService.brandsSingle$|async" [multiple]="false" [readonly]="isDisabled"
+            appendTo="body" bindLabel="title" bindValue="id" class="form-control" formControlName="exporterBrandId">
           </ng-select>
           <div class="text-danger font-yekan-regular fs-08 pr-1 mt-1 h-15-px" dir="rtl">
             <span

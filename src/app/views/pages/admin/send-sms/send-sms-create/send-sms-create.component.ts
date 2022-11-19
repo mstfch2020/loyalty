@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SMS, smsInit } from 'src/app/@core/data/loyalty/sms.model';
 import { BaseInfoService } from "src/app/@core/services/loyalty/base-info.service";
 import { SMSService } from "src/app/@core/services/loyalty/SMS.service";
@@ -12,7 +12,7 @@ import { SMSService } from "src/app/@core/services/loyalty/SMS.service";
 export class SendSmsCreateComponent implements OnInit
 {
 
-  constructor(
+  constructor(private router: Router,
     private route: ActivatedRoute,
     public service: SMSService,
     public baseInfoService: BaseInfoService,
@@ -56,15 +56,13 @@ export class SendSmsCreateComponent implements OnInit
 
       }
       this.service.createForm(value);
-
-      this.service.form.get('providerBrandId')?.valueChanges.subscribe(brandId =>
-      {
-        this.service.form.get('brandIds')?.setValue(null);
-        const generalCustomers = this.service.getCustomerByBrandId([brandId]);
-        this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
-      });
       this.cdref.detectChanges();
     }, value?.brandIds);
     return value;
+  }
+
+  backToList()
+  {
+    this.router.navigate(['/admin/main/sms/def-list']);
   }
 }

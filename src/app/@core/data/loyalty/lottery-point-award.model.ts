@@ -42,15 +42,15 @@ export const lotteryGroupInit: LotteryGroup =
 export interface LotteryGroupTicket
 {
   ticketId?: string;
-  ticketCount: number;
+  ticketCount: number | null;
   pointAmount: number | null;
 }
 
 export const lotteryGroupTicketInit: LotteryGroupTicket =
 {
   ticketId: '',
-  ticketCount: 0,
-  pointAmount: 0
+  ticketCount: null,
+  pointAmount: null
 };
 
 export const lotteryPointAwardInit: LotteryPointAward =

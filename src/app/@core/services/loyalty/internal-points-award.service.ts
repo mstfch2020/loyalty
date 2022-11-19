@@ -43,8 +43,8 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
       title: [internalAward.title, [Validators.required]],
       text: [internalAward.text, [Validators.required]],
       providerBrandId: [internalAward.providerBrandId, [Validators.required]],
-      userTypeId: [internalAward.userTypeId, [Validators.required]],
-      groupId: [internalAward.groupId, [Validators.required]],
+      userTypeId: [internalAward.userTypeId ?? 'all', [Validators.required]],
+      groupId: [internalAward.groupId ?? 'all', [Validators.required]],
       exporterBrandId: [internalAward.exporterBrandId, [Validators.required]],
       exporterBrandLogoId: [internalAward.exporterBrandLogoId, [Validators.required]],
       exporterBrandHexaCode: [internalAward.exporterBrandHexaCode, [Validators.required]],
@@ -63,6 +63,31 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
       periodMin: createPeriodFormGroup(internalAward.periodMin, this.formBuilder),
       periodMax: createPeriodFormGroup(internalAward.periodMax, this.formBuilder),
 
+    });
+    if (internalAward.id)
+    {
+      const generalCustomers = this.getCustomerByBrandId([internalAward.providerBrandId]);
+      this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
+      this.baseInfoService.GetDiscountCodePatterns(internalAward.exporterBrandId).subscribe(value =>
+      {
+        this.awareDiscountCodePatterns$.next(value ?? []);
+      });
+    }
+
+    this.form.get('providerBrandId')?.valueChanges.subscribe(brandId =>
+    {
+      this.form.get('groupId')?.setValue(null);
+      const generalCustomers = this.getCustomerByBrandId([brandId]);
+      this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
+    });
+
+    this.form.get('exporterBrandId')?.valueChanges.subscribe(brandId =>
+    {
+      this.form.get('patternId')?.setValue(null);
+      this.baseInfoService.GetDiscountCodePatterns(brandId).subscribe(value =>
+      {
+        this.awareDiscountCodePatterns$.next(value ?? []);
+      });
     });
   }
 
@@ -138,16 +163,20 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
       return;
     }
 
-    if (!value.groupId)
+    if (value.userTypeId === 'all')
     {
-      this.uiService.alert('مشتری را مشخص نمایید.');
-      return;
+      value.userTypeId = '';
     }
 
     if (!value.groupId)
     {
       this.uiService.alert('مشتری را مشخص نمایید.');
       return;
+    }
+
+    if (value.groupId === 'all')
+    {
+      value.groupId = '';
     }
 
     if (!value.providerBrandId)
@@ -199,8 +228,11 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
     value.title = this.getTitle();
     callPostService<InternalPointAward>(url, this.http, this.uiService, value).subscribe(value =>
     {
-      this.uiService.success('با موفقیت ثبت شد.');
-      setTimeout(() => { this.uiService.alertService.clearAllMessages(); }, 1500);
+      if (value?.id)
+      {
+        this.uiService.success('با موفقیت ثبت شد.');
+      }
+      setTimeout(() => { this.uiService.alertService.clearAllMessages(); }, 3000);
 
     });
 
