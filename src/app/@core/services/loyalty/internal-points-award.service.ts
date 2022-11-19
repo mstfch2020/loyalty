@@ -280,7 +280,19 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
     }
   }
 
-  getTitle() { return `${ this.getDiscountTypeTitle() } برند ${ this.getBrandName() }`; }
+  getTitle() { return `${ this.getCategoryName() } برند  ${ this.getBrandName() } ${ this.getDiscountTypeTitle() }`; }
+
+  getCategoryName()
+  {
+    const cId = this.form.get('categoryId')?.value;
+    if (cId)
+    {
+      const cat = this.baseInfoService.categories$.getValue().filter(a => a.id === cId);
+      if (cat.length === 0) { return ''; }
+      return cat[0].title;
+    }
+    return '';
+  }
 
   getBrandName(): string
   {

@@ -3,20 +3,22 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { GetPromoterDiscountSettingGrid } from 'src/app/@core/data/loyalty/get-promoter-discount-setting-grid.model';
-import {
+import
+{
   PromoterDiscountSetting,
   PromoterDiscountSettingGrid,
-  promoterDiscountSettingInit,
+  promoterDiscountSettingInit
 } from 'src/app/@core/data/loyalty/promoter-discount-setting.model';
 import { Utility } from 'src/app/@core/utils/Utility';
 import { SettingsService } from '../settings-service';
 import { UiService } from '../ui/ui.service';
 import { BaseInfoService } from './base-info.service';
-import {
+import
+{
   BaseService,
   callGetService,
   callPostPagingService,
-  callPostService,
+  callPostService
 } from './BaseService';
 
 @Injectable({
@@ -33,11 +35,13 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     public http: HttpClient,
     public settingService: SettingsService,
     public override uiService: UiService
-  ) {
+  )
+  {
     super(formBuilder, uiService, baseInfoService, promoterDiscountSettingInit);
   }
 
-  createForm(promoterDiscountSetting: PromoterDiscountSetting) {
+  createForm(promoterDiscountSetting: PromoterDiscountSetting)
+  {
     this.form = this.formBuilder.group({
       brandId: [promoterDiscountSetting.brandId, [Validators.required]],
       commissionBasis: [
@@ -86,7 +90,8 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
   //   });
   // }
 
-  getPromoterDiscountSettingGrid(request: any) {
+  getPromoterDiscountSettingGrid(request: any)
+  {
     const url =
       this.settingService.settings?.baseUrl +
       'PromoterDiscountSetting/GetPromoterDiscountSettingsGrid';
@@ -96,17 +101,20 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
       this.http,
       this.uiService,
       request
-    ).subscribe((value) => {
+    ).subscribe((value) =>
+    {
       this.promoterDiscountSettings$.next([]);
       this.totalPages = 0;
-      if (value?.data) {
+      if (value?.data)
+      {
         this.promoterDiscountSettings$.next(value.data);
         this.totalPages = Math.ceil(value.pagination.total / request.pageSize);
       }
     });
   }
 
-  getPromoterDiscountSettingById(id: string) {
+  getPromoterDiscountSettingById(id: string)
+  {
     const url =
       this.settingService.settings?.baseUrl +
       'PromoterDiscountSetting/GetPromoterDiscountSettingById';
@@ -120,7 +128,8 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
     );
   }
 
-  submit(): void {
+  submit(): void
+  {
     console.log(this.form.value);
     this.uiService.alertService.clearAllMessages();
     const option = Utility.isNullOrEmpty(this.getValue('id'))
@@ -128,47 +137,55 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
       : 'Edit';
     const url =
       this.settingService.settings?.baseUrl +
-      `PromoterDiscountSetting/${option}`;
+      `PromoterDiscountSetting/${ option }`;
 
     const value = this.form.value;
 
-    if (!value.brandId) {
+    if (!value.brandId)
+    {
       this.uiService.alert('برند را مشخص نمایید.');
       return;
     }
 
-    if (!value.userTypeId) {
+    if (!value.userTypeId)
+    {
       this.uiService.alert('نوع کاربری را مشخص نمایید.');
       return;
     }
 
-    if (!value.commissionBasisProposed) {
+    if (!value.commissionBasisProposed)
+    {
       this.uiService.alert('پایه پورسانت را مشخص نمایید.');
       return;
     }
 
-    if (!value.customerDiscountMinProposed) {
+    if (!value.customerDiscountMinProposed)
+    {
       this.uiService.alert('تخفیف برای مشتری را مشخص نمایید.');
       return;
     }
 
-    if (!value.customerDiscountMaxProposed) {
+    if (!value.customerDiscountMaxProposed)
+    {
       this.uiService.alert('تخفیف برای مشتری را مشخص نمایید.');
       return;
     }
 
-    if (value.customerDiscountMaxProposed > value.customerDiscountMinProposed) {
+    if (value.customerDiscountMaxProposed < value.customerDiscountMinProposed)
+    {
       this.uiService.alert('مقدار کمینه بازه از بیشینه بزرگتر است.');
       return;
     }
 
-    if (value.customerDiscountMaxProposed > value.commissionBasisProposed) {
+    if (value.customerDiscountMaxProposed > value.commissionBasisProposed)
+    {
       this.uiService.alert(
         'مقدار بیشینه تخفیف مصرف کننده از پایه پورسانت مروج نباید بیشتر باشد'
       );
     }
 
-    if (Utility.isNullOrEmpty(value.id)) {
+    if (Utility.isNullOrEmpty(value.id))
+    {
       delete value.id;
     }
 
@@ -177,18 +194,22 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
       this.http,
       this.uiService,
       value
-    ).subscribe((value) => {
-      if (value?.id) {
+    ).subscribe((value) =>
+    {
+      if (value?.id)
+      {
         this.form.controls['id'].setValue(value?.id);
         this.uiService.success('با موفقیت ثبت شد.');
       }
-      setTimeout(() => {
+      setTimeout(() =>
+      {
         this.uiService.alertService.clearAllMessages();
       }, 3000);
     });
   }
 
-  confirm() {
+  confirm()
+  {
     const url =
       this.settingService.settings?.baseUrl + `PromoterDiscountSetting/Confirm`;
 
@@ -199,16 +220,19 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
       this.http,
       this.uiService,
       value
-    ).subscribe((value) => {
+    ).subscribe((value) =>
+    {
       this.form.controls['id'].setValue(value?.id);
       this.uiService.success('با موفقیت ثبت شد.');
-      setTimeout(() => {
+      setTimeout(() =>
+      {
         this.uiService.alertService.clearAllMessages();
       }, 1500);
     });
   }
 
-  reject() {
+  reject()
+  {
     const url =
       this.settingService.settings?.baseUrl + `PromoterDiscountSetting/Reject`;
 
@@ -216,10 +240,12 @@ export class PromoterDiscountSettingService extends BaseService<PromoterDiscount
 
     callPostService<PromoterDiscountSetting>(url, this.http, this.uiService, {
       id: value.id,
-    }).subscribe((value) => {
+    }).subscribe((value) =>
+    {
       this.form.controls['id'].setValue(value?.id);
       this.uiService.success('با موفقیت ثبت شد.');
-      setTimeout(() => {
+      setTimeout(() =>
+      {
         this.uiService.alertService.clearAllMessages();
       }, 1500);
     });
