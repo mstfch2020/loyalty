@@ -165,7 +165,7 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
 
     if (value.userTypeId === 'all')
     {
-      value.userTypeId = '';
+      delete value.userTypeId;
     }
 
     if (!value.groupId)
@@ -176,7 +176,7 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
 
     if (value.groupId === 'all')
     {
-      value.groupId = '';
+      delete value.groupId;
     }
 
     if (!value.providerBrandId)

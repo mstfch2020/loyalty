@@ -1,5 +1,4 @@
 import { SMSSendingType } from "./enums.model";
-import { IdTitle } from "./get-senarios-grid.model";
 import { Period, periodInit } from "./period.model";
 
 export interface SMS
@@ -13,7 +12,7 @@ export interface SMS
   groupIds: Array<string>,
   campaignIds: Array<string>,
   phones: Array<string>;
-  sernarioIds: Array<IdTitle>;
+  sernarioIds: Array<string>;
 }
 
 

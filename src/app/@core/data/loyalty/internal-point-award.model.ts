@@ -18,8 +18,8 @@ export interface InternalPointAward
   periodMax: Period;
   text: string;
   providerBrandId: string;
-  userTypeId: string;
-  groupId: string;
+  userTypeId?: string;
+  groupId?: string;
   exporterBrandId: string;
   exporterBrandLogoId: string;
   exporterBrandHexaCode: string;

@@ -156,6 +156,12 @@ export class BaseSearchService
       title: 'رد شده',
       type: 0,
       checked: false,
+    },
+    {
+      id: '4',
+      title: 'ویرایش شده',
+      type: 0,
+      checked: false,
     }
   ];
 

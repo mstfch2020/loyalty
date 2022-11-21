@@ -17,6 +17,7 @@ export class SMSService extends BaseService<SMS>
 {
   sendedSMSGrid$ = new BehaviorSubject<Array<SendedSMSGrid>>([]);
   sMSDefinitionsGrid$ = new BehaviorSubject<Array<SMSDefinitionsGrid>>([]);
+  needScenario = false;
 
   constructor(public override formBuilder: FormBuilder,
     public override baseInfoService: BaseInfoService,
@@ -53,6 +54,14 @@ export class SMSService extends BaseService<SMS>
     this.baseInfoService?.generalCustomersByBrandId$?.next(generalCustomers);
     this.updateGeneralCustomer(scenario, generalCustomers);
 
+    this.scenarioSetValidation(scenario.sernarioIds);
+
+    this.form.controls['sernarioIds'].valueChanges.subscribe((value: Array<string>) =>
+    {
+      this.scenarioSetValidation(value);
+
+    });
+
     this.form.controls['brandIds'].valueChanges.subscribe((value: Array<string>) =>
     {
       this.form.controls['generalCustomers'].setValue([]);
@@ -66,6 +75,39 @@ export class SMSService extends BaseService<SMS>
 
     });
 
+  }
+
+  private scenarioSetValidation(sernarioIds: Array<string>)
+  {
+    if (sernarioIds.length !== 0)
+    {
+      this.needScenario = false;
+      this.form.get('brandIds')?.setValidators([]);
+      this.form.get('userTypeIds')?.setValidators([]);
+      this.form.get('groupIds')?.setValidators([]);
+      this.form.get('generalCustomers')?.setValidators([]);
+      this.form.get('brandIds')?.setErrors(null);
+      this.form.get('userTypeIds')?.setErrors(null);
+      this.form.get('groupIds')?.setErrors(null);
+      this.form.get('generalCustomers')?.setErrors(null);
+
+      this.form.get('sernarioIds')?.setValidators([Validators.required]);;
+    }
+    else
+    {
+      this.needScenario = true;
+      this.form.get('brandIds')?.setValidators(Validators.required);
+      this.form.get('userTypeIds')?.setValidators(Validators.required);
+      this.form.get('groupIds')?.setValidators(Validators.required);
+      this.form.get('generalCustomers')?.setValidators(Validators.required);
+
+      this.form.get('sernarioIds')?.setValidators([]);
+      this.form.get('sernarioIds')?.setErrors(null);
+    }
+
+    this.form.get('userTypeIds')?.updateValueAndValidity();
+    this.form.get('groupIds')?.updateValueAndValidity();
+    this.form.get('generalCustomers')?.updateValueAndValidity();
   }
 
   getCustomerByBrandId(brandIds: Array<string>): Array<IdTitleTypeBrandId>
@@ -160,6 +202,21 @@ export class SMSService extends BaseService<SMS>
 
     const value = this.form.value;
 
+    if (!value.text)
+    {
+      this.uiService.alert('تعیین متن الزامی است.');
+      return;
+    }
+
+    if (value.sernarioIds.length === 0)
+    {
+      if (value.generalCustomers.length === 0 || value.userTypeIds.length === 0 || value.brandIds.length === 0)
+      {
+        this.uiService.alert('درصورتی که سناریوی مخاطب انتخاب نشده باشد تعیین برند، نوع کاربری و گروه مشتری الزامی است.');
+        return;
+      }
+    }
+
     if (value.userTypeIds.some((p: string) => p === 'all'))
     {
       value.userTypeIds = [];
@@ -191,8 +248,11 @@ export class SMSService extends BaseService<SMS>
     callPostService<SMS>(url, this.http, this.uiService, value).subscribe(value =>
     {
       // this.form.controls['id'].setValue(value?.id);
-      if (value)
+      if (value?.id)
+      {
+        this.form.get('id')?.setValue(value.id);
         this.uiService.success('با موفقیت ثبت شد.');
+      }
     });
   }
 
