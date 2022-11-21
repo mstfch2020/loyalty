@@ -9,7 +9,8 @@
               <tr>
                 <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
                   *ngFor="let headerItem of headerItems;">
-                  <app-table-header-filter [activeFilterName]="activeFilterName" [filterName]="headerItem"
+                  <app-table-header-filter [activeFilterName]="activeFilterName"
+                    [filterName]="headerItem.getFilterName()" [title]="headerItem.title"
                     (onOpenFilterForm)="openFilterForm($event)" (onCloseFilterForm)="closeFilterForm($event)"
                     (onApplyFilterForm)="applyFilterForm($event)">
                   </app-table-header-filter>

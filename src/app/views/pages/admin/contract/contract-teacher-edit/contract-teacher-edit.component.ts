@@ -143,7 +143,7 @@ export class ContractTeacherEditComponent implements OnInit
     }
     else
     {
-      this.contractBaseInfoService.CreateGrade($event.title).subscribe(id =>
+      this.contractBaseInfoService.CreateLesson($event.title).subscribe(id =>
       {
         if (id)
         {

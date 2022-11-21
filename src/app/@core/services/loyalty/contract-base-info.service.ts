@@ -320,9 +320,9 @@ export class ContractBaseInfoService
     const url = this.settingService.settings?.baseUrl + 'ContractBasciData/CreateEducationField';
     return callPostService<any>(url, this.http, this.uiService, { name: name }).pipe(map((value =>
     {
-      if (value?.filedId)
+      if (value?.id)
       {
-        return (value.filedId);
+        return (value.id);
       }
       return (null);
     })));

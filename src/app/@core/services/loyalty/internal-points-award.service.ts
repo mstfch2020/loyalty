@@ -280,7 +280,8 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
     }
   }
 
-  getTitle() { return `${ this.getCategoryName() } برند  ${ this.getBrandName() } ${ this.getDiscountTypeTitle() }`; }
+  // getTitle() { return `${ this.getCategoryName() } برند  ${ this.getBrandName() } ${ this.getDiscountTypeTitle() }`; }
+  getTitle() { return `${ this.getDiscountTypeTitle() }`; }
 
   getCategoryName()
   {
@@ -316,10 +317,10 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
 
       if (codeItem.discountType === 1)
       {
-        return `${ codeItem.discountVolume } تومان`;
+        return `${ codeItem.discountVolume } تومان تخفیف ${ codeItem.title }`;
       }
 
-      return `${ codeItem.discountVolume } درصد تخفیف تا سقف ${ codeItem.discountCeiling } تومان`;
+      return `${ codeItem.discountVolume } درصد تخفیف ${ codeItem.title } تا سقف ${ codeItem.discountCeiling } تومان`;
     }
     return '';
   }
