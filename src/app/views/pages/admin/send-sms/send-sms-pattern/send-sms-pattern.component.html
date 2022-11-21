@@ -21,13 +21,16 @@
                   {{((pageIndex-1)*pageSize)+(i+1)}}
                 </td>
                 <td class="text-end padding-1 fs-08">
-                  {{item.brands&&item.brands.length!==0?item.brands.join('، '):'همه'}}
+                  {{item.brands&&item.brands.length!==0?item.brands.join('،
+                  '):(item.senario&&item.senario.length?'':'همه')}}
                 </td>
                 <td class="text-end padding-1 fs-08">
-                  {{item.userTypes&&item.userTypes.length!==0?item.userTypes.join('، '):'همه'}}
+                  {{item.userTypes&&item.userTypes.length!==0?item.userTypes.join('،
+                  '):(item.senario&&item.senario.length?'':'همه')}}
                 </td>
                 <td class="text-end padding-1 fs-08">
-                  {{item.groups&&item.groups.length!==0?item.groups.join('، '):'همه'}}
+                  {{item.groups&&item.groups.length!==0?item.groups.join('،
+                  '):(item.senario&&item.senario.length?'':'همه')}}
                 </td>
                 <td class="text-end padding-1 fs-08">
                   {{item.senario.join('، ')}}
