@@ -1,4 +1,4 @@
-import { ContractType, EmploymentType } from "../enums.model";
+import { ContractStatus, ContractType, EmploymentType } from "../enums.model";
 import { Period } from "../period.model";
 import { Distributor } from "./Distributor";
 import { ShopContract } from "./ShopContract";
@@ -7,6 +7,7 @@ import { Teacher } from "./Teacher";
 
 export interface Contract
 {
+  status: ContractStatus;
   customerId: string;
   contractId: string;
   mobile: string;

@@ -66,6 +66,7 @@ export const teacherInit: Teacher = {
 };
 
 export const contractInit: Contract = {
+  status: 1,
   customerId: '',
   contractId: '',
   mobile: '',

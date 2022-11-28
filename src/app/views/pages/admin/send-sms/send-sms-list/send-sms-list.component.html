@@ -8,7 +8,8 @@
               <tr>
                 <th class="text-end font-yekan-bold fs-08 th-app-table" scope="col"
                   *ngFor="let headerItem of headerItems;">
-                  <app-table-header-filter [activeFilterName]="activeFilterName" [filterName]="headerItem"
+                  <app-table-header-filter [activeFilterName]="activeFilterName"
+                    [filterName]="headerItem.getFilterName()" [title]="headerItem.title"
                     (onOpenFilterForm)="openFilterForm($event)" (onCloseFilterForm)="closeFilterForm($event)"
                     (onApplyFilterForm)="applyFilterForm($event)">
                   </app-table-header-filter>
@@ -21,16 +22,16 @@
                   {{((pageIndex-1)*pageSize)+(i+1)}}
                 </td>
                 <td class="text-end padding-1 fs-08">
-                  09192935850
+                  {{item.mobile}}
                 </td>
                 <td class="text-end padding-1 fs-08">
-                  چاپگرها و متون بلکه روزنامه و مجله در ستون و سطر آنچنان که لازم است و برای شرایط
+                  {{item.text}}
                 </td>
                 <td class="text-end padding-1 fs-08">
-                  1401/02/12
+                  {{item.date.full}}
                 </td>
                 <td class="text-end padding-1 fs-08">
-                  در صف ارسال
+                  {{item.status}}
                 </td>
                 <td class="text-end padding-1 fs-08">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"

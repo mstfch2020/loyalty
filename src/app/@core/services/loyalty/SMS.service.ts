@@ -38,11 +38,11 @@ export class SMSService extends BaseService<SMS>
       text: [scenario.text, [Validators.required]],
       startDate: [Utility.getFullDateTimeFromPeriodInPersian(scenario.date), [Validators.required]],
       date: createPeriodFormGroup(scenario.date, this.formBuilder),
-      brandIds: [scenario.brandIds?.length === 0 && scenario.id ? ['all'] : scenario.brandIds, [Validators.required]],
-      userTypeIds: [scenario.userTypeIds?.length === 0 && scenario.id ? ['all'] : scenario.userTypeIds, [Validators.required]],
+      brandIds: [scenario.brandIds?.length === 0 && scenario.id && scenario.sernarioIds?.length === 0 ? ['all'] : scenario.brandIds, [Validators.required]],
+      userTypeIds: [scenario.userTypeIds?.length === 0 && scenario.id && scenario.sernarioIds?.length === 0 ? ['all'] : scenario.userTypeIds, [Validators.required]],
 
       groupIds: [scenario.groupIds, [Validators.required]],
-      generalCustomers: [scenario.id && (scenario?.groupIds?.length === 0) ? ['all'] : [], [Validators.required]],
+      generalCustomers: [scenario.id && scenario.sernarioIds?.length === 0 && (scenario?.groupIds?.length === 0) ? ['all'] : [], [Validators.required]],
 
 
       sernarioIds: [scenario.sernarioIds?.length === 0 && scenario.id ? [] : scenario.sernarioIds, [Validators.required]],
@@ -118,7 +118,7 @@ export class SMSService extends BaseService<SMS>
 
   private updateGeneralCustomer(scenario: SMS, generalCustomers: IdTitleTypeBrandId[])
   {
-    if (scenario.id && (scenario.groupIds.length === 0))
+    if (scenario.id && (scenario.groupIds.length === 0) && scenario.sernarioIds?.length === 0)
     {
       this.setValue('generalCustomers', ['all']);
     }

@@ -29,6 +29,7 @@ export interface CustomerDetail
 {
   id: string;
   phone: string;
+  name: string;
   userType: string;
   brands: Array<string>;
   registerDate: Period;

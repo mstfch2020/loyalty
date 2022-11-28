@@ -32,11 +32,11 @@ export const smsInit: SMS = {
 export interface SendedSMSGrid
 {
   id: string;
-  brands: Array<string>;
-  userTypes: Array<string>;
-  groups: Array<string>;
-  senario: Array<string>;
-  sendingDate: Period;
+  mobile: string;
+  text: string;
+  date: Period;
+  status: string;
+
 }
 
 export interface SMSDefinitionsGrid

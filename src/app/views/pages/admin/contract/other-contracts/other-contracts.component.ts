@@ -51,7 +51,7 @@ export class OtherContractsComponent extends BaseSearch implements OnInit
     request.pageSize = 20;
     if (this.mobile)
     {
-      request.mobileFilter = this.mobile;
+      request.mobile = this.mobile;
       this.service.GetPromoterContractsGrid(request);
     }
   }

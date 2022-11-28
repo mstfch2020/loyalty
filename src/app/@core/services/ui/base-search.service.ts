@@ -56,6 +56,10 @@ export class BaseSearchService
   theFilterExporterBrandsSelectedList = new Array<IdTitle>();
   theFilterExporterBrandsSelectedCondition = 0;
 
+  theFilterExporterBrandsTextSelected = '';
+  theFilterExporterBrandsTextSelectedCondition = 0;
+
+
   theFilterProviderBrandsList = new Array<FilterTitle>();
   theFilterProviderBrandsSelectedList = new Array<IdTitle>();
   theFilterProviderBrandsSelectedCondition = 0;
@@ -417,6 +421,7 @@ export class BaseSearchService
     this.theFilterGroupSelectedList = [];
     this.theFilterBrandsSelectedList = [];
     this.theFilterExporterBrandsSelectedList = [];
+    this.theFilterExporterBrandsTextSelected = '';
     this.theFilterProviderBrandsSelectedList = [];
     this.theFilterLevelsSelectedList = [];
     this.theFilterUserTypeSelectedList = [];
@@ -506,6 +511,10 @@ export class BaseSearchService
       case FilterNames.ExporterBrandFilter:
         this.theFilterExporterBrandsSelectedList = event.value;
         this.theFilterExporterBrandsSelectedCondition = parseInt(event.conditionType, 0);
+        break;
+      case FilterNames.ExporterBrandTextFilter:
+        this.theFilterExporterBrandsTextSelected = event.value;
+        this.theFilterExporterBrandsTextSelectedCondition = parseInt(event.conditionType, 0);
         break;
       case FilterNames.Status:
         this.theFilterStatusSelected = parseInt(event.value[0].id, 0);
@@ -753,6 +762,18 @@ export class BaseSearchService
       if (this.theFilterExporterBrandsSelectedCondition != 0)
       {
         request.exporterBrandFilter.filterType = this.theFilterExporterBrandsSelectedCondition;
+      }
+    }
+
+    if (this.theFilterExporterBrandsTextSelected)
+    {
+      request.exporterBrandFilter = {};
+      request.exporterBrandFilter.brands = [this.theFilterExporterBrandsTextSelected];
+
+      request.exporterBrandFilter.filterType = 0;
+      if (this.theFilterExporterBrandsTextSelectedCondition != 0)
+      {
+        request.exporterBrandFilter.filterType = this.theFilterExporterBrandsTextSelectedCondition;
       }
     }
 

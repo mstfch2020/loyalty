@@ -130,7 +130,8 @@ export enum FilterNames
   CommissionRadioBox = 33,
   NewsStatus = 34,
   CommissionProposedFilter = 35,
-  CustomerDiscountProposedFilter = 36
+  CustomerDiscountProposedFilter = 36,
+  ExporterBrandTextFilter = 37
 }
 
 export enum StatusType

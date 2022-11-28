@@ -35,6 +35,7 @@ export class ContractService extends BaseService<Contract>
   createForm(contract: Contract): void
   {
     this.form = this.formBuilder.group({
+      status: [contract.status, [Validators.required]],
       contractId: [contract.contractId, [Validators.required]],
       customerId: [contract.customerId, [Validators.required]],
       mobile: [contract.mobile, [Validators.required]],
@@ -67,7 +68,7 @@ export class ContractService extends BaseService<Contract>
       if (isValidPhonenumber(value)) { this.refreshGetPromoterContractsGrid.next(value); }
     });
 
-    if (this.form.get('mobile')?.value)
+    if (this.form.get('mobile')?.value && !contract.contractId)
     {
       this.refreshGetPromoterContractsGrid.next(this.form.get('mobile')?.value);
     }

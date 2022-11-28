@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <span class="font-yekan-bold fs-20px text-black">
-          قرارداد فعال
+          {{service.getValue('status')===2?'قرارداد فعال':'تایید درخواست'}}
         </span>
       </div>
     </div>
@@ -547,72 +547,74 @@
       <app-other-contracts>
 
       </app-other-contracts>
-      <div class="row">
-        <div class="col-12">
-          <span class="font-yekan-bold fs-20px text-black">
-            ثبت قرارداد (تخصیص ترویج دهنده)
-          </span>
+      <ng-container *ngIf="service.getValue('status')===1||service.getValue('status')===4">
+        <div class="row">
+          <div class="col-12">
+            <span class="font-yekan-bold fs-20px text-black">
+              ثبت قرارداد (تخصیص ترویج دهنده)
+            </span>
+          </div>
         </div>
-      </div>
 
-      <div class="row mt-5">
-        <div class="col-12 col-sm-6">
-          <div class="row">
-            <div class="col-12 col-sm-3">
-              <label class="float-end float-sm-start mt-3">
-                تگ کالا
-                <span class="text-danger" *ngIf="!service.isDisabled">*</span>
-              </label>
-            </div>
-            <div class="col-12 col-sm-9">
-              <ng-select (change)="service.brandChanged($event,'tagIds')" [items]="baseInfoService.productGroups$|async"
-                [multiple]="true" appendTo="body" bindLabel="title" bindValue="id" class="form-control"
-                formControlName="tagIds">
-              </ng-select>
-              <div *ngIf="!service.form.get('tagIds')?.valid && service.form.get('tagIds')?.touched"
-                class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
-                تگ کالا را مشخص نمایید
+        <div class="row mt-5">
+          <div class="col-12 col-sm-6">
+            <div class="row">
+              <div class="col-12 col-sm-3">
+                <label class="float-end float-sm-start mt-3">
+                  تگ کالا
+                  <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+                </label>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-          <div class="row">
-            <div class="col-12 col-sm-3">
-              <label class="float-end float-sm-start mt-3">
-                تاریخ قرارداد
-                <span class="text-danger" *ngIf="!service.isDisabled">*</span>
-              </label>
-            </div>
-            <div class="col-12 col-sm-9">
-              <div class="d-flex flex-row gap-3 align-items-center">
-                <span class="text-black fs-09">
-                  از
-                </span>
-                <div class="mt-1">
-                  <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
-                    [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-                    <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
-                      class="form-control h-55px rounded-pill text-center text-black" dir="ltr"
-                      formControlName="startDate" mask="0000/M0/d0" type="text" />
-                  </ng-persian-datepicker>
-                </div>
-                <span class="text-black fs-09">
-                  تا
-                </span>
-                <div class="mt-1">
-                  <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
-                    [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
-                    <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
-                      class="form-control h-55px rounded-pill text-center text-black" dir="ltr"
-                      formControlName="endDate" mask="0000/M0/d0" type="text" />
-                  </ng-persian-datepicker>
+              <div class="col-12 col-sm-9">
+                <ng-select (change)="service.brandChanged($event,'tagIds')"
+                  [items]="baseInfoService.productGroups$|async" [multiple]="true" appendTo="body" bindLabel="title"
+                  bindValue="id" class="form-control" formControlName="tagIds">
+                </ng-select>
+                <div *ngIf="!service.form.get('tagIds')?.valid && service.form.get('tagIds')?.touched"
+                  class="text-danger font-yekan-regular fs-08 pr-1 mt-1" dir="rtl">
+                  تگ کالا را مشخص نمایید
                 </div>
               </div>
             </div>
           </div>
+          <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+            <div class="row">
+              <div class="col-12 col-sm-3">
+                <label class="float-end float-sm-start mt-3">
+                  تاریخ قرارداد
+                  <span class="text-danger" *ngIf="!service.isDisabled">*</span>
+                </label>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="d-flex flex-row gap-3 align-items-center">
+                  <span class="text-black fs-09">
+                    از
+                  </span>
+                  <div class="mt-1">
+                    <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                      [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                      <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+                        class="form-control h-55px rounded-pill text-center text-black" dir="ltr"
+                        formControlName="startDate" mask="0000/M0/d0" type="text" />
+                    </ng-persian-datepicker>
+                  </div>
+                  <span class="text-black fs-09">
+                    تا
+                  </span>
+                  <div class="mt-1">
+                    <ng-persian-datepicker [timeEnable]="false" [timeShowSecond]="true" [uiMonthView]="true"
+                      [uiTodayBtnEnable]="true" [uiYearView]="true" dateFormat="jYYYY/jMM/jDD">
+                      <input [dropSpecialCharacters]="false" [leadZeroDateTime]="true"
+                        class="form-control h-55px rounded-pill text-center text-black" dir="ltr"
+                        formControlName="endDate" mask="0000/M0/d0" type="text" />
+                    </ng-persian-datepicker>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </ng-container>
 
 
       <div class="row mt-5">

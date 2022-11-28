@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { FilterNames } from 'src/app/@core/data/loyalty/enums.model';
+import { HeaderFilter } from 'src/app/@core/data/loyalty/header-filter.model';
 import { SendedSMSGrid } from 'src/app/@core/data/loyalty/sms.model';
 import { BaseInfoService } from 'src/app/@core/services/loyalty/base-info.service';
 import { SMSService } from 'src/app/@core/services/loyalty/SMS.service';
@@ -17,7 +18,13 @@ export class SendSmsListComponent extends BaseSearch implements OnInit
 {
 
   public theViewList = new Array<SendedSMSGrid>();
-  headerItems = ['ردیف', 'گیرنده', 'متن پیام', FilterNames.Date, 'وضعیت', 'الگوی پیامک'];
+  headerItems: Array<HeaderFilter> = [
+    new HeaderFilter(FilterNames.None, 'ردیف'),
+    new HeaderFilter(FilterNames.Phone, 'گیرنده'),
+    new HeaderFilter(FilterNames.None, 'متن پیام'),
+    new HeaderFilter(FilterNames.DateFilter, 'بازه تاریخی'),
+    new HeaderFilter(FilterNames.None, 'وضعیت'),
+    new HeaderFilter(FilterNames.None, 'الگوی پیامک')];
 
   constructor(public service: SMSService,
     private router: Router,

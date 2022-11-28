@@ -19,9 +19,9 @@ export class InternalGiftListComponent extends BaseSearch implements OnInit, OnD
   theViewList = new Array<InternalPointAwardGrid>();
   headerItems: Array<HeaderFilter> =
     [new HeaderFilter(FilterNames.None, 'عنوان جایزه'),
-    new HeaderFilter(FilterNames.ExporterBrandFilter, 'نمایش در برند'),
-    new HeaderFilter(FilterNames.Groups, 'مشتری'),
     new HeaderFilter(FilterNames.ProviderBrandFilter, 'برند صادرکننده جایزه'),
+    new HeaderFilter(FilterNames.Groups, 'مشتری'),
+    new HeaderFilter(FilterNames.ExporterBrandFilter, 'نمایش در برند'),
     new HeaderFilter(FilterNames.volumeFilter, 'امتیاز لازم'),
     ];
 
