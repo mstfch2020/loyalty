@@ -34,6 +34,7 @@ export interface CustomerDetail
   brands: Array<string>;
   registerDate: Period;
   currentGroups: Array<BrandGroup>;
+  groupAndLevelInfos: Array<any>;
   nextGroups: Array<BrandGroup>;
   currentLevels: Array<LevelBrand>;
   nextLevels: Array<LevelBrand>;

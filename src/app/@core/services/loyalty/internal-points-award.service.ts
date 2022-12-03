@@ -317,10 +317,10 @@ export class InternalPointAwardService extends BaseService<InternalPointAward>{
 
       if (codeItem.discountType === 1)
       {
-        return `${ codeItem.discountVolume } تومان تخفیف ${ codeItem.title }`;
+        return `${ codeItem.discountVolume } تومان تخفیف ${ this.getBrandName() }`;
       }
 
-      return `${ codeItem.discountVolume } درصد تخفیف ${ codeItem.title } تا سقف ${ codeItem.discountCeiling } تومان`;
+      return `${ codeItem.discountVolume } درصد تخفیف ${ this.getBrandName() } تا سقف ${ codeItem.discountCeiling } تومان`;
     }
     return '';
   }

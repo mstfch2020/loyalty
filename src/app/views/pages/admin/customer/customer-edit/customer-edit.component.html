@@ -56,8 +56,8 @@
           <div class="text-black font-yekan-bold">
             گروه کنونی مشتری:
           </div>
-          <div class="text-black fs-09 mt-2" *ngFor="let cGroup of customer.currentGroups;let i=index;">
-            {{cGroup.brand}}:{{cGroup.group}}
+          <div class="text-black fs-09 mt-2" *ngFor="let cGroup of customer.groupAndLevelInfos;let i=index;">
+            {{cGroup.brandName}}:{{cGroup.currentGroups}}
           </div>
         </div>
       </div>
@@ -66,8 +66,8 @@
           <div class="text-black font-yekan-bold">
             سطح کنونی مشتری:
           </div>
-          <div class="text-black fs-09 mt-2" *ngFor="let cLevel of customer.currentLevels;let i=index;">
-            {{cLevel.brand}}:{{cLevel.level}}
+          <div class="text-black fs-09 mt-2" *ngFor="let cLevel of customer.groupAndLevelInfos;let i=index;">
+            {{cLevel.currentLevels}}
           </div>
         </div>
       </div>
@@ -76,8 +76,8 @@
           <div class="text-black font-yekan-bold">
             گروه مشتری در آغاز دوره بعد:
           </div>
-          <div class="text-black fs-09 mt-2" *ngFor="let cGroup of customer.nextGroups;let i=index;">
-            {{cGroup.brand}}:{{cGroup.group}}
+          <div class="text-black fs-09 mt-2" *ngFor="let cGroup of customer.groupAndLevelInfos;let i=index;">
+            {{cGroup.nextGroups}}
           </div>
         </div>
       </div>
@@ -86,8 +86,8 @@
           <div class="text-black font-yekan-bold">
             سطح مشتری در آغاز دوره بعد:
           </div>
-          <div class="text-black fs-09 mt-2" *ngFor="let cLevel of customer.nextLevels;let i=index;">
-            {{cLevel.brand}}:{{cLevel.level}}
+          <div class="text-black fs-09 mt-2" *ngFor="let cLevel of customer.groupAndLevelInfos;let i=index;">
+            {{cLevel.nextLevels}}
           </div>
         </div>
       </div>
